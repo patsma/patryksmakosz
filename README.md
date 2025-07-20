@@ -1,24 +1,75 @@
-# TastySites 2025
+# Nuxt Minimal Starter
 
-A modern web development project for creating delicious websites.
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Getting Started
+## Setup
 
-This repository is set up for building modern web applications with clean, simple, and modular code.
+Make sure to install dependencies:
 
-## Development Principles
+```bash
+# npm
+npm install
 
-- Write clean, simple, readable code
-- Implement features in the simplest possible way
-- Keep files small and focused (<200 lines)
-- Test after every meaningful change
-- Focus on core functionality before optimization
-- Use clear, consistent naming
+# pnpm
+pnpm install
 
-## Project Structure
+# yarn
+yarn install
 
-More details about the project structure will be added as the project develops.
+# bun
+bun install
+```
 
-## Contributing
+## Development Server
 
-Follow the established coding principles and maintain clean, well-documented code. 
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
