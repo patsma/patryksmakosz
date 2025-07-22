@@ -20,6 +20,13 @@
         <path
           d="M114.78,27.92c-.13,0-.25,0-.38-.01-.95.04-1.94-.14-2.9-.49-.95-.36-1.79-.9-2.5-1.6l1.41-1.42c.51.5,1.1.89,1.78,1.14.71.26,1.45.38,2.25.37.98.06,1.88-.16,2.67-.62.62-.45.85-1.39.45-2.15-.09-.15-.27-.32-.48-.44-.38-.22-.76-.38-1.15-.48-.6-.16-1.28-.32-1.79-.42-.68-.13-1.28-.27-1.83-.43-.47-.12-.96-.32-1.42-.58-.45-.27-.81-.64-1.06-1.08-.27-.54-.37-1.07-.34-1.61,0-.46.08-.97.28-1.46.26-.55.61-.98,1.03-1.31.47-.37,1.01-.62,1.6-.76.69-.14,1.36-.21,2.03-.22.74-.01,1.47.1,2.18.33.75.27,1.41.71,1.93,1.27l-1.47,1.36c-.31-.33-.69-.59-1.12-.74-.47-.15-.98-.24-1.5-.22-.56,0-1.1.06-1.63.17-.28.07-.56.2-.81.39-.18.14-.32.31-.42.51-.07.19-.12.45-.11.72-.01.26.03.45.11.62.05.09.17.21.31.3.28.16.59.29.92.37.52.15,1.06.28,1.68.4.56.11,1.28.27,1.92.45.57.15,1.13.38,1.64.69.49.27.92.69,1.22,1.19.88,1.7.39,3.74-1.12,4.81-1.09.63-2.24.94-3.41.94Z"
         />
+        <path d="M174.55,39.7l-.39-2.56-2.91-.38,3.3,2.94Z" />
+        <path d="M171,36.3l6-3.69.73,4.54-6.73-.85Z" />
+        <path d="M178.21,37l5.18-11.54-7.35-2,2.17,13.54Z" />
+        <path d="M202.69,30.24l-2.9-4.4-23.4-2.84,26.3,7.24Z" />
+        <path d="M177,11.38l16.37,2.24-17.37,8.78-1.66-6.23,2.66-4.79Z" />
+        <path d="M181.42,1.55l3.37,10.45-7.79-1.09,4.42-9.36Z" />
+        <path d="M174.38,0l6.62,1.08-2,4.31-4.62-5.39Z" />
         <polygon
           points="92.9 26.82 90.9 26.82 90.9 22.13 86.37 15.57 88.01 14.43 91.92 20.09 95.8 14.48 97.44 15.62 92.9 22.18 92.9 26.82"
         />
@@ -35,24 +42,17 @@
         <polygon
           points="44.83 26.62 42.83 26.62 42.83 16 39 16 39 14 44.83 14 44.83 26.62"
         />
-        <path d="M174.55,39.7l-.39-2.56-2.91-.38,3.3,2.94Z" />
-        <path d="M171,36.3l6-3.69.73,4.54-6.73-.85Z" />
-        <path d="M178.21,37l5.18-11.54-7.35-2,2.17,13.54Z" />
-        <path d="M202.69,30.24l-2.9-4.4-23.4-2.84,26.3,7.24Z" />
-        <path d="M177,11.38l16.37,2.24-17.37,8.78-1.66-6.23,2.66-4.79Z" />
-        <path d="M181.42,1.55l3.37,10.45-7.79-1.09,4.42-9.36Z" />
-        <path d="M174.38,0l6.62,1.08-2,4.31-4.62-5.39Z" />
-        <path d="M28.57,0l-6.57,1.08,2,4.31L28.57,0Z" />
-        <path d="M21.5,1.43l-3.35,10.43,7.85-1.06L21.5,1.43Z" />
-        <path d="M25.84,11.38l-16.38,2.24,17.32,8.78,1.66-6.23-2.6-4.79Z" />
-        <path d="M0,30.24l2.91-4.4,23.41-2.84L0,30.24Z" />
-        <path d="M24.6,37.15l-5.17-11.54,7.36-2-2.19,13.54Z" />
-        <path d="M31.81,36.41l-6-3.68-.74,4.54,6.74-.86Z" />
         <path d="M28.5,39.7l.4-2.56,2.92-.38-3.32,2.94Z" />
+        <path d="M31.81,36.41l-6-3.68-.74,4.54,6.74-.86Z" />
+        <path d="M24.6,37.15l-5.17-11.54,7.36-2-2.19,13.54Z" />
+        <path d="M0,30.24l2.91-4.4,23.41-2.84L0,30.24Z" />
+        <path d="M25.84,11.38l-16.38,2.24,17.32,8.78,1.66-6.23-2.6-4.79Z" />
+        <path d="M21.5,1.43l-3.35,10.43,7.85-1.06L21.5,1.43Z" />
+        <path d="M28.57,0l-6.57,1.08,2,4.31L28.57,0Z" />
       </g>
       <g id="loaderCircleDivided">
         <path
-          d="M86.31,28.65c-.77-1.31-1.37-2.73-1.78-4.24l17.02-4.56-15.23,8.8Z"
+          d="M106.04,36.63c-1.43.4-2.94.62-4.49.64v-17.41l4.49,16.77Z"
           fill-rule="evenodd"
           stroke="#000"
           stroke-linecap="round"
@@ -60,7 +60,103 @@
           stroke-width=".03"
         />
         <path
-          d="M84.53,24.42c-.39-1.45-.61-2.98-.61-4.56h17.62l-17.02,4.56Z"
+          d="M110.2,34.85c-1.29.76-2.69,1.37-4.16,1.78l-4.49-16.77,8.66,14.99Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M113.76,32.07c-1.06,1.07-2.25,2.01-3.55,2.78l-8.66-14.99,12.21,12.21Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M116.48,28.48c-.75,1.31-1.67,2.52-2.72,3.59l-12.21-12.21,14.93,8.62Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M118.19,24.32c-.39,1.47-.97,2.87-1.71,4.16l-14.93-8.62,16.64,4.46Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M118.77,19.86c0,1.54-.2,3.03-.58,4.46l-16.64-4.46h17.22Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M118.19,15.4c.38,1.42.58,2.91.58,4.45h0s-17.22,0-17.22,0l16.64-4.46Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M116.49,11.23c.74,1.29,1.32,2.69,1.7,4.17l-16.64,4.46,14.94-8.62Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M113.77,7.64c1.05,1.07,1.97,2.28,2.72,3.59l-14.94,8.62,12.22-12.22Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M110.21,4.85c1.3.77,2.5,1.71,3.56,2.79l-12.22,12.22,8.66-15Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M106.05,3.07c1.48.41,2.87,1.02,4.16,1.78l-8.66,15,4.5-16.79Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M101.55,2.43c1.56.02,3.06.24,4.5.64l-4.5,16.79V2.43Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M101.55,37.27c-.07,0-.14,0-.2,0-1.49,0-2.94-.19-4.32-.54l4.52-16.87v17.41Z"
+          fill-rule="evenodd"
+          stroke="#000"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".03"
+        />
+        <path
+          d="M97.03,36.73c-1.5-.38-2.92-.96-4.24-1.7l8.76-15.17-4.52,16.87Z"
           fill-rule="evenodd"
           stroke="#000"
           stroke-linecap="round"
@@ -84,7 +180,7 @@
           stroke-width=".03"
         />
         <path
-          d="M97.03,36.73c-1.5-.38-2.92-.96-4.24-1.7l8.76-15.17-4.52,16.87Z"
+          d="M86.31,28.65c-.77-1.31-1.37-2.73-1.78-4.24l17.02-4.56-15.23,8.8Z"
           fill-rule="evenodd"
           stroke="#000"
           stroke-linecap="round"
@@ -92,23 +188,7 @@
           stroke-width=".03"
         />
         <path
-          d="M110.2,34.85c-1.29.76-2.69,1.37-4.16,1.78l-4.49-16.77,8.66,14.99Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
-          d="M101.55,37.27c-.07,0-.14,0-.2,0-1.49,0-2.94-.19-4.32-.54l4.52-16.87v17.41Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
-          d="M106.04,36.63c-1.43.4-2.94.62-4.49.64v-17.41l4.49,16.77Z"
+          d="M84.53,24.42c-.39-1.45-.61-2.98-.61-4.56h17.62l-17.02,4.56Z"
           fill-rule="evenodd"
           stroke="#000"
           stroke-linecap="round"
@@ -124,54 +204,6 @@
           stroke-width=".03"
         />
         <path
-          d="M113.76,32.07c-1.06,1.07-2.25,2.01-3.55,2.78l-8.66-14.99,12.21,12.21Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
-          d="M118.19,24.32c-.39,1.47-.97,2.87-1.71,4.16l-14.93-8.62,16.64,4.46Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
-          d="M116.48,28.48c-.75,1.31-1.67,2.52-2.72,3.59l-12.21-12.21,14.93,8.62Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
-          d="M118.77,19.86c0,1.54-.2,3.03-.58,4.46l-16.64-4.46h17.22Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
-          d="M116.49,11.23c.74,1.29,1.32,2.69,1.7,4.17l-16.64,4.46,14.94-8.62Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
-          d="M118.19,15.4c.38,1.42.58,2.91.58,4.45h0s-17.22,0-17.22,0l16.64-4.46Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
           d="M84.53,15.3c.41-1.5,1.01-2.93,1.78-4.24l15.24,8.8-17.02-4.56Z"
           fill-rule="evenodd"
           stroke="#000"
@@ -180,39 +212,7 @@
           stroke-width=".03"
         />
         <path
-          d="M113.77,7.64c1.05,1.07,1.97,2.28,2.72,3.59l-14.94,8.62,12.22-12.22Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
-          d="M106.05,3.07c1.48.41,2.87,1.02,4.16,1.78l-8.66,15,4.5-16.79Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
-          d="M110.21,4.85c1.3.77,2.5,1.71,3.56,2.79l-12.22,12.22,8.66-15Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
           d="M86.31,11.06c.78-1.33,1.73-2.55,2.82-3.62l12.42,12.42-15.24-8.8Z"
-          fill-rule="evenodd"
-          stroke="#000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".03"
-        />
-        <path
-          d="M101.55,2.43c1.56.02,3.06.24,4.5.64l-4.5,16.79V2.43Z"
           fill-rule="evenodd"
           stroke="#000"
           stroke-linecap="round"
