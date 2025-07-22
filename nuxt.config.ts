@@ -12,9 +12,11 @@ export default defineNuxtConfig({
     "@hypernym/nuxt-gsap",
   ],
   gsap: {
+    composables: true,
     clubPlugins: {
       morphSvg: true,
       drawSvg: true,
+      gsDevTools: true,
     },
   },
 });
