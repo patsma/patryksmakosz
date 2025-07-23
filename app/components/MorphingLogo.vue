@@ -34,7 +34,11 @@ const startMorphAnimation = () => {
   // $gsap.set(logoHorizontal, { opacity: 0 });
 
   // Simple timeline that morphs circle paths into logo paths
-  const tl = $gsap.timeline({ repeat: -1 });
+  const tl = $gsap.timeline({
+    repeat: -1,
+    yoyo: true,
+    id: "morphing-logo-animation",
+  });
 
   // Morph each circle path into corresponding logo path
   for (
@@ -55,8 +59,7 @@ const startMorphAnimation = () => {
 
   $GSDevTools.create({
     animation: tl,
-    name: "Morphing Logo",
-    description: "Morphing Logo",
+    minimal: true,
   });
 };
 
