@@ -35,8 +35,8 @@ const startMorphAnimation = () => {
 
   // Simple timeline that morphs circle paths into logo paths
   const tl = $gsap.timeline({
-    repeat: -1,
-    yoyo: true,
+    // repeat: -1,
+    // yoyo: true,
     id: "morphing-logo-animation",
   });
 
@@ -57,10 +57,10 @@ const startMorphAnimation = () => {
     );
   }
 
-  $GSDevTools.create({
-    animation: tl,
-    minimal: true,
-  });
+  // $GSDevTools.create({
+  //   animation: tl,
+  //   minimal: true,
+  // });
 };
 
 // Start animation when component is mounted
