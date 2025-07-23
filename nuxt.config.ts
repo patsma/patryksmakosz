@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@nuxtjs/tailwindcss",
     "@hypernym/nuxt-gsap",
+    "@pinia/nuxt",
   ],
   gsap: {
     composables: true,

@@ -7,14 +7,17 @@
 <script setup>
 const { $gsap } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
-const { $GSDevTools } = useNuxtApp();
+
+// Use the simple animation manager
+const { createAnimation } = useAnimationManager();
+
 // Arrays to store path elements
 const circlePaths = ref([]);
 const logoPaths = ref([]);
 
 // Morph animation function
 const startMorphAnimation = () => {
-  // MorphSVGPlugin.convert convert all shapes to path
+  // Convert all shapes to path
   $MorphSVGPlugin.convertToPath("circle, rect, polygon");
 
   // Get all path elements from both groups within the single SVG
@@ -30,37 +33,31 @@ const startMorphAnimation = () => {
   circlePaths.value = Array.from(circleDivided.querySelectorAll("path"));
   logoPaths.value = Array.from(logoHorizontal.querySelectorAll("path"));
 
-  // Hide logo group initially
-  // $gsap.set(logoHorizontal, { opacity: 0 });
+  // Create animation using the simple manager
+  createAnimation("morphingLogo", () => {
+    const tl = $gsap.timeline({
+      id: "morphing-logo-animation",
+    });
 
-  // Simple timeline that morphs circle paths into logo paths
-  const tl = $gsap.timeline({
-    // repeat: -1,
-    // yoyo: true,
-    id: "morphing-logo-animation",
+    // Morph each circle path into corresponding logo path
+    for (
+      let i = 0;
+      i < Math.min(circlePaths.value.length, logoPaths.value.length);
+      i++
+    ) {
+      tl.to(
+        circlePaths.value[i],
+        {
+          morphSVG: logoPaths.value[i],
+          duration: 2,
+          ease: "power2.inOut",
+        },
+        0
+      );
+    }
+
+    return tl;
   });
-
-  // Morph each circle path into corresponding logo path
-  for (
-    let i = 0;
-    i < Math.min(circlePaths.value.length, logoPaths.value.length);
-    i++
-  ) {
-    tl.to(
-      circlePaths.value[i],
-      {
-        morphSVG: logoPaths.value[i],
-        duration: 2,
-        ease: "power2.inOut",
-      },
-      0
-    );
-  }
-
-  // $GSDevTools.create({
-  //   animation: tl,
-  //   minimal: true,
-  // });
 };
 
 // Start animation when component is mounted
@@ -71,6 +68,7 @@ onMounted(() => {
   }, 500);
 });
 </script>
+
 <style>
 #LogoHorizontal {
   opacity: 0;
