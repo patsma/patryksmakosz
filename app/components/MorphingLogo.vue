@@ -1,31 +1,41 @@
 <template>
   <div class="morphing-logo">
-    <MorphingLogoSVG />
+    <MorphingLogoSVG ref="svgRef" />
   </div>
 </template>
 
 <script setup>
 const { $gsap } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
+const { $GSDevTools } = useNuxtApp();
 
 // Use the simple animation manager
 const { createAnimation } = useAnimationManager();
 
+// Ref to the SVG component
+const svgRef = ref(null);
+
 // Arrays to store path elements
 const circlePaths = ref([]);
 const logoPaths = ref([]);
+
+// New organized arrays for different parts
+const shape1Paths = ref([]); // First 7 paths
+const text1Paths = ref([]); // Next 5 paths
+const text2Paths = ref([]); // Next 5 paths
+const shape2Paths = ref([]); // Final 7 paths
 
 // Morph animation function
 const startMorphAnimation = () => {
   // Convert all shapes to path
   $MorphSVGPlugin.convertToPath("circle, rect, polygon");
 
-  // Get all path elements from both groups within the single SVG
-  const circleDivided = document.querySelector("#loaderCircleDivided");
-  const logoHorizontal = document.querySelector("#LogoHorizontal");
+  // Get refs from the SVG component
+  const circleDivided = svgRef.value?.circleDividedRef;
+  const logoHorizontal = svgRef.value?.logoHorizontalRef;
 
   if (!circleDivided || !logoHorizontal) {
-    console.error("SVG groups not found");
+    console.error("SVG refs not found");
     return;
   }
 
@@ -33,6 +43,10 @@ const startMorphAnimation = () => {
   circlePaths.value = Array.from(circleDivided.querySelectorAll("path"));
   logoPaths.value = Array.from(logoHorizontal.querySelectorAll("path"));
 
+  text2Paths.value = circlePaths.value.slice(0, 5);
+  text1Paths.value = circlePaths.value.slice(12, 17);
+  shape1Paths.value = circlePaths.value.slice(17, 24);
+  shape2Paths.value = circlePaths.value.slice(5, 12);
   // Create animation using the simple manager
   createAnimation("morphingLogo", () => {
     const tl = $gsap.timeline({
@@ -55,6 +69,49 @@ const startMorphAnimation = () => {
         0
       );
     }
+
+    // Add text animations
+    tl.to(text1Paths.value, {
+      y: 100,
+      stagger: -0.025,
+      duration: 2,
+      ease: "power2.inOut",
+    });
+    tl.to(
+      text2Paths.value,
+      {
+        y: -100,
+        stagger: 0.025,
+        duration: 2,
+        ease: "power2.inOut",
+      },
+      "<"
+    );
+    tl.to(
+      shape1Paths.value,
+      {
+        x: -100,
+        stagger: 0.025,
+        duration: 2,
+        ease: "power2.inOut",
+      },
+      "<"
+    );
+    tl.to(
+      shape2Paths.value,
+      {
+        x: 100,
+        stagger: 0.025,
+        duration: 2,
+        ease: "power2.inOut",
+      },
+      "<"
+    );
+
+    $GSDevTools.create({
+      animation: tl,
+      minimal: true,
+    });
 
     return tl;
   });
