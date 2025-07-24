@@ -19,5 +19,8 @@ export default defineNuxtConfig({
       drawSvg: true,
       gsDevTools: true,
     },
+    extraPlugins: {
+      observer: true,
+    },
   },
 });
