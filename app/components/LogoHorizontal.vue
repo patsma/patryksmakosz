@@ -1,28 +1,30 @@
 <template>
-  <LogoHorizontalSVG class="opacity-0 logo-horizontal" />
+  <LogoHorizontalSVG class="logo-horizontal opacity-0" />
 </template>
 
 <script setup>
 const { $gsap } = useNuxtApp();
-const { createAnimation, waitForAnimation } = useAnimationManager();
+const { startAnimationWithDelay } = useAnimationManager();
 
-// Start fade-in animation when morphing logo completes
-const startFadeInAnimation = async () => {
-  // Wait for morphing logo to complete
-  await waitForAnimation("morphingLogo");
-
-  // Create fade-in animation
-  createAnimation("logoHorizontal", () => {
-    return $gsap.timeline().fromTo(
-      ".logo-horizontal",
-      { opacity: 0 },
-      {
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out",
-      }
-    );
-  });
+// Start fade-in animation with a simple delay
+const startFadeInAnimation = () => {
+  // Start fade-in animation after 3 seconds (adjust this timing as needed)
+  startAnimationWithDelay(
+    "logoHorizontal",
+    () => {
+      return $gsap.timeline().fromTo(
+        ".logo-horizontal",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+        }
+      );
+    },
+    3
+  ); // 3 second delay
 };
 
 // Start the animation sequence when component mounts

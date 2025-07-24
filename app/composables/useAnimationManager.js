@@ -10,11 +10,12 @@ export const useAnimationManager = () => {
    * Create a simple animation that updates the store
    */
   const createAnimation = (name, timelineCreator) => {
-    // Start the animation in the store
-    animationStore.startAnimation(name);
-
-    // Create and play the timeline
+    // Create the timeline first to get its duration
     const timeline = timelineCreator();
+    const duration = timeline.duration();
+
+    // Start the animation in the store with duration
+    animationStore.startAnimation(name, duration);
 
     // When animation completes, update the store
     timeline.eventCallback("onComplete", () => {
@@ -48,8 +49,18 @@ export const useAnimationManager = () => {
     });
   };
 
+  /**
+   * Start an animation after a delay
+   */
+  const startAnimationWithDelay = (name, timelineCreator, delay = 0) => {
+    setTimeout(() => {
+      createAnimation(name, timelineCreator);
+    }, delay * 1000);
+  };
+
   return {
     createAnimation,
     waitForAnimation,
+    startAnimationWithDelay,
   };
 };

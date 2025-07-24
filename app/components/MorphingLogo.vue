@@ -108,10 +108,10 @@ const startMorphAnimation = () => {
       "<"
     );
 
-    $GSDevTools.create({
-      animation: tl,
-      minimal: true,
-    });
+    // $GSDevTools.create({
+    //   animation: tl,
+    //   minimal: true,
+    // });
 
     return tl;
   });
