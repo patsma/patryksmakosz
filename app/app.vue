@@ -3,12 +3,12 @@
     <!-- Infinite Drag Grid Component -->
     <InfiniteDragGrid />
 
-    <!-- <MorphingLogo
+    <MorphingLogo
       class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
     />
     <LogoHorizontal
       class="fixed left-1/2 top-8 -translate-x-1/2 -translate-y-1/2 w-full h-10"
-    /> -->
+    />
   </div>
 </template>
 
@@ -28,8 +28,8 @@
 }
 
 body {
-  background: #121212;
-  color: #f1f1f1;
+  /* background: #121212; */
+  /* color: #f1f1f1; */
   overscroll-behavior-x: none; /* Prevent go to previous page */
   overflow: hidden;
 }

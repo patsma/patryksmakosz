@@ -78,6 +78,10 @@
 <script setup>
 import { onMounted } from "vue";
 
+// Get GSAP and Observer from Nuxt app (like MorphingLogo.vue)
+const { $gsap } = useNuxtApp();
+const { $Observer } = useNuxtApp();
+
 // Use the exact same logic as the working mwg_026 version
 onMounted(() => {
   // Wait for next tick to ensure DOM is ready
@@ -89,14 +93,14 @@ onMounted(() => {
 
 // The exact same function as in mwg_026/assets/script.js
 const initInfiniteGrid = () => {
-  // Check if GSAP is available globally (from CDN)
-  if (typeof gsap === "undefined") {
-    console.error("GSAP not loaded");
+  // Check if GSAP and Observer are available from Nuxt
+  if (!$gsap || !$Observer) {
+    console.error("GSAP or Observer not available from Nuxt");
     return;
   }
 
   // Register Observer plugin
-  gsap.registerPlugin(Observer);
+  $gsap.registerPlugin($Observer);
 
   const container = document.querySelector(".mwg_effect026 .container");
 
@@ -105,37 +109,29 @@ const initInfiniteGrid = () => {
     return;
   }
 
-  // Get the viewport dimensions
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
-
   // Get the content dimensions (single content div)
   const content = container.querySelector(".content");
   const contentWidth = content.clientWidth;
   const contentHeight = content.clientHeight;
 
-  console.log("Viewport:", viewportWidth, "x", viewportHeight);
-  console.log("Content:", contentWidth, "x", contentHeight);
-  console.log("Container:", container.clientWidth, "x", container.clientHeight);
-
   // Calculate wrapping boundaries based on content size
   // The grid should wrap when it moves one content width/height
-  const wrapX = gsap.utils.wrap(-contentWidth, 0);
-  const wrapY = gsap.utils.wrap(-contentHeight, 0);
+  const wrapX = $gsap.utils.wrap(-contentWidth, 0);
+  const wrapY = $gsap.utils.wrap(-contentHeight, 0);
 
-  const xTo = gsap.quickTo(container, "x", {
+  const xTo = $gsap.quickTo(container, "x", {
     duration: 1.5, // Will change over 1.5s
     ease: "power4", // Non-linear
     modifiers: {
-      x: gsap.utils.unitize(wrapX),
+      x: $gsap.utils.unitize(wrapX),
     },
   });
 
-  const yTo = gsap.quickTo(container, "y", {
+  const yTo = $gsap.quickTo(container, "y", {
     duration: 1.5, // Will change over 1.5s
     ease: "power4", // Non-linear
     modifiers: {
-      y: gsap.utils.unitize(wrapY),
+      y: $gsap.utils.unitize(wrapY),
     },
   });
 
@@ -143,7 +139,7 @@ const initInfiniteGrid = () => {
     incrY = 0;
 
   // Observer to handle wheel and drag events
-  Observer.create({
+  $Observer.create({
     target: window,
     type: "wheel,touch,pointer", // Handles wheel, touch, and drag
     onChangeX: (self) => {
