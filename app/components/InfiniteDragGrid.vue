@@ -2,74 +2,194 @@
   <section class="mwg_effect026">
     <div class="container">
       <div class="content">
-        <div class="media"><img src="/assets/medias/12.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/02.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/03.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/04.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/05.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/06.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/07.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/08.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/09.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/10.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/11.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/01.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/13.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/14.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/15.png" alt="" /></div>
+        <div class="media" @click="handleImageClick('12.png')">
+          <img src="/assets/medias/12.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('02.png')">
+          <img src="/assets/medias/02.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('03.png')">
+          <img src="/assets/medias/03.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('04.png')">
+          <img src="/assets/medias/04.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('05.png')">
+          <img src="/assets/medias/05.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('06.png')">
+          <img src="/assets/medias/06.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('07.png')">
+          <img src="/assets/medias/07.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('08.png')">
+          <img src="/assets/medias/08.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('09.png')">
+          <img src="/assets/medias/09.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('10.png')">
+          <img src="/assets/medias/10.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('11.png')">
+          <img src="/assets/medias/11.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('01.png')">
+          <img src="/assets/medias/01.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('13.png')">
+          <img src="/assets/medias/13.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('14.png')">
+          <img src="/assets/medias/14.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('15.png')">
+          <img src="/assets/medias/15.png" alt="" />
+        </div>
       </div>
 
       <!-- duplicates -->
       <div class="content" aria-hidden="true">
-        <div class="media"><img src="/assets/medias/12.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/02.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/03.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/04.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/05.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/06.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/07.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/08.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/09.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/10.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/11.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/01.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/13.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/14.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/15.png" alt="" /></div>
+        <div class="media" @click="handleImageClick('12.png')">
+          <img src="/assets/medias/12.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('02.png')">
+          <img src="/assets/medias/02.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('03.png')">
+          <img src="/assets/medias/03.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('04.png')">
+          <img src="/assets/medias/04.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('05.png')">
+          <img src="/assets/medias/05.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('06.png')">
+          <img src="/assets/medias/06.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('07.png')">
+          <img src="/assets/medias/07.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('08.png')">
+          <img src="/assets/medias/08.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('09.png')">
+          <img src="/assets/medias/09.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('10.png')">
+          <img src="/assets/medias/10.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('11.png')">
+          <img src="/assets/medias/11.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('01.png')">
+          <img src="/assets/medias/01.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('13.png')">
+          <img src="/assets/medias/13.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('14.png')">
+          <img src="/assets/medias/14.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('15.png')">
+          <img src="/assets/medias/15.png" alt="" />
+        </div>
       </div>
       <div class="content" aria-hidden="true">
-        <div class="media"><img src="/assets/medias/12.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/02.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/03.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/04.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/05.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/06.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/07.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/08.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/09.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/10.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/11.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/01.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/13.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/14.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/15.png" alt="" /></div>
+        <div class="media" @click="handleImageClick('12.png')">
+          <img src="/assets/medias/12.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('02.png')">
+          <img src="/assets/medias/02.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('03.png')">
+          <img src="/assets/medias/03.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('04.png')">
+          <img src="/assets/medias/04.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('05.png')">
+          <img src="/assets/medias/05.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('06.png')">
+          <img src="/assets/medias/06.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('07.png')">
+          <img src="/assets/medias/07.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('08.png')">
+          <img src="/assets/medias/08.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('09.png')">
+          <img src="/assets/medias/09.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('10.png')">
+          <img src="/assets/medias/10.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('11.png')">
+          <img src="/assets/medias/11.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('01.png')">
+          <img src="/assets/medias/01.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('13.png')">
+          <img src="/assets/medias/13.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('14.png')">
+          <img src="/assets/medias/14.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('15.png')">
+          <img src="/assets/medias/15.png" alt="" />
+        </div>
       </div>
       <div class="content" aria-hidden="true">
-        <div class="media"><img src="/assets/medias/12.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/02.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/03.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/04.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/05.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/06.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/07.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/08.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/09.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/10.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/11.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/01.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/13.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/14.png" alt="" /></div>
-        <div class="media"><img src="/assets/medias/15.png" alt="" /></div>
+        <div class="media" @click="handleImageClick('12.png')">
+          <img src="/assets/medias/12.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('02.png')">
+          <img src="/assets/medias/02.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('03.png')">
+          <img src="/assets/medias/03.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('04.png')">
+          <img src="/assets/medias/04.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('05.png')">
+          <img src="/assets/medias/05.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('06.png')">
+          <img src="/assets/medias/06.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('07.png')">
+          <img src="/assets/medias/07.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('08.png')">
+          <img src="/assets/medias/08.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('09.png')">
+          <img src="/assets/medias/09.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('10.png')">
+          <img src="/assets/medias/10.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('11.png')">
+          <img src="/assets/medias/11.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('01.png')">
+          <img src="/assets/medias/01.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('13.png')">
+          <img src="/assets/medias/13.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('14.png')">
+          <img src="/assets/medias/14.png" alt="" />
+        </div>
+        <div class="media" @click="handleImageClick('15.png')">
+          <img src="/assets/medias/15.png" alt="" />
+        </div>
       </div>
     </div>
   </section>
@@ -81,6 +201,42 @@ import { onMounted } from "vue";
 // Get GSAP and Observer from Nuxt app (like MorphingLogo.vue)
 const { $gsap } = useNuxtApp();
 const { $Observer } = useNuxtApp();
+
+// Handle image clicks for portfolio
+const handleImageClick = (imageName) => {
+  console.log(`Portfolio item clicked: ${imageName}`);
+
+  // Show a more professional portfolio response
+  const projectNames = {
+    "01.png": "Project Alpha",
+    "02.png": "Project Beta",
+    "03.png": "Project Gamma",
+    "04.png": "Project Delta",
+    "05.png": "Project Epsilon",
+    "06.png": "Project Zeta",
+    "07.png": "Project Eta",
+    "08.png": "Project Theta",
+    "09.png": "Project Iota",
+    "10.png": "Project Kappa",
+    "11.png": "Project Lambda",
+    "12.png": "Project Mu",
+    "13.png": "Project Nu",
+    "14.png": "Project Xi",
+    "15.png": "Project Omicron",
+  };
+
+  const projectName = projectNames[imageName] || `Project ${imageName}`;
+
+  // TODO: Replace this with your actual portfolio logic
+  // Examples:
+  // - navigateTo(`/portfolio/${imageName}`)
+  // - openModal(projectName)
+  // - window.open(`https://your-portfolio.com/${imageName}`)
+
+  alert(
+    `🎨 ${projectName}\n\nThis is where you'd navigate to your portfolio project!\n\nImage: ${imageName}`
+  );
+};
 
 // Use the exact same logic as the working mwg_026 version
 onMounted(() => {
@@ -165,7 +321,7 @@ const initInfiniteGrid = () => {
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  pointer-events: none;
+  /* Removed pointer-events: none to allow clicking */
 }
 .mwg_effect026 .container {
   display: grid;
@@ -178,7 +334,7 @@ const initInfiniteGrid = () => {
 }
 
 .mwg_effect026 .content {
-  pointer-events: none;
+  /* Removed pointer-events: none to allow clicking */
   display: grid;
   width: max-content;
   grid-template-columns: repeat(5, 1fr); /* 5 items per row */
@@ -189,13 +345,21 @@ const initInfiniteGrid = () => {
   width: 25vw;
   aspect-ratio: 1;
   user-select: none;
+  cursor: pointer; /* Add pointer cursor to show images are clickable */
+  transition: transform 0.2s ease; /* Smooth hover effect */
 }
+
+.mwg_effect026 .media:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
 .mwg_effect026 .media img,
 .mwg_effect026 .media video {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: contain;
+  pointer-events: none; /* Prevent image from interfering with click */
 }
 
 @media (max-width: 900px) {
