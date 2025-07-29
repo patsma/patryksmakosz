@@ -12,20 +12,14 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+// Simple setup - component auto-imports handle the rest
+</script>
 
 <style>
 /* Global styles */
 svg {
   width: 100%;
   height: 100%;
-}
-
-/* Prevent body scroll when using the infinite grid */
-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  overscroll-behavior-x: none;
 }
 </style>
