@@ -1,6 +1,6 @@
 <template>
   <section class="mwg_effect026">
-    <div class="container" ref="containerRef">
+    <div class="container">
       <div class="content">
         <div class="media"><img src="/assets/medias/12.png" alt="" /></div>
         <div class="media"><img src="/assets/medias/02.png" alt="" /></div>
@@ -76,36 +76,66 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 
-// Get GSAP and Observer from Nuxt app - same as MorphingLogo.vue
-const { $gsap } = useNuxtApp();
-const { $Observer } = useNuxtApp();
-
-// Template ref for container
-const containerRef = ref(null);
-
-// Initialize the grid - using your working implementation
+// Use the exact same logic as the working mwg_026 version
 onMounted(() => {
+  // Wait for next tick to ensure DOM is ready
+  nextTick(() => {
+    // Use the exact same initialization as working version
+    initInfiniteGrid();
+  });
+});
+
+// The exact same function as in mwg_026/assets/script.js
+const initInfiniteGrid = () => {
+  // Check if GSAP is available globally (from CDN)
+  if (typeof gsap === "undefined") {
+    console.error("GSAP not loaded");
+    return;
+  }
+
+  // Register Observer plugin
+  gsap.registerPlugin(Observer);
+
   const container = document.querySelector(".mwg_effect026 .container");
 
-  const halfX = container.clientWidth / 2;
-  const wrapX = $gsap.utils.wrap(-halfX, 0);
-  const xTo = $gsap.quickTo(container, "x", {
+  if (!container) {
+    console.error("Container not found");
+    return;
+  }
+
+  // Get the viewport dimensions
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+
+  // Get the content dimensions (single content div)
+  const content = container.querySelector(".content");
+  const contentWidth = content.clientWidth;
+  const contentHeight = content.clientHeight;
+
+  console.log("Viewport:", viewportWidth, "x", viewportHeight);
+  console.log("Content:", contentWidth, "x", contentHeight);
+  console.log("Container:", container.clientWidth, "x", container.clientHeight);
+
+  // Calculate wrapping boundaries based on content size
+  // The grid should wrap when it moves one content width/height
+  const wrapX = gsap.utils.wrap(-contentWidth, 0);
+  const wrapY = gsap.utils.wrap(-contentHeight, 0);
+
+  const xTo = gsap.quickTo(container, "x", {
     duration: 1.5, // Will change over 1.5s
     ease: "power4", // Non-linear
     modifiers: {
-      x: $gsap.utils.unitize(wrapX),
+      x: gsap.utils.unitize(wrapX),
     },
   });
 
-  const halfY = container.clientHeight / 2;
-  const wrapY = $gsap.utils.wrap(-halfY, 0);
-  const yTo = $gsap.quickTo(container, "y", {
+  const yTo = gsap.quickTo(container, "y", {
     duration: 1.5, // Will change over 1.5s
     ease: "power4", // Non-linear
     modifiers: {
-      y: $gsap.utils.unitize(wrapY),
+      y: gsap.utils.unitize(wrapY),
     },
   });
 
@@ -113,7 +143,7 @@ onMounted(() => {
     incrY = 0;
 
   // Observer to handle wheel and drag events
-  $Observer.create({
+  Observer.create({
     target: window,
     type: "wheel,touch,pointer", // Handles wheel, touch, and drag
     onChangeX: (self) => {
@@ -130,45 +160,11 @@ onMounted(() => {
       yTo(incrY); // Smoothly animate to the new y position
     },
   });
-
-  // RANDOM ITEM POSITIONS
-  // const lengthMedia = container.querySelector('.content').querySelectorAll('.media').length
-  // const randomValues = []
-  // for (let i = 0; i < lengthMedia; i++) {
-  //     randomValues.push([
-  //         (Math.random() - 0.5) * 30,
-  //         (Math.random() - 0.5) * 30
-  //     ])
-  // }
-  // container.querySelectorAll('.content').forEach(content => {
-  //     content.querySelectorAll('.media').forEach((el, index) => {
-  //         gsap.set(el, {
-  //             xPercent: randomValues[index][0],
-  //             yPercent: randomValues[index][1]
-  //         })
-  //     })
-  // })
-});
+};
 </script>
 
 <style>
-/* NORMALIZE */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  appearance: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-/* NORMALIZE */
-
-body {
-  background: #121212;
-  color: #f1f1f1;
-  overscroll-behavior-x: none; /* Prevent go to previous page */
-  overflow: hidden;
-}
+/* Component-specific styles for infinite grid */
 .mwg_effect026 {
   height: 100vh;
   width: 100%;
@@ -177,7 +173,10 @@ body {
 }
 .mwg_effect026 .container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 items par row */
+  grid-template-columns: repeat(
+    2,
+    1fr
+  ); /* 2 items per row - CRITICAL for infinite wrapping */
   width: max-content;
   will-change: transform; /* This element will undergo many transformations */
 }
@@ -186,7 +185,7 @@ body {
   pointer-events: none;
   display: grid;
   width: max-content;
-  grid-template-columns: repeat(5, 1fr); /* 5 items par row */
+  grid-template-columns: repeat(5, 1fr); /* 5 items per row */
   gap: 10vw;
   padding: 5vw; /* We reproduce half of the gap around the division */
 }

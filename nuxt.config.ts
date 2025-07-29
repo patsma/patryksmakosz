@@ -12,6 +12,23 @@ export default defineNuxtConfig({
     "@hypernym/nuxt-gsap",
     "@pinia/nuxt",
   ],
+  
+  // Add GSAP CDN scripts (same as working mwg_026 version)
+  app: {
+    head: {
+      script: [
+        {
+          src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js',
+          defer: true
+        },
+        {
+          src: 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Observer.min.js',
+          defer: true
+        }
+      ]
+    }
+  },
+  
   gsap: {
     composables: true,
     clubPlugins: {
