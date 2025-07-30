@@ -189,6 +189,8 @@ onMounted(() => {
 .infinite-drag-grid {
   height: 100vh;
   width: 100%;
+  position: relative;
+  z-index: 1;
   overflow: hidden;
 
   &__container {
