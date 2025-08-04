@@ -1,42 +1,102 @@
 <script setup>
 import { ref, onMounted, nextTick } from "vue";
 
-// Portfolio data - centralized and maintainable
-const portfolioImages = ref([
-  { name: "12.png", src: "/assets/medias/12.png", alt: "Portfolio Project 12" },
-  { name: "02.png", src: "/assets/medias/02.png", alt: "Portfolio Project 02" },
-  { name: "03.png", src: "/assets/medias/03.png", alt: "Portfolio Project 03" },
-  { name: "04.png", src: "/assets/medias/04.png", alt: "Portfolio Project 04" },
-  { name: "05.png", src: "/assets/medias/05.png", alt: "Portfolio Project 05" },
-  { name: "06.png", src: "/assets/medias/06.png", alt: "Portfolio Project 06" },
-  { name: "07.png", src: "/assets/medias/07.png", alt: "Portfolio Project 07" },
-  { name: "08.png", src: "/assets/medias/08.png", alt: "Portfolio Project 08" },
-  { name: "09.png", src: "/assets/medias/09.png", alt: "Portfolio Project 09" },
-  { name: "10.png", src: "/assets/medias/10.png", alt: "Portfolio Project 10" },
-  { name: "11.png", src: "/assets/medias/11.png", alt: "Portfolio Project 11" },
-  { name: "01.png", src: "/assets/medias/01.png", alt: "Portfolio Project 01" },
-  { name: "13.png", src: "/assets/medias/13.png", alt: "Portfolio Project 13" },
-  { name: "14.png", src: "/assets/medias/14.png", alt: "Portfolio Project 14" },
-  { name: "15.png", src: "/assets/medias/15.png", alt: "Portfolio Project 15" },
+// Portfolio video data - centralized and maintainable
+const portfolioVideos = ref([
+  {
+    name: "wepushbuttons.mp4",
+    src: "/movies/web-optimized/wepushbuttons.mp4",
+    alt: "We Push Buttons Portfolio",
+  },
+  {
+    name: "usa-map.mp4",
+    src: "/movies/web-optimized/usa-map.mp4",
+    alt: "USA Map Animation",
+  },
+  {
+    name: "stairs.mp4",
+    src: "/movies/web-optimized/stairs.mp4",
+    alt: "Stairs Animation",
+  },
+  {
+    name: "spectrometer.mp4",
+    src: "/movies/web-optimized/spectrometer.mp4",
+    alt: "Spectrometer Project",
+  },
+  {
+    name: "page404.mp4",
+    src: "/movies/web-optimized/page404.mp4",
+    alt: "404 Page Design",
+  },
+  {
+    name: "laptop-isometric.mp4",
+    src: "/movies/web-optimized/laptop-isometric.mp4",
+    alt: "Laptop Isometric Design",
+  },
+  {
+    name: "icon-cloud.mp4",
+    src: "/movies/web-optimized/icon-cloud.mp4",
+    alt: "Cloud Icon Animation",
+  },
+  {
+    name: "icon-box.mp4",
+    src: "/movies/web-optimized/icon-box.mp4",
+    alt: "Box Icon Animation",
+  },
+  {
+    name: "graph.mp4",
+    src: "/movies/web-optimized/graph.mp4",
+    alt: "Graph Animation",
+  },
+  {
+    name: "icon-phone.mp4",
+    src: "/movies/web-optimized/icon-phone.mp4",
+    alt: "Phone Icon Animation",
+  },
+  {
+    name: "icon-monitor.mp4",
+    src: "/movies/web-optimized/icon-monitor.mp4",
+    alt: "Monitor Icon Animation",
+  },
+  {
+    name: "icon-message.mp4",
+    src: "/movies/web-optimized/icon-message.mp4",
+    alt: "Message Icon Animation",
+  },
+  {
+    name: "icon-laptop.mp4",
+    src: "/movies/web-optimized/icon-laptop.mp4",
+    alt: "Laptop Icon Animation",
+  },
+  {
+    name: "icon-ladder.mp4",
+    src: "/movies/web-optimized/icon-ladder.mp4",
+    alt: "Ladder Icon Animation",
+  },
+  {
+    name: "icon-bars.mp4",
+    src: "/movies/web-optimized/icon-bars.mp4",
+    alt: "Bars Icon Animation",
+  },
 ]);
 
 // Project names mapping for better UX
 const projectNames = {
-  "01.png": "Project Alpha",
-  "02.png": "Project Beta",
-  "03.png": "Project Gamma",
-  "04.png": "Project Delta",
-  "05.png": "Project Epsilon",
-  "06.png": "Project Zeta",
-  "07.png": "Project Eta",
-  "08.png": "Project Theta",
-  "09.png": "Project Iota",
-  "10.png": "Project Kappa",
-  "11.png": "Project Lambda",
-  "12.png": "Project Mu",
-  "13.png": "Project Nu",
-  "14.png": "Project Xi",
-  "15.png": "Project Omicron",
+  "wepushbuttons.mp4": "We Push Buttons",
+  "usa-map.mp4": "USA Map Interactive",
+  "stairs.mp4": "Stairs Animation",
+  "spectrometer.mp4": "Spectrometer App",
+  "page404.mp4": "404 Page Design",
+  "laptop-isometric.mp4": "Laptop Showcase",
+  "icon-cloud.mp4": "Cloud Services",
+  "icon-box.mp4": "Box Solutions",
+  "graph.mp4": "Data Visualization",
+  "icon-phone.mp4": "Mobile App",
+  "icon-monitor.mp4": "Desktop Platform",
+  "icon-message.mp4": "Messaging System",
+  "icon-laptop.mp4": "Laptop Interface",
+  "icon-ladder.mp4": "Progress Tracker",
+  "icon-bars.mp4": "Analytics Dashboard",
 };
 
 // Vue refs for DOM elements
@@ -48,22 +108,22 @@ const { $gsap } = useNuxtApp();
 const { $Observer } = useNuxtApp();
 
 /**
- * Handle image clicks for portfolio navigation
- * @param {string} imageName - The name of the clicked image
+ * Handle video clicks for portfolio navigation
+ * @param {string} videoName - The name of the clicked video
  */
-const handleImageClick = (imageName) => {
-  console.log(`Portfolio item clicked: ${imageName}`);
+const handleVideoClick = (videoName) => {
+  console.log(`Portfolio item clicked: ${videoName}`);
 
-  const projectName = projectNames[imageName] || `Project ${imageName}`;
+  const projectName = projectNames[videoName] || `Project ${videoName}`;
 
   // TODO: Replace with actual portfolio navigation logic
   // Examples:
-  // - navigateTo(`/portfolio/${imageName}`)
+  // - navigateTo(`/portfolio/${videoName}`)
   // - openModal(projectName)
-  // - window.open(`https://your-portfolio.com/${imageName}`)
+  // - window.open(`https://your-portfolio.com/${videoName}`)
 
   alert(
-    `🎨 ${projectName}\n\nThis is where you'd navigate to your portfolio project!\n\nImage: ${imageName}`
+    `🎥 ${projectName}\n\nThis is where you'd navigate to your portfolio project!\n\nVideo: ${videoName}`
   );
 };
 
@@ -156,12 +216,19 @@ onMounted(() => {
     <div ref="containerRef" class="infinite-drag-grid__container">
       <div ref="contentRef" class="infinite-drag-grid__content">
         <div
-          v-for="(image, index) in portfolioImages"
+          v-for="(video, index) in portfolioVideos"
           :key="`original-${index}`"
           class="infinite-drag-grid__media"
-          @click="handleImageClick(image.name)"
+          @click="handleVideoClick(video.name)"
         >
-          <img :src="image.src" :alt="image.alt" />
+          <video
+            :src="video.src"
+            :alt="video.alt"
+            autoplay
+            loop
+            muted
+            playsinline
+          />
         </div>
       </div>
 
@@ -173,12 +240,19 @@ onMounted(() => {
         aria-hidden="true"
       >
         <div
-          v-for="(image, index) in portfolioImages"
+          v-for="(video, index) in portfolioVideos"
           :key="`duplicate-${duplicateIndex}-${index}`"
           class="infinite-drag-grid__media"
-          @click="handleImageClick(image.name)"
+          @click="handleVideoClick(video.name)"
         >
-          <img :src="image.src" :alt="image.alt" />
+          <video
+            :src="video.src"
+            :alt="video.alt"
+            autoplay
+            loop
+            muted
+            playsinline
+          />
         </div>
       </div>
     </div>
