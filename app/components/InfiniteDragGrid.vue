@@ -1,103 +1,11 @@
 <script setup>
 import { ref, onMounted, nextTick } from "vue";
+import { projects, getProjectRoute } from "~/data/projects.js";
 
-// Portfolio video data - centralized and maintainable
-const portfolioVideos = ref([
-  {
-    name: "wepushbuttons.mp4",
-    src: "/movies/web-optimized/wepushbuttons.mp4",
-    alt: "We Push Buttons Portfolio",
-  },
-  {
-    name: "usa-map.mp4",
-    src: "/movies/web-optimized/usa-map.mp4",
-    alt: "USA Map Animation",
-  },
-  {
-    name: "stairs.mp4",
-    src: "/movies/web-optimized/stairs.mp4",
-    alt: "Stairs Animation",
-  },
-  {
-    name: "spectrometer.mp4",
-    src: "/movies/web-optimized/spectrometer.mp4",
-    alt: "Spectrometer Project",
-  },
-  {
-    name: "page404.mp4",
-    src: "/movies/web-optimized/page404.mp4",
-    alt: "404 Page Design",
-  },
-  {
-    name: "laptop-isometric.mp4",
-    src: "/movies/web-optimized/laptop-isometric.mp4",
-    alt: "Laptop Isometric Design",
-  },
-  {
-    name: "icon-cloud.mp4",
-    src: "/movies/web-optimized/icon-cloud.mp4",
-    alt: "Cloud Icon Animation",
-  },
-  {
-    name: "icon-box.mp4",
-    src: "/movies/web-optimized/icon-box.mp4",
-    alt: "Box Icon Animation",
-  },
-  {
-    name: "graph.mp4",
-    src: "/movies/web-optimized/graph.mp4",
-    alt: "Graph Animation",
-  },
-  {
-    name: "icon-phone.mp4",
-    src: "/movies/web-optimized/icon-phone.mp4",
-    alt: "Phone Icon Animation",
-  },
-  {
-    name: "icon-monitor.mp4",
-    src: "/movies/web-optimized/icon-monitor.mp4",
-    alt: "Monitor Icon Animation",
-  },
-  {
-    name: "icon-message.mp4",
-    src: "/movies/web-optimized/icon-message.mp4",
-    alt: "Message Icon Animation",
-  },
-  {
-    name: "icon-laptop.mp4",
-    src: "/movies/web-optimized/icon-laptop.mp4",
-    alt: "Laptop Icon Animation",
-  },
-  {
-    name: "icon-ladder.mp4",
-    src: "/movies/web-optimized/icon-ladder.mp4",
-    alt: "Ladder Icon Animation",
-  },
-  {
-    name: "icon-bars.mp4",
-    src: "/movies/web-optimized/icon-bars.mp4",
-    alt: "Bars Icon Animation",
-  },
-]);
-
-// Project names mapping for better UX
-const projectNames = {
-  "wepushbuttons.mp4": "We Push Buttons",
-  "usa-map.mp4": "USA Map Interactive",
-  "stairs.mp4": "Stairs Animation",
-  "spectrometer.mp4": "Spectrometer App",
-  "page404.mp4": "404 Page Design",
-  "laptop-isometric.mp4": "Laptop Showcase",
-  "icon-cloud.mp4": "Cloud Services",
-  "icon-box.mp4": "Box Solutions",
-  "graph.mp4": "Data Visualization",
-  "icon-phone.mp4": "Mobile App",
-  "icon-monitor.mp4": "Desktop Platform",
-  "icon-message.mp4": "Messaging System",
-  "icon-laptop.mp4": "Laptop Interface",
-  "icon-ladder.mp4": "Progress Tracker",
-  "icon-bars.mp4": "Analytics Dashboard",
-};
+// Static 15 projects for stable infinite grid (like the original working version)
+// Take first 15 projects from our data for a seamless experience
+// This creates 3 rows × 5 columns = 15 items, perfect for the 2×2 container grid math
+const staticProjects = ref(projects.slice(0, 15));
 
 // Vue refs for DOM elements
 const containerRef = ref(null);
@@ -108,27 +16,27 @@ const { $gsap } = useNuxtApp();
 const { $Observer } = useNuxtApp();
 
 /**
- * Handle video clicks for portfolio navigation
- * @param {string} videoName - The name of the clicked video
+ * Handle project clicks for portfolio navigation
+ * @param {Object} project - The clicked project object
  */
-const handleVideoClick = (videoName) => {
-  console.log(`Portfolio item clicked: ${videoName}`);
+const handleProjectClick = (project) => {
+  console.log(`Portfolio project clicked:`, project);
 
-  const projectName = projectNames[videoName] || `Project ${videoName}`;
+  // Get the route path for the project
+  const routePath = getProjectRoute(project.id);
 
-  // TODO: Replace with actual portfolio navigation logic
-  // Examples:
-  // - navigateTo(`/portfolio/${videoName}`)
-  // - openModal(projectName)
-  // - window.open(`https://your-portfolio.com/${videoName}`)
+  // TODO: Replace with actual navigation when routes are ready
+  // navigateTo(routePath);
 
+  // For now, show project info
   alert(
-    `🎥 ${projectName}\n\nThis is where you'd navigate to your portfolio project!\n\nVideo: ${videoName}`
+    `🎥 ${project.name}\n\n${project.description}\n\nCategory: ${project.category}\n\nFuture route: ${routePath}`
   );
 };
 
 /**
  * Initialize the infinite grid animation system
+ * Based on the proper infinite grid pattern with seamless wrapping
  */
 const initInfiniteGrid = () => {
   // Validate GSAP and Observer availability
@@ -144,7 +52,7 @@ const initInfiniteGrid = () => {
     return;
   }
 
-  // Use Vue ref instead of document.querySelector
+  // Use the content dimensions for wrapping (this was already corrected for Nuxt)
   const content = contentRef.value;
   if (!content) {
     console.error("Content ref not found");
@@ -158,7 +66,7 @@ const initInfiniteGrid = () => {
   const wrapX = $gsap.utils.wrap(-contentWidth, 0);
   const wrapY = $gsap.utils.wrap(-contentHeight, 0);
 
-  // Create smooth animation functions
+  // Create smooth animation functions with proper modifiers
   const xTo = $gsap.quickTo(container, "x", {
     duration: 1.5,
     ease: "power4",
@@ -184,20 +92,20 @@ const initInfiniteGrid = () => {
     target: window,
     type: "wheel,touch,pointer",
     onChangeX: (self) => {
-      // Different sensitivity for wheel vs drag
+      // Different sensitivity and direction for wheel vs drag
       if (self.event.type === "wheel") {
-        incrX -= self.deltaX;
+        incrX -= self.deltaX; // Keep scroll direction natural
       } else {
-        incrX += self.deltaX * 2;
+        incrX += self.deltaX * 2; // Amplify drag movement
       }
       xTo(incrX);
     },
     onChangeY: (self) => {
-      // Different sensitivity for wheel vs drag
+      // Different sensitivity and direction for wheel vs drag
       if (self.event.type === "wheel") {
-        incrY -= self.deltaY;
+        incrY -= self.deltaY; // Keep scroll direction natural
       } else {
-        incrY += self.deltaY * 2;
+        incrY += self.deltaY * 2; // Amplify drag movement
       }
       yTo(incrY);
     },
@@ -216,14 +124,14 @@ onMounted(() => {
     <div ref="containerRef" class="infinite-drag-grid__container">
       <div ref="contentRef" class="infinite-drag-grid__content">
         <div
-          v-for="(video, index) in portfolioVideos"
+          v-for="(project, index) in staticProjects"
           :key="`original-${index}`"
           class="infinite-drag-grid__media"
-          @click="handleVideoClick(video.name)"
+          @click="handleProjectClick(project)"
         >
           <video
-            :src="video.src"
-            :alt="video.alt"
+            :src="project.src"
+            :alt="project.alt"
             autoplay
             loop
             muted
@@ -240,14 +148,14 @@ onMounted(() => {
         aria-hidden="true"
       >
         <div
-          v-for="(video, index) in portfolioVideos"
+          v-for="(project, index) in staticProjects"
           :key="`duplicate-${duplicateIndex}-${index}`"
           class="infinite-drag-grid__media"
-          @click="handleVideoClick(video.name)"
+          @click="handleProjectClick(project)"
         >
           <video
-            :src="video.src"
-            :alt="video.alt"
+            :src="project.src"
+            :alt="project.alt"
             autoplay
             loop
             muted
@@ -259,6 +167,14 @@ onMounted(() => {
   </section>
 </template>
 
+<style lang="scss">
+// Global styles (not scoped) - prevent browser back navigation on horizontal scroll
+body {
+  overscroll-behavior-x: none;
+  overflow: hidden;
+}
+</style>
+
 <style lang="scss" scoped>
 .infinite-drag-grid {
   height: 100vh;
@@ -267,24 +183,30 @@ onMounted(() => {
   z-index: 1;
   overflow: hidden;
 
+  // Container: 2x2 grid exactly like the original working version
   &__container {
     display: grid;
     grid-template-columns: repeat(
       2,
       1fr
-    ); // 2 items per row for infinite wrapping
+    ); // 2 items per row (4 total content divs)
     width: max-content;
     will-change: transform; // Optimize for frequent transformations
   }
 
+  // Content: 5 columns per content division, exactly like original
   &__content {
     display: grid;
     width: max-content;
-    grid-template-columns: repeat(5, 1fr); // 5 items per row
-    gap: 10vw;
-    padding: 5vw; // Half gap around the division for seamless wrapping
+    grid-template-columns: repeat(
+      5,
+      1fr
+    ); // 5 items per row - CRITICAL for infinite math
+    gap: 10vw; // Same as original
+    padding: 5vw; // Half gap around division for seamless wrapping - CRITICAL
   }
 
+  // Media items styling
   &__media {
     width: 25vw;
     aspect-ratio: 1;
@@ -301,8 +223,8 @@ onMounted(() => {
       width: 100%;
       height: 100%;
       display: block;
-      object-fit: contain;
-      pointer-events: none; // Prevent image interference with click
+      object-fit: contain; // Handle various aspect ratios properly
+      pointer-events: none; // Prevent media interference with click
     }
   }
 }
