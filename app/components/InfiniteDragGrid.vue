@@ -1,6 +1,11 @@
 <script setup>
-import { ref, onMounted, nextTick, computed } from "vue";
+import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
 import { projects, getProjectRoute } from "~/data/projects.js";
+
+// Performance: Video viewport management
+const videoRefs = ref(new Map()); // Store video element references
+const visibleVideos = ref(new Set()); // Track which videos are visible
+let intersectionObserver = null;
 
 // Smart grid system - automatically calculates proportions for any multiple of 5
 const ITEM_COUNT = 40; // ← Change this to test: 15, 20, 25, 30, 40, 50, 100, etc.
@@ -53,6 +58,99 @@ const gridStyles = computed(() => ({
 // Vue refs for DOM elements
 const containerRef = ref(null);
 const contentRef = ref(null);
+
+/**
+ * Initialize video performance management with Intersection Observer
+ */
+const initVideoManager = () => {
+  // Create intersection observer for viewport detection
+  intersectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        const videoId = video.dataset.videoId;
+
+        if (entry.isIntersecting) {
+          // Video entered viewport - start loading and playing
+          visibleVideos.value.add(videoId);
+
+          // Force video to load if it hasn't already
+          if (video.readyState < 3) {
+            video.preload = "auto";
+            video.load(); // Force loading
+          }
+
+          // Try to play (will work once loaded)
+          video.play().catch(() => {
+            console.warn(`⚠️ Autoplay blocked for: ${videoId}`);
+          });
+
+          // Reduced logging for performance
+          if (Math.random() < 0.1)
+            console.log(`🎬 Loading and playing video: ${videoId}`);
+        } else {
+          // Video left viewport - pause it and save bandwidth
+          visibleVideos.value.delete(videoId);
+          video.pause();
+          // Reset to metadata only to save bandwidth
+          video.preload = "metadata";
+          // Reduced logging for performance
+          if (Math.random() < 0.1) console.log(`⏸️ Paused video: ${videoId}`);
+        }
+      });
+    },
+    {
+      root: null, // Use viewport as root
+      rootMargin: "50px", // Start loading 50px before entering viewport
+      threshold: 0.1, // Trigger when 10% visible
+    }
+  );
+
+  console.log("🎥 Video performance manager initialized");
+};
+
+/**
+ * Register a video element for viewport tracking
+ */
+const registerVideo = (videoElement, videoId) => {
+  if (!videoElement || !intersectionObserver) return;
+
+  videoElement.dataset.videoId = videoId;
+  videoRefs.value.set(videoId, videoElement);
+  intersectionObserver.observe(videoElement);
+
+  // Set up video events for better performance and loading states
+  videoElement.preload = "metadata"; // Only load metadata initially
+
+  // Handle video loading states and show video when ready
+  videoElement.addEventListener("loadeddata", () => {
+    // Mark video as loaded and show it immediately
+    videoElement.dataset.loaded = "true";
+    // Reduced logging for performance
+    if (Math.random() < 0.1) console.log(`✅ Video ready: ${videoId}`);
+
+    // If video is visible when data loads, ensure it plays
+    if (visibleVideos.value.has(videoId)) {
+      videoElement.play().catch(() => {
+        console.warn(`⚠️ Autoplay blocked for: ${videoId}`);
+      });
+    }
+  });
+
+  // Also handle when video can start playing
+  videoElement.addEventListener("canplay", () => {
+    videoElement.dataset.loaded = "true";
+    if (visibleVideos.value.has(videoId)) {
+      videoElement.play().catch(() => {});
+    }
+  });
+
+  // Handle video errors
+  videoElement.addEventListener("error", (e) => {
+    console.error(`❌ Video error for ${videoId}:`, e);
+    videoElement.dataset.loaded = "error";
+  });
+};
 
 // Get GSAP and Observer from Nuxt app
 const { $gsap } = useNuxtApp();
@@ -188,11 +286,9 @@ const initInfiniteGrid = () => {
       } else {
         incrX += self.deltaX * 2; // Amplify drag movement
       }
-      // Debug every 10th movement to avoid spam
-      if (debugCounter % 10 === 0) {
-        console.log(
-          `🎮 X Movement: ${self.event.type}, deltaX: ${self.deltaX}, incrX: ${incrX}`
-        );
+      // Minimal debug logging for performance
+      if (debugCounter % 50 === 0) {
+        console.log(`🎮 Movement: ${self.event.type}, X: ${incrX}`);
       }
       debugCounter++;
       xTo(incrX);
@@ -204,12 +300,7 @@ const initInfiniteGrid = () => {
       } else {
         incrY += self.deltaY * 2; // Amplify drag movement
       }
-      // Debug every 10th movement to avoid spam
-      if (debugCounter % 10 === 0) {
-        console.log(
-          `🎮 Y Movement: ${self.event.type}, deltaY: ${self.deltaY}, incrY: ${incrY}`
-        );
-      }
+      // Minimal debug logging included in X handler
       yTo(incrY);
     },
   });
@@ -218,8 +309,61 @@ const initInfiniteGrid = () => {
 // Initialize on mount
 onMounted(() => {
   nextTick(() => {
+    // Initialize video performance manager first
+    initVideoManager();
+
+    // Then initialize infinite grid
     initInfiniteGrid();
+
+    // Register all video elements after DOM is ready
+    setTimeout(() => {
+      const allVideos = document.querySelectorAll(".infinite-drag-grid video");
+      allVideos.forEach((video, index) => {
+        const project =
+          staticProjects.value[index % staticProjects.value.length];
+        if (project) {
+          registerVideo(
+            video,
+            `${project.id}-${Math.floor(index / staticProjects.value.length)}`
+          );
+        }
+      });
+      console.log(
+        `📹 Registered ${allVideos.length} videos for performance management`
+      );
+      console.log(
+        `🎯 Performance tip: Only ${visibleVideos.value.size} videos will play at once based on viewport`
+      );
+
+      // Force initial visible videos to show (fallback)
+      setTimeout(() => {
+        const initialVisibleVideos = document.querySelectorAll(
+          ".infinite-drag-grid video"
+        );
+        Array.from(initialVisibleVideos)
+          .slice(0, 8)
+          .forEach((video) => {
+            if (!video.dataset.loaded) {
+              video.dataset.loaded = "true";
+              console.log(
+                `🔄 Fallback: Showing video ${video.dataset.videoId}`
+              );
+            }
+          });
+      }, 1000);
+    }, 50); // Reduced timeout for faster registration
   });
+});
+
+// Cleanup on unmount
+onUnmounted(() => {
+  if (intersectionObserver) {
+    intersectionObserver.disconnect();
+    intersectionObserver = null;
+  }
+  videoRefs.value.clear();
+  visibleVideos.value.clear();
+  console.log("🧹 Video performance manager cleaned up");
 });
 </script>
 <template>
@@ -232,14 +376,19 @@ onMounted(() => {
           class="infinite-drag-grid__media"
           @click="handleProjectClick(project)"
         >
-          <video
-            :src="project.src"
-            :alt="project.alt"
-            autoplay
-            loop
-            muted
-            playsinline
-          />
+          <div class="video-container">
+            <video
+              :src="project.src"
+              :alt="project.alt"
+              loop
+              muted
+              playsinline
+              preload="metadata"
+            />
+            <div class="video-loader">
+              <div class="loader-spinner"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -256,14 +405,19 @@ onMounted(() => {
           class="infinite-drag-grid__media"
           @click="handleProjectClick(project)"
         >
-          <video
-            :src="project.src"
-            :alt="project.alt"
-            autoplay
-            loop
-            muted
-            playsinline
-          />
+          <div class="video-container">
+            <video
+              :src="project.src"
+              :alt="project.alt"
+              loop
+              muted
+              playsinline
+              preload="metadata"
+            />
+            <div class="video-loader">
+              <div class="loader-spinner"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -321,13 +475,67 @@ body {
       transform: scale(1.05); // Subtle zoom effect on hover
     }
 
-    img,
+    // Video container for performance management
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 8px; // Optional: rounded corners
+      background: #1a1a1a; // Dark background while loading
+    }
+
+    // Video styling
     video {
       width: 100%;
       height: 100%;
       display: block;
       object-fit: contain; // Handle various aspect ratios properly
       pointer-events: none; // Prevent media interference with click
+      opacity: 0;
+      transition: opacity 0.3s ease;
+
+      // Show video when loaded or after fallback timeout
+      &[data-loaded="true"],
+      &[data-loaded="error"] {
+        opacity: 1;
+      }
+    }
+
+    // Loading spinner
+    .video-loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      pointer-events: none;
+
+      .loader-spinner {
+        width: 24px;
+        height: 24px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-top: 2px solid #fff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+
+    // Hide loader when video is loaded (or errored)
+    video[data-loaded="true"] + .video-loader,
+    video[data-loaded="error"] + .video-loader {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    // Legacy image support (if any)
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
     }
   }
 }
@@ -345,6 +553,16 @@ body {
         var(--media-size, 25vw) * 2
       ); // Only scale media size dynamically
     }
+  }
+}
+
+// Keyframe animations
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
