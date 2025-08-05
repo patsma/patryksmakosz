@@ -2,10 +2,16 @@
 import { ref, onMounted, nextTick } from "vue";
 import { projects, getProjectRoute } from "~/data/projects.js";
 
-// Static 15 projects for stable infinite grid (like the original working version)
-// Take first 15 projects from our data for a seamless experience
-// This creates 3 rows × 5 columns = 15 items, perfect for the 2×2 container grid math
-const staticProjects = ref(projects.slice(0, 15));
+// Test with 20 projects to understand scaling requirements
+// 20 items = 4 rows × 5 columns (instead of 3 rows for 15 items)
+// This will help us understand what needs proportional adjustment
+const staticProjects = ref(projects.slice(0, 20));
+
+console.log(
+  `Testing with ${staticProjects.value.length} items (${
+    staticProjects.value.length / 5
+  } rows × 5 columns)`
+);
 
 // Vue refs for DOM elements
 const containerRef = ref(null);
