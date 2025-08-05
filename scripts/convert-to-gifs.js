@@ -17,7 +17,7 @@ const CONFIG = {
   // GIF optimization settings
   maxWidth: 800, // Max width to keep file size reasonable
   maxHeight: 600, // Max height
-  fps: 15, // Frames per second (lower = smaller file)
+  fps: 24, // Frames per second (lower = smaller file)
   colors: 256, // Color palette size (max 256 for GIF)
   quality: "medium", // ffmpeg palette quality: low, medium, high
 };
