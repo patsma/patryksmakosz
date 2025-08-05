@@ -1,6 +1,16 @@
 <script setup>
-import { ref, onMounted, nextTick, computed } from "vue";
+import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
 import { projects, getProjectRoute } from "~/data/projects.js";
+
+// Performance optimization - lazy loading management
+const loadedImages = ref(new Set()); // Track which images are loaded
+const loadingImages = ref(new Set()); // Track which images are currently loading
+const imageRefs = ref(new Map()); // Store image element references
+let intersectionObserver = null;
+
+// Initial load configuration for optimal web vitals
+const INITIAL_LOAD_COUNT = 8; // Load first 8 GIFs immediately (above fold)
+const BUFFER_COUNT = 4; // How many extra items to load ahead
 
 // Smart grid system - automatically calculates proportions for any multiple of 5
 const ITEM_COUNT = 40; // ← Change this to test: 15, 20, 25, 30, 40, 50, 100, etc.
@@ -40,7 +50,10 @@ console.log(
   `🚀 STARTING GRID DEBUG - Items: ${itemCount}, Rows: ${rowCount}, Media size: ${gridConfig.mediaSize}vw`
 );
 console.log(
-  `🖼️  Using optimized GIFs for better performance and iOS compatibility`
+  `🖼️  Using optimized GIFs with smart lazy loading for perfect Web Vitals`
+);
+console.log(
+  `⚡ Performance Strategy: ${INITIAL_LOAD_COUNT} critical images, ${BUFFER_COUNT} buffer images`
 );
 
 // Create CSS custom properties for dynamic styling
@@ -53,6 +66,169 @@ const gridStyles = computed(() => ({
 // Vue refs for DOM elements
 const containerRef = ref(null);
 const contentRef = ref(null);
+
+/**
+ * Initialize smart lazy loading with Intersection Observer
+ * Optimized for web vitals - loads images progressively
+ */
+const initLazyLoading = () => {
+  intersectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const img = entry.target;
+        const imageId = img.dataset.imageId;
+        const index = parseInt(img.dataset.index);
+
+        if (entry.isIntersecting) {
+          // Load this image if not already loaded/loading
+          if (
+            !loadedImages.value.has(imageId) &&
+            !loadingImages.value.has(imageId)
+          ) {
+            loadImage(img, imageId, index);
+          }
+
+          // Preload next few images for smooth scrolling
+          preloadNearbyImages(index);
+        }
+      });
+    },
+    {
+      root: null, // Use viewport as root
+      rootMargin: "100px", // Start loading 100px before entering viewport
+      threshold: 0.1, // Trigger when 10% visible
+    }
+  );
+
+  console.log("🚀 Smart lazy loading initialized for optimal web vitals");
+};
+
+/**
+ * Load a single image with proper loading states
+ * @param {HTMLImageElement} img - Image element
+ * @param {string} imageId - Unique image identifier
+ * @param {number} index - Image index for preloading logic
+ */
+const loadImage = (img, imageId, index) => {
+  if (loadedImages.value.has(imageId) || loadingImages.value.has(imageId)) {
+    return; // Already loaded or loading
+  }
+
+  loadingImages.value.add(imageId);
+
+  // Create new image for preloading
+  const preloadImg = new Image();
+
+  preloadImg.onload = () => {
+    // Image loaded successfully
+    img.src = preloadImg.src;
+    img.dataset.loaded = "true";
+    loadedImages.value.add(imageId);
+    loadingImages.value.delete(imageId);
+
+    // Reduced logging for performance
+    if (Math.random() < 0.1) {
+      console.log(`✅ Loaded GIF: ${imageId}`);
+    }
+  };
+
+  preloadImg.onerror = () => {
+    // Handle loading error
+    img.dataset.loaded = "error";
+    loadingImages.value.delete(imageId);
+    console.warn(`❌ Failed to load GIF: ${imageId}`);
+  };
+
+  // Start loading
+  const project = staticProjects.value[index % staticProjects.value.length];
+  preloadImg.src = project.src;
+};
+
+/**
+ * Preload nearby images for smooth scrolling experience
+ * @param {number} currentIndex - Current image index
+ */
+const preloadNearbyImages = (currentIndex) => {
+  const totalImages = staticProjects.value.length;
+
+  // Preload next few images
+  for (let i = 1; i <= BUFFER_COUNT; i++) {
+    const nextIndex = (currentIndex + i) % totalImages;
+    const nextImageId = `${staticProjects.value[nextIndex].id}-${Math.floor(
+      (currentIndex + i) / totalImages
+    )}`;
+
+    if (
+      !loadedImages.value.has(nextImageId) &&
+      !loadingImages.value.has(nextImageId)
+    ) {
+      // Find the image element
+      const nextImg = document.querySelector(
+        `img[data-image-id="${nextImageId}"]`
+      );
+      if (nextImg) {
+        loadImage(nextImg, nextImageId, currentIndex + i);
+      }
+    }
+  }
+};
+
+/**
+ * Register an image element for lazy loading
+ * @param {HTMLImageElement} img - Image element
+ * @param {string} imageId - Unique image identifier
+ * @param {number} index - Image index
+ */
+const registerImage = (img, imageId, index) => {
+  if (!img || !intersectionObserver) return;
+
+  img.dataset.imageId = imageId;
+  img.dataset.index = index.toString();
+  img.dataset.loaded = "false";
+
+  imageRefs.value.set(imageId, img);
+
+  // Load immediately if within initial count
+  if (index < INITIAL_LOAD_COUNT) {
+    loadImage(img, imageId, index);
+  } else {
+    // Observe for lazy loading
+    intersectionObserver.observe(img);
+  }
+};
+
+/**
+ * Get placeholder data URL for loading state (prevents CLS)
+ * @returns {string} Base64 placeholder image
+ */
+const getPlaceholder = () => {
+  // 1x1 transparent placeholder to prevent layout shift
+  return "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+};
+
+/**
+ * Preload critical images for LCP optimization
+ * Preloads the first few images that are likely above the fold
+ */
+const preloadCriticalImages = () => {
+  console.log("🚀 Preloading critical images for optimal LCP...");
+
+  // Preload first few images for best LCP score
+  staticProjects.value
+    .slice(0, INITIAL_LOAD_COUNT)
+    .forEach((project, index) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = project.src;
+      link.setAttribute("fetchpriority", index < 4 ? "high" : "auto");
+      document.head.appendChild(link);
+
+      if (index < 2) {
+        console.log(`📸 High-priority preload: ${project.name}`);
+      }
+    });
+};
 
 // Get GSAP and Observer from Nuxt app
 const { $gsap } = useNuxtApp();
@@ -210,13 +386,58 @@ const initInfiniteGrid = () => {
 
 // Initialize on mount
 onMounted(() => {
+  // Preload critical images immediately for best LCP
+  preloadCriticalImages();
+
   nextTick(() => {
+    // Initialize lazy loading first for optimal performance
+    initLazyLoading();
+
     // Initialize infinite grid
     initInfiniteGrid();
-    console.log(
-      `🖼️  Initialized infinite grid with ${staticProjects.value.length} GIF images`
-    );
+
+    // Register all image elements for lazy loading
+    setTimeout(() => {
+      const allImages = document.querySelectorAll(".infinite-drag-grid img");
+      allImages.forEach((img, globalIndex) => {
+        const projectIndex = globalIndex % staticProjects.value.length;
+        const duplicateIndex = Math.floor(
+          globalIndex / staticProjects.value.length
+        );
+        const project = staticProjects.value[projectIndex];
+
+        if (project) {
+          const imageId = `${project.id}-${duplicateIndex}`;
+          registerImage(img, imageId, globalIndex);
+        }
+      });
+
+      console.log(
+        `🚀 Registered ${allImages.length} images for smart lazy loading`
+      );
+      console.log(`⚡ Performance Strategy:`);
+      console.log(`  - Critical images preloaded: ${INITIAL_LOAD_COUNT}`);
+      console.log(`  - Buffer images: ${BUFFER_COUNT}`);
+      console.log(`  - Lazy loading threshold: 100px`);
+      console.log(
+        `📊 Web Vitals: Optimized for perfect LCP, CLS, and FID scores`
+      );
+    }, 50); // Small delay to ensure DOM is ready
   });
+});
+
+// Cleanup on unmount
+onUnmounted(() => {
+  if (intersectionObserver) {
+    intersectionObserver.disconnect();
+    intersectionObserver = null;
+  }
+
+  imageRefs.value.clear();
+  loadedImages.value.clear();
+  loadingImages.value.clear();
+
+  console.log("🧹 Lazy loading manager cleaned up");
 });
 </script>
 <template>
@@ -229,7 +450,19 @@ onMounted(() => {
           class="infinite-drag-grid__media"
           @click="handleProjectClick(project)"
         >
-          <img :src="project.src" :alt="project.alt" loading="lazy" />
+          <div class="image-container">
+            <img
+              :src="getPlaceholder()"
+              :alt="project.alt"
+              :data-project-id="project.id"
+              :fetchpriority="index < 4 ? 'high' : 'auto'"
+              class="project-image"
+              decoding="async"
+            />
+            <div class="loading-placeholder">
+              <div class="placeholder-shimmer"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -246,7 +479,19 @@ onMounted(() => {
           class="infinite-drag-grid__media"
           @click="handleProjectClick(project)"
         >
-          <img :src="project.src" :alt="project.alt" loading="lazy" />
+          <div class="image-container">
+            <img
+              :src="getPlaceholder()"
+              :alt="project.alt"
+              :data-project-id="project.id"
+              :fetchpriority="index < 4 ? 'high' : 'auto'"
+              class="project-image"
+              decoding="async"
+            />
+            <div class="loading-placeholder">
+              <div class="placeholder-shimmer"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -304,14 +549,68 @@ body {
       transform: scale(1.05); // Subtle zoom effect on hover
     }
 
-    // Image styling for GIFs
-    img {
+    // Image container for lazy loading with loading states
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+      // background: #f8f9fa; // Light background while loading
+    }
+
+    // Project image styling
+    .project-image {
       width: 100%;
       height: 100%;
       display: block;
       object-fit: contain; // Handle various aspect ratios properly
       pointer-events: none; // Prevent media interference with click
-      border-radius: 8px; // Optional: rounded corners
+      opacity: 0;
+      transition: opacity 0.3s ease;
+
+      // Show image when loaded
+      &[data-loaded="true"] {
+        opacity: 1;
+      }
+
+      // Error state styling
+      &[data-loaded="error"] {
+        opacity: 0.5;
+        filter: grayscale(100%);
+      }
+    }
+
+    // Loading placeholder with shimmer effect
+    .loading-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+
+      .placeholder-shimmer {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #ddd;
+        border-top: 2px solid #999;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+
+    // Hide placeholder when image is loaded
+    .project-image[data-loaded="true"] + .loading-placeholder,
+    .project-image[data-loaded="error"] + .loading-placeholder {
+      opacity: 0;
+      pointer-events: none;
     }
   }
 }
@@ -332,7 +631,25 @@ body {
   }
 }
 
-// Simple fade in animation (optional for future use)
+// Loading animations for optimal UX and Web Vitals
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
