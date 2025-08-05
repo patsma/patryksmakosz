@@ -1,17 +1,54 @@
 <script setup>
-import { ref, onMounted, nextTick } from "vue";
+import { ref, onMounted, nextTick, computed } from "vue";
 import { projects, getProjectRoute } from "~/data/projects.js";
 
-// Test with 20 projects to understand scaling requirements
-// 20 items = 4 rows × 5 columns (instead of 3 rows for 15 items)
-// This will help us understand what needs proportional adjustment
-const staticProjects = ref(projects.slice(0, 20));
+// Smart grid system - automatically calculates proportions for any multiple of 5
+const ITEM_COUNT = 40; // ← Change this to test: 15, 20, 25, 30, 40, 50, 100, etc.
+
+// Validate and calculate grid dimensions
+const validateItemCount = (count) => {
+  if (count % 5 !== 0) {
+    console.warn(
+      `Item count ${count} is not a multiple of 5. Using ${
+        Math.floor(count / 5) * 5
+      } instead.`
+    );
+    return Math.floor(count / 5) * 5;
+  }
+  return Math.min(count, projects.length);
+};
+
+const itemCount = validateItemCount(ITEM_COUNT);
+const rowCount = itemCount / 5;
+
+// Create projects array and grid calculations
+const staticProjects = ref(projects.slice(0, itemCount));
+
+// Keep original proportions - they're critical for infinite scroll math
+// Only scale media size to fit more content on screen
+const gridConfig = {
+  itemCount,
+  rowCount,
+  // Keep original gap/padding ratio - CRITICAL for seamless wrapping
+  gap: 10, // Always 10vw - don't change this
+  padding: 5, // Always 5vw (half of gap) - don't change this
+  // Only scale media size conservatively to fit more rows
+  mediaSize: Math.max(18, 25 - (rowCount - 3) * 1), // Gradual size reduction (min 18vw)
+};
 
 console.log(
-  `Testing with ${staticProjects.value.length} items (${
-    staticProjects.value.length / 5
-  } rows × 5 columns)`
+  `🚀 STARTING GRID DEBUG - Items: ${itemCount}, Rows: ${rowCount}, Media size: ${gridConfig.mediaSize}vw`
 );
+console.log(
+  `🔍 Check browser console for detailed debug info when grid initializes...`
+);
+
+// Create CSS custom properties for dynamic styling
+const gridStyles = computed(() => ({
+  "--grid-gap": `${gridConfig.gap}vw`,
+  "--grid-padding": `${gridConfig.padding}vw`,
+  "--media-size": `${gridConfig.mediaSize}vw`,
+}));
 
 // Vue refs for DOM elements
 const containerRef = ref(null);
@@ -67,10 +104,56 @@ const initInfiniteGrid = () => {
 
   const contentWidth = content.clientWidth;
   const contentHeight = content.clientHeight;
+  const containerWidth = container.clientWidth;
+  const containerHeight = container.clientHeight;
+
+  // 🔍 DEBUG: Log all dimensions and CSS values
+  const computedStyles = window.getComputedStyle(content);
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const expectedGapPx = (gridConfig.gap / 100) * viewportWidth;
+  const expectedPaddingPx = (gridConfig.padding / 100) * viewportWidth;
+  const expectedMediaPx = (gridConfig.mediaSize / 100) * viewportWidth;
+
+  console.log(`
+🔍 INFINITE GRID DEBUG:
+📊 Grid Config: ${gridConfig.itemCount} items (${
+    gridConfig.rowCount
+  } rows × 5 cols)
+📏 CSS Variables: gap=${gridConfig.gap}vw, padding=${
+    gridConfig.padding
+  }vw, media=${gridConfig.mediaSize}vw
+🖥️  Viewport: ${viewportWidth}px × ${viewportHeight}px
+💱 Expected Values: gap=${expectedGapPx}px, padding=${expectedPaddingPx}px, media=${expectedMediaPx}px
+📐 Content Dimensions: ${contentWidth}px × ${contentHeight}px
+📦 Container Dimensions: ${containerWidth}px × ${containerHeight}px
+🎨 Computed Gap: ${computedStyles.gap}
+🎨 Computed Padding: ${computedStyles.padding}
+🎨 Media Items: ${content.children.length} items
+🧮 Expected Content Width: ~${
+    expectedMediaPx * 5 + expectedGapPx * 4 + expectedPaddingPx * 2
+  }px
+  `);
 
   // Calculate wrapping boundaries for seamless infinite scrolling
   const wrapX = $gsap.utils.wrap(-contentWidth, 0);
   const wrapY = $gsap.utils.wrap(-contentHeight, 0);
+
+  console.log(
+    `🔄 GSAP Wrapping: X(-${contentWidth}px to 0px), Y(-${contentHeight}px to 0px)`
+  );
+
+  // 🔍 DEBUG: Check grid structure
+  console.log(`
+🏗️  GRID STRUCTURE DEBUG:
+📂 Container children: ${container.children.length} (should be 4 content divs)
+📂 First content div children: ${
+    container.children[0]?.children.length || 0
+  } (should be ${gridConfig.itemCount})
+📂 All content divs have same items: ${Array.from(container.children)
+    .map((div) => div.children.length)
+    .join(", ")}
+  `);
 
   // Create smooth animation functions with proper modifiers
   const xTo = $gsap.quickTo(container, "x", {
@@ -92,6 +175,7 @@ const initInfiniteGrid = () => {
   // Track movement increments
   let incrX = 0;
   let incrY = 0;
+  let debugCounter = 0;
 
   // Create observer for wheel, touch, and pointer events
   $Observer.create({
@@ -104,6 +188,13 @@ const initInfiniteGrid = () => {
       } else {
         incrX += self.deltaX * 2; // Amplify drag movement
       }
+      // Debug every 10th movement to avoid spam
+      if (debugCounter % 10 === 0) {
+        console.log(
+          `🎮 X Movement: ${self.event.type}, deltaX: ${self.deltaX}, incrX: ${incrX}`
+        );
+      }
+      debugCounter++;
       xTo(incrX);
     },
     onChangeY: (self) => {
@@ -112,6 +203,12 @@ const initInfiniteGrid = () => {
         incrY -= self.deltaY; // Keep scroll direction natural
       } else {
         incrY += self.deltaY * 2; // Amplify drag movement
+      }
+      // Debug every 10th movement to avoid spam
+      if (debugCounter % 10 === 0) {
+        console.log(
+          `🎮 Y Movement: ${self.event.type}, deltaY: ${self.deltaY}, incrY: ${incrY}`
+        );
       }
       yTo(incrY);
     },
@@ -126,7 +223,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <section class="infinite-drag-grid">
+  <section class="infinite-drag-grid" :style="gridStyles">
     <div ref="containerRef" class="infinite-drag-grid__container">
       <div ref="contentRef" class="infinite-drag-grid__content">
         <div
@@ -200,7 +297,7 @@ body {
     will-change: transform; // Optimize for frequent transformations
   }
 
-  // Content: 5 columns per content division, exactly like original
+  // Content: 5 columns per content division, dynamically scaled
   &__content {
     display: grid;
     width: max-content;
@@ -208,13 +305,13 @@ body {
       5,
       1fr
     ); // 5 items per row - CRITICAL for infinite math
-    gap: 10vw; // Same as original
-    padding: 5vw; // Half gap around division for seamless wrapping - CRITICAL
+    gap: var(--grid-gap, 10vw); // Dynamic gap based on row count
+    padding: var(--grid-padding, 5vw); // Dynamic padding for seamless wrapping
   }
 
-  // Media items styling
+  // Media items styling - dynamically scaled
   &__media {
-    width: 25vw;
+    width: var(--media-size, 25vw); // Dynamic size based on row count
     aspect-ratio: 1;
     user-select: none;
     cursor: pointer;
@@ -235,16 +332,18 @@ body {
   }
 }
 
-// Responsive design for mobile devices
+// Responsive design for mobile devices - also uses dynamic scaling
 @media (max-width: 900px) {
   .infinite-drag-grid {
     &__content {
-      gap: 20vw;
-      padding: 10vw;
+      gap: 20vw; // Keep 2:1 ratio - always 20vw for mobile
+      padding: 10vw; // Keep 2:1 ratio - always 10vw for mobile
     }
 
     &__media {
-      width: 50vw;
+      width: calc(
+        var(--media-size, 25vw) * 2
+      ); // Only scale media size dynamically
     }
   }
 }
