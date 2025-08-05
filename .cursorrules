@@ -71,3 +71,26 @@ The user asks questions about the following:
     •	Use @typedef for complex object types and @callback for function types.
     •	Follow consistent code formatting and linting rules.
     •	Implement proper error logging and monitoring patterns.
+
+Commit Message Guidelines
+When generating commit messages, follow this exact structure:
+
+[Clear, concise title describing the main change]
+
+- [Bullet point describing specific change 1]
+- [Bullet point describing specific change 2]
+- [Additional bullet points as needed]
+
+Example format:
+Refactor SectionTwo for improved localization support
+
+- Updated SectionTwo.vue to split the description into two parts for better readability and localization
+- Modified the translation structure in section-two-en.json and section-two.json to accommodate the new format, ensuring clarity in both English and Polish
+
+Requirements:
+• Title should be descriptive and use imperative mood (e.g., "Add", "Fix", "Update", "Refactor")
+• Always include bullet points for specific changes
+• Each bullet point should start with a capital letter and describe one specific change
+• Keep bullet points concise but informative
+• Use present tense for bullet points
+• No period at the end of bullet points
