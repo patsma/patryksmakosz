@@ -482,7 +482,7 @@ body {
       height: 100%;
       overflow: hidden;
       border-radius: 8px; // Optional: rounded corners
-      background: #1a1a1a; // Dark background while loading
+      background: #ffffff; // White background while loading
     }
 
     // Video styling
@@ -514,8 +514,8 @@ body {
       .loader-spinner {
         width: 24px;
         height: 24px;
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        border-top: 2px solid #fff;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        border-top: 2px solid #000;
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
