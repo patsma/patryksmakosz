@@ -380,6 +380,7 @@ onUnmounted(() => {
             <video
               :src="project.src"
               :alt="project.alt"
+              autoplay
               loop
               muted
               playsinline
@@ -409,6 +410,7 @@ onUnmounted(() => {
             <video
               :src="project.src"
               :alt="project.alt"
+              autoplay
               loop
               muted
               playsinline
