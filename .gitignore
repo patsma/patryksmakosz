@@ -98,3 +98,4 @@ Desktop.ini
 # Local Netlify folder
 .netlify
 todos/tasks.todo
+public/oldportfolio/*

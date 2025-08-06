@@ -1,13 +1,22 @@
 <template>
   <div class="min-h-screen">
     <!-- Infinite Drag Grid Component -->
-    <InfiniteDragGrid />
+    <!-- <InfiniteDragGrid /> -->
 
     <MorphingLogo
       class="fixed z-10 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
     />
     <LogoHorizontal
       class="fixed z-10 cursor-pointer left-1/2 top-8 -translate-x-1/2 -translate-y-1/2 w-full h-10"
+    />
+
+    <!-- Test the Blueberry component -->
+    <ProjectBlueberry
+      class="z-20 bottom-4 right-4 w-96 h-96 rounded-lg shadow-lg"
+      :auto-start="true"
+      :show-dev-tools="true"
+      color="#ffffff"
+      background-color="#1e2843"
     />
   </div>
 </template>

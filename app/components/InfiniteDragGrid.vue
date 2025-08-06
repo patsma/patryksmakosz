@@ -5,9 +5,6 @@ import { projects, getProjectRoute } from "~/data/projects.js";
 // Use first 15 projects for clean, simple grid (5×3 layout)
 const portfolioProjects = ref(projects.slice(0, 15));
 
-// Simple loading state for each image - using reactive object instead of Map
-const imageLoadingStates = ref({});
-
 // Vue refs for DOM elements
 const containerRef = ref(null);
 const contentRef = ref(null);
@@ -15,26 +12,6 @@ const contentRef = ref(null);
 // Get GSAP and Observer from Nuxt app
 const { $gsap } = useNuxtApp();
 const { $Observer } = useNuxtApp();
-
-/**
- * Handle image load event - fade out spinner when loaded
- * @param {Event} event - Image load event
- * @param {Object} project - Project object
- * @param {string} uniqueKey - Unique key for this specific image instance
- */
-const handleImageLoad = (event, project, uniqueKey) => {
-  console.log(`🔄 Image load event fired for: ${project.name} (${uniqueKey})`);
-  imageLoadingStates.value[uniqueKey] = true;
-  console.log(`✅ Set loaded state for: ${uniqueKey}`);
-};
-
-/**
- * Handle image error event - also hide spinner on error
- */
-const handleImageError = (event, project, uniqueKey) => {
-  console.log(`❌ Image error for: ${project.name} (${uniqueKey})`);
-  imageLoadingStates.value[uniqueKey] = true; // Hide spinner even on error
-};
 
 /**
  * Handle project clicks for portfolio navigation
@@ -136,42 +113,6 @@ const initInfiniteGrid = () => {
 onMounted(() => {
   nextTick(() => {
     initInfiniteGrid();
-
-    // Debug: Log all expected image keys
-    setTimeout(() => {
-      const expectedKeys = [];
-
-      // Original grid keys
-      for (let i = 0; i < portfolioProjects.value.length; i++) {
-        expectedKeys.push(`original-${i}`);
-      }
-
-      // Duplicate grid keys
-      for (let dupIndex = 1; dupIndex <= 3; dupIndex++) {
-        for (let i = 0; i < portfolioProjects.value.length; i++) {
-          expectedKeys.push(`duplicate-${dupIndex}-${i}`);
-        }
-      }
-
-      console.log(
-        `🔑 Expected image keys (${expectedKeys.length} total):`,
-        expectedKeys
-      );
-      console.log(
-        `📊 Current loading states:`,
-        Object.keys(imageLoadingStates.value)
-      );
-
-      // Fallback: Hide any remaining spinners after 5 seconds
-      setTimeout(() => {
-        expectedKeys.forEach((key) => {
-          if (!imageLoadingStates.value[key]) {
-            console.log(`⏰ Timeout fallback: hiding spinner for ${key}`);
-            imageLoadingStates.value[key] = true;
-          }
-        });
-      }, 1000);
-    }, 500);
   });
 });
 </script>
@@ -186,25 +127,12 @@ onMounted(() => {
           @click="handleProjectClick(project)"
         >
           <div class="image-container">
-            <img
-              :src="project.src"
-              :alt="project.alt"
-              class="project-image"
-              @load="handleImageLoad($event, project, `original-${index}`)"
-              @error="handleImageError($event, project, `original-${index}`)"
-            />
-            <!-- Simple loading spinner with fade-out -->
-            <div
-              class="loading-spinner"
-              :class="{
-                'fade-out': imageLoadingStates[`original-${index}`],
-              }"
-              :data-debug="`original-${index}: ${
-                imageLoadingStates[`original-${index}`]
-              }`"
-            >
+            <!-- Spinner behind image -->
+            <div class="loading-spinner">
               <div class="spinner"></div>
             </div>
+            <!-- Image covers spinner when loaded -->
+            <img :src="project.src" :alt="project.alt" class="project-image" />
           </div>
         </div>
       </div>
@@ -223,35 +151,12 @@ onMounted(() => {
           @click="handleProjectClick(project)"
         >
           <div class="image-container">
-            <img
-              :src="project.src"
-              :alt="project.alt"
-              class="project-image"
-              @load="
-                handleImageLoad(
-                  $event,
-                  project,
-                  `duplicate-${duplicateIndex}-${index}`
-                )
-              "
-              @error="
-                handleImageError(
-                  $event,
-                  project,
-                  `duplicate-${duplicateIndex}-${index}`
-                )
-              "
-            />
-            <!-- Simple loading spinner with fade-out -->
-            <div
-              class="loading-spinner"
-              :class="{
-                'fade-out':
-                  imageLoadingStates[`duplicate-${duplicateIndex}-${index}`],
-              }"
-            >
+            <!-- Spinner behind image -->
+            <div class="loading-spinner">
               <div class="spinner"></div>
             </div>
+            <!-- Image covers spinner when loaded -->
+            <img :src="project.src" :alt="project.alt" class="project-image" />
           </div>
         </div>
       </div>
@@ -306,25 +211,16 @@ body {
       position: relative;
       width: 100%;
       height: 100%;
+      background: transparent; // Let spinner show through
     }
 
-    .project-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: contain;
-      pointer-events: none; // Prevent image interference with click
-    }
-
-    // Simple black loading spinner with fade-out
+    // Simple black loading spinner - always behind image
     .loading-spinner {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 1;
-      opacity: 1;
-      transition: opacity 0.3s ease; // Smooth fade-out transition
+      z-index: 1; // Behind image
 
       .spinner {
         width: 24px;
@@ -334,12 +230,19 @@ body {
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
+    }
 
-      // Hide spinner when image is loaded
-      &.fade-out {
-        opacity: 0;
-        pointer-events: none;
-      }
+    .project-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none; // Prevent image interference with click
+      z-index: 2; // Above spinner
+      background: white; // Cover spinner when loaded
     }
   }
 }
