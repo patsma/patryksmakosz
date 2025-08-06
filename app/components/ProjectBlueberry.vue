@@ -86,7 +86,7 @@ const createAnimation = () => {
   }
 
   // Create timeline with infinite repeat
-  const tl = $gsap.timeline({ repeat: -1 });
+  const tl = $gsap.timeline({ repeat: -1, yoyo: true });
 
   // Animation sequence - using refs instead of selectors
   tl.fromTo(

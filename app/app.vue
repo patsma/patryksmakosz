@@ -1,7 +1,10 @@
 <template>
   <div class="min-h-screen">
-    <!-- Infinite Drag Grid Component -->
-    <InfiniteDragGrid />
+    <!-- Infinite Component Drag - Testing ProjectBlueberry components in grid -->
+    <InfiniteComponentDrag />
+
+    <!-- Original components commented out for testing -->
+    <!-- <InfiniteDragGrid /> -->
 
     <MorphingLogo
       class="fixed z-10 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
