@@ -5,19 +5,8 @@ import { projects, getProjectRoute } from "~/data/projects.js";
 // Use first 15 projects for clean, simple grid (5×3 layout)
 const portfolioProjects = ref(projects.slice(0, 15));
 
-console.log(`🎯 Grid Setup: ${portfolioProjects.value.length} projects loaded`);
-console.log(
-  `📋 Projects:`,
-  portfolioProjects.value.map((p) => p.name)
-);
-
-// Smart loading configuration for optimal web vitals
-const CRITICAL_LOAD_COUNT = 4; // Load first 4 images immediately (above fold)
-const PRELOAD_COUNT = 8; // Total images to preload for smooth experience
-
-// Loading state management
-const loadedImages = ref(new Set());
-const imageRefs = ref(new Map());
+// Simple loading state for each image - using reactive object instead of Map
+const imageLoadingStates = ref({});
 
 // Vue refs for DOM elements
 const containerRef = ref(null);
@@ -28,48 +17,23 @@ const { $gsap } = useNuxtApp();
 const { $Observer } = useNuxtApp();
 
 /**
- * Preload critical images for optimal LCP and smooth loading
- * This ensures the first few images load immediately for best web vitals
- */
-const preloadCriticalImages = () => {
-  console.log("🚀 Preloading critical images for optimal LCP...");
-
-  // Preload first few images with high priority
-  portfolioProjects.value.slice(0, PRELOAD_COUNT).forEach((project, index) => {
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "image";
-    link.href = project.src;
-    link.setAttribute(
-      "fetchpriority",
-      index < CRITICAL_LOAD_COUNT ? "high" : "auto"
-    );
-    document.head.appendChild(link);
-
-    if (index < CRITICAL_LOAD_COUNT) {
-      console.log(`📸 High-priority preload: ${project.name} - ${project.src}`);
-    }
-  });
-};
-
-/**
- * Get image source - always return the real source for simplicity
- * Let the preloading and intersection observer handle the loading
- * @param {Object} project - Project object
- * @returns {string} Image source
- */
-const getImageSrc = (project) => {
-  return project.src;
-};
-
-/**
- * Handle image load event - just for tracking
+ * Handle image load event - fade out spinner when loaded
  * @param {Event} event - Image load event
  * @param {Object} project - Project object
+ * @param {string} uniqueKey - Unique key for this specific image instance
  */
-const handleImageLoad = (event, project) => {
-  loadedImages.value.add(project.id);
-  console.log(`✅ Loaded: ${project.name}`);
+const handleImageLoad = (event, project, uniqueKey) => {
+  console.log(`🔄 Image load event fired for: ${project.name} (${uniqueKey})`);
+  imageLoadingStates.value[uniqueKey] = true;
+  console.log(`✅ Set loaded state for: ${uniqueKey}`);
+};
+
+/**
+ * Handle image error event - also hide spinner on error
+ */
+const handleImageError = (event, project, uniqueKey) => {
+  console.log(`❌ Image error for: ${project.name} (${uniqueKey})`);
+  imageLoadingStates.value[uniqueKey] = true; // Hide spinner even on error
 };
 
 /**
@@ -118,22 +82,9 @@ const initInfiniteGrid = () => {
   const contentWidth = content.clientWidth;
   const contentHeight = content.clientHeight;
 
-  // 🔍 DEBUG: Log dimensions and grid structure
-  console.log(`🔍 GRID DEBUG:`);
-  console.log(`📐 Content dimensions: ${contentWidth}px × ${contentHeight}px`);
-  console.log(
-    `📦 Container children: ${container.children.length} (should be 4)`
-  );
-  console.log(`📂 Content children: ${content.children.length} (should be 15)`);
-  console.log(`🖼️  Projects in array: ${portfolioProjects.value.length}`);
-
   // Calculate wrapping boundaries for seamless infinite scrolling
   const wrapX = $gsap.utils.wrap(-contentWidth, 0);
   const wrapY = $gsap.utils.wrap(-contentHeight, 0);
-
-  console.log(
-    `🔄 GSAP Wrapping: X(-${contentWidth}px to 0px), Y(-${contentHeight}px to 0px)`
-  );
 
   // Create smooth animation functions
   const xTo = $gsap.quickTo(container, "x", {
@@ -179,27 +130,47 @@ const initInfiniteGrid = () => {
       yTo(incrY);
     },
   });
-
-  console.log("🚀 Infinite grid initialized with 15 projects");
 };
-
-// Removed complex intersection observer - let browser handle loading naturally
 
 // Initialize on mount
 onMounted(() => {
-  // Preload critical images immediately for best LCP
-  preloadCriticalImages();
-
   nextTick(() => {
     initInfiniteGrid();
 
-    // Debug: Check if all images are in the DOM
+    // Debug: Log all expected image keys
     setTimeout(() => {
-      const allImages = document.querySelectorAll(".project-image");
+      const expectedKeys = [];
+
+      // Original grid keys
+      for (let i = 0; i < portfolioProjects.value.length; i++) {
+        expectedKeys.push(`original-${i}`);
+      }
+
+      // Duplicate grid keys
+      for (let dupIndex = 1; dupIndex <= 3; dupIndex++) {
+        for (let i = 0; i < portfolioProjects.value.length; i++) {
+          expectedKeys.push(`duplicate-${dupIndex}-${i}`);
+        }
+      }
+
       console.log(
-        `🖼️  Total images in DOM: ${allImages.length} (should be 60 = 15×4)`
+        `🔑 Expected image keys (${expectedKeys.length} total):`,
+        expectedKeys
       );
-      console.log(`📊 Images per grid: Original(15) + 3 duplicates = 60 total`);
+      console.log(
+        `📊 Current loading states:`,
+        Object.keys(imageLoadingStates.value)
+      );
+
+      // Fallback: Hide any remaining spinners after 5 seconds
+      setTimeout(() => {
+        expectedKeys.forEach((key) => {
+          if (!imageLoadingStates.value[key]) {
+            console.log(`⏰ Timeout fallback: hiding spinner for ${key}`);
+            imageLoadingStates.value[key] = true;
+          }
+        });
+      }, 1000);
     }, 500);
   });
 });
@@ -214,14 +185,27 @@ onMounted(() => {
           class="infinite-drag-grid__media"
           @click="handleProjectClick(project)"
         >
-          <img
-            :src="getImageSrc(project)"
-            :alt="project.alt"
-            :fetchpriority="index < CRITICAL_LOAD_COUNT ? 'high' : 'auto'"
-            decoding="async"
-            class="project-image"
-            @load="handleImageLoad($event, project)"
-          />
+          <div class="image-container">
+            <img
+              :src="project.src"
+              :alt="project.alt"
+              class="project-image"
+              @load="handleImageLoad($event, project, `original-${index}`)"
+              @error="handleImageError($event, project, `original-${index}`)"
+            />
+            <!-- Simple loading spinner with fade-out -->
+            <div
+              class="loading-spinner"
+              :class="{
+                'fade-out': imageLoadingStates[`original-${index}`],
+              }"
+              :data-debug="`original-${index}: ${
+                imageLoadingStates[`original-${index}`]
+              }`"
+            >
+              <div class="spinner"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -238,14 +222,37 @@ onMounted(() => {
           class="infinite-drag-grid__media"
           @click="handleProjectClick(project)"
         >
-          <img
-            :src="getImageSrc(project)"
-            :alt="project.alt"
-            fetchpriority="auto"
-            decoding="async"
-            class="project-image"
-            @load="handleImageLoad($event, project)"
-          />
+          <div class="image-container">
+            <img
+              :src="project.src"
+              :alt="project.alt"
+              class="project-image"
+              @load="
+                handleImageLoad(
+                  $event,
+                  project,
+                  `duplicate-${duplicateIndex}-${index}`
+                )
+              "
+              @error="
+                handleImageError(
+                  $event,
+                  project,
+                  `duplicate-${duplicateIndex}-${index}`
+                )
+              "
+            />
+            <!-- Simple loading spinner with fade-out -->
+            <div
+              class="loading-spinner"
+              :class="{
+                'fade-out':
+                  imageLoadingStates[`duplicate-${duplicateIndex}-${index}`],
+              }"
+            >
+              <div class="spinner"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -295,13 +302,44 @@ body {
       transform: scale(1.05); // Subtle zoom effect on hover
     }
 
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
     .project-image {
       width: 100%;
       height: 100%;
       display: block;
       object-fit: contain;
       pointer-events: none; // Prevent image interference with click
-      opacity: 1; // Show all images immediately - let browser handle loading
+    }
+
+    // Simple black loading spinner with fade-out
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      opacity: 1;
+      transition: opacity 0.3s ease; // Smooth fade-out transition
+
+      .spinner {
+        width: 24px;
+        height: 24px;
+        border: 2px solid rgba(0, 0, 0, 0.1);
+        border-top: 2px solid #000;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      // Hide spinner when image is loaded
+      &.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
     }
   }
 }
@@ -317,6 +355,16 @@ body {
     &__media {
       width: 50vw;
     }
+  }
+}
+
+// Spinner animation
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
