@@ -1,10 +1,11 @@
 <template>
-  <div class="loader">
+  <div ref="loaderRef" class="loader">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112.06 79.3">
       <defs>
         <mask id="theMask">
           <path
             id="mask1"
+            ref="maskRef"
             d="M50.83,43.47c-.5,7.17-4.66,10.84-11.62,13.6s-15.53-1.66-18.89-8.31a16.79,16.79,0,0,1,4.49-20.15C30.68,24,39.38,23.89,45,28.76c4.46-9.63,15.87-15.43,26.4-14.2a26.07,26.07,0,0,1,21.9,20.17A26.08,26.08,0,0,1,81,61.82c-9.23,5.23-20.71,5-28.55-2.18"
             fill="none"
             stroke="#fff"
@@ -24,7 +25,14 @@
               fill="#fff"
             />
           </g>
-          <circle id="circle1" cx="50.9" cy="43.72" r="3.85" fill="#fff" />
+          <circle
+            id="circle1"
+            ref="circleRef"
+            cx="50.9"
+            cy="43.72"
+            r="3.85"
+            fill="#fff"
+          />
         </g>
       </g>
     </svg>
@@ -35,41 +43,83 @@
 // Get GSAP from Nuxt app
 const { $gsap } = useNuxtApp();
 
+// Component refs for clean element targeting
+const loaderRef = ref(null);
+const circleRef = ref(null);
+const maskRef = ref(null);
+
+// Timeline reference for external control
+const timeline = ref(null);
+
 /**
- * Simple blueberry loader animation - direct copy from original
+ * Simple blueberry loader animation using Nuxt 4.x patterns
+ * @returns {GSAPTimeline} The animation timeline
  */
-function blueberryLoader() {
-  // Set loader visible
+const createBlueberryAnimation = () => {
+  // Ensure refs are available
+  if (!circleRef.value || !maskRef.value) {
+    console.warn("Blueberry: Animation elements not found");
+    return null;
+  }
 
   // Create timeline with infinite repeat
   const tl = $gsap.timeline({ repeat: -1 });
 
-  // Animation sequence - exact copy from original
+  // Animation sequence - using refs instead of selectors
   tl.fromTo(
-    "#circle1",
-    0.9,
-    { scale: 0, transformOrigin: "center center" },
-    { scale: 1, yPercent: -6, ease: "elastic.out(1, 0.3)" }
+    circleRef.value,
+    {
+      scale: 0,
+      transformOrigin: "center center",
+    },
+    {
+      scale: 1,
+      yPercent: -6,
+      duration: 0.9,
+      ease: "elastic.out(1, 0.3)",
+    }
   );
+
   tl.from(
-    "#mask1",
-    2.5,
+    maskRef.value,
     {
       drawSVG: 0,
+      duration: 2.5,
       ease: "power2.inOut", // Simplified from CustomEase
     },
     "-=0.4"
   );
 
-  // Set time scale
+  // Set time scale for overall speed control
   tl.timeScale(0.9);
 
-  return tl;
-}
+  // Store timeline reference
+  timeline.value = tl;
 
-// Start animation when mounted
+  return tl;
+};
+
+// Start animation when component is mounted
 onMounted(() => {
-  blueberryLoader();
+  // Small delay to ensure DOM is ready
+  nextTick(() => {
+    createBlueberryAnimation();
+  });
+});
+
+// Cleanup on unmount
+onUnmounted(() => {
+  if (timeline.value) {
+    timeline.value.kill();
+  }
+});
+
+// Expose methods for external control
+defineExpose({
+  timeline,
+  restart: () => timeline.value?.restart(),
+  pause: () => timeline.value?.pause(),
+  play: () => timeline.value?.play(),
 });
 </script>
 
