@@ -42,6 +42,7 @@
 <script setup>
 // Get GSAP from Nuxt app
 const { $gsap } = useNuxtApp();
+const { $GSDevTools } = useNuxtApp();
 
 // Component refs for clean element targeting
 const loaderRef = ref(null);
@@ -50,6 +51,27 @@ const maskRef = ref(null);
 
 // Timeline reference for external control
 const timeline = ref(null);
+
+// Props for customization
+const props = defineProps({
+  /**
+   * @type {boolean}
+   * Whether to show GSDevTools for debugging and control
+   */
+  showDevTools: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * @type {string}
+   * Custom ID for the GSDevTools instance (useful when multiple components)
+   */
+  devToolsId: {
+    type: String,
+    default: () => `blueberry-${Math.random().toString(36).substr(2, 9)}`,
+  },
+});
 
 /**
  * Simple blueberry loader animation using Nuxt 4.x patterns
@@ -96,6 +118,20 @@ const createBlueberryAnimation = () => {
   // Store timeline reference
   timeline.value = tl;
 
+  // Create GSDevTools if enabled
+  if (props.showDevTools) {
+    // Small delay to ensure timeline is ready
+    nextTick(() => {
+      $GSDevTools.create({
+        animation: tl,
+        container: loaderRef.value, // Attach to the component container
+        minimal: true,
+        id: props.devToolsId,
+        globalSync: false, // Keep each instance independent
+      });
+    });
+  }
+
   return tl;
 };
 
@@ -109,8 +145,19 @@ onMounted(() => {
 
 // Cleanup on unmount
 onUnmounted(() => {
+  // Kill timeline
   if (timeline.value) {
     timeline.value.kill();
+  }
+
+  // Destroy GSDevTools instance if it exists
+  if (props.showDevTools) {
+    try {
+      $GSDevTools.getById(props.devToolsId)?.kill();
+    } catch (e) {
+      // GSDevTools might not exist, ignore error
+      console.debug("GSDevTools cleanup:", e);
+    }
   }
 });
 
@@ -126,5 +173,27 @@ defineExpose({
 <style scoped>
 .loader {
   background-color: #1e2843;
+  position: relative; /* Ensure GSDevTools can position relative to this */
+}
+
+/* GSDevTools styling for better integration */
+.loader :deep(.gs-dev-tools) {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8) !important;
+  border-radius: 0 0 8px 8px !important;
+}
+
+/* Make GSDevTools more compact */
+.loader :deep(.gs-dev-tools .gs-top) {
+  padding: 0 0 !important;
+  font-size: 11px !important;
+}
+
+.loader :deep(.gs-dev-tools .gs-bottom) {
+  padding: 0 0 0 4px !important;
 }
 </style>
