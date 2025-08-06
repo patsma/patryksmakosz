@@ -72,4 +72,16 @@ yarn preview
 bun run preview
 ```
 
+To convert videos to web optimized videos:
+
+```bash
+npm run convert-videos
+```
+
+To convert web optimized videos to gifs:
+
+```bash
+node scripts/convert-to-gifs.js
+```
+
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
