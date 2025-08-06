@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
     <!-- Infinite Drag Grid Component -->
-    <!-- <InfiniteDragGrid /> -->
+    <InfiniteDragGrid />
 
     <MorphingLogo
       class="fixed z-10 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
@@ -11,12 +11,11 @@
     />
 
     <!-- Test the Blueberry component with GSDevTools -->
-    <ProjectBlueberry
-      ref="blueberryRef"
+    <!-- <ProjectBlueberry
+      class="w-96 h-full"
       :show-dev-tools="true"
-      dev-tools-id="blueberry-main"
-      class="z-20 bottom-4 right-4 w-96 h-96 rounded-lg shadow-lg"
-    />
+      dev-tools-id="blueberry-1"
+    /> -->
   </div>
 </template>
 

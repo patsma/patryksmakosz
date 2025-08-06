@@ -1,5 +1,5 @@
 <template>
-  <div ref="loaderRef" class="loader">
+  <div ref="containerRef" class="animation-container">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112.06 79.3">
       <defs>
         <mask id="theMask">
@@ -44,13 +44,13 @@
 const { $gsap } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
 
-// Component refs for clean element targeting
-const loaderRef = ref(null);
+// Standard refs for animation components
+const containerRef = ref(null);
+const timeline = ref(null);
+
+// Component-specific animation element refs
 const circleRef = ref(null);
 const maskRef = ref(null);
-
-// Timeline reference for external control
-const timeline = ref(null);
 
 // Props for customization
 const props = defineProps({
@@ -74,10 +74,11 @@ const props = defineProps({
 });
 
 /**
- * Simple blueberry loader animation using Nuxt 4.x patterns
+ * Creates the blueberry animation timeline
+ * Standard pattern for animation components
  * @returns {GSAPTimeline} The animation timeline
  */
-const createBlueberryAnimation = () => {
+const createAnimation = () => {
   // Ensure refs are available
   if (!circleRef.value || !maskRef.value) {
     console.warn("Blueberry: Animation elements not found");
@@ -124,7 +125,7 @@ const createBlueberryAnimation = () => {
     nextTick(() => {
       $GSDevTools.create({
         animation: tl,
-        container: loaderRef.value, // Attach to the component container
+        container: containerRef.value, // Attach to the component container
         minimal: true,
         id: props.devToolsId,
         globalSync: false, // Keep each instance independent
@@ -135,15 +136,15 @@ const createBlueberryAnimation = () => {
   return tl;
 };
 
-// Start animation when component is mounted
+// Standard animation component lifecycle
 onMounted(() => {
   // Small delay to ensure DOM is ready
   nextTick(() => {
-    createBlueberryAnimation();
+    createAnimation();
   });
 });
 
-// Cleanup on unmount
+// Standard cleanup for animation components
 onUnmounted(() => {
   // Kill timeline
   if (timeline.value) {
@@ -161,23 +162,36 @@ onUnmounted(() => {
   }
 });
 
-// Expose methods for external control
+// Standard API for animation components
 defineExpose({
+  // Core refs and timeline
+  containerRef,
   timeline,
-  restart: () => timeline.value?.restart(),
-  pause: () => timeline.value?.pause(),
+
+  // Standard control methods
   play: () => timeline.value?.play(),
+  pause: () => timeline.value?.pause(),
+  restart: () => timeline.value?.restart(),
+  reverse: () => timeline.value?.reverse(),
+  seek: (time) => timeline.value?.seek(time),
 });
 </script>
 
 <style scoped>
-.loader {
+/* Standard animation component container */
+.animation-container {
   background-color: #1e2843;
-  position: relative; /* Ensure GSDevTools can position relative to this */
+  position: relative;
+  /* width: 100%; */
+  /* height: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-/* GSDevTools styling for better integration */
-.loader :deep(.gs-dev-tools) {
+/* Standard GSDevTools integration */
+.animation-container :deep(.gs-dev-tools) {
   position: absolute !important;
   bottom: 0 !important;
   left: 0 !important;
@@ -187,13 +201,19 @@ defineExpose({
   border-radius: 0 0 8px 8px !important;
 }
 
-/* Make GSDevTools more compact */
-.loader :deep(.gs-dev-tools .gs-top) {
+/* Standard GSDevTools compact styling */
+.animation-container :deep(.gs-dev-tools .gs-top) {
   padding: 0 0 !important;
   font-size: 11px !important;
 }
 
-.loader :deep(.gs-dev-tools .gs-bottom) {
+.animation-container :deep(.gs-dev-tools .gs-bottom) {
   padding: 0 0 0 4px !important;
+}
+
+/* Standard SVG styling */
+.animation-container :deep(svg) {
+  width: 100%;
+  height: 100%;
 }
 </style>
