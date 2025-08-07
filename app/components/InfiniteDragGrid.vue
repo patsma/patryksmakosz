@@ -168,7 +168,7 @@ onMounted(() => {
 // Global styles (not scoped) - prevent browser back navigation on horizontal scroll
 body {
   overscroll-behavior-x: none;
-  overflow: hidden;
+  // overflow: hidden;
 }
 </style>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
     <!-- Infinite Component Drag - Testing ProjectBlueberry components in grid -->
-    <!-- <InfiniteComponentDrag /> -->
+    <InfiniteComponentDrag />
     <CarouselFeaturedCaseStudies
       headline="Featured case studies"
       :alternative-colors="false"

@@ -112,6 +112,23 @@
     transform: translate(100%, 0) scale(0.8);
   }
 
+  // Ensure the visual image fully covers the available area (so button appears inside)
+  .image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    will-change: transform;
+  }
+
   .text-top-tags {
     display: grid;
     grid-auto-flow: column;

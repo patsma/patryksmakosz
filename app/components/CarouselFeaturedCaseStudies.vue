@@ -114,7 +114,11 @@
         ref="imageItemRefs"
       >
         <div class="image image--parallax-01">
-          <img :src="item.thumbnail_url" :alt="item.post_title" />
+          <img
+            :src="item.thumbnail_url"
+            :alt="item.post_title"
+            data-speed="auto"
+          />
         </div>
       </div>
     </div>
