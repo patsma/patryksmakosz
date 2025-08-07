@@ -212,7 +212,7 @@ const normalizedCases = computed(() => {
       testimonial_name: "Jane Doe",
       testimonial_position: "Head of Marketing",
       permalink: "#",
-      thumbnail_url: "https://picsum.photos/seed/a/1200/800",
+      thumbnail_url: "/Image-component-3.png",
     },
     {
       post_title: "Sample Case B",
@@ -221,7 +221,7 @@ const normalizedCases = computed(() => {
       testimonial_name: "John Smith",
       testimonial_position: "CTO",
       permalink: "#",
-      thumbnail_url: "https://picsum.photos/seed/b/1200/800",
+      thumbnail_url: "/Image-component-4.png",
     },
     {
       post_title: "Sample Case C",
@@ -230,7 +230,7 @@ const normalizedCases = computed(() => {
       testimonial_name: "Alex Roe",
       testimonial_position: "Founder",
       permalink: "#",
-      thumbnail_url: "https://picsum.photos/seed/c/1200/800",
+      thumbnail_url: "/Image-component-3.png",
     },
   ];
 });

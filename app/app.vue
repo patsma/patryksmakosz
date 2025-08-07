@@ -46,7 +46,7 @@ const blueberryRef = ref(null);
 
 body {
   overscroll-behavior-x: none; /* Prevent go to previous page */
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* SVG styles */
