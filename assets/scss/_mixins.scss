@@ -1,0 +1,355 @@
+// -----------------------------------------------------------------------------
+// Global SCSS Mixins (Nuxt 4: use the root `assets` directory)
+// -----------------------------------------------------------------------------
+@use "./variables" as *;
+
+@mixin button-text-small {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 120%;
+  letter-spacing: 0.125rem;
+  text-transform: uppercase;
+}
+
+@mixin paragraph-small {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 150%;
+}
+
+@mixin paragraph {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 150%;
+}
+
+@mixin paragraph-large {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 150%;
+}
+
+@mixin h1 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 275;
+  font-size: 5rem;
+}
+
+@mixin mobile-h1 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 275;
+  font-size: 4rem;
+  line-height: 115%;
+}
+
+@mixin h1-extralight {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 275;
+  font-size: 5rem;
+  line-height: 115%;
+}
+
+@mixin mobile-h1-extralight {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 275;
+  font-size: 4rem;
+  line-height: 115%;
+}
+
+@mixin desktop-h1-extralight {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 275;
+  font-size: 7.5rem;
+  line-height: 115%;
+}
+
+@mixin mobile-h2 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 3rem;
+  line-height: 115%;
+}
+
+@mixin h2 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 275;
+  font-size: 4rem;
+  line-height: 115%;
+}
+
+@mixin h2-extralight {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 275;
+  font-size: 4rem;
+  line-height: 115%;
+}
+
+@mixin mobile-h2-extralight {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 275;
+  font-size: 3rem;
+  line-height: 115%;
+}
+
+@mixin h3 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 3rem;
+  line-height: 130%;
+}
+
+@mixin mobile-h2-extralifght {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 275;
+  font-size: 3rem;
+  line-height: 115%;
+}
+
+@mixin h4 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2.5rem;
+  line-height: 130%;
+}
+
+@mixin mobile-h4 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 130%;
+}
+
+@mixin desktop-h4 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 3.5rem;
+  line-height: 130%;
+}
+
+@mixin desktop-h6 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 130%;
+}
+
+@mixin h5 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 130%;
+}
+
+@mixin mobile-h5 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 130%;
+}
+
+@mixin h6 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 130%;
+}
+
+@mixin mobile-h6 {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 130%;
+}
+
+@mixin caption {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 150%;
+}
+
+@mixin caption-small {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 150%;
+  letter-spacing: 0.0625rem;
+  text-transform: uppercase;
+}
+
+@mixin hyperlinks {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 150%;
+}
+
+@mixin quote {
+  font-family: $font-main;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 150%;
+}
+
+@mixin tag {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 120%;
+}
+
+@mixin label {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 130%;
+}
+
+@mixin rainbow {
+  background-size: 200% 200%;
+  background-clip: text;
+  background: linear-gradient(72.44deg, #9a3499 0%, #4bdbd3 100%);
+  -webkit-background-clip: text;
+  animation: rainbow 2s ease-in-out infinite;
+}
+
+@mixin rainbow-incident {
+  background-size: 200% 200%;
+  background-clip: text;
+  background: linear-gradient(72.44deg, #d50e2a 0%, #751055 100%);
+  -webkit-background-clip: text;
+  animation: rainbow 2s ease-in-out infinite;
+}
+
+@mixin button {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 100%;
+}
+
+@mixin rainbow-reset {
+  color: rgba(0, 0, 0, 0);
+}
+
+@mixin text-gradient-1 {
+  background: $gradient-1;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@mixin text-gradient-hover-1 {
+  background: $gradient-1;
+  background-size: 200% 200%;
+  animation: rainbow 2s ease-in-out infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  transition: color 0.3s ease-in-out;
+}
+
+@mixin tablet {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (min-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin largeDesktop {
+  @media (min-width: $largeDesktop) {
+    @content;
+  }
+}
+
+@mixin extraLargeDesktop {
+  @media (min-width: $extraLargeDesktop) {
+    @content;
+  }
+}
+
+@mixin dev {
+  .header,
+  .header-mobile,
+  .footer,
+  .btn-standard-incident--nav,
+  .loader {
+    display: none;
+  }
+  * {
+    // outline: 1px solid red;
+    // background: rgba(158, 158, 158, 0.15);
+  }
+}
+
+@mixin padding-mobile {
+  padding: 1.5rem;
+}
+
+@mixin padding-tablet {
+  padding: 4.25rem;
+}
+
+@mixin padding-laptop {
+  padding: 5rem;
+}
+
+.quote {
+  @include quote;
+}
+
+@mixin padding {
+  @include padding-mobile;
+  @include tablet {
+    @include padding-tablet;
+  }
+  @include laptop {
+    @include padding-laptop;
+  }
+}

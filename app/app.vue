@@ -1,8 +1,15 @@
 <template>
   <div class="min-h-screen">
     <!-- Infinite Component Drag - Testing ProjectBlueberry components in grid -->
-    <InfiniteComponentDrag />
-
+    <!-- <InfiniteComponentDrag /> -->
+    <CarouselFeaturedCaseStudies
+      headline="Featured case studies"
+      :alternative-colors="false"
+      :gradient-title="true"
+      view-all-href="/case-studies"
+      :cases="[]"
+      id-attr="featured-cases-1"
+    />
     <!-- Original components commented out for testing -->
     <!-- <InfiniteDragGrid /> -->
 

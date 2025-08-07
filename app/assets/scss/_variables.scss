@@ -1,0 +1,56 @@
+// -----------------------------------------------------------------------------
+// Global SCSS Variables
+// NOTE: Ensure the `sass` package is installed in the project to compile SCSS.
+// -----------------------------------------------------------------------------
+
+// Breakpoints
+$tablet: 768px;
+$laptop: 1024px;
+$desktop: 1441px;
+$largeDesktop: 1921px;
+$extraLargeDesktop: 3839px;
+
+// GRADIENTS
+$gradient-1: linear-gradient(72.44deg, #9a3499 0%, #4bdbd3 100%);
+$gradient-2: linear-gradient(72.44deg, #d50e2a 0%, #751055 100%);
+
+// PRIMARY
+$primary-1: #00205b;
+$primary-2: #0089d0;
+$primary-3: #e5f9fe;
+
+// ALTERNATIVES
+$alternative-1: #4bdbd3;
+$alternative-2: #9a3499;
+$alternative-3: #d50e2a;
+$alternative-4: #751055;
+
+// BASIC
+$white: #fff;
+$black: #121212;
+$gray-1: #f0f0f0;
+$gray-2: #e3e3e3;
+$gray-3: #d6d6d6;
+$gray-4: #999999;
+$gray-5: #666666;
+$gray-6: #404040;
+$basic: $gray-5;
+
+// SYSTEM
+$system-blue-1: #b6d3ff;
+$system-blue-2: #5a88bf;
+$system-blue-3: #3d6cb5;
+$system-green-1: #b0eeb9;
+$system-green-2: #5abf69;
+$system-green-3: #4ea65b;
+$system-orange-1: #ffe3b8;
+$system-orange-2: #f59b14;
+$system-orange-3: #db8b12;
+$system-red-1: #ffc0c0;
+$system-red-2: #d50e2a;
+$system-red-3: #cc2929;
+
+$transition: 0.3s all ease-in-out;
+
+// Fonts
+$font-main: "Poppins", sans-serif;

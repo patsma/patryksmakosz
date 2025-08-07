@@ -1,0 +1,6 @@
+// Global SCSS entry for Nuxt (root assets)
+@use "./variables" as *;
+@use "./mixins" as *;
+
+// Components
+@use "./components/carousel-featured-case-studies";

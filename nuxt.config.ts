@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
 
+  // Simple global SCSS entry point (Nuxt standard assets dir)
+  css: ["~/assets/scss/main.scss"],
+
   modules: [
     "@nuxt/fonts",
     "@nuxt/icon",
