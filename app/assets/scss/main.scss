@@ -28,6 +28,18 @@
   --gradient-primary-start: #{$alternative-2};
   --gradient-primary-end: #{$alternative-1};
 
+  // Reversed gradients (useful for :before hover bulbs etc.)
+  --gradient-1-rev: linear-gradient(
+    72.44deg,
+    #{$alternative-1} 0%,
+    #{$alternative-2} 100%
+  );
+  --gradient-2-rev: linear-gradient(
+    72.44deg,
+    #{$alternative-4} 0%,
+    #{$alternative-3} 100%
+  );
+
   // Primary palette as CSS variables
   --color-primary-1: #{$primary-1};
   --color-primary-2: #{$primary-2};
@@ -38,6 +50,9 @@
   --color-alt-2: #{$alternative-2};
   --color-alt-3: #{$alternative-3};
   --color-alt-4: #{$alternative-4};
+
+  // Accent colors
+  --color-accent-1: rgba(252, 196, 63, 0.4);
 
   // Common shadows
   --shadow-elevation-1: 0 0 14px rgba(18, 18, 18, 0.12);

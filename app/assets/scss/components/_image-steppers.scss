@@ -49,7 +49,7 @@
 
   &__copy {
     @include paragraph;
-    color: $gray-5;
+    color: var(--color-gray-5);
     padding-bottom: 1.5rem;
   }
 
@@ -76,7 +76,7 @@
   }
 
   &__step-number {
-    background: #f0f0f0;
+    background: var(--color-gray-1);
     margin-top: 1rem;
     width: 4rem;
     height: 4rem;
@@ -85,14 +85,14 @@
     align-content: center;
     border-radius: 100%;
     @include h6;
-    color: $black;
+    color: var(--color-black);
     position: relative;
   }
 
   &__step-line {
     position: absolute;
     width: 0.125rem;
-    background: $gray-1;
+    background: var(--color-gray-1);
     height: 241px;
     top: 5rem;
     left: 50%;
@@ -102,7 +102,7 @@
 
   &__step-title {
     @include mobile-h6;
-    color: $black;
+    color: var(--color-black);
     @include tablet {
       @include h6;
     }
@@ -110,7 +110,7 @@
 
   &__step-copy {
     @include paragraph-small;
-    color: $gray-5;
+    color: var(--color-gray-5);
     @include tablet {
       @include paragraph;
     }
