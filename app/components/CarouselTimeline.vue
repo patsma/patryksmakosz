@@ -418,15 +418,16 @@ const buildAnimations = () => {
 
   if (!items.length) return;
 
-  // Pagination timeline: label per item; when moving to item i, fill divider (i-1)
+  // Pagination timeline: label per item; when moving to item i, fill dividers [0..i-1]
   const tlP = $gsap.timeline({ paused: true, defaults: { duration: 0.25 } });
-  const pagCount = items.length;
-  for (let i = 0; i < pagCount; i++) {
+  const numDividers = pagDividers.length; // items.length - 1
+  // Start with all dividers collapsed
+  tlP.set(pagDividers, { width: 0 });
+  for (let i = 0; i <= numDividers; i++) {
     tlP.addLabel(`${i}`);
     if (i > 0) {
-      tlP.to(pagDividers[i - 1], { width: "3.5rem" });
-      if (solidFills && solidFills[i - 1]) {
-        tlP.to(solidFills[i - 1], { opacity: 1 }, "<");
+      for (let d = 0; d < i; d++) {
+        tlP.to(pagDividers[d], { width: "3.5rem" }, "<");
       }
     }
     tlP.addPause();
@@ -485,7 +486,9 @@ const openIndex = (index) => {
   selected.reversed(!selected.reversed());
   // Drive pagination to current index (so divider up to current is filled)
   if (tlPaginationItems.value) {
-    tlPaginationItems.value.tweenTo(`${index}`);
+    // Off-by-one fix: divider progress index is (activeItemIndex - 1), clamped at 0
+    const dividerLabel = Math.max(0, index + 1);
+    tlPaginationItems.value.tweenTo(`${dividerLabel}`);
   }
 
   // Ensure only active bubble shows gradient fill and white text
@@ -521,6 +524,8 @@ const openIndex = (index) => {
         backgroundClip: "initial",
       });
     }
+
+    // No direct divider width overrides here; handled by the timeline above
   }
 };
 
