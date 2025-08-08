@@ -32,9 +32,33 @@
       :cases="[]"
       id-attr="featured-cases-1"
     />
+    <ImageSteppers
+      title="Our process"
+      copy="Short description that explains the steps."
+      image-src="/Image-component-5.png"
+      :steps="[
+        {
+          title: 'Discover',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
+        },
+        {
+          title: 'Design',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
+        },
+        {
+          title: 'Deliver',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
+        },
+      ]"
+      :alternative-colors="false"
+      :gradient-title="true"
+      :flipped="false"
+      :big-title="false"
+      :buttons="[{ type: 'filled', link: '#', text: 'Get started' }]"
+    />
     <!-- Original components commented out for testing -->
     <!-- <InfiniteDragGrid /> -->
-
+    <div class="h-screen"></div>
     <MorphingLogo
       class="fixed z-10 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
     />

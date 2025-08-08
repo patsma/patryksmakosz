@@ -47,6 +47,12 @@
     align-items: center;
     grid-column-gap: 0.5rem;
     overflow: hidden;
+    // Mobile: single column grid, stretch children to full width
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    align-content: start;
+    // Explicit rows for mobile: pagination, items wrapper, button
+    grid-template-rows: auto auto auto;
     grid-template-areas:
       "pagination"
       "wrapper"
@@ -54,6 +60,8 @@
     @include laptop {
       grid-row-gap: 2.5rem;
       grid-template-columns: 1fr 2fr auto auto;
+      // Desktop: row for header (pagination/divider/button/navigation) and row for items
+      grid-template-rows: auto 1fr;
       grid-template-areas:
         "pagination divider button navigation"
         "wrapper wrapper wrapper wrapper";
@@ -135,6 +143,13 @@
       height: 0.125rem;
       background: $gray-3;
     }
+    // Normalize SVG colors through variables (override presentation attributes)
+    .solid-border {
+      stroke: $gray-3;
+    }
+    .solid-fill {
+      fill: $gray-1;
+    }
     // Ensure gradient/solid fills start hidden like reference
     .gradient-fill {
       opacity: 0;
@@ -143,6 +158,60 @@
     .solid-fill {
       opacity: 0;
       transition: $transition;
+    }
+  }
+
+  // Standardize SVG gradient stop colors via CSS variables so we don't edit SVGs
+  // Pagination circular button SVG
+  .btn-svg-circular-01 {
+    defs {
+      linearGradient {
+        stop:first-of-type {
+          stop-color: var(--gradient-primary-start);
+        }
+        stop:last-of-type {
+          stop-color: var(--gradient-primary-end);
+        }
+      }
+    }
+  }
+
+  // Item circular button SVG inside cards
+  .btn-circular-02 {
+    defs {
+      linearGradient {
+        stop:first-of-type {
+          stop-color: var(--gradient-primary-start);
+        }
+        stop:last-of-type {
+          stop-color: var(--gradient-primary-end);
+        }
+      }
+    }
+    // Normalize non-hover colors
+    .non-hover {
+      path:nth-of-type(1) {
+        fill: $primary-2;
+      }
+      path:nth-of-type(2) {
+        fill: $gray-3;
+      }
+    }
+  }
+
+  // Navigation arrow gradients
+  .navigation {
+    svg {
+      defs {
+        linearGradient {
+          stop:first-of-type {
+            stop-color: var(--gradient-primary-start);
+          }
+          stop:last-of-type {
+            stop-color: var(--gradient-primary-end);
+          }
+        }
+      }
     }
   }
 
@@ -166,7 +235,7 @@
     grid-area: button;
     width: max-content;
     background: none;
-    justify-self: center;
+    justify-self: start;
     @include laptop {
       justify-self: end;
     }
@@ -177,16 +246,20 @@
     grid-area: wrapper;
     width: 100%;
     overflow: hidden;
+    padding: 0.5rem;
+    // Ensure items stack cleanly on mobile using grid
     @include laptop {
       display: flex;
+      padding: 1rem 0;
     }
   }
 
   &__item {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     grid-gap: 2rem;
     width: 100%;
+    box-sizing: border-box;
     min-height: 8rem;
     background: $gray-1;
     grid-area: item;
@@ -212,7 +285,6 @@
     &--active {
       width: 480px;
       background: $white;
-      background: #ffffff;
       border-radius: 16px;
       .carousel-timeline__paragraph {
         max-width: 100%;
@@ -237,14 +309,26 @@
     }
   }
 
+  // Normalize arrow button SVG fills to variables (override presentation attributes)
+  .navigation {
+    .btn-circular--gradient {
+      path:nth-of-type(1) {
+        fill: $black;
+      }
+      path:nth-of-type(2) {
+        fill: $gray-3;
+      }
+    }
+  }
+
   &__button {
     position: relative;
+    // Prevent horizontal jump on mobile by reserving space
+    min-height: 3rem;
     @include laptop {
       position: absolute;
       bottom: 2rem;
     }
-    // Prevent horizontal jump on mobile by reserving space
-    min-height: 3rem;
     .btn-circular-02 {
       position: absolute;
       left: 0;

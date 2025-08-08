@@ -32,8 +32,13 @@
                     gradientUnits="userSpaceOnUse"
                     gradientTransform="matrix(1, 0, 0, 1, 0.999588, 1.000305)"
                   >
-                    <stop stop-color="#9A3499"></stop>
-                    <stop offset="1" stop-color="#4BDBD3"></stop>
+                    <stop
+                      style="stop-color: var(--gradient-primary-start)"
+                    ></stop>
+                    <stop
+                      offset="1"
+                      style="stop-color: var(--gradient-primary-end)"
+                    ></stop>
                   </linearGradient>
                   <linearGradient
                     id="paint0_linear_1767_4110"
@@ -44,15 +49,20 @@
                     gradientUnits="userSpaceOnUse"
                     gradientTransform="matrix(1, 0, 0, 1, 1, 1)"
                   >
-                    <stop stop-color="#9A3499"></stop>
-                    <stop offset="1" stop-color="#4BDBD3"></stop>
+                    <stop
+                      style="stop-color: var(--gradient-primary-start)"
+                    ></stop>
+                    <stop
+                      offset="1"
+                      style="stop-color: var(--gradient-primary-end)"
+                    ></stop>
                   </linearGradient>
                 </defs>
                 <circle
                   cx="33"
                   cy="33"
                   r="31"
-                  fill="white"
+                  style="fill: var(--color-white)"
                   stroke="url(#paint0_linear_1767_4113)"
                   stroke-width="2"
                   class="gradient-border"
@@ -61,8 +71,7 @@
                   cx="33"
                   cy="33"
                   r="31"
-                  fill="white"
-                  stroke="#D6D6D6"
+                  style="fill: var(--color-white); stroke: var(--color-gray-3)"
                   stroke-width="2"
                   class="solid-border"
                 ></circle>
@@ -77,7 +86,7 @@
                   cx="33"
                   cy="33"
                   r="32"
-                  fill="#F0F0F0"
+                  style="fill: var(--color-gray-1)"
                   class="solid-fill"
                 ></circle>
               </svg>
@@ -108,8 +117,13 @@
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="matrix(1, 0, 0, 1, 242.586243, 96.627258)"
                 >
-                  <stop stop-color="#9A3499"></stop>
-                  <stop offset="1" stop-color="#4BDBD3"></stop>
+                  <stop
+                    style="stop-color: var(--gradient-primary-start)"
+                  ></stop>
+                  <stop
+                    offset="1"
+                    style="stop-color: var(--gradient-primary-end)"
+                  ></stop>
                 </linearGradient>
                 <linearGradient
                   id="gradient6"
@@ -120,8 +134,13 @@
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="matrix(1, 0, 0, 1, 242.586243, 96.627258)"
                 >
-                  <stop stop-color="#9A3499"></stop>
-                  <stop offset="1" stop-color="#4BDBD3"></stop>
+                  <stop
+                    style="stop-color: var(--gradient-primary-start)"
+                  ></stop>
+                  <stop
+                    offset="1"
+                    style="stop-color: var(--gradient-primary-end)"
+                  ></stop>
                 </linearGradient>
               </defs>
               <g
@@ -130,13 +149,11 @@
               >
                 <path
                   d="M 355.889 123.399 L 343.719 123.399 L 349.309 117.809 L 347.889 116.399 L 339.889 124.399 L 347.889 132.399 L 349.299 130.989 L 343.719 125.399 L 355.889 125.399 L 355.889 123.399 Z"
-                  fill="#121212"
-                  style=""
+                  style="fill: var(--color-black)"
                 ></path>
                 <path
                   d="M 347.889 146.399 C 335.739 146.399 325.889 136.55 325.889 124.399 L 321.889 124.399 C 321.889 138.759 333.53 150.399 347.889 150.399 L 347.889 146.399 Z M 369.889 124.399 C 369.889 136.55 360.04 146.399 347.889 146.399 L 347.889 150.399 C 362.249 150.399 373.889 138.759 373.889 124.399 L 369.889 124.399 Z M 347.889 102.399 C 360.04 102.399 369.889 112.249 369.889 124.399 L 373.889 124.399 C 373.889 110.04 362.249 98.399 347.889 98.399 L 347.889 102.399 Z M 347.889 98.399 C 333.53 98.399 321.889 110.04 321.889 124.399 L 325.889 124.399 C 325.889 112.249 335.739 102.399 347.889 102.399 L 347.889 98.399 Z"
-                  fill="#D6D6D6"
-                  style=""
+                  style="fill: var(--color-gray-3)"
                 ></path>
               </g>
               <g
@@ -170,8 +187,13 @@
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="matrix(1, 0, 0, 1, 242.586243, 96.627258)"
                 >
-                  <stop stop-color="#9A3499"></stop>
-                  <stop offset="1" stop-color="#4BDBD3"></stop>
+                  <stop
+                    style="stop-color: var(--gradient-primary-start)"
+                  ></stop>
+                  <stop
+                    offset="1"
+                    style="stop-color: var(--gradient-primary-end)"
+                  ></stop>
                 </linearGradient>
                 <linearGradient
                   id="gradient6"
@@ -182,8 +204,13 @@
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="matrix(1, 0, 0, 1, 242.586243, 96.627258)"
                 >
-                  <stop stop-color="#9A3499"></stop>
-                  <stop offset="1" stop-color="#4BDBD3"></stop>
+                  <stop
+                    style="stop-color: var(--gradient-primary-start)"
+                  ></stop>
+                  <stop
+                    offset="1"
+                    style="stop-color: var(--gradient-primary-end)"
+                  ></stop>
                 </linearGradient>
               </defs>
               <g
@@ -192,13 +219,11 @@
               >
                 <path
                   d="M 355.889 123.399 L 343.719 123.399 L 349.309 117.809 L 347.889 116.399 L 339.889 124.399 L 347.889 132.399 L 349.299 130.989 L 343.719 125.399 L 355.889 125.399 L 355.889 123.399 Z"
-                  fill="#121212"
-                  style=""
+                  style="fill: var(--color-black)"
                 ></path>
                 <path
                   d="M 347.889 146.399 C 335.739 146.399 325.889 136.55 325.889 124.399 L 321.889 124.399 C 321.889 138.759 333.53 150.399 347.889 150.399 L 347.889 146.399 Z M 369.889 124.399 C 369.889 136.55 360.04 146.399 347.889 146.399 L 347.889 150.399 C 362.249 150.399 373.889 138.759 373.889 124.399 L 369.889 124.399 Z M 347.889 102.399 C 360.04 102.399 369.889 112.249 369.889 124.399 L 373.889 124.399 C 373.889 110.04 362.249 98.399 347.889 98.399 L 347.889 102.399 Z M 347.889 98.399 C 333.53 98.399 321.889 110.04 321.889 124.399 L 325.889 124.399 C 325.889 112.249 335.739 102.399 347.889 102.399 L 347.889 98.399 Z"
-                  fill="#D6D6D6"
-                  style=""
+                  style="fill: var(--color-gray-3)"
                 ></path>
               </g>
               <g
@@ -269,8 +294,11 @@
                     gradientUnits="userSpaceOnUse"
                     gradientTransform="matrix(1, 0, 0, 1, 7.999969, 8.000443)"
                   >
-                    <stop stop-color="#9A3499" />
-                    <stop offset="1" stop-color="#4BDBD3" />
+                    <stop style="stop-color: var(--gradient-primary-start)" />
+                    <stop
+                      offset="1"
+                      style="stop-color: var(--gradient-primary-end)"
+                    />
                   </linearGradient>
                   <linearGradient
                     id="paint1_linear_1767_4101"
@@ -281,8 +309,11 @@
                     gradientUnits="userSpaceOnUse"
                     gradientTransform="matrix(1, 0, 0, 1, 7.999969, 8.000443)"
                   >
-                    <stop stop-color="#9A3499" />
-                    <stop offset="1" stop-color="#4BDBD3" />
+                    <stop style="stop-color: var(--gradient-primary-start)" />
+                    <stop
+                      offset="1"
+                      style="stop-color: var(--gradient-primary-end)"
+                    />
                   </linearGradient>
                 </defs>
                 <g
@@ -304,11 +335,11 @@
                   >
                     <path
                       d="M 77.817 88.816 L 80.635 86.053 L 79.381 84.824 L 75.301 88.816 L 79.381 92.816 L 80.635 91.578 L 77.817 88.816 Z M 88.786 88.816 L 85.968 91.578 L 87.221 92.807 L 91.301 88.816 L 87.221 84.816 L 85.968 86.053 L 88.786 88.816 Z"
-                      fill="#0089D0"
+                      style="fill: var(--color-primary-2)"
                     />
                     <path
                       d="M 105.301 88.816 C 105.301 100.966 95.452 110.816 83.301 110.816 L 83.301 114.816 C 97.661 114.816 109.301 103.175 109.301 88.816 L 105.301 88.816 Z M 83.301 66.816 C 95.452 66.816 105.301 76.665 105.301 88.816 L 109.301 88.816 C 109.301 74.456 97.661 62.816 83.301 62.816 L 83.301 66.816 Z M 61.301 88.816 C 61.301 76.665 71.151 66.816 83.301 66.816 L 83.301 62.816 C 68.942 62.816 57.301 74.456 57.301 88.816 L 61.301 88.816 Z M 57.301 88.816 C 57.301 103.175 68.942 114.816 83.301 114.816 L 83.301 110.816 C 71.151 110.816 61.301 100.966 61.301 88.816 L 57.301 88.816 Z"
-                      fill="#D6D6D6"
+                      style="fill: var(--color-gray-3)"
                     />
                   </g>
                 </g>
@@ -448,8 +479,8 @@ const buildAnimations = () => {
     tl.to(
       items[index],
       {
-        background: "#fff",
-        boxShadow: "0px 0px 14px rgba(18, 18, 18, 0.12)",
+        background: "var(--color-white)",
+        boxShadow: "var(--shadow-elevation-1)",
         width: "auto",
         duration: 0.5,
       },
@@ -518,7 +549,7 @@ const openIndex = (index) => {
     // Then apply active inline style to the current index only
     if (paginationItemTexts[index]) {
       $gsap.set(paginationItemTexts[index], {
-        color: "#fff",
+        color: "var(--color-white)",
         background: "none",
         WebkitBackgroundClip: "initial",
         backgroundClip: "initial",

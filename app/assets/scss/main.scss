@@ -8,3 +8,50 @@
 @use "./components/carousel-featured-case-studies";
 @use "./components/button";
 @use "./components/carousel-timeline";
+@use "./components/image-steppers";
+
+:root {
+  // Expose key SCSS colors as CSS custom properties for JS/GSAP usage
+  --color-white: #{$white};
+  --color-black: #{$black};
+  --color-gray-1: #{$gray-1};
+  --color-gray-2: #{$gray-2};
+  --color-gray-3: #{$gray-3};
+  --color-gray-4: #{$gray-4};
+  --color-gray-5: #{$gray-5};
+  --color-gray-6: #{$gray-6};
+
+  --gradient-1: #{$gradient-1};
+  --gradient-2: #{$gradient-2};
+
+  // Gradient endpoints for SVG stops
+  --gradient-primary-start: #{$alternative-2};
+  --gradient-primary-end: #{$alternative-1};
+
+  // Primary palette as CSS variables
+  --color-primary-1: #{$primary-1};
+  --color-primary-2: #{$primary-2};
+  --color-primary-3: #{$primary-3};
+
+  // Alternative palette as CSS variables
+  --color-alt-1: #{$alternative-1};
+  --color-alt-2: #{$alternative-2};
+  --color-alt-3: #{$alternative-3};
+  --color-alt-4: #{$alternative-4};
+
+  // Common shadows
+  --shadow-elevation-1: 0 0 14px rgba(18, 18, 18, 0.12);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &--parallax-01 {
+    img {
+      height: 120%;
+      width: 100%;
+    }
+  }
+}

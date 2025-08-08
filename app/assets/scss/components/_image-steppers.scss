@@ -1,0 +1,144 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+.image-steppers {
+  $root: &;
+  display: grid;
+  align-items: center;
+  gap: 3.5rem;
+  @include padding;
+
+  @include laptop {
+    grid-template-columns: 1fr 1fr;
+    gap: 9rem;
+  }
+  @include desktop {
+    gap: 11.5rem;
+  }
+
+  &__wrapper {
+    display: grid;
+    @include tablet {
+      padding: 0 7rem;
+    }
+    @include laptop {
+      padding: 4rem 0;
+    }
+  }
+
+  &__img {
+    width: 100%;
+    object-fit: cover;
+    height: 30.75rem;
+    object-position: top;
+    @include tablet {
+      height: 60rem;
+    }
+    @include laptop {
+      height: 100%;
+    }
+  }
+
+  &__title {
+    @include mobile-h4;
+    max-width: 28.75rem;
+    padding-bottom: 1.75rem;
+    @include laptop {
+      @include h4;
+    }
+  }
+
+  &__copy {
+    @include paragraph;
+    color: $gray-5;
+    padding-bottom: 1.5rem;
+  }
+
+  &__steps {
+    display: grid;
+    gap: 2.6875rem;
+    padding-bottom: 4rem;
+  }
+
+  &__step {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 1.5rem;
+    align-items: start;
+    @include desktop {
+      max-width: 38rem;
+    }
+  }
+
+  &__step-inner {
+    gap: 0.5rem;
+    display: grid;
+    padding-top: 2rem;
+  }
+
+  &__step-number {
+    background: #f0f0f0;
+    margin-top: 1rem;
+    width: 4rem;
+    height: 4rem;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    border-radius: 100%;
+    @include h6;
+    color: $black;
+    position: relative;
+  }
+
+  &__step-line {
+    position: absolute;
+    width: 0.125rem;
+    background: $gray-1;
+    height: 241px;
+    top: 5rem;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: -1;
+  }
+
+  &__step-title {
+    @include mobile-h6;
+    color: $black;
+    @include tablet {
+      @include h6;
+    }
+  }
+
+  &__step-copy {
+    @include paragraph-small;
+    color: $gray-5;
+    @include tablet {
+      @include paragraph;
+    }
+  }
+
+  &--reversed {
+    @include laptop {
+      #{$root} {
+        &__img {
+          grid-column: 2;
+          grid-row: 1;
+        }
+        &__wrapper {
+          grid-column: 1;
+          grid-row: 1;
+        }
+      }
+    }
+  }
+
+  &--big-title {
+    #{$root} {
+      &__title {
+        @include mobile-h2-extralight;
+        @include laptop {
+          @include h1-extralight;
+        }
+      }
+    }
+  }
+}

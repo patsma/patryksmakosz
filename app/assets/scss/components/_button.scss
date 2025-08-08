@@ -102,6 +102,7 @@
   color: $black;
 
   &:hover span {
+    color: $white;
     animation: MoveScaleUpInitialOutlinedBtn 0.3s forwards,
       MoveScaleUpEndOutlinedBtn 0.3s forwards 0.3s;
   }
@@ -114,7 +115,7 @@
     line-height: 120%;
     letter-spacing: 0.125rem;
     text-transform: uppercase;
-    color: #ffffff;
+    color: $white;
   }
 
   &--tag {
