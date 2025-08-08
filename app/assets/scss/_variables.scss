@@ -10,8 +10,7 @@ $largeDesktop: 1921px;
 $extraLargeDesktop: 3839px;
 
 // GRADIENTS
-$gradient-1: linear-gradient(72.44deg, #9a3499 0%, #4bdbd3 100%);
-$gradient-2: linear-gradient(72.44deg, #d50e2a 0%, #751055 100%);
+// Note: Gradients are defined AFTER alternative colors to keep a single source of truth.
 
 // PRIMARY
 $primary-1: #00205b;
@@ -19,10 +18,14 @@ $primary-2: #0089d0;
 $primary-3: #e5f9fe;
 
 // ALTERNATIVES
-$alternative-1: #4bdbd3;
-$alternative-2: #9a3499;
+$alternative-1: #5eede6;
+$alternative-2: #007ab2;
 $alternative-3: #d50e2a;
 $alternative-4: #751055;
+
+// Re-map gradients to use alternative palette, so changing alternatives updates gradients globally
+$gradient-1: linear-gradient(72.44deg, $alternative-2 0%, $alternative-1 100%);
+$gradient-2: linear-gradient(72.44deg, $alternative-3 0%, $alternative-4 100%);
 
 // BASIC
 $white: #fff;
