@@ -454,18 +454,7 @@ const buildAnimations = () => {
       },
       "<"
     );
-    if (paginationItemTexts && paginationItemTexts[index]) {
-      tl.to(
-        paginationItemTexts[index],
-        {
-          color: "#fff",
-          background: "none",
-          WebkitBackgroundClip: "initial",
-          backgroundClip: "initial",
-        },
-        "<"
-      );
-    }
+    // Do not set pagination number styles in timeline; managed centrally in openIndex()
     if (gradientFills && gradientFills[index]) {
       tl.to(gradientFills[index], { opacity: 1 }, "<");
     }
@@ -513,24 +502,25 @@ const openIndex = (index) => {
     gradientFills.forEach((el, i) => {
       $gsap.set(el, { opacity: i === index ? 1 : 0 });
     });
-    solidFills.forEach((el, i) => {
-      $gsap.set(el, { opacity: i === index ? 0 : 1 });
+    solidFills.forEach((el) => {
+      // Reference default shows solid-fill opacity 0 at all times
+      $gsap.set(el, { opacity: 0 });
     });
-    paginationItemTexts.forEach((el, i) => {
-      if (i === index) {
-        $gsap.set(el, {
-          color: "#fff",
-          background: "none",
-          WebkitBackgroundClip: "initial",
-          backgroundClip: "initial",
-        });
-      } else {
-        $gsap.set(el, {
-          color: "initial",
-          clearProps: "background,WebkitBackgroundClip,backgroundClip",
-        });
-      }
+    // Clean all inline styles first so we always reset to SCSS state
+    paginationItemTexts.forEach((el) => {
+      try {
+        el.removeAttribute("style");
+      } catch (e) {}
     });
+    // Then apply active inline style to the current index only
+    if (paginationItemTexts[index]) {
+      $gsap.set(paginationItemTexts[index], {
+        color: "#fff",
+        background: "none",
+        WebkitBackgroundClip: "initial",
+        backgroundClip: "initial",
+      });
+    }
   }
 };
 
@@ -556,8 +546,6 @@ const handleNext = () => {
 onMounted(() => {
   nextTick(() => {
     buildAnimations();
-    // Open first step by default for clearer initial state
-    openIndex(0);
   });
 });
 
