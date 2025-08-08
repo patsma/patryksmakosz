@@ -241,7 +241,7 @@
 @mixin rainbow {
   background-size: 200% 200%;
   background-clip: text;
-  background: linear-gradient(72.44deg, #9a3499 0%, #4bdbd3 100%);
+  background: var(--gradient-1);
   -webkit-background-clip: text;
   animation: rainbow 2s ease-in-out infinite;
 }
@@ -249,7 +249,7 @@
 @mixin rainbow-incident {
   background-size: 200% 200%;
   background-clip: text;
-  background: linear-gradient(72.44deg, #d50e2a 0%, #751055 100%);
+  background: var(--gradient-2);
   -webkit-background-clip: text;
   animation: rainbow 2s ease-in-out infinite;
 }
@@ -263,11 +263,11 @@
 }
 
 @mixin rainbow-reset {
-  color: rgba(0, 0, 0, 0);
+  color: transparent;
 }
 
 @mixin text-gradient-1 {
-  background: $gradient-1;
+  background: var(--gradient-1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-fill-color: transparent;
@@ -276,7 +276,7 @@
 }
 
 @mixin text-gradient-hover-1 {
-  background: $gradient-1;
+  background: var(--gradient-1);
   background-size: 200% 200%;
   animation: rainbow 2s ease-in-out infinite;
   background-clip: text;
@@ -322,10 +322,9 @@
   .loader {
     display: none;
   }
-  * {
-    // outline: 1px solid red;
-    // background: rgba(158, 158, 158, 0.15);
-  }
+  // Development helpers (uncomment when needed):
+  // * { outline: 1px solid red; }
+  // * { background: rgba(158, 158, 158, 0.15); }
 }
 
 @mixin padding-mobile {
