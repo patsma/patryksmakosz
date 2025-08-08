@@ -36,7 +36,7 @@
     grid-area: title;
     padding-bottom: 3rem;
     padding-left: 1.5rem;
-    color: $gray-4;
+    color: var(--color-gray-4);
     padding-top: 5rem;
     @include mobile-h2-extralifght;
     @include tablet {
@@ -53,7 +53,7 @@
     @include text-gradient-1;
   }
   .gradient-text-2 {
-    background: $gradient-2;
+    background: var(--gradient-2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-fill-color: transparent;
@@ -136,18 +136,18 @@
     grid-column-gap: 0.25rem;
     padding-bottom: 1rem;
     @include caption-small;
-    color: $gray-2;
+    color: var(--color-gray-2);
     @include laptop {
-      color: $gray-4;
+      color: var(--color-gray-4);
     }
   }
 
   .text-top-title {
     @include h5;
     padding-bottom: 1.5rem;
-    color: $white;
+    color: var(--color-white);
     @include laptop {
-      color: $black;
+      color: var(--color-black);
     }
   }
 
@@ -156,10 +156,10 @@
     @include paragraph;
     @include tablet {
       display: grid;
-      color: $gray-2;
+      color: var(--color-gray-2);
     }
     @include laptop {
-      color: $gray-5;
+      color: var(--color-gray-5);
       padding-bottom: 2.5rem;
     }
   }
@@ -173,10 +173,10 @@
 
   .text-bottom-paragraph {
     @include quote;
-    color: $primary-2;
+    color: var(--color-primary-2);
     padding-bottom: 0.5rem;
     &--incident {
-      color: $alternative-3;
+      color: var(--color-alt-3);
     }
   }
 
@@ -186,7 +186,7 @@
     display: grid;
     grid-auto-flow: column;
     @include caption;
-    color: $gray-4;
+    color: var(--color-gray-4);
     padding-bottom: 1.5rem;
   }
 
@@ -215,7 +215,7 @@
     color: rgba(0, 0, 0, 0);
     @include rainbow;
     &:hover {
-      color: $black;
+      color: var(--color-black);
     }
     &--incident {
       @include rainbow-incident;
@@ -229,7 +229,7 @@
     grid-auto-flow: column;
     justify-content: start;
     @include caption;
-    color: $gray-4;
+    color: var(--color-gray-4);
   }
 
   .navigation-item {
@@ -241,15 +241,15 @@
     position: relative;
     width: 0;
     height: 2px;
-    background: $gray-3;
+    background: var(--color-gray-3);
 
     &__inner {
       position: absolute;
       width: 0;
       height: 100%;
-      background: $gradient-1;
+      background: var(--gradient-1);
       &--incident {
-        background: $gradient-2;
+        background: var(--gradient-2);
       }
     }
   }
