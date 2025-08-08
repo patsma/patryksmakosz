@@ -1,7 +1,29 @@
 <template>
   <div class="min-h-screen">
     <!-- Infinite Component Drag - Testing ProjectBlueberry components in grid -->
-    <InfiniteComponentDrag />
+    <!-- <InfiniteComponentDrag /> -->
+    <CarouselTimeline
+      headline="Customer experiences"
+      text-under-headline="Short intro text"
+      :steps="[
+        {
+          title: 'Discover',
+          content: 'We learn and understand.',
+          read_more_link: '#',
+        },
+        {
+          title: 'Design',
+          content: 'We design the solution.',
+          read_more_link: '#',
+        },
+        {
+          title: 'Deliver',
+          content: 'We build and iterate.',
+          read_more_link: '#',
+        },
+      ]"
+      :buttons="[{ type: 'outline', link: '#', text: 'View all' }]"
+    />
     <CarouselFeaturedCaseStudies
       headline="Featured case studies"
       :alternative-colors="false"
