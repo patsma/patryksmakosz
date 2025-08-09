@@ -79,14 +79,12 @@ const initInfiniteComponentDrag = () => {
     return;
   }
 
-  // Use Vue ref instead of document.querySelector
   const container = containerRef.value;
   if (!container) {
     console.error("Container ref not found");
     return;
   }
 
-  // Use Vue ref instead of document.querySelector
   const content = contentRef.value;
   if (!content) {
     console.error("Content ref not found");

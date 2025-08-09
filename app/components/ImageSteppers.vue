@@ -62,6 +62,7 @@ const stepNumberRefs = ref([]);
 const stepLineRefs = ref([]);
 const stepTitleRefs = ref([]);
 const stepCopyRefs = ref([]);
+const parallaxContainerRef = ref(null);
 
 // Lifecycle: reset refs arrays before update to avoid duplicates
 onBeforeUpdate(() => {
@@ -159,7 +160,9 @@ onMounted(() => {
   window.addEventListener("resize", resizeHandler, { passive: true });
 
   // Enable parallax effect for any `.image--parallax-01 img` inside this component
-  parallaxCleanup = useParallaxImages();
+  parallaxCleanup = useParallaxImages({
+    containerElements: [parallaxContainerRef.value],
+  });
 });
 
 onUnmounted(() => {
@@ -186,7 +189,7 @@ onUnmounted(() => {
     aria-label="Image steppers"
   >
     <div class="image-steppers__img">
-      <div class="image image--parallax-01">
+      <div class="image image--parallax-01" ref="parallaxContainerRef">
         <img :src="imageSrcNormalized" alt="" data-speed="auto" />
       </div>
     </div>

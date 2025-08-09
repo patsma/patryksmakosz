@@ -16,14 +16,16 @@
  * We avoid ScrollSmoother to keep things simple. This plays nicely with native scroll.
  *
  * @param {Object} [options]
- * @param {string} [options.containerSelector='.image--parallax-01']
- * @param {string} [options.imageSelector='img']
+ * @param {string} [options.containerSelector='.image--parallax-01'] CSS selector used only if containerElements is not provided
+ * @param {string} [options.imageSelector='img'] Selector inside each container to find the visual element to move
+ * @param {Element[]|Ref<Element[]>|null} [options.containerElements=null] Preferred: array/ref of container elements
  * @returns {() => void} cleanup function to kill created ScrollTriggers
  */
 export default function useParallaxImages(options = {}) {
   const { $gsap } = useNuxtApp();
   const containerSelector = options.containerSelector || ".image--parallax-01";
   const imageSelector = options.imageSelector || "img";
+  const containerElements = options.containerElements || null;
 
   // Lazy import to avoid SSR issues
   let ScrollTrigger;
@@ -39,7 +41,21 @@ export default function useParallaxImages(options = {}) {
   const createdTriggers = [];
 
   const setup = () => {
-    const containers = Array.from(document.querySelectorAll(containerSelector));
+    /** @type {Element[]} */
+    let containers = [];
+    if (containerElements) {
+      const raw =
+        typeof containerElements === "object" && "value" in containerElements
+          ? containerElements.value
+          : containerElements;
+      if (Array.isArray(raw)) {
+        containers = raw.filter(Boolean);
+      } else if (raw && raw instanceof Element) {
+        containers = [raw];
+      }
+    } else {
+      containers = Array.from(document.querySelectorAll(containerSelector));
+    }
     if (!containers.length) return;
 
     containers.forEach((container) => {

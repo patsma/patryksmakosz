@@ -113,7 +113,7 @@
         class="image-item"
         ref="imageItemRefs"
       >
-        <div class="image image--parallax-01">
+        <div class="image image--parallax-01" ref="parallaxContainerRefs">
           <img
             :src="item.thumbnail_url"
             :alt="item.post_title"
@@ -181,6 +181,7 @@ const containerRef = ref(null);
 const navigationItemRefs = ref([]);
 const textItemRefs = ref([]);
 const imageItemRefs = ref([]);
+const parallaxContainerRefs = ref([]);
 const navigationDividerRefs = ref([]);
 const navigationDividerInnerRefs = ref([]);
 
@@ -248,6 +249,7 @@ onBeforeUpdate(() => {
   imageItemRefs.value = [];
   navigationDividerRefs.value = [];
   navigationDividerInnerRefs.value = [];
+  parallaxContainerRefs.value = [];
 });
 
 /**
@@ -333,7 +335,9 @@ onMounted(() => {
   });
 
   // Enable reusable parallax on images inside `.image--parallax-01`
-  parallaxCleanup = useParallaxImages();
+  parallaxCleanup = useParallaxImages({
+    containerElements: parallaxContainerRefs,
+  });
 });
 
 onUnmounted(() => {

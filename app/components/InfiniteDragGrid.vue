@@ -43,7 +43,6 @@ const initInfiniteGrid = () => {
     return;
   }
 
-  // Use Vue refs instead of document.querySelector
   const container = containerRef.value;
   if (!container) {
     console.error("Container ref not found");
