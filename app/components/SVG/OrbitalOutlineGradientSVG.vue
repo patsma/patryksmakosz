@@ -14,13 +14,18 @@
         y2="109.9"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.341346" stop-color="#332CF4" />
-        <stop offset="1" stop-color="#F01898" />
+        <!-- Use CSS variables exposed in :root for easy theming -->
+        <stop
+          offset="0.341346"
+          style="stop-color: var(--gradient-primary-start)"
+        />
+        <stop offset="1" style="stop-color: var(--gradient-primary-end)" />
       </linearGradient>
     </defs>
   </svg>
+  <!-- Colors controlled via CSS variables set in app/assets/scss/main.scss -->
 </template>
 
-<script lang="ts" setup></script>
+<script setup></script>
 
-<style></style>
+<style scoped></style>

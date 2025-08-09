@@ -23,7 +23,7 @@
     left: 50%;
     transform: translate(-50%, -65%);
     width: 42.375rem;
-    height: 42rem;
+    height: auto;
     mix-blend-mode: screen;
     pointer-events: none;
     z-index: 0;
@@ -112,7 +112,7 @@
   width: 88%;
   height: 88%;
   object-fit: contain;
-  transform: translate(-50%, -48.2%);
+  transform: translate(-50%, -47%);
   z-index: 2;
   transition: opacity 0.4s;
   pointer-events: none;
@@ -185,5 +185,3 @@
 .fade-cursor-leave-from {
   opacity: 1;
 }
-
-

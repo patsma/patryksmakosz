@@ -16,8 +16,9 @@
         gradientTransform="translate(0 318) scale(1 -1)"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset=".34" stop-color="#332cf4" />
-        <stop offset="1" stop-color="#f01898" />
+        <!-- Colors controlled by CSS variables from :root (main.scss) -->
+        <stop offset=".34" style="stop-color: var(--gradient-primary-start)" />
+        <stop offset="1" style="stop-color: var(--gradient-primary-end)" />
       </linearGradient>
       <linearGradient
         id="linear-gradient-2"

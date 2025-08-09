@@ -17,7 +17,7 @@ const props = defineProps({
   <div class="orbital-item-container">
     <!-- SVG frame and gradient background -->
     <div class="orbital-item__svg-frame">
-      <LogoGradientSVG class="orbital-item__svg-gradient" />
+      <OrbitalOutlineGradientSVG class="orbital-item__svg-gradient" />
       <OrbitalCarouselShapeSVG class="orbital-item__svg-shape-frame" />
     </div>
     <!-- Image, fades out when active -->
