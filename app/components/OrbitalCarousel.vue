@@ -37,6 +37,7 @@ const {
   carouselRef,
   proxyRef,
   getItemProps,
+  hologramSrc,
   hologramOpacity,
   hologramBlur,
 } = useOrbitalCarousel({
@@ -57,15 +58,7 @@ const currentIndex = ref(0);
 // --- GSAP animation logic ---
 const { $gsap } = useNuxtApp();
 
-// --- Always provide a default hologram image if none is set ---
-const hologramImage = computed(() => {
-  if (!items || !Array.isArray(items) || !items.length)
-    return "/Image-component-3.png";
-  const active = items[currentIndex.value];
-  return active && active.hologramSrc
-    ? active.hologramSrc
-    : "/Image-component-3.png";
-});
+// Hologram state is provided by composable now
 
 // Helper to always get the real DOM element for the hologram image
 function getHologramEl() {
@@ -152,7 +145,7 @@ watch(
     >
       <NuxtImg
         ref="hologramImgRef"
-        :src="hologramImage"
+        :src="hologramSrc"
         alt="Hologram"
         class="object-cover pointer-events-none mix-blend-screen absolute top-1/2 left-1/2 z-[-1] -translate-x-1/2 -translate-y-[65%] w-[42.375rem] h-[42rem]"
         :style="{ opacity: hologramOpacity, filter: `blur(${hologramBlur}px)` }"

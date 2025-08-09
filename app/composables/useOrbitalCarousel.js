@@ -215,9 +215,8 @@ export default function useOrbitalCarousel(options = {}) {
   const dragging = ref(false);
   const viewport = ref({ width: 0, height: 0 });
   const ready = ref(false);
-
-  // Hologram image state
-  const hologramImage = ref(undefined);
+  // Hologram state (coupled to drag lifecycle for performance)
+  const hologramSrc = ref("");
   const hologramOpacity = ref(1);
   const hologramBlur = ref(0);
 
@@ -376,6 +375,13 @@ export default function useOrbitalCarousel(options = {}) {
         resetCarousel();
         startPosition = position.value;
         startX = this.pointerX;
+        // Fade hologram out immediately on drag start
+        gsap.to(hologramOpacity, {
+          value: 0,
+          duration: 0.2,
+          ease: "power2.in",
+        });
+        gsap.to(hologramBlur, { value: 12, duration: 0.2, ease: "power2.in" });
       },
       onDrag() {
         dragDistance = this.pointerX - startX;
@@ -401,6 +407,17 @@ export default function useOrbitalCarousel(options = {}) {
       },
       onRelease() {
         if (!dragStarted) {
+          // Restore hologram if no real drag happened
+          gsap.to(hologramOpacity, {
+            value: 1,
+            duration: 0.25,
+            ease: "power2.out",
+          });
+          gsap.to(hologramBlur, {
+            value: 0,
+            duration: 0.25,
+            ease: "power2.out",
+          });
           this.endDrag();
           return;
         }
@@ -418,6 +435,18 @@ export default function useOrbitalCarousel(options = {}) {
           onComplete: () => {
             position.value = targetPos;
             currentIndex.value = targetPos;
+            // Switch hologram to the newly active item and fade back in
+            hologramSrc.value = getHologramImage(targetPos);
+            gsap.to(hologramOpacity, {
+              value: 1,
+              duration: 0.35,
+              ease: "power2.out",
+            });
+            gsap.to(hologramBlur, {
+              value: 0,
+              duration: 0.35,
+              ease: "power2.out",
+            });
           },
         });
         this.endDrag();
@@ -439,46 +468,17 @@ export default function useOrbitalCarousel(options = {}) {
     currentIndex.value = nearestPosition % ITEM_COUNT;
   }
 
-  // Type guard for hologramSrc property
-  function isHologramItem(item) {
-    return (
-      typeof item === "object" &&
-      item !== null &&
-      Object.prototype.hasOwnProperty.call(item, "hologramSrc") &&
-      typeof item.hologramSrc === "string"
-    );
-  }
-
-  // Helper to get hologram image for a given item index
+  // Resolve hologram image for a given item index
   function getHologramImage(index) {
-    const item = items[index % items.length];
-    if (isHologramItem(item)) return item.hologramSrc;
-    return undefined;
+    const safeIndex = ((index % items.length) + items.length) % items.length;
+    const item = items[safeIndex];
+    if (item && typeof item.hologramSrc === "string" && item.hologramSrc) {
+      return item.hologramSrc;
+    }
+    return "/orbital/hologram/ap-holo.png";
   }
 
-  // Animate hologram image on active item change
-  watch(currentIndex, (newIdx, oldIdx) => {
-    if (newIdx === oldIdx) return;
-    const tl = gsap.timeline();
-    tl.to(hologramOpacity, { value: 0, duration: 0.3, ease: "power2.in" })
-      .to(hologramBlur, { value: 12, duration: 0.3, ease: "power2.in" }, "<")
-      .add(() => {
-        hologramImage.value = getHologramImage(newIdx);
-        hologramOpacity.value = 0;
-        hologramBlur.value = 12;
-      })
-      .to(hologramOpacity, { value: 1, duration: 0.4, ease: "power2.out" })
-      .to(hologramBlur, { value: 0, duration: 0.4, ease: "power2.out" }, "<");
-  });
-
-  // Animate blur on drag
-  watch(dragging, (isDragging) => {
-    gsap.to(hologramBlur, {
-      value: isDragging ? 12 : 0,
-      duration: 0.3,
-      ease: "power2.out",
-    });
-  });
+  // Hologram animations removed from composable
 
   onMounted(async () => {
     await nextTick();
@@ -495,7 +495,8 @@ export default function useOrbitalCarousel(options = {}) {
     });
     resetCarousel();
     createDraggable();
-    hologramImage.value = getHologramImage(currentIndex.value);
+    // Initialize hologram for active item
+    hologramSrc.value = getHologramImage(currentIndex.value);
   });
 
   onBeforeUnmount(() => {
@@ -523,7 +524,7 @@ export default function useOrbitalCarousel(options = {}) {
     proxyRef,
     getItemProps,
     handlePickActive,
-    hologramImage,
+    hologramSrc,
     hologramOpacity,
     hologramBlur,
   };
