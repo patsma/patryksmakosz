@@ -1,0 +1,189 @@
+// Styles for OrbitalCarousel component (global, BEM, matches project structure)
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.orbital-carousel {
+  position: relative;
+  display: grid;
+  grid-template-areas: "canvas";
+  min-height: 100vh;
+  overflow: hidden;
+
+  &__canvas {
+    grid-area: canvas;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+  }
+
+  &__hologram {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -65%);
+    width: 42.375rem;
+    height: 42rem;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__drag-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    pointer-events: all;
+    cursor: none;
+  }
+
+  &__stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.orbital-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.3s, height 0.3s, opacity 0.3s, background 0.3s,
+    border 0.3s, transform 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+  user-select: none;
+  background: transparent;
+  pointer-events: none;
+  will-change: transform, opacity, width, height, z-index;
+
+  &--back {
+    filter: blur(0.5px);
+  }
+}
+
+.orbital-item-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 356 / 316;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.orbital-item__svg-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orbital-item__svg-gradient {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.orbital-item__svg-shape-frame {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.orbital-item__image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  transform: translate(-50%, -48.2%);
+  z-index: 2;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.orbital-item__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.orbital-item__svg-shape-filled {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.orbital-item__overlay-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 100%;
+}
+
+.orbital-item__icon-bulb {
+  width: 4.5em;
+  height: 4.5em;
+  margin-top: 2.5em;
+}
+
+.orbital-item__name {
+  color: var(--color-white);
+  font-size: 1.25rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 0 3.8em;
+  margin-top: 3em;
+}
+
+.orbital-item__show-title {
+  color: var(--color-white);
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0.04em;
+  margin: 0 2.65em;
+  margin-top: 1.5em;
+}
+
+.fade-cursor-enter-active,
+.fade-cursor-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-cursor-enter-from,
+.fade-cursor-leave-to {
+  opacity: 0;
+}
+.fade-cursor-enter-to,
+.fade-cursor-leave-from {
+  opacity: 1;
+}
+
+

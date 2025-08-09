@@ -137,29 +137,29 @@ watch(
 
 <template>
   <!-- Hologram image: only show on desktop, animate with GSAP state -->
-  <div class="py-16 md:py-24 relative z-10 overflow-hidden">
+  <div class="orbital-carousel">
     <div
       id="orbital-carousel-section"
       ref="sectionRef"
-      class="w-screen h-screen min-h-screen -translate-x-[0.5vw] uhd:-translate-x-[0.2vw] flex items-center justify-center bg-lbc-purple-300 cursor-none relative z-40"
+      class="orbital-carousel__canvas"
     >
       <NuxtImg
         ref="hologramImgRef"
         :src="hologramSrc"
         alt="Hologram"
-        class="object-cover pointer-events-none mix-blend-screen absolute top-1/2 left-1/2 z-[-1] -translate-x-1/2 -translate-y-[65%] w-[42.375rem] h-[42rem]"
+        class="orbital-carousel__hologram"
         :style="{ opacity: hologramOpacity, filter: `blur(${hologramBlur}px)` }"
       />
       <div ref="proxyRef" style="display: none" aria-hidden="true" />
       <div
         ref="dragOverlay"
-        class="absolute inset-0 z-50 drag-overlay"
+        class="orbital-carousel__drag-overlay"
         style="pointer-events: all"
         aria-label="Drag to rotate carousel"
       />
       <div
         ref="carouselRef"
-        class="carousel relative select-none w-full h-full flex items-center justify-center"
+        class="orbital-carousel__stage select-none"
         :style="{
           opacity: ready ? 1 : 0,
           visibility: ready ? 'visible' : 'hidden',
@@ -170,7 +170,7 @@ watch(
             v-for="item in items"
             :key="item.id"
             :class="[
-              'carousel-item',
+              'orbital-item',
               { active: getItemProps(item.id).isActive },
             ]"
             :style="{
@@ -218,69 +218,4 @@ watch(
   </div>
 </template>
 
-<style scoped>
-.carousel {
-  position: relative;
-  perspective: 1000px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-}
-.carousel-item {
-  position: absolute;
-  left: 0;
-  top: 0;
-  transform-origin: center center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: width 0.3s, height 0.3s, opacity 0.3s, background 0.3s,
-    border 0.3s, transform 0.3s, box-shadow 0.3s;
-  overflow: hidden;
-  user-select: none;
-  background: transparent;
-  pointer-events: none;
-  will-change: transform, opacity, width, height, z-index;
-}
-.carousel-item.back {
-  filter: blur(0.5px);
-}
-.drag-overlay {
-  pointer-events: all !important;
-  z-index: 1000 !important;
-  cursor: none !important;
-}
-.item-content {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-  transition: all 0.3s;
-}
-.item-content.active {
-  color: white;
-}
-.controls {
-  z-index: 10;
-}
-.cursor-none {
-  cursor: none !important;
-}
-.fade-cursor-enter-active,
-.fade-cursor-leave-active {
-  transition: opacity 0.3s;
-}
-.fade-cursor-enter-from,
-.fade-cursor-leave-to {
-  opacity: 0;
-}
-.fade-cursor-enter-to,
-.fade-cursor-leave-from {
-  opacity: 1;
-}
-</style>
+<style scoped></style>
