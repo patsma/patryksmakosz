@@ -144,19 +144,7 @@ watch(
 
 <template>
   <!-- Hologram image: only show on desktop, animate with GSAP state -->
-  <div class="bg-lbc-purple-300 py-16 md:py-24 relative z-10">
-    <div
-      ref="titleRef"
-      class="title pointer-events-none absolute top-[3.5rem] hd:top-[4.5rem] left-1/2 -translate-x-1/2 translate-y-1/2 text-center text-lbc-2xl md:text-lbc-6xl text-lbc-gray-100 z-50 font-bold w-full"
-    >
-      SCENA INSPIRACJI
-    </div>
-    <p
-      ref="subtitleRef"
-      class="absolute hidden md:block top-[9rem] hd:top-[11rem] left-1/2 -translate-x-1/2 text-[15px] md:text-[30px] font-normal text-center uppercase bg-gradient-to-r from-lbc-electric-blue to-lbc-neon-fuchsia bg-clip-text text-transparent tracking-[0.1em] md:tracking-[0.17em] z-50 pointer-events-none w-full"
-    >
-      PRELEGENCI LIFE BALANCE CONGRESS
-    </p>
+  <div class="py-16 md:py-24 relative z-10 overflow-hidden">
     <div
       id="orbital-carousel-section"
       ref="sectionRef"

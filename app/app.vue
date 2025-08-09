@@ -1,10 +1,13 @@
 <template>
   <div class="min-h-screen">
-    <div class="h-screen"></div>
-    <OrbitalCarousel />
-    <div class="h-screen"></div>
+    <OrbitalCarousel
+      class="z-10"
+      :items="items"
+      :breakpoint-config="breakpointConfig"
+      :front-margin="1.4"
+      :back-margin="1"
+    />
 
-    <!--   
     <CarouselTimeline
       headline="Customer experiences"
       text-under-headline="Short intro text"
@@ -59,20 +62,86 @@
       :big-title="false"
       :buttons="[{ type: 'filled', link: '#', text: 'Get started' }]"
     />
-   
+
     <MorphingLogo
       class="fixed z-10 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
     />
     <LogoHorizontal
       class="fixed z-10 cursor-pointer left-1/2 top-8 -translate-x-1/2 -translate-y-1/2 w-full h-10"
     />
-    <InfiniteComponentDrag /> -->
+    <InfiniteComponentDrag />
   </div>
 </template>
 
 <script setup>
-// Template ref for the ProjectBlueberry component
-const blueberryRef = ref(null);
+const breakpointConfig = [
+  {
+    minWidth: 3800,
+    orbitXFactor: 0.35,
+    orbitYFactor: 0.16,
+    minOrbitX: 640,
+    minOrbitY: 200,
+    frontMargin: 1.4,
+    backMargin: 1,
+    verticalOffset: 400,
+    itemScale: 1.6,
+  },
+  {
+    minWidth: 2400,
+    orbitXFactor: 0.35,
+    orbitYFactor: 0.16,
+    minOrbitX: 640,
+    minOrbitY: 200,
+    frontMargin: 1.4,
+    backMargin: 1,
+    verticalOffset: 250,
+    itemScale: 1.2,
+  },
+  {
+    minWidth: 2040,
+    orbitXFactor: 0.35,
+    orbitYFactor: 0.16,
+    minOrbitX: 640,
+    minOrbitY: 200,
+    frontMargin: 1.4,
+    backMargin: 1,
+    verticalOffset: 225,
+    itemScale: 1.1,
+  },
+  {
+    minWidth: 1890,
+    orbitXFactor: 0.35,
+    orbitYFactor: 0.16,
+    minOrbitX: 640,
+    minOrbitY: 200,
+    frontMargin: 1.4,
+    backMargin: 1,
+    verticalOffset: 160,
+    itemScale: 1.1,
+  },
+  {
+    minWidth: 1400,
+    orbitXFactor: 0.35,
+    orbitYFactor: 0.16,
+    minOrbitX: 640,
+    minOrbitY: 200,
+    frontMargin: 1.4,
+    backMargin: 1,
+    verticalOffset: 140,
+    itemScale: 1.05,
+  },
+  {
+    minWidth: 1200,
+    orbitXFactor: 0.35,
+    orbitYFactor: 0.16,
+    minOrbitX: 640,
+    minOrbitY: 200,
+    frontMargin: 1.4,
+    backMargin: 1,
+    verticalOffset: 225,
+    itemScale: 0.9,
+  },
+];
 </script>
 
 <style>
