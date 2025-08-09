@@ -114,10 +114,11 @@
         ref="imageItemRefs"
       >
         <div class="image image--parallax-01" ref="parallaxContainerRefs">
-          <img
+          <NuxtImg
             :src="item.thumbnail_url"
             :alt="item.post_title"
             data-speed="auto"
+            format="webp"
           />
         </div>
       </div>

@@ -190,7 +190,12 @@ onUnmounted(() => {
   >
     <div class="image-steppers__img">
       <div class="image image--parallax-01" ref="parallaxContainerRef">
-        <img :src="imageSrcNormalized" alt="" data-speed="auto" />
+        <NuxtImg
+          :src="imageSrcNormalized"
+          alt=""
+          data-speed="auto"
+          format="webp"
+        />
       </div>
     </div>
 
