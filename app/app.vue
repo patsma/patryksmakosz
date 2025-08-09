@@ -1,7 +1,6 @@
 <template>
   <div class="min-h-screen">
     <!-- Infinite Component Drag - Testing ProjectBlueberry components in grid -->
-    <!-- <InfiniteComponentDrag /> -->
     <CarouselTimeline
       headline="Customer experiences"
       text-under-headline="Short intro text"
@@ -58,13 +57,14 @@
     />
     <!-- Original components commented out for testing -->
     <!-- <InfiniteDragGrid /> -->
-    <div class="h-screen"></div>
+    <!-- <div class="h-screen"></div> -->
     <MorphingLogo
       class="fixed z-10 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
     />
     <LogoHorizontal
       class="fixed z-10 cursor-pointer left-1/2 top-8 -translate-x-1/2 -translate-y-1/2 w-full h-10"
     />
+    <InfiniteComponentDrag />
 
     <!-- Test the Blueberry component with GSDevTools -->
     <!-- <ProjectBlueberry
