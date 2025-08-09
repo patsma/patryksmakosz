@@ -131,6 +131,7 @@ const { $gsap } = useNuxtApp();
 
 // We'll register ScrollTrigger on client only
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import useParallaxImages from "/composables/useParallaxImages";
 
 /**
  * @typedef {Object} CaseStudy
@@ -189,6 +190,7 @@ const navigationPaginationRef = ref(null);
 // GSAP timeline and scrolltrigger refs
 const paginationTl = ref(null);
 const scrollTriggerRef = ref(null);
+let parallaxCleanup = null;
 
 /**
  * Normalize incoming cases to expected shape and fill gaps if needed
@@ -329,6 +331,9 @@ onMounted(() => {
   nextTick(() => {
     initAnimation();
   });
+
+  // Enable reusable parallax on images inside `.image--parallax-01`
+  parallaxCleanup = useParallaxImages();
 });
 
 onUnmounted(() => {
@@ -337,6 +342,9 @@ onUnmounted(() => {
   }
   if (scrollTriggerRef.value) {
     scrollTriggerRef.value.kill();
+  }
+  if (parallaxCleanup) {
+    parallaxCleanup();
   }
 });
 </script>

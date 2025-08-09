@@ -2,15 +2,14 @@
 // Global SCSS Variables
 // -----------------------------------------------------------------------------
 
-// Breakpoints
-$tablet: 768px;
-$laptop: 1024px;
-$desktop: 1441px;
-$largeDesktop: 1921px;
-$extraLargeDesktop: 3839px;
-
-// GRADIENTS
-// Note: Gradients are defined AFTER alternative colors to keep a single source of truth.
+// Breakpoints (aligned with Tailwind CSS defaults)
+// Tailwind: sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px
+// Mapping: tablet→md, laptop→lg, desktop→xl, largeDesktop→2xl
+$tablet: 768px; // md
+$laptop: 1024px; // lg
+$desktop: 1280px; // xl
+$largeDesktop: 1536px; // 2xl
+$extraLargeDesktop: 3820px; // custom beyond Tailwind for ultra-wide
 
 // PRIMARY
 $primary-1: #00205b;
@@ -23,7 +22,7 @@ $alternative-2: #007ab2;
 $alternative-3: #d50e2a;
 $alternative-4: #751055;
 
-// Re-map gradients to use alternative palette, so changing alternatives updates gradients globally
+// GRADIENTS
 $gradient-1: linear-gradient(72.44deg, $alternative-2 0%, $alternative-1 100%);
 $gradient-2: linear-gradient(72.44deg, $alternative-3 0%, $alternative-4 100%);
 
@@ -55,4 +54,4 @@ $system-red-3: #cc2929;
 $transition: 0.3s all ease-in-out;
 
 // Fonts
-$font-main: "Poppins", sans-serif;
+$font-main: "Lato", sans-serif;

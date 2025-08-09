@@ -1,84 +1,8 @@
-<template>
-  <section
-    class="image-steppers"
-    :class="{
-      'image-steppers--reversed': flipped,
-      'image-steppers--big-title': bigTitle,
-    }"
-    role="region"
-    aria-label="Image steppers"
-  >
-    <div class="image-steppers__img">
-      <div class="image image--parallax-01">
-        <img :src="imageSrcNormalized" alt="" data-speed="auto" />
-      </div>
-    </div>
-
-    <div class="image-steppers__wrapper">
-      <div
-        class="image-steppers__title"
-        :class="{
-          'gradient-text-2': alternativeColors && gradientTitle,
-          'gradient-text-1': !alternativeColors && gradientTitle,
-        }"
-      >
-        {{ titleNormalized }}
-      </div>
-
-      <div v-if="copyNormalized" class="image-steppers__copy">
-        {{ copyNormalized }}
-      </div>
-
-      <div class="image-steppers__steps" ref="stepsWrapperRef">
-        <div
-          v-for="(item, index) in stepsNormalized"
-          :key="`step-${index}`"
-          class="image-steppers__step"
-          ref="stepRefs"
-        >
-          <div class="image-steppers__step-number" ref="stepNumberRefs">
-            {{ index + 1 }}
-            <div class="image-steppers__step-line" ref="stepLineRefs"></div>
-          </div>
-          <div class="image-steppers__step-inner">
-            <div class="image-steppers__step-title" ref="stepTitleRefs">
-              {{ item.title }}
-            </div>
-            <div class="image-steppers__step-copy" ref="stepCopyRefs">
-              {{ item.text }}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="button" v-if="buttonsNormalized.length">
-        <template v-for="(btn, idx) in buttonsNormalized" :key="`cta-${idx}`">
-          <a
-            v-if="btn.type === 'outline'"
-            :href="btn.link"
-            class="btn-standard-outlined"
-            :class="{ 'btn-standard--incident': alternativeColors }"
-          >
-            <span>{{ btn.text }}</span>
-          </a>
-          <a
-            v-else
-            :href="btn.link"
-            class="btn-standard"
-            :class="{ 'btn-standard--incident': alternativeColors }"
-          >
-            <span>{{ btn.text }}</span>
-          </a>
-        </template>
-      </div>
-    </div>
-  </section>
-</template>
-
 <script setup>
 // Use GSAP through Nuxt injection to align with our animation standards
 const { $gsap } = useNuxtApp();
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import useParallaxImages from "/composables/useParallaxImages";
 
 /**
  * @typedef {Object} StepItem
@@ -216,6 +140,7 @@ const initScrollAnimations = () => {
 
 // Resize handling
 let resizeHandler = null;
+let parallaxCleanup = null;
 
 onMounted(() => {
   // Register plugin safely on client
@@ -232,6 +157,9 @@ onMounted(() => {
     setStepLinesHeight();
   };
   window.addEventListener("resize", resizeHandler, { passive: true });
+
+  // Enable parallax effect for any `.image--parallax-01 img` inside this component
+  parallaxCleanup = useParallaxImages();
 });
 
 onUnmounted(() => {
@@ -242,7 +170,86 @@ onUnmounted(() => {
   if (resizeHandler) {
     window.removeEventListener("resize", resizeHandler);
   }
+  if (parallaxCleanup) {
+    parallaxCleanup();
+  }
 });
 </script>
+<template>
+  <section
+    class="image-steppers"
+    :class="{
+      'image-steppers--reversed': flipped,
+      'image-steppers--big-title': bigTitle,
+    }"
+    role="region"
+    aria-label="Image steppers"
+  >
+    <div class="image-steppers__img">
+      <div class="image image--parallax-01">
+        <img :src="imageSrcNormalized" alt="" data-speed="auto" />
+      </div>
+    </div>
+
+    <div class="image-steppers__wrapper">
+      <div
+        class="image-steppers__title"
+        :class="{
+          'gradient-text-2': alternativeColors && gradientTitle,
+          'gradient-text-1': !alternativeColors && gradientTitle,
+        }"
+      >
+        {{ titleNormalized }}
+      </div>
+
+      <div v-if="copyNormalized" class="image-steppers__copy">
+        {{ copyNormalized }}
+      </div>
+
+      <div class="image-steppers__steps" ref="stepsWrapperRef">
+        <div
+          v-for="(item, index) in stepsNormalized"
+          :key="`step-${index}`"
+          class="image-steppers__step"
+          ref="stepRefs"
+        >
+          <div class="image-steppers__step-number" ref="stepNumberRefs">
+            {{ index + 1 }}
+            <div class="image-steppers__step-line" ref="stepLineRefs"></div>
+          </div>
+          <div class="image-steppers__step-inner">
+            <div class="image-steppers__step-title" ref="stepTitleRefs">
+              {{ item.title }}
+            </div>
+            <div class="image-steppers__step-copy" ref="stepCopyRefs">
+              {{ item.text }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button" v-if="buttonsNormalized.length">
+        <template v-for="(btn, idx) in buttonsNormalized" :key="`cta-${idx}`">
+          <a
+            v-if="btn.type === 'outline'"
+            :href="btn.link"
+            class="btn-standard-outlined"
+            :class="{ 'btn-standard--incident': alternativeColors }"
+          >
+            <span>{{ btn.text }}</span>
+          </a>
+          <a
+            v-else
+            :href="btn.link"
+            class="btn-standard"
+            :class="{ 'btn-standard--incident': alternativeColors }"
+          >
+            <span>{{ btn.text }}</span>
+          </a>
+        </template>
+      </div>
+    </div>
+  </section>
+</template>
 
 <style scoped lang="scss"></style>
