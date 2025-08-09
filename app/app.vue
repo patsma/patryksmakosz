@@ -74,6 +74,11 @@
 </template>
 
 <script setup>
+import { defaultItems as orbitalDefaultItems } from "/composables/useOrbitalCarousel";
+
+// Provide items for OrbitalCarousel to avoid undefined binding warnings
+const items = orbitalDefaultItems;
+
 const breakpointConfig = [
   {
     minWidth: 3800,

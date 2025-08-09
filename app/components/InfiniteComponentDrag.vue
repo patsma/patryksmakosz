@@ -94,7 +94,7 @@ const initInfiniteComponentDrag = () => {
   const contentWidth = content.clientWidth;
   const contentHeight = content.clientHeight;
 
-  console.log(`Content dimensions: ${contentWidth}x${contentHeight}`);
+  // console.log(`Content dimensions: ${contentWidth}x${contentHeight}`);
 
   // Calculate wrapping boundaries for seamless infinite scrolling
   const wrapX = $gsap.utils.wrap(-contentWidth, 0);
@@ -146,7 +146,7 @@ const initInfiniteComponentDrag = () => {
     },
   });
 
-  console.log("Infinite component drag system initialized successfully");
+  // console.log("Infinite component drag system initialized successfully");
 };
 
 // Initialize on mount

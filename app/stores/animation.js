@@ -30,7 +30,7 @@ export const useAnimationStore = defineStore("animation", () => {
       animations.value[name].isCompleted = false;
       animations.value[name].duration = duration;
       animations.value[name].startTime = Date.now();
-      console.log(`Started animation: ${name} (duration: ${duration}s)`);
+      // console.log(`Started animation: ${name} (duration: ${duration}s)`);
     }
   };
 
@@ -41,7 +41,7 @@ export const useAnimationStore = defineStore("animation", () => {
     if (animations.value[name]) {
       animations.value[name].isRunning = false;
       animations.value[name].isCompleted = true;
-      console.log(`Completed animation: ${name}`);
+      // console.log(`Completed animation: ${name}`);
     }
   };
 

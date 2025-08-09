@@ -31,12 +31,12 @@ const initializePaths = () => {
     text1Paths.value = allTextPaths.slice(0, 5); // First 5 paths
     text2Paths.value = allTextPaths.slice(5, 10); // Next 5 paths
 
-    console.log("LogoHorizontal paths initialized:", {
-      text1: text1Paths.value.length,
-      text2: text2Paths.value.length,
-      right: rightPaths.value.length,
-      left: leftPaths.value.length,
-    });
+    // console.log("LogoHorizontal paths initialized:", {
+    //   text1: text1Paths.value.length,
+    //   text2: text2Paths.value.length,
+    //   right: rightPaths.value.length,
+    //   left: leftPaths.value.length,
+    // });
 
     // Set initial scattered positions immediately (hidden state)
     $gsap.set(text1Paths.value, { y: 100, opacity: 0 });
