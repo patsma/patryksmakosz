@@ -19,16 +19,13 @@
         <p>Scroll to move the ball along the path.</p>
       </div>
       <div
+        v-for="(d, i) in section1Dummies"
+        :key="`s1-${i}`"
+        ref="dummyRefs"
         class="dummy dummy-desktop"
-        data-control-x="0.25"
-        data-control-y="-100"
-        style="top: 15%; left: 20%"
-      />
-      <div
-        class="dummy dummy-desktop"
-        data-control-x="0.25"
-        data-control-y="-150"
-        style="top: 35%; left: 60%"
+        :data-control-x="d.controlX"
+        :data-control-y="d.controlY"
+        :style="{ top: d.top, left: d.left }"
       />
     </div>
 
@@ -38,16 +35,13 @@
         <p>Smoothly continues across the page.</p>
       </div>
       <div
+        v-for="(d, i) in section2Dummies"
+        :key="`s2-${i}`"
+        ref="dummyRefs"
         class="dummy dummy-desktop"
-        data-control-x="0.25"
-        data-control-y="-100"
-        style="top: 50%; left: 10%"
-      />
-      <div
-        class="dummy dummy-desktop"
-        data-control-x="0.25"
-        data-control-y="-200"
-        style="top: 70%; left: 50%"
+        :data-control-x="d.controlX"
+        :data-control-y="d.controlY"
+        :style="{ top: d.top, left: d.left }"
       />
     </div>
 
@@ -57,16 +51,13 @@
         <p>Path ends here.</p>
       </div>
       <div
+        v-for="(d, i) in section3Dummies"
+        :key="`s3-${i}`"
+        ref="dummyRefs"
         class="dummy dummy-desktop"
-        data-control-x="0.25"
-        data-control-y="-150"
-        style="top: 30%; left: 75%"
-      />
-      <div
-        class="dummy dummy-desktop"
-        data-control-x="0.25"
-        data-control-y="-100"
-        style="top: 85%; left: 30%"
+        :data-control-x="d.controlX"
+        :data-control-y="d.controlY"
+        :style="{ top: d.top, left: d.left }"
       />
     </div>
   </section>
@@ -82,6 +73,24 @@ const rootRef = ref(null);
 const ballRef = ref(null);
 const pathSvgRef = ref(null);
 const pathRef = ref(null);
+const dummyRefs = ref([]);
+
+onBeforeUpdate(() => {
+  dummyRefs.value = [];
+});
+
+const section1Dummies = [
+  { top: "15%", left: "20%", controlX: 0.25, controlY: -100 },
+  { top: "35%", left: "60%", controlX: 0.25, controlY: -150 },
+];
+const section2Dummies = [
+  { top: "50%", left: "10%", controlX: 0.25, controlY: -100 },
+  { top: "70%", left: "50%", controlX: 0.25, controlY: -200 },
+];
+const section3Dummies = [
+  { top: "30%", left: "75%", controlX: 0.25, controlY: -150 },
+  { top: "85%", left: "30%", controlX: 0.25, controlY: -100 },
+];
 
 onMounted(() => {
   nextTick(() => {
@@ -89,12 +98,11 @@ onMounted(() => {
   });
 });
 
-const getDummyPositions = (rootEl, selector) => {
-  const dummies = rootEl ? rootEl.querySelectorAll(selector) : [];
+const getDummyPositionsFromRefs = (rootEl) => {
   const rootRect = rootEl
     ? rootEl.getBoundingClientRect()
     : { left: 0, top: 0 };
-  return Array.from(dummies).map((dummy) => {
+  return dummyRefs.value.map((dummy) => {
     const rect = dummy.getBoundingClientRect();
     return {
       x: rect.left - rootRect.left + rect.width / 2,
@@ -136,7 +144,7 @@ const createBouncyPath = (points) => {
 };
 
 const drawPath = (rootEl, selector, pathEl) => {
-  const points = getDummyPositions(rootEl, selector);
+  const points = getDummyPositionsFromRefs(rootEl);
   if (points.length < 2) return { pathData: "", points: [] };
   const pathData = createBouncyPath(points);
   pathEl.setAttribute("d", pathData);
