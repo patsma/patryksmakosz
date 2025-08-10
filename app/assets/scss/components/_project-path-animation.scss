@@ -43,6 +43,7 @@
     box-shadow: var(--shadow-elevation-1);
     z-index: 3;
     pointer-events: none;
+    opacity: 0; // hidden until positioned on mount
   }
 
   // SVG overlay used for debugging/visualizing the path (kept hidden by default)

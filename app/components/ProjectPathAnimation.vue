@@ -142,10 +142,10 @@ const createBouncyPath = (points) => {
 
 const drawPath = (rootEl, selector, pathEl) => {
   const points = getDummyPositions(rootEl, selector);
-  if (points.length < 2) return "";
+  if (points.length < 2) return { pathData: "", points: [] };
   const pathData = createBouncyPath(points);
   pathEl.setAttribute("d", pathData);
-  return pathData;
+  return { pathData, points };
 };
 
 const initializePathAnimation = () => {
@@ -154,10 +154,20 @@ const initializePathAnimation = () => {
   const pathEl = pathRef.value;
   if (!root || !ball || !pathEl) return;
 
-  const pathData = drawPath(root, ".dummy-desktop", pathEl);
-  if (!pathData) return;
+  const { pathData, points } = drawPath(root, ".dummy-desktop", pathEl);
+  if (!pathData || points.length === 0) return;
 
-  $gsap.set(ball, { autoAlpha: 1 });
+  // Place the ball at the first dummy coordinates immediately (no snapping)
+  const first = points[0];
+  const ballRect = ball.getBoundingClientRect();
+  const halfW = ballRect.width ? ballRect.width / 2 : 12;
+  const halfH = ballRect.height ? ballRect.height / 2 : 12;
+  $gsap.set(ball, {
+    left: first.x - halfW,
+    top: first.y - halfH,
+    autoAlpha: 1,
+    clearProps: "transform",
+  });
 
   $gsap
     .timeline({
