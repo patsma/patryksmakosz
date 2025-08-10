@@ -21,7 +21,7 @@
       <div
         v-for="(d, i) in section1Dummies"
         :key="`s1-${i}`"
-        ref="dummyRefs"
+        :ref="setDummyRef"
         class="dummy dummy-desktop"
         :data-control-x="d.controlX"
         :data-control-y="d.controlY"
@@ -37,7 +37,7 @@
       <div
         v-for="(d, i) in section2Dummies"
         :key="`s2-${i}`"
-        ref="dummyRefs"
+        :ref="setDummyRef"
         class="dummy dummy-desktop"
         :data-control-x="d.controlX"
         :data-control-y="d.controlY"
@@ -53,7 +53,7 @@
       <div
         v-for="(d, i) in section3Dummies"
         :key="`s3-${i}`"
-        ref="dummyRefs"
+        :ref="setDummyRef"
         class="dummy dummy-desktop"
         :data-control-x="d.controlX"
         :data-control-y="d.controlY"
@@ -74,10 +74,17 @@ const ballRef = ref(null);
 const pathSvgRef = ref(null);
 const pathRef = ref(null);
 const dummyRefs = ref([]);
+let resizeObserver = null;
+let resizeTimer = null;
 
 onBeforeUpdate(() => {
   dummyRefs.value = [];
 });
+
+// Helper to collect refs from v-for reliably
+const setDummyRef = (el) => {
+  if (el) dummyRefs.value.push(el);
+};
 
 const section1Dummies = [
   { top: "15%", left: "20%", controlX: 0.25, controlY: -100 },
@@ -96,6 +103,29 @@ onMounted(() => {
   nextTick(() => {
     initializePathAnimation();
   });
+});
+
+onUnmounted(() => {
+  // Kill any ScrollTrigger instances created for this component to avoid leaks
+  try {
+    const st = $gsap.core.globals().ScrollTrigger;
+    if (st) {
+      st.getAll().forEach((t) => {
+        if (rootRef.value && t.vars && t.vars.trigger === rootRef.value) {
+          t.kill();
+        }
+      });
+    }
+  } catch (_) {}
+
+  if (resizeObserver) {
+    try {
+      resizeObserver.disconnect();
+    } catch (_) {}
+  }
+  if (resizeTimer) {
+    clearTimeout(resizeTimer);
+  }
 });
 
 const getDummyPositionsFromRefs = (rootEl) => {
@@ -151,6 +181,17 @@ const drawPath = (rootEl, selector, pathEl) => {
   return { pathData, points };
 };
 
+const recalcPathAndPosition = (root, pathEl, ball) => {
+  // Wait a frame to ensure layout is settled after resize
+  requestAnimationFrame(() => {
+    const { pathData, points } = drawPath(root, ".dummy-desktop", pathEl);
+    if (!pathData || points.length === 0) return;
+    const firstPt = points[0];
+    const half = 12; // ball is 24px
+    $gsap.set(ball, { left: firstPt.x - half, top: firstPt.y - half });
+  });
+};
+
 const initializePathAnimation = () => {
   const root = rootRef.value;
   const ball = ballRef.value;
@@ -179,18 +220,50 @@ const initializePathAnimation = () => {
         start: "top top",
         end: "bottom bottom",
         scrub: true,
+        invalidateOnRefresh: true,
+        onRefresh: () => {
+          recalcPathAndPosition(root, pathEl, ball);
+        },
       },
     })
     .to(ball, {
       duration: 5,
       ease: "none",
+      invalidateOnRefresh: true,
       motionPath: {
-        path: pathData,
+        path: pathEl,
         align: pathEl,
         alignOrigin: [0.5, 0.5],
         autoRotate: true,
       },
     });
+
+  // Observe root size changes and window resize to force refresh
+  try {
+    const st = $gsap.core.globals().ScrollTrigger;
+    if (window && st) {
+      resizeObserver = new ResizeObserver(() => {
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          recalcPathAndPosition(root, pathEl, ball);
+          st.refresh();
+        }, 100);
+      });
+      resizeObserver.observe(root);
+
+      window.addEventListener(
+        "resize",
+        () => {
+          if (resizeTimer) clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            recalcPathAndPosition(root, pathEl, ball);
+            st.refresh();
+          }, 100);
+        },
+        { passive: true }
+      );
+    }
+  } catch (_) {}
 };
 </script>
 
