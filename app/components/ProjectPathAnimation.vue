@@ -73,10 +73,9 @@
 </template>
 
 <script setup>
-// Nuxt/GSAP injections and plugins
+// Nuxt/GSAP injection via @hypernym/nuxt-gsap
+// We rely on nuxt.config.ts for plugin registration
 const { $gsap } = useNuxtApp();
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
 // Refs
 const rootRef = ref(null);
@@ -85,10 +84,6 @@ const pathSvgRef = ref(null);
 const pathRef = ref(null);
 
 onMounted(() => {
-  try {
-    $gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
-  } catch (_) {}
-
   nextTick(() => {
     initializePathAnimation();
   });

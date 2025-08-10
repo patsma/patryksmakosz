@@ -28,6 +28,8 @@ export default defineNuxtConfig({
     },
     extraPlugins: {
       observer: true,
+      scrollTrigger: true,
+      motionPath: true,
     },
   },
 });
