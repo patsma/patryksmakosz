@@ -1,0 +1,85 @@
+// Styles for ProjectPathAnimation component (global)
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.project-path-animation {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: block;
+
+  @include laptop {
+    min-height: 100vh;
+  }
+
+  .section {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+  }
+
+  .section-1 {
+    background: var(--color-primary-2);
+    color: var(--color-white);
+  }
+  .section-2 {
+    background: var(--color-white);
+    color: var(--color-black);
+  }
+  .section-3 {
+    background: var(--color-gray-1);
+    color: var(--color-black);
+  }
+
+  // Floating ball that moves along the motion path
+  .ball {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+    background: var(--color-primary-1);
+    box-shadow: var(--shadow-elevation-1);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  // SVG overlay used for debugging/visualizing the path (kept hidden by default)
+  .path-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    // opacity: 0; // keep non-intrusive by default
+  }
+
+  .path-svg path {
+    fill: none;
+    stroke: var(--color-gray-3);
+    stroke-width: 2;
+  }
+
+  // Loader overlay that plays the logo animation
+  .loader {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: var(--color-primary-2);
+    z-index: 4;
+  }
+
+  // Optional helper markers used to generate the path
+  .dummy {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: #fcc43f66;
+    box-shadow: 0 0 0 2px #fcc43f;
+    opacity: 0; // hidden by default
+  }
+}

@@ -10,6 +10,7 @@
 @use "./components/carousel-timeline";
 @use "./components/image-steppers";
 @use "./components/orbital-carousel";
+@use "./components/project-path-animation";
 
 :root {
   // Expose key SCSS colors as CSS custom properties for JS/GSAP usage

@@ -69,6 +69,8 @@
     <LogoHorizontal
       class="fixed z-10 cursor-pointer left-1/2 top-8 -translate-x-1/2 -translate-y-1/2 w-full h-10"
     />
+    <ProjectPathAnimation />
+
     <InfiniteComponentDrag />
   </div>
 </template>
