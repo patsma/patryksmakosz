@@ -229,7 +229,6 @@ const initializePathAnimation = () => {
     .to(ball, {
       duration: 5,
       ease: "none",
-      invalidateOnRefresh: true,
       motionPath: {
         path: pathEl,
         align: pathEl,
