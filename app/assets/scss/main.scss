@@ -60,6 +60,26 @@
   --shadow-elevation-1: 0 0 14px rgba(18, 18, 18, 0.12);
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  // Prevent history swipe on horizontal overscroll
+  overscroll-behavior-x: none;
+}
+
+// SVG elements should fill their containers by default
+svg {
+  width: 100%;
+  height: 100%;
+}
+
 .image {
   width: 100%;
   height: 100%;

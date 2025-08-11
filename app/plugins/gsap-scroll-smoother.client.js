@@ -114,9 +114,17 @@ export default defineNuxtPlugin((nuxtApp) => {
   };
   window.addEventListener("resize", onResize);
 
-  // Cleanup on route change and before unload
+  // On each route render completion, enable or destroy Smoother depending on layout structure
   nuxtApp.hook("page:finish", () => {
-    // Smoother handles internal content; we just refresh triggers
+    const wrapper = document.getElementById("smooth-wrapper");
+    const content = document.getElementById("smooth-content");
+    if (wrapper && content) {
+      enableSmoother();
+    } else {
+      destroySmoother();
+    }
+
+    // Always refresh triggers after layout change
     try {
       const st = $gsap.core.globals().ScrollTrigger;
       st && st.refresh && st.refresh();
