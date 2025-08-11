@@ -93,15 +93,10 @@ export default defineNuxtPlugin((nuxtApp) => {
     } catch (e) {}
   };
 
-  // Initial run after mount
-  if (
-    document.readyState === "complete" ||
-    document.readyState === "interactive"
-  ) {
+  // Enable only after Nuxt app is mounted (post-hydration) to avoid SSR mismatch
+  nuxtApp.hook("app:mounted", () => {
     enableSmoother();
-  } else {
-    window.addEventListener("DOMContentLoaded", enableSmoother, { once: true });
-  }
+  });
 
   // Keep things stable across resize/orientation without tearing down Smoother
   const onResize = () => {

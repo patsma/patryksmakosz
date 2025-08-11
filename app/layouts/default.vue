@@ -1,15 +1,5 @@
 <template>
-  <div
-    id="smooth-wrapper"
-    class="min-h-screen"
-    style="
-      /* position: fixed; */
-      /* inset: 0; */
-      /* height: 100svh; */
-      /* width: 100vw; */
-      /* overflow: hidden; */
-    "
-  >
+  <div id="smooth-wrapper" class="min-h-screen">
     <!--
     Default layout with GSAP ScrollSmoother structure.
     - Keeps fixed UI outside transformed content to avoid position:fixed issues

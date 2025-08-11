@@ -2,7 +2,6 @@
 // Minimal hamburger menu with GSAP timeline for open/close
 // Uses Pinia store for state and a single master timeline that plays/reverses
 import { useMenuStore } from "/stores/menu";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const { $gsap } = useNuxtApp();
 const menuStore = useMenuStore();
@@ -24,9 +23,8 @@ let tl = null;
  * Timeline stays paused; we play() on open and reverse() on close
  */
 onMounted(() => {
-  try {
-    $gsap.registerPlugin(ScrollTrigger);
-  } catch (e) {}
+  // We rely on @hypernym/nuxt-gsap to register plugins globally via nuxt.config.ts
+  // No need to register ScrollTrigger manually here
 
   // Basic overlay and panel animation
   tl = $gsap.timeline({
