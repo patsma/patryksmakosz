@@ -1,77 +1,96 @@
 <template>
-  <div class="min-h-screen">
-    <OrbitalCarousel
-      class="z-10"
-      :items="items"
-      :breakpoint-config="breakpointConfig"
-      :front-margin="1.4"
-      :back-margin="1"
-    />
-
-    <CarouselTimeline
-      headline="Customer experiences"
-      text-under-headline="Short intro text"
-      :steps="[
-        {
-          title: 'Discover',
-          content: 'We learn and understand.',
-          read_more_link: '#',
-        },
-        {
-          title: 'Design',
-          content: 'We design the solution.',
-          read_more_link: '#',
-        },
-        {
-          title: 'Deliver',
-          content: 'We build and iterate.',
-          read_more_link: '#',
-        },
-      ]"
-      :buttons="[{ type: 'outline', link: '#', text: 'View all' }]"
-    />
-    <CarouselFeaturedCaseStudies
-      headline="Featured case studies"
-      :alternative-colors="false"
-      :gradient-title="true"
-      view-all-href="/case-studies"
-      :cases="[]"
-      id-attr="featured-cases-1"
-    />
-    <ImageSteppers
-      title="Our process"
-      copy="Short description that explains the steps."
-      image-src="/Image-component-5.png"
-      :steps="[
-        {
-          title: 'Discover',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
-        },
-        {
-          title: 'Design',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
-        },
-        {
-          title: 'Deliver',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
-        },
-      ]"
-      :alternative-colors="false"
-      :gradient-title="true"
-      :flipped="false"
-      :big-title="false"
-      :buttons="[{ type: 'filled', link: '#', text: 'Get started' }]"
-    />
-
+  <!--
+    ScrollSmoother wrapper structure.
+    We only initialize the smoother on non-touch devices to avoid hiding mobile browser bars.
+    On mobile, this remains a normal scroll container.
+  -->
+  <div
+    id="smooth-wrapper"
+    class="min-h-screen"
+    style="
+      position: fixed;
+      inset: 0;
+      height: 100svh;
+      width: 100vw;
+      overflow: hidden;
+    "
+  >
+    <!-- Keep fixed UI outside transformed content to avoid ScrollSmoother affecting position: fixed -->
     <MorphingLogo
       class="fixed z-10 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
     />
     <LogoHorizontal
       class="fixed z-10 cursor-pointer left-1/2 top-8 -translate-x-1/2 -translate-y-1/2 w-full h-10"
     />
-    <ProjectPathAnimation />
 
-    <InfiniteComponentDrag />
+    <div id="smooth-content">
+      <OrbitalCarousel
+        class="z-10"
+        :items="items"
+        :breakpoint-config="breakpointConfig"
+        :front-margin="1.4"
+        :back-margin="1"
+      />
+
+      <CarouselTimeline
+        headline="Customer experiences"
+        text-under-headline="Short intro text"
+        :steps="[
+          {
+            title: 'Discover',
+            content: 'We learn and understand.',
+            read_more_link: '#',
+          },
+          {
+            title: 'Design',
+            content: 'We design the solution.',
+            read_more_link: '#',
+          },
+          {
+            title: 'Deliver',
+            content: 'We build and iterate.',
+            read_more_link: '#',
+          },
+        ]"
+        :buttons="[{ type: 'outline', link: '#', text: 'View all' }]"
+      />
+      <CarouselFeaturedCaseStudies
+        headline="Featured case studies"
+        :alternative-colors="false"
+        :gradient-title="true"
+        view-all-href="/case-studies"
+        :cases="[]"
+        id-attr="featured-cases-1"
+      />
+      <ImageSteppers
+        title="Our process"
+        copy="Short description that explains the steps."
+        image-src="/Image-component-5.png"
+        :steps="[
+          {
+            title: 'Discover',
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
+          },
+          {
+            title: 'Design',
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
+          },
+          {
+            title: 'Deliver',
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
+          },
+        ]"
+        :alternative-colors="false"
+        :gradient-title="true"
+        :flipped="false"
+        :big-title="false"
+        :buttons="[{ type: 'filled', link: '#', text: 'Get started' }]"
+      />
+
+      <ProjectPathAnimation />
+
+      <InfiniteComponentDrag />
+    </div>
   </div>
 </template>
 

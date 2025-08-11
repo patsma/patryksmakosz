@@ -25,6 +25,8 @@ export default defineNuxtConfig({
       morphSvg: true,
       drawSvg: true,
       gsDevTools: true,
+      // Enable ScrollSmoother club plugin so it's tree-shakeable and available client-side
+      scrollSmoother: true,
     },
     extraPlugins: {
       observer: true,

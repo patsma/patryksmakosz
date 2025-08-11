@@ -87,8 +87,8 @@ const setDummyRef = (el) => {
 };
 
 const section1Dummies = [
-  { top: "15%", left: "20%", controlX: 0.25, controlY: -100 },
-  { top: "35%", left: "60%", controlX: 0.25, controlY: -150 },
+  { top: "50%", left: "50%", controlX: 0.25, controlY: -100 },
+  { top: "55%", left: "60%", controlX: 0.25, controlY: -150 },
 ];
 const section2Dummies = [
   { top: "50%", left: "10%", controlX: 0.25, controlY: -100 },
