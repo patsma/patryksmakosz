@@ -480,6 +480,10 @@ export default function useOrbitalCarousel(options = {}) {
 
   // Hologram animations removed from composable
 
+  // Initialize hologram source immediately to avoid empty NuxtImg src during SSR/hydration
+  // Use the currentIndex (defaults to 0) so the first item's hologram is shown by default
+  hologramSrc.value = getHologramImage(0);
+
   onMounted(async () => {
     await nextTick();
     updateViewport();

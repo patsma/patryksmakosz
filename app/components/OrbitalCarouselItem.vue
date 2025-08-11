@@ -22,12 +22,16 @@ const props = defineProps({
     </div>
     <!-- Image, fades out when active -->
     <transition name="fade">
-      <img
+      <NuxtImg
         v-if="!active"
         :src="imageSrc"
         alt="mentor"
         class="orbital-item__image"
         draggable="false"
+        format="webp"
+        densities="x1 x2"
+        sizes="(min-width: 1024px) 320px, 200px"
+        :preload="false"
       />
     </transition>
     <!-- Overlay content, fades in when active -->
