@@ -9,7 +9,6 @@ const menuStore = useMenuStore();
 // Refs for DOM elements we animate
 const buttonRef = ref(null);
 const lineTopRef = ref(null);
-const lineMiddleRef = ref(null);
 const lineBottomRef = ref(null);
 const overlayRef = ref(null);
 const panelRef = ref(null);
@@ -18,14 +17,7 @@ const linksRef = ref([]);
 // Master timeline
 let tl = null;
 
-/**
- * Create the GSAP timeline once on mount
- * Timeline stays paused; we play() on open and reverse() on close
- */
 onMounted(() => {
-  // We rely on @hypernym/nuxt-gsap to register plugins globally via nuxt.config.ts
-  // No need to register ScrollTrigger manually here
-
   // Basic overlay and panel animation
   tl = $gsap.timeline({
     paused: true,
@@ -48,10 +40,14 @@ onMounted(() => {
     0.1
   );
 
-  // Burger to X morph
-  tl.to(lineTopRef.value, { y: 7, rotate: 45 }, 0);
-  tl.to(lineMiddleRef.value, { autoAlpha: 0 }, 0);
-  tl.to(lineBottomRef.value, { y: -7, rotate: -45 }, 0);
+  // Icon morph and color change driven by GSAP for perfect sync
+  tl.to(lineTopRef.value, { y: "0.3125rem", rotate: 45 }, 0);
+  tl.to(lineBottomRef.value, { y: "-0.3125rem", rotate: -45 }, 0);
+  tl.to(
+    [lineTopRef.value, lineBottomRef.value],
+    { backgroundColor: "var(--color-white)" },
+    0
+  );
 
   // Sync with current state
   if (menuStore.isOpen) {
@@ -72,8 +68,6 @@ watch(
   () => menuStore.isOpen,
   (isOpen) => {
     if (!tl) return;
-    // Prevent scroll jumps when opening overlay by locking body scroll
-    // document.documentElement.style.overflow = isOpen ? "hidden" : "";
     isOpen ? tl.play() : tl.reverse();
   }
 );
@@ -94,62 +88,55 @@ onMounted(() => {
 });
 onUnmounted(() => {
   window.removeEventListener("keydown", handleKeydown);
-  // document.documentElement.style.overflow = "";
 });
 </script>
 
 <template>
   <!-- Button -->
-  <button
-    ref="buttonRef"
-    class="fixed z-20 right-4 top-4 h-12 w-12 grid place-items-center rounded-full bg-black/40 backdrop-blur text-white focus:outline-none focus:ring-2 focus:ring-white/40"
-    :aria-expanded="menuStore.isOpen ? 'true' : 'false'"
-    aria-controls="app-menu-overlay"
-    aria-label="Toggle menu"
-    @click="handleToggle"
-  >
-    <span class="relative block h-5 w-6">
-      <span
-        ref="lineTopRef"
-        class="absolute left-0 top-0 block h-0.5 w-6 bg-white will-change-transform"
-      ></span>
-      <span
-        ref="lineMiddleRef"
-        class="absolute left-0 top-2 block h-0.5 w-6 bg-white will-change-transform"
-      ></span>
-      <span
-        ref="lineBottomRef"
-        class="absolute left-0 bottom-0 block h-0.5 w-6 bg-white will-change-transform"
-      ></span>
-    </span>
-  </button>
+  <div class="hamburger">
+    <button
+      ref="buttonRef"
+      class="hamburger__button"
+      :aria-expanded="menuStore.isOpen ? 'true' : 'false'"
+      aria-controls="app-menu-overlay"
+      aria-label="Toggle menu"
+      @click="handleToggle"
+    >
+      <span class="hamburger__icon">
+        <span
+          ref="lineTopRef"
+          class="hamburger__line hamburger__line--top"
+        ></span>
+        <span
+          ref="lineBottomRef"
+          class="hamburger__line hamburger__line--bottom"
+        ></span>
+      </span>
+    </button>
+  </div>
 
   <!-- Overlay -->
   <div
     id="app-menu-overlay"
     ref="overlayRef"
-    class="fixed inset-0 z-10 bg-black/60 backdrop-blur-sm pointer-events-none opacity-0"
+    class="menu-overlay"
     @click="menuStore.close()"
   >
     <!-- Stop clicks from bubbling to overlay -->
     <nav
       ref="panelRef"
-      class="absolute right-0 top-0 h-full w-[min(92vw,360px)] bg-zinc-900 text-white shadow-xl p-6 flex flex-col gap-3"
+      class="menu-overlay__panel"
       role="dialog"
       aria-modal="true"
       aria-label="Main navigation"
       @click.stop
     >
-      <NuxtLink ref="linksRef" to="/" class="text-lg hover:text-zinc-300"
-        >Home</NuxtLink
-      >
-      <NuxtLink ref="linksRef" to="/about" class="text-lg hover:text-zinc-300"
+      <NuxtLink ref="linksRef" to="/" class="menu-overlay__link">Home</NuxtLink>
+      <NuxtLink ref="linksRef" to="/about" class="menu-overlay__link"
         >About</NuxtLink
       >
-      <a ref="linksRef" href="#" class="text-lg hover:text-zinc-300"
-        >Case Studies</a
-      >
-      <a ref="linksRef" href="#" class="text-lg hover:text-zinc-300">Contact</a>
+      <a ref="linksRef" href="#" class="menu-overlay__link">Case Studies</a>
+      <a ref="linksRef" href="#" class="menu-overlay__link">Contact</a>
     </nav>
   </div>
 </template>
