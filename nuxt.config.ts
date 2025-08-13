@@ -2,6 +2,12 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  // Global transitions for pages and layouts
+  // Keep it subtle and fast to avoid clashing with GSAP smooth scrolling
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+    layoutTransition: { name: "layout", mode: "out-in" },
+  },
   components: [
     { path: "~/components", pathPrefix: false },
     { path: "~/components/SVG", pathPrefix: false },

@@ -61,6 +61,26 @@
   --shadow-elevation-1: 0 0 14px rgba(18, 18, 18, 0.12);
 }
 
+// Nuxt page/layout transitions
+.page-enter-active,
+.page-leave-active,
+.layout-enter-active,
+.layout-leave-active {
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.page-enter-from,
+.layout-enter-from {
+  opacity: 0.01;
+  transform: translateY(1rem);
+}
+
+.page-leave-to,
+.layout-leave-to {
+  opacity: 0.01;
+  transform: translateY(-1rem);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -73,6 +93,7 @@
 body {
   // Prevent history swipe on horizontal overscroll
   overscroll-behavior-x: none;
+  min-height: 101vh;
 }
 
 // SVG elements should fill their containers by default

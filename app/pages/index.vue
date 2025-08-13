@@ -1,9 +1,5 @@
 <template>
   <InfiniteComponentDrag />
 </template>
-<style scoped>
-body {
-  overflow: hidden;
-}
-</style>
+<style></style>
 <script setup></script>
