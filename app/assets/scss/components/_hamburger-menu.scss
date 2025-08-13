@@ -1,4 +1,5 @@
 @use "../variables" as *;
+@use "../mixins" as *;
 
 .hamburger {
   position: fixed;
@@ -63,7 +64,7 @@
     top: 0;
     text-transform: uppercase;
     height: 100%;
-    width: min(92vw, $menu-panel-max-width);
+    width: min(52vw, $menu-panel-max-width);
     background: var(--color-black);
     color: var(--color-white);
     box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.35);
@@ -71,6 +72,9 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    @include tablet {
+      width: min(92vw, $menu-panel-max-width);
+    }
   }
 
   &__link {
