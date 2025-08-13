@@ -97,6 +97,23 @@
         }
       }
 
+      // Active state driven by Vue class, ensures parity across page transitions
+      &.is-active {
+        .gradient-fill {
+          opacity: 1 !important; // Force override default 0
+        }
+        .solid-fill {
+          opacity: 0 !important;
+        }
+        .pagination-item__text {
+          // Match JS inline fallback
+          color: $white;
+          background: none;
+          -webkit-background-clip: initial;
+          background-clip: initial;
+        }
+      }
+
       &__text {
         position: relative;
         z-index: 1;

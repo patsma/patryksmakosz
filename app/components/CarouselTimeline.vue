@@ -11,10 +11,13 @@
         <template v-for="(step, index) in stepsNormalized" :key="`p-${index}`">
           <div
             class="pagination-item"
+            :class="{ 'is-active': currentIndex === index }"
             ref="paginationItemRefs"
             @click="handlePaginationClick(index)"
           >
-            <div class="pagination-item__text">{{ index + 1 }}</div>
+            <div class="pagination-item__text" ref="paginationItemTextRefs">
+              {{ index + 1 }}
+            </div>
             <button class="btn-circular-01">
               <svg
                 viewBox="0 0 66 66"
@@ -81,6 +84,7 @@
                   r="32"
                   fill="url(#paint0_linear_1767_4110)"
                   class="gradient-fill"
+                  ref="paginationGradientFillRefs"
                 ></circle>
                 <circle
                   cx="33"
@@ -88,6 +92,7 @@
                   r="32"
                   style="fill: var(--color-gray-1)"
                   class="solid-fill"
+                  ref="paginationSolidFillRefs"
                 ></circle>
               </svg>
             </button>
@@ -409,6 +414,9 @@ const circularBtnRefs = ref([]);
 const paginationRef = ref(null);
 const paginationItemRefs = ref([]);
 const paginationDividerInnerRefs = ref([]);
+const paginationGradientFillRefs = ref([]);
+const paginationSolidFillRefs = ref([]);
+const paginationItemTextRefs = ref([]);
 
 // State
 const tlPaginationItems = ref(null);
@@ -424,7 +432,12 @@ onBeforeUpdate(() => {
   circularBtnRefs.value = [];
   paginationItemRefs.value = [];
   paginationDividerInnerRefs.value = [];
+  paginationGradientFillRefs.value = [];
+  paginationSolidFillRefs.value = [];
+  paginationItemTextRefs.value = [];
 });
+
+// No querySelector fallbacks; we rely strictly on Vue refs
 
 const buildAnimations = () => {
   const items = itemRefs.value;
@@ -433,19 +446,11 @@ const buildAnimations = () => {
   const btnInners = buttonInnerRefs.value;
   const btnInnerSpans = buttonInnerSpanRefs.value;
   const btnCirculars = circularBtnRefs.value;
-  const pagItems = paginationItemRefs.value;
   const pagDividers = paginationDividerInnerRefs.value;
-  // Visual fills from pagination SVGs for parity with WP
-  const pagContainer = paginationRef.value;
-  const gradientFills = pagContainer
-    ? Array.from(pagContainer.querySelectorAll(".gradient-fill"))
-    : [];
-  const solidFills = pagContainer
-    ? Array.from(pagContainer.querySelectorAll(".solid-fill"))
-    : [];
-  const paginationItemTexts = pagContainer
-    ? Array.from(pagContainer.querySelectorAll(".pagination-item__text"))
-    : [];
+  // Visual fills and pagination texts from refs
+  const gradientFills = paginationGradientFillRefs.value;
+  const solidFills = paginationSolidFillRefs.value;
+  const paginationItemTexts = paginationItemTextRefs.value;
 
   if (!items.length) return;
 
@@ -486,28 +491,18 @@ const buildAnimations = () => {
       },
       "<"
     );
-    // Do not set pagination number styles in timeline; managed centrally in openIndex()
-    if (gradientFills && gradientFills[index]) {
-      tl.to(gradientFills[index], { opacity: 1 }, "<");
-    }
-    if (solidFills && solidFills[index]) {
-      tl.to(solidFills[index], { opacity: 0 }, "<");
-    }
+
     tl.to(paragraphs[index], { maxHeight: "23.75rem", duration: 0.01 }, 0);
     tl.to(paragraphs[index], { autoAlpha: 1, duration: 0.01 });
     tl.reverse();
     timelines.push(tl);
   });
   itemTimelines.value = timelines;
-
-  // Clicks for items
-  items.forEach((_, idx) => {
-    // Already wired via @click. This function toggles below.
-  });
 };
 
 const openIndex = (index) => {
   if (index < 0 || index >= itemTimelines.value.length) return;
+  const previousIndex = currentIndex.value;
   currentIndex.value = index;
   // Collapse all, then expand selected
   itemTimelines.value.forEach((tl, i) => {
@@ -523,42 +518,54 @@ const openIndex = (index) => {
   }
 
   // Ensure only active bubble shows gradient fill and white text
-  const pagContainer = paginationRef.value;
-  if (pagContainer) {
-    const gradientFills = Array.from(
-      pagContainer.querySelectorAll(".gradient-fill")
-    );
-    const solidFills = Array.from(pagContainer.querySelectorAll(".solid-fill"));
-    const paginationItemTexts = Array.from(
-      pagContainer.querySelectorAll(".pagination-item__text")
-    );
+  const gradientFills = paginationGradientFillRefs.value;
+  const solidFills = paginationSolidFillRefs.value;
+  const paginationItemTexts = paginationItemTextRefs.value;
 
-    gradientFills.forEach((el, i) => {
-      $gsap.set(el, { opacity: i === index ? 1 : 0 });
-    });
-    solidFills.forEach((el) => {
-      // Reference default shows solid-fill opacity 0 at all times
-      $gsap.set(el, { opacity: 0 });
-    });
-    // Clean all inline styles first so we always reset to SCSS state
-    paginationItemTexts.forEach((el) => {
+  // 1) Reset previous explicitly (defensive):
+  if (previousIndex >= 0) {
+    const prevGradient = gradientFills[previousIndex];
+    const prevSolid = solidFills[previousIndex];
+    const prevText = paginationItemTexts[previousIndex];
+    if (prevGradient) $gsap.set(prevGradient, { opacity: 0 });
+    if (prevSolid) $gsap.set(prevSolid, { opacity: 0 }); // solid kept 0 in design
+    if (prevText) {
       try {
-        el.removeAttribute("style");
+        prevText.removeAttribute("style");
       } catch (e) {}
-    });
-    // Then apply active inline style to the current index only
-    if (paginationItemTexts[index]) {
-      $gsap.set(paginationItemTexts[index], {
-        color: "var(--color-white)",
-        background: "none",
-        WebkitBackgroundClip: "initial",
-        backgroundClip: "initial",
-      });
     }
-
-    // No direct divider width overrides here; handled by the timeline above
   }
+
+  // 2) Apply to new active only:
+  const activeGradient = gradientFills[index];
+  const activeSolid = solidFills[index];
+  const activeText = paginationItemTexts[index];
+  if (activeGradient) $gsap.set(activeGradient, { opacity: 1 });
+  if (activeSolid) $gsap.set(activeSolid, { opacity: 0 });
+  if (activeText) {
+    $gsap.set(activeText, {
+      color: "var(--color-white)",
+      background: "none",
+      WebkitBackgroundClip: "initial",
+      backgroundClip: "initial",
+    });
+  }
+  solidFills.forEach((el) => {
+    if (!el) return;
+    // Reference default shows solid-fill opacity 0 at all times
+    $gsap.set(el, { opacity: 0 });
+  });
+  // Clean all inline styles first so we always reset to SCSS state
+  paginationItemTexts.forEach((el) => {
+    if (!el) return;
+    try {
+      el.removeAttribute("style");
+    } catch (e) {}
+  });
+  // Note: active text handled above when applying to new active only
 };
+
+// Start inactive per requirement; do not auto-open any item
 
 const handleItemClick = (index) => {
   openIndex(index);
