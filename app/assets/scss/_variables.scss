@@ -55,3 +55,46 @@ $transition: 0.3s all ease-in-out;
 
 // Fonts
 $font-main: "Lato", sans-serif;
+
+// -----------------------------------------------------------------------------
+// Design Tokens (rem-first system)
+// -----------------------------------------------------------------------------
+// Base spacing unit and helper to standardize spacing across components.
+// Use: margin: space(6); // => 1.5rem
+$space-unit: 0.25rem;
+@function space($n) {
+  @return $space-unit * $n;
+}
+
+// Border Radii
+$radius-xs: space(1); // 0.25rem
+$radius-sm: space(2); // 0.5rem
+$radius-md: space(4); // 1rem
+$radius-lg: space(6); // 1.5rem
+$radius-xl: space(12.5); // 3.125rem (formerly 50px)
+$radius-full: 9999px; // fully rounded
+
+// Border Widths
+$border-1: space(0.5); // 0.125rem (2px)
+$border-2: space(1); // 0.25rem (4px)
+
+// Common component sizes
+// Keep frequently reused widths/heights centralized for consistency.
+$size-button-height: space(12); // 3rem
+$size-button-min-width: space(24); // 6rem
+$size-button-radius: space(6); // 1.5rem
+$size-circle-btn: space(12); // 3rem
+$size-circle-btn-lg: space(16); // 4rem
+$size-pagination-item: space(10); // 2.5rem
+$size-pagination-item-lg: space(16); // 4rem
+
+// Layout containers
+$container-pad-mobile: space(6); // 1.5rem
+$container-pad-tablet: space(17); // 4.25rem
+$container-pad-laptop: space(20); // 5rem
+
+// Menu panel sizes
+$menu-panel-max-width: 22.5rem; // 360px in rem for overlays
+
+// Shadows (alias to CSS variables where possible)
+$shadow-elevation-1: var(--shadow-elevation-1);

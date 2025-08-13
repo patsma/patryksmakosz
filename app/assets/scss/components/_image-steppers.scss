@@ -4,24 +4,24 @@
   $root: &;
   display: grid;
   align-items: center;
-  gap: 3.5rem;
+  gap: space(14);
   @include padding;
 
   @include laptop {
     grid-template-columns: 1fr 1fr;
-    gap: 9rem;
+    gap: space(36);
   }
   @include desktop {
-    gap: 11.5rem;
+    gap: space(46);
   }
 
   &__wrapper {
     display: grid;
     @include tablet {
-      padding: 0 7rem;
+      padding: 0 space(28);
     }
     @include laptop {
-      padding: 4rem 0;
+      padding: space(16) 0;
     }
   }
 
@@ -56,13 +56,13 @@
   &__steps {
     display: grid;
     gap: 2.6875rem;
-    padding-bottom: 4rem;
+    padding-bottom: space(16);
   }
 
   &__step {
     display: grid;
     grid-auto-flow: column;
-    gap: 1.5rem;
+    gap: space(6);
     align-items: start;
     @include desktop {
       max-width: 38rem;
@@ -70,16 +70,16 @@
   }
 
   &__step-inner {
-    gap: 0.5rem;
+    gap: space(2);
     display: grid;
-    padding-top: 2rem;
+    padding-top: space(8);
   }
 
   &__step-number {
     background: var(--color-gray-1);
-    margin-top: 1rem;
-    width: 4rem;
-    height: 4rem;
+    margin-top: space(4);
+    width: $size-circle-btn-lg;
+    height: $size-circle-btn-lg;
     display: grid;
     justify-content: center;
     align-content: center;
@@ -93,7 +93,7 @@
     position: absolute;
     width: 0.125rem;
     background: var(--color-gray-1);
-    height: 241px;
+    height: 15.0625rem; // 241px
     top: 5rem;
     left: 50%;
     transform: translate(-50%, 0%);

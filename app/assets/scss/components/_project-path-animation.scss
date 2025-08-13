@@ -36,8 +36,8 @@
   // Floating ball that moves along the motion path
   .ball {
     position: absolute;
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 9999px;
     background: var(--color-primary-1);
     box-shadow: var(--shadow-elevation-1);
@@ -60,7 +60,7 @@
   .path-svg path {
     fill: none;
     stroke: var(--color-gray-3);
-    stroke-width: 2;
+    stroke-width: $border-1;
   }
 
   // Loader overlay that plays the logo animation
@@ -76,11 +76,11 @@
   // Optional helper markers used to generate the path
   .dummy {
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 0.625rem;
+    height: 0.625rem;
     border-radius: 9999px;
     background: #fcc43f66;
-    box-shadow: 0 0 0 2px #fcc43f;
+    box-shadow: 0 0 0 $border-1 #fcc43f;
     opacity: 0; // hidden by default
   }
 }

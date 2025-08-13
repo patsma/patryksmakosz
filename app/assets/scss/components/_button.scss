@@ -10,16 +10,16 @@
   pointer-events: auto;
   cursor: pointer;
   background: var(--gradient-1);
-  padding: 0rem 1.5rem;
+  padding: 0 space(6);
   width: max-content;
-  min-width: 6rem;
-  height: 3rem;
+  min-width: $size-button-min-width;
+  height: $size-button-height;
   position: relative;
   display: grid;
   color: var(--color-white);
   overflow: hidden;
   text-align: center;
-  border-radius: 1.5rem;
+  border-radius: $size-button-radius;
   align-content: center;
   z-index: 60;
   &:before,
@@ -98,7 +98,7 @@
 
 .btn-standard-outlined {
   background: transparent;
-  border: 2px solid var(--color-gray-3);
+  border: $border-1 solid var(--color-gray-3);
   color: var(--color-black);
 
   &:hover span {
@@ -132,12 +132,12 @@
 
 .btn-standard-incident {
   background: var(--gradient-2);
-  padding: 0.75rem 1rem 0.6875rem;
-  height: 2.5rem;
-  border-radius: 1.25rem;
+  padding: space(3) space(4) space(2.75);
+  height: space(10);
+  border-radius: space(5);
   align-content: center;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.125rem;
   @include button-text-small;
 
   &:before {
@@ -195,8 +195,8 @@
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: 50px;
-    padding: 4px;
+    border-radius: $radius-xl;
+    padding: $border-2;
     background: var(--gradient-1);
     -webkit-mask: linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
@@ -238,8 +238,8 @@
   padding: 0;
   -webkit-clip-path: circle(50% at 50% 50%);
   clip-path: circle(50% at 50% 50%);
-  width: 4rem;
-  height: 4rem;
+  width: $size-circle-btn-lg;
+  height: $size-circle-btn-lg;
   font-family: aktiv-grotesk-extended, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
@@ -262,8 +262,8 @@
 
   &__progress {
     position: absolute;
-    width: 4rem;
-    height: 4rem;
+    width: $size-circle-btn-lg;
+    height: $size-circle-btn-lg;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -274,7 +274,7 @@
   &__progress-path {
     fill: none;
     stroke: var(--color-white);
-    stroke-width: 2px;
+    stroke-width: $border-1;
   }
   &__progress-path {
     stroke: var(--color-black);
@@ -311,8 +311,8 @@
 }
 
 .btn-circular {
-  width: 3rem;
-  height: 3rem;
+  width: $size-circle-btn;
+  height: $size-circle-btn;
   cursor: pointer;
   > * {
     width: 100%;
@@ -383,16 +383,16 @@
   position: relative;
   &__button {
     cursor: pointer;
-    padding: 1rem 1.5rem;
+    padding: space(4) space(6);
     width: max-content;
-    min-width: 6rem;
-    height: 3rem;
+    min-width: $size-button-min-width;
+    height: $size-button-height;
     position: relative;
     display: grid;
     color: $white;
     overflow: hidden;
     text-align: center;
-    border-radius: 1.5rem;
+    border-radius: $size-button-radius;
     align-content: center;
     z-index: 60;
   }

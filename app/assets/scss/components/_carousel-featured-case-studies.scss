@@ -224,7 +224,7 @@
 
   .navigation-pagination {
     display: grid;
-    grid-column-gap: 1rem;
+    grid-column-gap: space(4);
     align-items: center;
     grid-auto-flow: column;
     justify-content: start;
@@ -240,7 +240,7 @@
     display: grid;
     position: relative;
     width: 0;
-    height: 2px;
+    height: $border-1;
     background: var(--color-gray-3);
 
     &__inner {
