@@ -10,8 +10,14 @@
           @click="handleComponentClick(index)"
         >
           <ProjectBlueberry
+            v-if="index % 2 === 1"
             :show-dev-tools="false"
             :dev-tools-id="`blueberry-original-${index}`"
+          />
+          <ProjectArtTech
+            v-else
+            :show-dev-tools="false"
+            :dev-tools-id="`arttech-original-${index}`"
           />
         </div>
       </div>
@@ -30,8 +36,14 @@
           @click="handleComponentClick(index)"
         >
           <ProjectBlueberry
+            v-if="(duplicateIndex + index) % 2 === 1"
             :show-dev-tools="false"
             :dev-tools-id="`blueberry-duplicate-${duplicateIndex}-${index}`"
+          />
+          <ProjectArtTech
+            v-else
+            :show-dev-tools="false"
+            :dev-tools-id="`arttech-duplicate-${duplicateIndex}-${index}`"
           />
         </div>
       </div>
@@ -55,17 +67,8 @@ const { $Observer } = useNuxtApp();
  * @param {number} index - The index of the clicked component
  */
 const handleComponentClick = (index) => {
-  console.log(`Blueberry component clicked: ${index}`);
-
-  // TODO: Add your interaction logic here
-  // Examples:
-  // - Show component details
-  // - Navigate to specific view
-  // - Trigger special animation
-
-  alert(
-    `🫐 Blueberry Component ${index}\n\nThis component is animating independently!`
-  );
+  console.log(`Grid component clicked: ${index}`);
+  alert(`Component #${index} — animating independently`);
 };
 
 /**
