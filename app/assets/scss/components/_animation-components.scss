@@ -21,15 +21,15 @@
     height: 100dvh;
   }
 
-  // Ensure SVG scales to container
-  :deep(svg) {
-    width: 100%;
-    height: 100%;
-    display: block;
+  &--spectrum {
+    background-color: var(--color-white);
+    height: 100svh;
+    height: 100dvh;
+    padding: $container-pad-laptop;
   }
 
   // Standard GSDevTools embedding
-  :deep(.gs-dev-tools) {
+  .gs-dev-tools {
     position: absolute !important;
     bottom: 0 !important;
     left: 0 !important;
@@ -39,12 +39,19 @@
     // border-radius: 0 0 $radius-md $radius-md !important;
   }
 
-  :deep(.gs-dev-tools .gs-top) {
-    padding: 0 !important;
-    font-size: 11px !important;
+  .gs-dev-tools .progress-bar {
+    background: linear-gradient(
+      114.41deg,
+      $alternative-2 20.74%,
+      $alternative-1 65.5%
+    ) !important;
   }
 
-  :deep(.gs-dev-tools .gs-bottom) {
-    padding: 0 0 0 4px !important;
+  .gs-dev-tools .playhead {
+    background: linear-gradient(
+      114.41deg,
+      $alternative-2 20.74%,
+      $alternative-1 65.5%
+    );
   }
 }

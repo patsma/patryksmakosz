@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProjectArtTech :showDevTools="true" />
+    <ProjectSpectrum :showDevTools="true" />
     <OrbitalCarousel
       class="z-10"
       :items="items"
