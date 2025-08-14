@@ -5,8 +5,16 @@ import { ref, onMounted, nextTick } from "vue";
 
 // Portfolio data - centralized and maintainable
 const portfolioImages = ref([
-  { name: "12.png", src: "/assets/medias/12.png", alt: "Portfolio Project 12" },
-  { name: "02.png", src: "/assets/medias/02.png", alt: "Portfolio Project 02" },
+  {
+    name: "12.png",
+    src: "/assets/medias/axcss.svg",
+    alt: "Portfolio Project 12",
+  },
+  {
+    name: "02.png",
+    src: "/assets/medias/axcss.svg",
+    alt: "Portfolio Project 02",
+  },
   { name: "03.png", src: "/assets/medias/03.png", alt: "Portfolio Project 03" },
   { name: "04.png", src: "/assets/medias/04.png", alt: "Portfolio Project 04" },
   { name: "05.png", src: "/assets/medias/05.png", alt: "Portfolio Project 05" },
