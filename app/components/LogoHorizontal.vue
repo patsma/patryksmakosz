@@ -1,5 +1,7 @@
 <template>
-  <LogoHorizontalSVG ref="svgRef" class="logo-horizontal" />
+  <NuxtLink to="/">
+    <LogoHorizontalSVG ref="svgRef" class="logo-horizontal" />
+  </NuxtLink>
 </template>
 
 <script setup>

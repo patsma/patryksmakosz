@@ -12,12 +12,13 @@
           <ProjectBlueberry
             v-if="index % 2 === 1"
             :show-dev-tools="false"
-            :auto-play="true"
+            :auto-play="false"
             :dev-tools-id="`blueberry-original-${index}`"
           />
           <ProjectArtTech
             v-else
             :show-dev-tools="false"
+            :auto-play="false"
             :dev-tools-id="`arttech-original-${index}`"
           />
         </div>
@@ -37,14 +38,16 @@
           @click="handleComponentClick(index)"
         >
           <ProjectBlueberry
-            v-if="(duplicateIndex + index) % 2 === 1"
+            v-if="index % 2 === 1"
             :show-dev-tools="false"
-            :dev-tools-id="`blueberry-duplicate-${duplicateIndex}-${index}`"
+            :auto-play="false"
+            :dev-tools-id="`blueberry-original-${index}`"
           />
           <ProjectArtTech
             v-else
             :show-dev-tools="false"
-            :dev-tools-id="`arttech-duplicate-${duplicateIndex}-${index}`"
+            :auto-play="false"
+            :dev-tools-id="`arttech-original-${index}`"
           />
         </div>
       </div>

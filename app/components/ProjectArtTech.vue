@@ -48,6 +48,14 @@ const props = defineProps({
     type: String,
     default: () => `art-tech-${Math.random().toString(36).slice(2, 9)}`,
   },
+  /**
+   * @type {boolean}
+   * When true, starts the animation automatically on mount (useful outside grid)
+   */
+  autoPlay: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 /**
@@ -360,8 +368,9 @@ const createAnimation = () => {
 // Lifecycle
 onMounted(() => {
   nextTick(() => {
-    createAnimation();
-    // Do NOT auto-play; start paused to test grid performance
+    const tl = createAnimation();
+    // Auto-play when requested; grid keeps paused by default
+    if (props.autoPlay) tl && tl.play();
   });
 });
 

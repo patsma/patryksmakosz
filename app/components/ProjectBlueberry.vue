@@ -38,7 +38,7 @@ const props = defineProps({
    */
   devToolsId: {
     type: String,
-    default: () => `blueberry-${Math.random().toString(36).substr(2, 9)}`,
+    default: () => `blueberry-${Math.random().toString(36).slice(2, 9)}`,
   },
   /**
    * @type {boolean}
@@ -152,7 +152,6 @@ defineExpose({
   // Core refs and timeline
   containerRef,
   timeline,
-  svgComponentRef,
 
   // Standard control methods
   play: () => timeline.value?.play(),
