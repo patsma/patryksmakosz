@@ -12,6 +12,7 @@
           <ProjectBlueberry
             v-if="index % 2 === 1"
             :show-dev-tools="false"
+            :auto-play="true"
             :dev-tools-id="`blueberry-original-${index}`"
           />
           <ProjectArtTech
