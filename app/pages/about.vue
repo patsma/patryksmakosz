@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProjectSpectrum :showDevTools="true" :auto-play="true" />
+    <ProjectSpectrum :showDevTools="false" :auto-play="true" />
     <OrbitalCarousel
       class="z-10"
       :items="items"

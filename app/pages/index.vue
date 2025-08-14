@@ -1,5 +1,5 @@
 <template>
-  <InfiniteComponentDrag />
+  <InfiniteDragGridSimple />
 </template>
 <style></style>
 <script setup></script>
