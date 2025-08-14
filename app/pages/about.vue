@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ProjectArtTech :showDevTools="true" />
     <OrbitalCarousel
       class="z-10"
       :items="items"
