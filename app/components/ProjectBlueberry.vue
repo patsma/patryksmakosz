@@ -1,5 +1,8 @@
 <template>
-  <div ref="containerRef" class="animation-container">
+  <div
+    ref="containerRef"
+    class="animation-component animation-component--blueberry"
+  >
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112.06 79.3">
       <defs>
         <mask id="theMask">
@@ -85,8 +88,8 @@ const createAnimation = () => {
     return null;
   }
 
-  // Create timeline with infinite repeat
-  const tl = $gsap.timeline({ repeat: -1, yoyo: true });
+  // Create timeline with infinite repeat (paused by default for grid performance)
+  const tl = $gsap.timeline({ repeat: -1, yoyo: true, paused: true });
 
   // Animation sequence - using refs instead of selectors
   tl.fromTo(
@@ -141,6 +144,7 @@ onMounted(() => {
   // Small delay to ensure DOM is ready
   nextTick(() => {
     createAnimation();
+    // Intentionally leave paused for grid performance testing
   });
 });
 
@@ -178,42 +182,5 @@ defineExpose({
 </script>
 
 <style scoped>
-/* Standard animation component container */
-.animation-container {
-  background-color: #1e2843;
-  position: relative;
-  /* width: 100%; */
-  /* height: 100%; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-/* Standard GSDevTools integration */
-.animation-container :deep(.gs-dev-tools) {
-  position: absolute !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.8) !important;
-  border-radius: 0 0 8px 8px !important;
-}
-
-/* Standard GSDevTools compact styling */
-.animation-container :deep(.gs-dev-tools .gs-top) {
-  padding: 0 0 !important;
-  font-size: 11px !important;
-}
-
-.animation-container :deep(.gs-dev-tools .gs-bottom) {
-  padding: 0 0 0 4px !important;
-}
-
-/* Standard SVG styling */
-.animation-container :deep(svg) {
-  width: 100%;
-  height: 100%;
-}
+/* Styling centralized under app/assets/scss/components/_animation-components.scss */
 </style>

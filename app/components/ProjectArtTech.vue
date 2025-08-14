@@ -1,5 +1,8 @@
 <template>
-  <div ref="containerRef" class="animation-container">
+  <div
+    ref="containerRef"
+    class="animation-component animation-component--arttech"
+  >
     <!-- Keep SVG as a child component for clarity and reuse -->
     <ArtTechLogoSVG ref="svgComponentRef" />
   </div>
@@ -357,9 +360,8 @@ const createAnimation = () => {
 // Lifecycle
 onMounted(() => {
   nextTick(() => {
-    const tl = createAnimation();
-    // Autoplay shortly after mount to mimic old behavior
-    setTimeout(() => tl && tl.play(), 300);
+    createAnimation();
+    // Do NOT auto-play; start paused to test grid performance
   });
 });
 
@@ -385,36 +387,5 @@ defineExpose({
 </script>
 
 <style scoped>
-.animation-container {
-  background-color: #000000;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.animation-container :deep(svg) {
-  width: 100%;
-  height: 100%;
-}
-
-.animation-container :deep(.gs-dev-tools) {
-  position: absolute !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.8) !important;
-  border-radius: 0 0 8px 8px !important;
-}
-
-.animation-container :deep(.gs-dev-tools .gs-top) {
-  padding: 0 0 !important;
-  font-size: 11px !important;
-}
-
-.animation-container :deep(.gs-dev-tools .gs-bottom) {
-  padding: 0 0 0 4px !important;
-}
+/* Styling centralized under app/assets/scss/components/_animation-components.scss */
 </style>

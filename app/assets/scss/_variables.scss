@@ -98,3 +98,10 @@ $menu-panel-max-width: 22.5rem; // 360px in rem for overlays
 
 // Shadows (alias to CSS variables where possible)
 $shadow-elevation-1: var(--shadow-elevation-1);
+
+// -----------------------------------------------------------------------------
+// Animation Components - local brand backgrounds
+// -----------------------------------------------------------------------------
+// Use named variables so components don't hardcode colors
+$animation-blueberry-bg: #1e2843;
+$animation-arttech-bg: $black;
