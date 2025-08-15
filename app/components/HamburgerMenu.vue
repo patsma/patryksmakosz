@@ -135,7 +135,7 @@ onUnmounted(() => {
       <NuxtLink ref="linksRef" to="/about" class="menu-overlay__link"
         >About</NuxtLink
       >
-      <a ref="linksRef" href="#" class="menu-overlay__link">Case Studies</a>
+      <a ref="linksRef" href="#" class="menu-overlay__link">Portfolio</a>
       <a ref="linksRef" href="#" class="menu-overlay__link">Contact</a>
     </nav>
   </div>
