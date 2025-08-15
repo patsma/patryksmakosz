@@ -23,6 +23,8 @@ const { $GSDevTools } = useNuxtApp();
 const containerRef = ref(null);
 const timeline = ref(null);
 const svgComponentRef = ref(null);
+// GSAP context for scoped animations & automatic cleanup
+let gsapCtx = null;
 
 const props = defineProps({
   showDevTools: { type: Boolean, default: false },
@@ -41,12 +43,17 @@ const createAnimation = () => {
     return null;
   }
 
-  // Convert shapes to paths for draw/morph compatibility
+  // Convert only shapes inside this SVG to paths for draw/morph compatibility
   try {
-    $MorphSVGPlugin &&
-      $MorphSVGPlugin.convertToPath(
+    const svgRootEl = svgRoot.closest ? svgRoot.closest("svg") : svgRoot;
+    if ($MorphSVGPlugin && svgRootEl) {
+      const shapes = svgRootEl.querySelectorAll(
         "circle, rect, ellipse, line, polygon, polyline"
       );
+      if (shapes && shapes.length) {
+        $MorphSVGPlugin.convertToPath(shapes);
+      }
+    }
   } catch (e) {}
 
   // Scope queries to this SVG instance
@@ -282,13 +289,15 @@ const createAnimation = () => {
 
 onMounted(() => {
   nextTick(() => {
-    const tl = createAnimation();
-    if (props.autoPlay) tl && tl.play();
+    gsapCtx = $gsap.context(() => {
+      const tl = createAnimation();
+      if (props.autoPlay) tl && tl.play();
+    }, containerRef.value);
   });
 });
 
 onUnmounted(() => {
-  if (timeline.value) timeline.value.kill();
+  if (gsapCtx) gsapCtx.revert();
   if (props.showDevTools) {
     try {
       $GSDevTools.getById(props.devToolsId)?.kill();
