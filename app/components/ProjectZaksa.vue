@@ -280,6 +280,7 @@ const createAnimation = () => {
     }
   );
 
+  // Apply requested playback speed to the master timeline
   masterTl.timeScale(props.timeScale);
 
   // Attach GSDevTools when requested
@@ -293,6 +294,8 @@ const createAnimation = () => {
           id: props.devToolsId,
           globalSync: false,
         });
+        // Ensure timeScale remains applied after DevTools initialization
+        masterTl.timeScale(props.timeScale);
       } catch (e) {
         console.debug("Zaksa: GSDevTools error", e);
       }
@@ -317,11 +320,14 @@ onMounted(() => {
           end: props.stEnd,
           onEnter: () => tl.play(),
           onEnterBack: () => tl.play(),
-          onLeave: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
-          onLeaveBack: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
+          onLeave: () => tl.pause(0).progress(0),
+          onLeaveBack: () => tl.pause(0).progress(0),
         });
         $ScrollTrigger.refresh();
       } else if (props.autoPlay) {
+        tl.play();
+      } else if (props.showDevTools) {
+        // When DevTools is shown and no ScrollTrigger/autoPlay, start playback for visibility
         tl.play();
       }
     }, containerRef.value);
