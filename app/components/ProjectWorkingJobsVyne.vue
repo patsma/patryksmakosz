@@ -254,7 +254,7 @@ const createAnimation = () => {
     .set([tlM, tla, trM, tra, blM, bla, brM, bra], { autoAlpha: 0 })
     .timeScale(2.8);
 
-  const tlMaster = $gsap.timeline({ paused: true });
+  const tlMaster = $gsap.timeline({ repeat: -1, paused: true });
   tlMaster
     .add(tl01)
     .add(tlX, "-=0.8")
@@ -286,10 +286,6 @@ onMounted(() => {
     gsapCtx = $gsap.context(() => {
       const tl = createAnimation();
       if (props.autoPlay) tl && tl.play();
-      // Click to restart from the beginning, matching legacy demo behavior
-      containerRef.value?.addEventListener("click", () => {
-        timeline.value && timeline.value.play(0);
-      });
     }, containerRef.value);
   });
 });
