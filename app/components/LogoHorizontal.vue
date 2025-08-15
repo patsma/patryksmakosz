@@ -12,6 +12,8 @@ const { $gsap } = useNuxtApp();
 // Standard container/timeline refs
 const containerRef = ref(null);
 const timeline = ref(null);
+// GSAP context for scoped animations & automatic cleanup
+let gsapCtx = null;
 
 // Ref to the SVG component
 const svgComponentRef = ref(null);
@@ -92,13 +94,15 @@ const createAnimation = () => {
 
 onMounted(() => {
   nextTick(() => {
-    const tl = createAnimation();
-    if (props.autoPlay) tl && tl.play();
+    gsapCtx = $gsap.context(() => {
+      const tl = createAnimation();
+      if (props.autoPlay) tl && tl.play();
+    }, containerRef.value);
   });
 });
 
 onUnmounted(() => {
-  if (timeline.value) timeline.value.kill();
+  if (gsapCtx) gsapCtx.revert();
 });
 
 defineExpose({
