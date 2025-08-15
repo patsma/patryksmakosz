@@ -7,10 +7,8 @@
 <script setup>
 const { $gsap } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
-const { $GSDevTools } = useNuxtApp();
 
-// Use the simple animation manager
-const { createAnimation } = useAnimationManager();
+// Removed animation manager; play timeline directly
 
 // Ref to the SVG component
 const svgRef = ref(null);
@@ -47,74 +45,65 @@ const startMorphAnimation = () => {
   text1Paths.value = circlePaths.value.slice(12, 17);
   shape1Paths.value = circlePaths.value.slice(17, 24);
   shape2Paths.value = circlePaths.value.slice(5, 12);
-  // Create animation using the simple manager
-  createAnimation("morphingLogo", () => {
-    const tl = $gsap.timeline({
-      id: "morphing-logo-animation",
-    });
+  // Build and play the timeline directly (no external manager)
+  const tl = $gsap.timeline({
+    id: "morphing-logo-animation",
+  });
 
-    // Morph each circle path into corresponding logo path
-    for (
-      let i = 0;
-      i < Math.min(circlePaths.value.length, logoPaths.value.length);
-      i++
-    ) {
-      tl.to(
-        circlePaths.value[i],
-        {
-          morphSVG: logoPaths.value[i],
-          duration: 2,
-          ease: "power2.inOut",
-        },
-        0
-      );
-    }
+  // Morph each circle path into corresponding logo path
+  for (
+    let i = 0;
+    i < Math.min(circlePaths.value.length, logoPaths.value.length);
+    i++
+  ) {
+    tl.to(
+      circlePaths.value[i],
+      {
+        morphSVG: logoPaths.value[i],
+        duration: 2,
+        ease: "power2.inOut",
+      },
+      0
+    );
+  }
 
-    // Add text animations
-    tl.to(text1Paths.value, {
-      y: 100,
-      stagger: -0.025,
+  // Add text animations
+  tl.to(text1Paths.value, {
+    y: 100,
+    stagger: -0.025,
+    duration: 2,
+    ease: "power2.inOut",
+  });
+  tl.to(
+    text2Paths.value,
+    {
+      y: -100,
+      stagger: 0.025,
       duration: 2,
       ease: "power2.inOut",
-    });
-    tl.to(
-      text2Paths.value,
-      {
-        y: -100,
-        stagger: 0.025,
-        duration: 2,
-        ease: "power2.inOut",
-      },
-      "<"
-    );
-    tl.to(
-      shape1Paths.value,
-      {
-        x: -100,
-        stagger: 0.025,
-        duration: 2,
-        ease: "power2.inOut",
-      },
-      "<"
-    );
-    tl.to(
-      shape2Paths.value,
-      {
-        x: 100,
-        stagger: 0.025,
-        duration: 2,
-        ease: "power2.inOut",
-      },
-      "<"
-    );
-
-    // $GSDevTools.create({
-    //   animation: tl,
-    //   minimal: true,
-    // });
-
-    return tl;
-  });
+    },
+    "<"
+  );
+  tl.to(
+    shape1Paths.value,
+    {
+      x: -100,
+      stagger: 0.025,
+      duration: 2,
+      ease: "power2.inOut",
+    },
+    "<"
+  );
+  tl.to(
+    shape2Paths.value,
+    {
+      x: 100,
+      stagger: 0.025,
+      duration: 2,
+      ease: "power2.inOut",
+    },
+    "<"
+  );
 };
 
 // Start animation when component is mounted

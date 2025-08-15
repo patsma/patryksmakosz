@@ -60,7 +60,7 @@ const initializePaths = () => {
 const startReversedEntryAnimation = () => {
   const tl = $gsap.timeline({
     id: "logo-horizontal-entry-animation",
-    delay: 3, // 3 second delay to play after MorphingLogo
+    delay: 4, // 4 second delay to play after MorphingLogo
   });
 
   // Animate elements back to their original positions
