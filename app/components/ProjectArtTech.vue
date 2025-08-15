@@ -25,6 +25,8 @@ const { $GSDevTools } = useNuxtApp();
 // Standard container/timeline refs
 const containerRef = ref(null);
 const timeline = ref(null);
+// GSAP context for scoped animations & automatic cleanup
+let gsapCtx = null;
 
 // Ref for the SVG component instance
 const svgComponentRef = ref(null);
@@ -70,12 +72,17 @@ const createAnimation = () => {
     return null;
   }
 
-  // Convert simple shapes to paths for morph/draw operations
+  // Convert only shapes inside this SVG to paths for morph/draw operations
   try {
-    $MorphSVGPlugin &&
-      $MorphSVGPlugin.convertToPath(
+    const svgRootEl = svgRoot.closest && svgRoot.closest("svg");
+    if ($MorphSVGPlugin && svgRootEl) {
+      const shapes = svgRootEl.querySelectorAll(
         "circle, rect, ellipse, line, polygon, polyline"
       );
+      if (shapes && shapes.length) {
+        $MorphSVGPlugin.convertToPath(shapes);
+      }
+    }
   } catch (e) {}
 
   // Query elements by ID from within the SVG scope only
@@ -368,14 +375,16 @@ const createAnimation = () => {
 // Lifecycle
 onMounted(() => {
   nextTick(() => {
-    const tl = createAnimation();
-    // Auto-play when requested; grid keeps paused by default
-    if (props.autoPlay) tl && tl.play();
+    gsapCtx = $gsap.context(() => {
+      const tl = createAnimation();
+      // Auto-play when requested; grid keeps paused by default
+      if (props.autoPlay) tl && tl.play();
+    }, containerRef.value);
   });
 });
 
 onUnmounted(() => {
-  if (timeline.value) timeline.value.kill();
+  if (gsapCtx) gsapCtx.revert();
   if (props.showDevTools) {
     try {
       $GSDevTools.getById(props.devToolsId)?.kill();
