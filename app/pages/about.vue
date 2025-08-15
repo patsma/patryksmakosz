@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ProjectZaksa />
     <ProjectWorkingJobsVyne :show-dev-tools="true" />
     <ProjectSpectrum :show-dev-tools="true" />
     <ProjectArtTech :show-dev-tools="true" />

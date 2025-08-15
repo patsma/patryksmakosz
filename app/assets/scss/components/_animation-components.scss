@@ -15,6 +15,33 @@
     background-color: $animation-blueberry-bg;
   }
 
+  // Zaksa logo animation wrapper styles, ported from legacy index.html
+  &--zaksa {
+    // Use the requested background and layout from the legacy page
+    .logo-animation-wrapper {
+      background-color: #91bcbb;
+      display: grid;
+      min-height: 100vh;
+      justify-content: center;
+      align-content: center;
+      width: 100%;
+    }
+
+    .logo-animation {
+      width: 80vw;
+      display: flex;
+      justify-content: center;
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+    }
+
+    .logo-animation svg {
+      min-height: 500px;
+      width: 60%;
+      max-width: 700px;
+    }
+  }
+
   &--arttech {
     background-color: $animation-arttech-bg;
     height: 100svh;
