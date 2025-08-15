@@ -1,8 +1,8 @@
 <template>
   <div>
-    <ProjectWorkingJobsVyne :showDevTools="true" :auto-play="true" />
-    <ProjectSpectrum :showDevTools="true" :auto-play="true" />
-    <ProjectArtTech :showDevTools="true" :auto-play="true" />
+    <ProjectWorkingJobsVyne :show-dev-tools="true" />
+    <ProjectSpectrum :show-dev-tools="true" />
+    <ProjectArtTech :show-dev-tools="true" />
     <ProjectBlueberry :show-dev-tools="true" />
     <OrbitalCarousel
       class="z-10"

@@ -8,12 +8,14 @@
 const { $gsap } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
+const { $ScrollTrigger } = useNuxtApp();
 import { scopeSvgDefsIds, remapIdSelectors } from "/utils/scopeSvgIds";
 
 const containerRef = ref(null);
 const timeline = ref(null);
 const svgComponentRef = ref(null);
 let gsapCtx = null;
+let scrollTriggerInstance = null;
 
 const props = defineProps({
   showDevTools: { type: Boolean, default: false },
@@ -22,6 +24,9 @@ const props = defineProps({
     default: () => `wjv-${Math.random().toString(36).slice(2, 9)}`,
   },
   autoPlay: { type: Boolean, default: false },
+  useScrollTrigger: { type: Boolean, default: true },
+  stStart: { type: String, default: "top 80%" },
+  stEnd: { type: String, default: "bottom 20%" },
 });
 
 const createAnimation = () => {
@@ -279,13 +284,32 @@ onMounted(() => {
   nextTick(() => {
     gsapCtx = $gsap.context(() => {
       const tl = createAnimation();
-      if (props.autoPlay) tl && tl.play();
+      if (props.useScrollTrigger && tl && $ScrollTrigger) {
+        scrollTriggerInstance = $ScrollTrigger.create({
+          trigger: containerRef.value,
+          start: props.stStart,
+          end: props.stEnd,
+          onEnter: () => tl.play(),
+          onEnterBack: () => tl.play(),
+          onLeave: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
+          onLeaveBack: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
+        });
+        $ScrollTrigger.refresh();
+      } else if (props.autoPlay) {
+        tl && tl.play();
+      }
     }, containerRef.value);
   });
 });
 
 onUnmounted(() => {
   if (gsapCtx) gsapCtx.revert();
+  if (scrollTriggerInstance) {
+    try {
+      scrollTriggerInstance.kill();
+    } catch (e) {}
+    scrollTriggerInstance = null;
+  }
   if (props.showDevTools) {
     try {
       $GSDevTools.getById(props.devToolsId)?.kill();

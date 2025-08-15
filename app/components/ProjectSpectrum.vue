@@ -19,6 +19,7 @@ const { $gsap } = useNuxtApp();
 const { $DrawSVGPlugin } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
+const { $ScrollTrigger } = useNuxtApp();
 import { scopeSvgDefsIds, remapIdSelectors } from "/utils/scopeSvgIds";
 
 const containerRef = ref(null);
@@ -26,6 +27,7 @@ const timeline = ref(null);
 const svgComponentRef = ref(null);
 // GSAP context for scoped animations & automatic cleanup
 let gsapCtx = null;
+let scrollTriggerInstance = null;
 
 const props = defineProps({
   showDevTools: { type: Boolean, default: false },
@@ -35,6 +37,10 @@ const props = defineProps({
   },
   // Helpful for testing standalone (grid keeps paused by default)
   autoPlay: { type: Boolean, default: false },
+  // ScrollTrigger-controlled autoplay (enabled by default for performance)
+  useScrollTrigger: { type: Boolean, default: true },
+  stStart: { type: String, default: "top 80%" },
+  stEnd: { type: String, default: "bottom 20%" },
 });
 
 const createAnimation = () => {
@@ -298,13 +304,33 @@ onMounted(() => {
   nextTick(() => {
     gsapCtx = $gsap.context(() => {
       const tl = createAnimation();
-      if (props.autoPlay) tl && tl.play();
+      // Use ScrollTrigger to control playback when visible
+      if (props.useScrollTrigger && tl && $ScrollTrigger) {
+        scrollTriggerInstance = $ScrollTrigger.create({
+          trigger: containerRef.value,
+          start: props.stStart,
+          end: props.stEnd,
+          onEnter: () => tl.play(),
+          onEnterBack: () => tl.play(),
+          onLeave: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
+          onLeaveBack: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
+        });
+        $ScrollTrigger.refresh();
+      } else if (props.autoPlay) {
+        tl && tl.play();
+      }
     }, containerRef.value);
   });
 });
 
 onUnmounted(() => {
   if (gsapCtx) gsapCtx.revert();
+  if (scrollTriggerInstance) {
+    try {
+      scrollTriggerInstance.kill();
+    } catch (e) {}
+    scrollTriggerInstance = null;
+  }
   if (props.showDevTools) {
     try {
       $GSDevTools.getById(props.devToolsId)?.kill();

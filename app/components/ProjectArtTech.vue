@@ -21,6 +21,7 @@ const { $gsap } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
 const { $DrawSVGPlugin } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
+const { $ScrollTrigger } = useNuxtApp();
 import { scopeSvgDefsIds, remapIdSelectors } from "/utils/scopeSvgIds";
 
 // Standard container/timeline refs
@@ -28,6 +29,7 @@ const containerRef = ref(null);
 const timeline = ref(null);
 // GSAP context for scoped animations & automatic cleanup
 let gsapCtx = null;
+let scrollTriggerInstance = null;
 
 // Ref for the SVG component instance
 const svgComponentRef = ref(null);
@@ -59,6 +61,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  // ScrollTrigger-controlled autoplay defaults to on
+  useScrollTrigger: { type: Boolean, default: true },
+  stStart: { type: String, default: "top 80%" },
+  stEnd: { type: String, default: "bottom 20%" },
 });
 
 /**
@@ -384,14 +390,33 @@ onMounted(() => {
   nextTick(() => {
     gsapCtx = $gsap.context(() => {
       const tl = createAnimation();
-      // Auto-play when requested; grid keeps paused by default
-      if (props.autoPlay) tl && tl.play();
+      // ScrollTrigger visibility-controlled loop; fallback to autoPlay
+      if (props.useScrollTrigger && tl && $ScrollTrigger) {
+        scrollTriggerInstance = $ScrollTrigger.create({
+          trigger: containerRef.value,
+          start: props.stStart,
+          end: props.stEnd,
+          onEnter: () => tl.play(),
+          onEnterBack: () => tl.play(),
+          onLeave: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
+          onLeaveBack: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
+        });
+        $ScrollTrigger.refresh();
+      } else if (props.autoPlay) {
+        tl && tl.play();
+      }
     }, containerRef.value);
   });
 });
 
 onUnmounted(() => {
   if (gsapCtx) gsapCtx.revert();
+  if (scrollTriggerInstance) {
+    try {
+      scrollTriggerInstance.kill();
+    } catch (e) {}
+    scrollTriggerInstance = null;
+  }
   if (props.showDevTools) {
     try {
       $GSDevTools.getById(props.devToolsId)?.kill();
