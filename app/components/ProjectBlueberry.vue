@@ -11,6 +11,7 @@
 // Get GSAP from Nuxt app
 const { $gsap } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
+import { scopeSvgDefsIds } from "/utils/scopeSvgIds";
 
 // Standard refs for animation components
 const containerRef = ref(null);
@@ -66,6 +67,14 @@ const createAnimation = () => {
   if (!circleEl || !maskEl) {
     console.warn("Blueberry: Animation elements not found");
     return null;
+  }
+
+  // Scope <defs> IDs to avoid collisions with other SVGs on the page (consistent with other components)
+  const svgRoot = svgComponentRef.value?.svgRootRef;
+  if (svgRoot) {
+    const idPrefix =
+      props.devToolsId || `blueberry-${Math.random().toString(36).slice(2, 6)}`;
+    scopeSvgDefsIds(svgRoot, idPrefix);
   }
 
   // Create timeline with infinite repeat (paused by default for grid performance)
