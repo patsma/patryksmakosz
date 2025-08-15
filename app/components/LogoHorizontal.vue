@@ -1,70 +1,69 @@
 <template>
   <NuxtLink to="/">
-    <LogoHorizontalSVG ref="svgRef" class="logo-horizontal" />
+    <div ref="containerRef" class="logo-horizontal w-full h-full">
+      <LogoHorizontalSVG ref="svgComponentRef" />
+    </div>
   </NuxtLink>
 </template>
 
 <script setup>
 const { $gsap } = useNuxtApp();
 
+// Standard container/timeline refs
+const containerRef = ref(null);
+const timeline = ref(null);
+
 // Ref to the SVG component
-const svgRef = ref(null);
+const svgComponentRef = ref(null);
 
-// Arrays to store path elements from different groups
-const text1Paths = ref([]); // First 5 paths from text group
-const text2Paths = ref([]); // Next 5 paths from text group
-const rightPaths = ref([]);
-const leftPaths = ref([]);
+// Props for consistency with Project* components
+const props = defineProps({
+  showDevTools: { type: Boolean, default: false },
+  devToolsId: {
+    type: String,
+    default: () => `logo-horizontal-${Math.random().toString(36).slice(2, 9)}`,
+  },
+  autoPlay: { type: Boolean, default: true },
+  delaySeconds: { type: Number, default: 3 }, // play after 3s
+});
 
-// Initialize path arrays when component mounts
-const initializePaths = () => {
-  // Get refs from the SVG component
-  const textGroup = svgRef.value?.textRef;
-  const rightGroup = svgRef.value?.rightRef;
-  const leftGroup = svgRef.value?.leftRef;
+// Build the entry animation (reverse of MorphingLogo scatter)
+const createAnimation = () => {
+  const svg = svgComponentRef.value;
+  const textGroup = svg?.textRef;
+  const rightGroup = svg?.rightRef;
+  const leftGroup = svg?.leftRef;
 
-  if (textGroup && rightGroup && leftGroup) {
-    // Get all paths from each group
-    const allTextPaths = Array.from(textGroup.querySelectorAll("path"));
-    rightPaths.value = Array.from(rightGroup.querySelectorAll("path"));
-    leftPaths.value = Array.from(leftGroup.querySelectorAll("path"));
-
-    // Divide text paths into two groups of 5 paths each
-    text1Paths.value = allTextPaths.slice(0, 5); // First 5 paths
-    text2Paths.value = allTextPaths.slice(5, 10); // Next 5 paths
-
-    // console.log("LogoHorizontal paths initialized:", {
-    //   text1: text1Paths.value.length,
-    //   text2: text2Paths.value.length,
-    //   right: rightPaths.value.length,
-    //   left: leftPaths.value.length,
-    // });
-
-    // Set initial scattered positions immediately (hidden state)
-    $gsap.set(text1Paths.value, { y: 100, opacity: 0 });
-    $gsap.set(text2Paths.value, { y: -100, opacity: 0 });
-    $gsap.set(rightPaths.value, { x: 100, opacity: 0 });
-    $gsap.set(leftPaths.value, { x: -100, opacity: 0 });
-
-    // Show the logo container now that positions are set
-    $gsap.set(".logo-horizontal", { visibility: "visible" });
-
-    // Start animation with delay
-    startReversedEntryAnimation();
-  } else {
-    console.error("SVG refs not found in LogoHorizontal");
+  if (!textGroup || !rightGroup || !leftGroup) {
+    console.error("LogoHorizontal: SVG refs not found");
+    return null;
   }
-};
 
-// Start reversed entry animation (opposite of MorphingLogo)
-const startReversedEntryAnimation = () => {
+  // Collect path arrays
+  const allTextPaths = Array.from(textGroup.querySelectorAll("path"));
+  const rightPaths = Array.from(rightGroup.querySelectorAll("path"));
+  const leftPaths = Array.from(leftGroup.querySelectorAll("path"));
+  const text1Paths = allTextPaths.slice(0, 5);
+  const text2Paths = allTextPaths.slice(5, 10);
+
+  // Initial scattered state and hidden container
+  $gsap.set(containerRef.value, { visibility: "hidden" });
+  $gsap.set(text1Paths, { y: 100, opacity: 0 });
+  $gsap.set(text2Paths, { y: -100, opacity: 0 });
+  $gsap.set(rightPaths, { x: 100, opacity: 0 });
+  $gsap.set(leftPaths, { x: -100, opacity: 0 });
+
+  // Show after positions are set to avoid FOUC
+  $gsap.set(containerRef.value, { visibility: "visible" });
+
   const tl = $gsap.timeline({
     id: "logo-horizontal-entry-animation",
-    delay: 3, // 3 second delay to play after MorphingLogo
+    paused: true,
+    delay: props.delaySeconds,
   });
 
-  // Animate elements back to their original positions
-  tl.to(text1Paths.value, {
+  // Animate elements back to original positions
+  tl.to(text1Paths, {
     y: 0,
     opacity: 1,
     stagger: 0.025,
@@ -72,43 +71,44 @@ const startReversedEntryAnimation = () => {
     ease: "power2.out",
   });
   tl.to(
-    text2Paths.value,
-    {
-      y: 0,
-      opacity: 1,
-      stagger: -0.025,
-      duration: 1.5,
-      ease: "power2.out",
-    },
+    text2Paths,
+    { y: 0, opacity: 1, stagger: -0.025, duration: 1.5, ease: "power2.out" },
     "<"
   );
   tl.to(
-    rightPaths.value,
-    {
-      x: 0,
-      opacity: 1,
-      stagger: 0.025,
-      duration: 1.5,
-      ease: "power2.out",
-    },
+    rightPaths,
+    { x: 0, opacity: 1, stagger: 0.025, duration: 1.5, ease: "power2.out" },
     "<"
   );
   tl.to(
-    leftPaths.value,
-    {
-      x: 0,
-      opacity: 1,
-      stagger: 0.025,
-      duration: 1.5,
-      ease: "power2.out",
-    },
+    leftPaths,
+    { x: 0, opacity: 1, stagger: 0.025, duration: 1.5, ease: "power2.out" },
     "<"
   );
+
+  timeline.value = tl;
+  return tl;
 };
 
-// Start the animation sequence when component mounts
 onMounted(() => {
-  initializePaths();
+  nextTick(() => {
+    const tl = createAnimation();
+    if (props.autoPlay) tl && tl.play();
+  });
+});
+
+onUnmounted(() => {
+  if (timeline.value) timeline.value.kill();
+});
+
+defineExpose({
+  containerRef,
+  timeline,
+  play: () => timeline.value?.play(),
+  pause: () => timeline.value?.pause(),
+  restart: () => timeline.value?.restart(),
+  reverse: () => timeline.value?.reverse(),
+  seek: (time) => timeline.value?.seek(time),
 });
 </script>
 
