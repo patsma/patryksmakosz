@@ -291,8 +291,8 @@ onMounted(() => {
           end: props.stEnd,
           onEnter: () => tl.play(),
           onEnterBack: () => tl.play(),
-          onLeave: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
-          onLeaveBack: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
+          onLeave: () => tl.pause(0).progress(0),
+          onLeaveBack: () => tl.pause(0).progress(0),
         });
         $ScrollTrigger.refresh();
       } else if (props.autoPlay) {
