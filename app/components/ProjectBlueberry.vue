@@ -11,8 +11,6 @@
 // Get GSAP from Nuxt app
 const { $gsap } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
-// Ensure DrawSVG is registered globally (kept for parity with Spectrum component)
-const { $DrawSVGPlugin } = useNuxtApp();
 
 // Standard refs for animation components
 const containerRef = ref(null);

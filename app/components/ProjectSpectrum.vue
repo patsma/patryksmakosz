@@ -19,6 +19,7 @@ const { $gsap } = useNuxtApp();
 const { $DrawSVGPlugin } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
+import { scopeSvgDefsIds, remapIdSelectors } from "/utils/scopeSvgIds";
 
 const containerRef = ref(null);
 const timeline = ref(null);
@@ -43,6 +44,11 @@ const createAnimation = () => {
     return null;
   }
 
+  // Prefix defs IDs to avoid cross-SVG collisions and compute selector remaps
+  const idPrefix =
+    props.devToolsId || `spectrum-${Math.random().toString(36).slice(2, 6)}`;
+  const idMap = scopeSvgDefsIds(svgRoot, idPrefix);
+
   // Convert only shapes inside this SVG to paths for draw/morph compatibility
   try {
     const svgRootEl = svgRoot.closest ? svgRoot.closest("svg") : svgRoot;
@@ -57,8 +63,9 @@ const createAnimation = () => {
   } catch (e) {}
 
   // Scope queries to this SVG instance
-  const q = (sel) => svgRoot.querySelector(sel);
-  const qa = (sel) => Array.from(svgRoot.querySelectorAll(sel));
+  const q = (sel) => svgRoot.querySelector(remapIdSelectors(sel, idMap));
+  const qa = (sel) =>
+    Array.from(svgRoot.querySelectorAll(remapIdSelectors(sel, idMap)));
 
   // Newest animation structure variables (presence-checked)
   // Prefer component refs for speed/safety

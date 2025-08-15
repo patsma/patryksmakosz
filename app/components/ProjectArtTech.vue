@@ -21,6 +21,7 @@ const { $gsap } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
 const { $DrawSVGPlugin } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
+import { scopeSvgDefsIds, remapIdSelectors } from "/utils/scopeSvgIds";
 
 // Standard container/timeline refs
 const containerRef = ref(null);
@@ -72,6 +73,11 @@ const createAnimation = () => {
     return null;
   }
 
+  // Prefix defs IDs to avoid cross-SVG collisions and compute selector remaps
+  const idPrefix =
+    props.devToolsId || `art-tech-${Math.random().toString(36).slice(2, 6)}`;
+  const idMap = scopeSvgDefsIds(svgRoot, idPrefix);
+
   // Convert only shapes inside this SVG to paths for morph/draw operations
   try {
     const svgRootEl = svgRoot.closest && svgRoot.closest("svg");
@@ -86,8 +92,9 @@ const createAnimation = () => {
   } catch (e) {}
 
   // Query elements by ID from within the SVG scope only
-  const q = (sel) => svgRoot.querySelector(sel);
-  const qa = (sel) => Array.from(svgRoot.querySelectorAll(sel));
+  const q = (sel) => svgRoot.querySelector(remapIdSelectors(sel, idMap));
+  const qa = (sel) =>
+    Array.from(svgRoot.querySelectorAll(remapIdSelectors(sel, idMap)));
 
   const artTech = q("#artTech");
   const artTechText = q("#artTechText");
