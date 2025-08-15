@@ -17,6 +17,8 @@ const { $DrawSVGPlugin } = useNuxtApp();
 // Standard refs for animation components
 const containerRef = ref(null);
 const timeline = ref(null);
+// GSAP context for scoped animations & automatic cleanup
+let gsapCtx = null;
 
 // Child SVG component ref to access its exposed element refs
 const svgComponentRef = ref(null);
@@ -123,18 +125,18 @@ const createAnimation = () => {
 onMounted(() => {
   // Small delay to ensure DOM is ready
   nextTick(() => {
-    const tl = createAnimation();
-    // Auto-play when requested; grid keeps paused by default
-    if (props.autoPlay) tl && tl.play();
+    gsapCtx = $gsap.context(() => {
+      const tl = createAnimation();
+      // Auto-play when requested; grid keeps paused by default
+      if (props.autoPlay) tl && tl.play();
+    }, containerRef.value);
   });
 });
 
 // Standard cleanup for animation components
 onUnmounted(() => {
-  // Kill timeline
-  if (timeline.value) {
-    timeline.value.kill();
-  }
+  // Revert all animations and inline styles set within this context
+  if (gsapCtx) gsapCtx.revert();
 
   // Destroy GSDevTools instance if it exists
   if (props.showDevTools) {

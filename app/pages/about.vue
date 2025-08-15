@@ -1,7 +1,8 @@
 <template>
   <div>
-    <ProjectSpectrum :showDevTools="false" :auto-play="true" />
+    <ProjectSpectrum :showDevTools="true" :auto-play="true" />
     <ProjectArtTech :showDevTools="true" :auto-play="true" />
+    <ProjectBlueberry :showDevTools="true" :auto-play="true" />
     <OrbitalCarousel
       class="z-10"
       :items="items"
