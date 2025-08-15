@@ -11,6 +11,7 @@
 // Get GSAP from Nuxt app
 const { $gsap } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
+const { $ScrollTrigger } = useNuxtApp();
 import { scopeSvgDefsIds } from "/utils/scopeSvgIds";
 
 // Standard refs for animation components
@@ -18,6 +19,7 @@ const containerRef = ref(null);
 const timeline = ref(null);
 // GSAP context for scoped animations & automatic cleanup
 let gsapCtx = null;
+let scrollTriggerInstance = null;
 
 // Child SVG component ref to access its exposed element refs
 const svgComponentRef = ref(null);
@@ -49,6 +51,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  // Enable ScrollTrigger-controlled autoplay by default for performance
+  useScrollTrigger: { type: Boolean, default: true },
+  // Optional ScrollTrigger bounds
+  stStart: { type: String, default: "top 80%" },
+  stEnd: { type: String, default: "bottom 20%" },
 });
 
 /**
@@ -134,8 +141,24 @@ onMounted(() => {
   nextTick(() => {
     gsapCtx = $gsap.context(() => {
       const tl = createAnimation();
-      // Auto-play when requested; grid keeps paused by default
-      if (props.autoPlay) tl && tl.play();
+      // If ScrollTrigger control is enabled, wire visibility-controlled play/reverse
+      if (props.useScrollTrigger && tl && $ScrollTrigger) {
+        // Create a ScrollTrigger bound to this component
+        scrollTriggerInstance = $ScrollTrigger.create({
+          trigger: containerRef.value,
+          start: props.stStart,
+          end: props.stEnd,
+          onEnter: () => tl.play(),
+          onEnterBack: () => tl.play(),
+          onLeave: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
+          onLeaveBack: () => tl.tweenTo(0, { onComplete: () => tl.pause(0) }),
+        });
+        // Ensure calculations are up to date after mount
+        $ScrollTrigger.refresh();
+      } else if (props.autoPlay) {
+        // Fallback: immediate autoplay when ScrollTrigger is disabled
+        tl && tl.play();
+      }
     }, containerRef.value);
   });
 });
@@ -144,6 +167,13 @@ onMounted(() => {
 onUnmounted(() => {
   // Revert all animations and inline styles set within this context
   if (gsapCtx) gsapCtx.revert();
+  // Kill ScrollTrigger instance if created
+  if (scrollTriggerInstance) {
+    try {
+      scrollTriggerInstance.kill();
+    } catch (e) {}
+    scrollTriggerInstance = null;
+  }
 
   // Destroy GSDevTools instance if it exists
   if (props.showDevTools) {

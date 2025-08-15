@@ -3,7 +3,7 @@
     <ProjectWorkingJobsVyne :showDevTools="true" :auto-play="true" />
     <ProjectSpectrum :showDevTools="true" :auto-play="true" />
     <ProjectArtTech :showDevTools="true" :auto-play="true" />
-    <ProjectBlueberry :showDevTools="true" :auto-play="true" />
+    <ProjectBlueberry :show-dev-tools="true" />
     <OrbitalCarousel
       class="z-10"
       :items="items"

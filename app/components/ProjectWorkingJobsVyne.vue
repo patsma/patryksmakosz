@@ -5,12 +5,6 @@
 </template>
 
 <script setup>
-/**
- * ProjectWorkingJobsVyne animation component
- * - Ports the legacy GSAP animation from public/oldportfolio/.../working-jobs-vyne
- * - Follows the standardized, context-scoped pattern used across Project* components
- */
-
 const { $gsap } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
