@@ -12,6 +12,9 @@ const { $MorphSVGPlugin } = useNuxtApp();
 const containerRef = ref(null);
 const timeline = ref(null);
 
+// GSAP context for scoped animations & automatic cleanup
+let gsapCtx = null;
+
 // Ref to the SVG component instance
 const svgComponentRef = ref(null);
 
@@ -33,9 +36,17 @@ const props = defineProps({
  * @returns {GSAPTimeline|null}
  */
 const createAnimation = () => {
-  // Convert simple shapes to paths for morph operations
+  // Convert only shapes inside this SVG to paths for morph operations
   try {
-    $MorphSVGPlugin && $MorphSVGPlugin.convertToPath("circle, rect, polygon");
+    const svg = svgComponentRef.value;
+    const circleDivided = svg?.circleDividedRef;
+    const svgRootEl = circleDivided?.closest && circleDivided.closest("svg");
+    if ($MorphSVGPlugin && svgRootEl) {
+      const shapes = svgRootEl.querySelectorAll("circle, rect, polygon");
+      if (shapes && shapes.length) {
+        $MorphSVGPlugin.convertToPath(shapes);
+      }
+    }
   } catch (e) {}
 
   // Get refs from the SVG component
@@ -99,13 +110,18 @@ const createAnimation = () => {
 // Lifecycle
 onMounted(() => {
   nextTick(() => {
-    const tl = createAnimation();
-    if (props.autoPlay) tl && tl.play();
+    // Use gsap.context to scope all animations to this component
+    // and ensure automatic revert on unmount
+    gsapCtx = $gsap.context(() => {
+      const tl = createAnimation();
+      if (props.autoPlay) tl && tl.play();
+    }, containerRef.value);
   });
 });
 
 onUnmounted(() => {
-  if (timeline.value) timeline.value.kill();
+  // Revert all animations and inline styles set within this context
+  if (gsapCtx) gsapCtx.revert();
 });
 
 // Public API
