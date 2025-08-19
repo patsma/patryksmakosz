@@ -98,313 +98,319 @@ const createAnimation = () => {
   $gsap.set(containerRef.value, { autoAlpha: 1 });
   $gsap.set(tail, { transformOrigin: "50% 0%", autoAlpha: 1, scaleY: 0 });
 
-  // Orca jump timeline (looped)
-  const tlOrca = $gsap.timeline({ repeat: -1 });
-  tlOrca
-    .add("moveDown")
-    .to(
-      belly,
-      {
-        duration: 1,
-        scaleY: "-=0.3",
-        y: "+=8",
-        transformOrigin: "center center",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveDown"
-    )
-    .to(
-      tail,
-      {
-        duration: 1,
-        transformOrigin: "50% 0%",
-        scaleY: "-=1.5",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveDown"
-    )
-    .to(
-      body,
-      {
-        duration: 1,
-        transformOrigin: "50% 100%",
-        scaleY: "-=0.1",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveDown"
-    )
-    .to(
-      Tfin,
-      {
-        duration: 1,
-        transformOrigin: "50% 100%",
-        y: "+=25",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveDown"
-    )
-    .to(
-      Rfin,
-      {
-        duration: 1,
-        transformOrigin: "0% 0%",
-        x: "-=4",
-        y: "-=10",
-        rotation: "-=30",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveDown"
-    )
-    .to(
-      Lfin,
-      {
-        duration: 1,
-        transformOrigin: "100% 0%",
-        x: "+=4",
-        y: "-=10",
-        rotation: "+=30",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveDown"
-    )
-    .to(
-      Leye,
-      {
-        duration: 1,
-        morphSVG: LeyeBottom,
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveDown"
-    )
-    .to(
-      Reye,
-      {
-        duration: 1,
-        morphSVG: ReyeBottom,
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveDown"
-    )
-    .to(
-      initialOrca,
-      {
-        duration: 1,
-        transformOrigin: "center center",
-        y: "+=30",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveDown"
-    )
-    .to(
-      initialOrca,
-      {
-        duration: 1,
-        transformOrigin: "center center",
-        rotation: "+=1.3",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveDown"
-    )
+  // Orca cycle (single cycle, master controls looping)
+  const createOrcaCycle = () => {
+    const tlOrca = $gsap.timeline();
+    tlOrca
+      .add("moveDown")
+      .to(
+        belly,
+        {
+          duration: 1,
+          scaleY: "-=0.3",
+          y: "+=8",
+          transformOrigin: "center center",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveDown"
+      )
+      .to(
+        tail,
+        {
+          duration: 1,
+          transformOrigin: "50% 0%",
+          scaleY: "-=1.5",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveDown"
+      )
+      .to(
+        body,
+        {
+          duration: 1,
+          transformOrigin: "50% 100%",
+          scaleY: "-=0.1",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveDown"
+      )
+      .to(
+        Tfin,
+        {
+          duration: 1,
+          transformOrigin: "50% 100%",
+          y: "+=25",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveDown"
+      )
+      .to(
+        Rfin,
+        {
+          duration: 1,
+          transformOrigin: "0% 0%",
+          x: "-=4",
+          y: "-=10",
+          rotation: "-=30",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveDown"
+      )
+      .to(
+        Lfin,
+        {
+          duration: 1,
+          transformOrigin: "100% 0%",
+          x: "+=4",
+          y: "-=10",
+          rotation: "+=30",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveDown"
+      )
+      .to(
+        Leye,
+        {
+          duration: 1,
+          morphSVG: LeyeBottom,
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveDown"
+      )
+      .to(
+        Reye,
+        {
+          duration: 1,
+          morphSVG: ReyeBottom,
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveDown"
+      )
+      .to(
+        initialOrca,
+        {
+          duration: 1,
+          transformOrigin: "center center",
+          y: "+=30",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveDown"
+      )
+      .to(
+        initialOrca,
+        {
+          duration: 1,
+          transformOrigin: "center center",
+          rotation: "+=1.3",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveDown"
+      )
 
-    .add("moveUp")
-    .to(
-      belly,
-      {
-        duration: 1,
-        scaleX: "-=0.1",
-        y: "-=1",
-        morphSVG: bellyTop,
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveUp"
-    )
-    .to(
-      Leye,
-      { duration: 1, morphSVG: LeyeTop, ease: "none", repeat: 1, yoyo: true },
-      "moveUp"
-    )
-    .to(
-      Reye,
-      { duration: 1, morphSVG: ReyeTop, ease: "none", repeat: 1, yoyo: true },
-      "moveUp"
-    )
-    .to(
-      body,
-      {
-        duration: 1,
-        transformOrigin: "50% 100%",
-        scaleY: "+=0.05",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveUp"
-    )
-    .to(
-      body,
-      {
-        duration: 1,
-        transformOrigin: "50% 50%",
-        scaleX: "-=0.1",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveUp"
-    )
-    .to(
-      tail,
-      {
-        duration: 1,
-        transformOrigin: "50% 0%",
-        scaleY: "+=0.85",
-        scaleX: "-=0.15",
-        y: "-=1",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveUp"
-    )
-    .to(
-      Rfin,
-      {
-        duration: 1,
-        transformOrigin: "0% 0%",
-        x: "-=3",
-        y: "+=7",
-        rotation: "+=25",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveUp"
-    )
-    .to(
-      Lfin,
-      {
-        duration: 1,
-        transformOrigin: "100% 0%",
-        x: "+=3",
-        y: "+=7",
-        rotation: "-=25",
-        ease: "none",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveUp"
-    )
-    .to(
-      initialOrca,
-      {
-        duration: 1,
-        transformOrigin: "center center",
-        y: "-=30",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveUp"
-    )
-    .to(
-      initialOrca,
-      {
-        duration: 1,
-        transformOrigin: "center center",
-        rotation: "-=1.3",
-        repeat: 1,
-        yoyo: true,
-      },
-      "moveUp"
-    );
-  tlOrca.timeScale(2);
+      .add("moveUp")
+      .to(
+        belly,
+        {
+          duration: 1,
+          scaleX: "-=0.1",
+          y: "-=1",
+          morphSVG: bellyTop,
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveUp"
+      )
+      .to(
+        Leye,
+        { duration: 1, morphSVG: LeyeTop, ease: "none", repeat: 1, yoyo: true },
+        "moveUp"
+      )
+      .to(
+        Reye,
+        { duration: 1, morphSVG: ReyeTop, ease: "none", repeat: 1, yoyo: true },
+        "moveUp"
+      )
+      .to(
+        body,
+        {
+          duration: 1,
+          transformOrigin: "50% 100%",
+          scaleY: "+=0.05",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveUp"
+      )
+      .to(
+        body,
+        {
+          duration: 1,
+          transformOrigin: "50% 50%",
+          scaleX: "-=0.1",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveUp"
+      )
+      .to(
+        tail,
+        {
+          duration: 1,
+          transformOrigin: "50% 0%",
+          scaleY: "+=0.85",
+          scaleX: "-=0.15",
+          y: "-=1",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveUp"
+      )
+      .to(
+        Rfin,
+        {
+          duration: 1,
+          transformOrigin: "0% 0%",
+          x: "-=3",
+          y: "+=7",
+          rotation: "+=25",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveUp"
+      )
+      .to(
+        Lfin,
+        {
+          duration: 1,
+          transformOrigin: "100% 0%",
+          x: "+=3",
+          y: "+=7",
+          rotation: "-=25",
+          ease: "none",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveUp"
+      )
+      .to(
+        initialOrca,
+        {
+          duration: 1,
+          transformOrigin: "center center",
+          y: "-=30",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveUp"
+      )
+      .to(
+        initialOrca,
+        {
+          duration: 1,
+          transformOrigin: "center center",
+          rotation: "-=1.3",
+          repeat: 1,
+          yoyo: true,
+        },
+        "moveUp"
+      );
+    tlOrca.timeScale(2);
+    return tlOrca;
+  };
 
-  // Waves timeline (looped, yoyo)
-  const tlWaves = $gsap.timeline({ repeat: -1, yoyo: true });
-  tlWaves
-    .add("moveWaves")
-    .to(
-      wave01,
-      {
+  // Waves cycle (single out-and-back, master controls looping)
+  const createWavesCycle = () => {
+    const tlWaves = $gsap.timeline({ yoyo: true });
+    tlWaves
+      .add("moveWaves")
+      .to(
+        wave01,
+        {
+          duration: 1,
+          x: "+=35",
+          transformOrigin: "center center",
+          ease: "none",
+        },
+        "moveWaves"
+      )
+      .to(
+        wave02,
+        {
+          duration: 1,
+          x: "+=35",
+          transformOrigin: "center center",
+          ease: "none",
+        },
+        "moveWaves"
+      )
+      .to(
+        wave03,
+        {
+          duration: 1,
+          x: "-=35",
+          transformOrigin: "center center",
+          ease: "none",
+        },
+        "moveWaves"
+      )
+      .to(
+        wave04,
+        {
+          duration: 1,
+          x: "-=35",
+          transformOrigin: "center center",
+          ease: "none",
+        },
+        "moveWaves"
+      )
+      .fromTo(
+        waveWrapper,
+        {
+          duration: 1,
+          x: "-=15",
+          y: 35,
+          transformOrigin: "center center",
+          ease: "none",
+        },
+        { y: -20 },
+        "moveWaves"
+      )
+      .to(waveWrapper, {
         duration: 1,
-        x: "+=35",
-        transformOrigin: "center center",
-        ease: "none",
-      },
-      "moveWaves"
-    )
-    .to(
-      wave02,
-      {
-        duration: 1,
-        x: "+=35",
-        transformOrigin: "center center",
-        ease: "none",
-      },
-      "moveWaves"
-    )
-    .to(
-      wave03,
-      {
-        duration: 1,
-        x: "-=35",
-        transformOrigin: "center center",
-        ease: "none",
-      },
-      "moveWaves"
-    )
-    .to(
-      wave04,
-      {
-        duration: 1,
-        x: "-=35",
-        transformOrigin: "center center",
-        ease: "none",
-      },
-      "moveWaves"
-    )
-    .fromTo(
-      waveWrapper,
-      {
-        duration: 1,
-        x: "-=15",
         y: 35,
         transformOrigin: "center center",
         ease: "none",
-      },
-      { y: -20 },
-      "moveWaves"
-    )
-    .to(waveWrapper, {
-      duration: 1,
-      y: 35,
-      transformOrigin: "center center",
-      ease: "none",
-    });
-  tlWaves.timeScale(1);
+      });
+    tlWaves.timeScale(1);
+    return tlWaves;
+  };
 
-  // Master timeline to orchestrate (paused by default, keeps looping sub-timelines)
-  const tlMaster = $gsap.timeline({ paused: true });
-  tlMaster.add(tlOrca, 0).add(tlWaves, 0);
+  // Master timeline owns the loop so GSDevTools playhead matches
+  const tlMaster = $gsap.timeline({ paused: true, repeat: -1 });
+  tlMaster.add(createOrcaCycle(), 0).add(createWavesCycle(), 0);
 
   // DevTools
   if (props.showDevTools) {
