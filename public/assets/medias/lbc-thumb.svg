@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1164 1034" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<style><![CDATA[
+        /* Gentle heartbeat for the white logo shape */
+        #logoLbcShape {
+            animation: heartbeat 2.6s ease-in-out infinite;
+            transform-box: fill-box;
+            transform-origin: 50% 50%;
+            will-change: transform;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(0.55); }
+            14% { transform: scale(0.42); }
+            28% { transform: scale(0.55); }
+            42% { transform: scale(0.32); }
+            70% { transform: scale(0.55); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #logoLbcShape { animation: none !important; }
+        }
+    ]]></style>
+    <g id="logoLbc">
+        <rect id="logoLbcBg" x="0" y="0" width="1163.9" height="1033.41" style="fill:rgb(130,0,111);"/>
+        <g id="logoLbcShape" transform="matrix(0.613143,0,0,0.613143,225.132,199.891)">
+            <path d="M703.96,69.64C649.73,-23.21 514.16,-23.21 459.93,69.64L19.09,824.49C-35.14,917.34 32.65,1033.41 141.1,1033.41L1022.8,1033.41C1131.26,1033.41 1199.04,917.34 1144.81,824.49L703.96,69.64Z" style="fill:white;fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>
