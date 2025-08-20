@@ -12,7 +12,7 @@ const portfolioImages = ref([
   },
   {
     name: "02.png",
-    src: "/assets/medias/axcss.svg",
+    src: "/assets/medias/zaksa-thumb.svg",
     alt: "Portfolio Project 02",
   },
   { name: "03.png", src: "/assets/medias/03.png", alt: "Portfolio Project 03" },
