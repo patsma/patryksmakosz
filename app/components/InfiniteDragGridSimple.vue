@@ -30,7 +30,11 @@ const portfolioImages = ref([
     src: "/assets/medias/spectrum-thumb.svg",
     alt: "Portfolio Project 05",
   },
-  { name: "06.png", src: "/assets/medias/06.png", alt: "Portfolio Project 06" },
+  {
+    name: "06.png",
+    src: "/assets/medias/working-jobs-vyne-thumb.svg",
+    alt: "Portfolio Project 06",
+  },
   { name: "07.png", src: "/assets/medias/07.png", alt: "Portfolio Project 07" },
   { name: "08.png", src: "/assets/medias/08.png", alt: "Portfolio Project 08" },
   { name: "09.png", src: "/assets/medias/09.png", alt: "Portfolio Project 09" },
