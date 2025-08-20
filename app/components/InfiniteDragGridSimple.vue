@@ -45,7 +45,11 @@ const portfolioImages = ref([
     src: "/assets/medias/molkidesign-thumb.svg",
     alt: "Portfolio Project 08",
   },
-  { name: "09.png", src: "/assets/medias/09.png", alt: "Portfolio Project 09" },
+  {
+    name: "09.png",
+    src: "/assets/medias/pushups-thumb.svg",
+    alt: "Portfolio Project 09",
+  },
   { name: "10.png", src: "/assets/medias/10.png", alt: "Portfolio Project 10" },
   { name: "11.png", src: "/assets/medias/11.png", alt: "Portfolio Project 11" },
   { name: "01.png", src: "/assets/medias/01.png", alt: "Portfolio Project 01" },
