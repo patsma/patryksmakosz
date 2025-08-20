@@ -40,7 +40,6 @@ const portfolioImages = ref([
     src: "/assets/medias/lbc-thumb.svg",
     alt: "LBC Animated Logo",
   },
-  { name: "07.png", src: "/assets/medias/07.png", alt: "Portfolio Project 07" },
   { name: "08.png", src: "/assets/medias/08.png", alt: "Portfolio Project 08" },
   { name: "09.png", src: "/assets/medias/09.png", alt: "Portfolio Project 09" },
   { name: "10.png", src: "/assets/medias/10.png", alt: "Portfolio Project 10" },

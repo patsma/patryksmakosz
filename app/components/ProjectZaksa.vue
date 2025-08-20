@@ -64,12 +64,12 @@ const props = defineProps({
    * @type {string}
    * ScrollTrigger start position
    */
-  stStart: { type: String, default: "top 80%" },
+  stStart: { type: String, default: "top center" },
   /**
    * @type {string}
    * ScrollTrigger end position
    */
-  stEnd: { type: String, default: "bottom 20%" },
+  stEnd: { type: String, default: "bottom center" },
   /**
    * @type {number}
    * Global playback speed for the Zaksa master timeline
