@@ -25,7 +25,11 @@ const portfolioImages = ref([
     src: "/assets/medias/inforca-thumb.svg",
     alt: "Portfolio Project 04",
   },
-  { name: "05.png", src: "/assets/medias/05.png", alt: "Portfolio Project 05" },
+  {
+    name: "05.png",
+    src: "/assets/medias/spectrum-thumb.svg",
+    alt: "Portfolio Project 05",
+  },
   { name: "06.png", src: "/assets/medias/06.png", alt: "Portfolio Project 06" },
   { name: "07.png", src: "/assets/medias/07.png", alt: "Portfolio Project 07" },
   { name: "08.png", src: "/assets/medias/08.png", alt: "Portfolio Project 08" },
