@@ -12,33 +12,37 @@
             transform-box: fill-box;
             transform-origin: 50% 50%;
         }
+        /* Subtle hero motion for the whole R group */
+        #letterR {
+            animation: r-pop 4.8s ease-in-out infinite;
+            transform-box: fill-box;
+            transform-origin: 50% 55%;
+            will-change: transform;
+        }
         /* Glitch flicker on the R mark (color flashes + micro offsets) */
-      
         #letterRfill, #letterRpaths, #letterRpaths * {
             animation: r-glitch 2.6s linear infinite;
             transform-box: fill-box;
             transform-origin: 50% 50%;
+            will-change: transform, filter, opacity;
         }
 
         @keyframes logo-float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-3px); }
         }
-        @keyframes text-bob {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-3.5px); }
-            100% { transform: translateY(0); }
-        }
+        @keyframes text-bob { 0% { transform: translateY(0); } 50% { transform: translateY(-3.5px); } 100% { transform: translateY(0); } }
+        @keyframes r-pop { 0%, 100% { transform: translateY(0) scale(1) rotate(0deg); } 50% { transform: translateY(-1px) scale(1.024) rotate(0.6deg); } }
         @keyframes r-glitch {
-            0%, 7% { transform: translate(0,0); filter: none; opacity: 1; }
-            8% { transform: translate(-1px,1px); filter: hue-rotate(35deg) saturate(1.35) contrast(1.1); opacity: .92; }
-            8.6% { transform: translate(1px,-1px); filter: hue-rotate(-35deg) saturate(1.35) contrast(1.1); opacity: .82; }
-            9.2% { transform: translate(-1px,0px); filter: hue-rotate(210deg) saturate(1.25) contrast(1.15); opacity: .9; }
-            10% { transform: translate(0,0); filter: none; opacity: 1; }
-            44%, 46% { transform: translate(0,0); filter: none; opacity: 1; }
-            47% { transform: translate(-1px,0); filter: hue-rotate(25deg) saturate(1.2); opacity: .96; }
-            48% { transform: translate(1px,0); filter: hue-rotate(-25deg) saturate(1.2); opacity: .96; }
-            49% { transform: translate(0,0); filter: none; opacity: 1; }
+            0%, 7% { transform: translate(0,0) skew(0deg,0deg) scale(1); filter: none; opacity: 1; }
+            8% { transform: translate(-3px,2px) skew(-1.3deg,0.8deg) scale(1.03); filter: hue-rotate(35deg) saturate(1.35) contrast(1.1) drop-shadow(0 0 2px #00ffff) drop-shadow(0 0 4px #e802fc); opacity: .94; }
+            8.6% { transform: translate(3px,-2px) skew(1.1deg,-0.8deg) scale(1.02); filter: hue-rotate(-35deg) saturate(1.35) contrast(1.1) drop-shadow(0 0 2px #00fe03) drop-shadow(0 0 4px #1100a3); opacity: .88; }
+            9.2% { transform: translate(-2px,0px) skew(-0.8deg,0.6deg) scale(1.02); filter: hue-rotate(210deg) saturate(1.25) contrast(1.15) drop-shadow(0 0 2px #00ffff); opacity: .92; }
+            10% { transform: translate(0,0) skew(0deg,0deg) scale(1); filter: none; opacity: 1; }
+            44%, 46% { transform: translate(0,0) skew(0deg,0deg) scale(1); filter: none; opacity: 1; }
+            47% { transform: translate(-2px,0) skew(-0.6deg,0deg) scale(1.015); filter: hue-rotate(25deg) saturate(1.2) drop-shadow(0 0 2px #e802fc); opacity: .97; }
+            48% { transform: translate(2px,0) skew(0.6deg,0deg) scale(1.015); filter: hue-rotate(-25deg) saturate(1.2) drop-shadow(0 0 2px #00ffff); opacity: .97; }
+            49% { transform: translate(0,0) skew(0deg,0deg) scale(1); filter: none; opacity: 1; }
             100% { transform: translate(0,0); filter: none; opacity: 1; }
         }
 
@@ -81,7 +85,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            #artTech, #artTechText, #letterRfill, #letterRpaths, #letterRpaths *, #tech > path, #art > path { animation: none !important; opacity: 1 !important; }
+            #artTech, #artTechText, #letterR, #letterRfill, #letterRpaths, #letterRpaths *, #tech > path, #art > path { animation: none !important; opacity: 1 !important; filter: none !important; transform: none !important; }
         }
     </style>
     <g id="artTech">
