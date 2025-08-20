@@ -7,7 +7,7 @@ import { ref, onMounted, nextTick } from "vue";
 const portfolioImages = ref([
   {
     name: "12.png",
-    src: "/assets/medias/axcss.svg",
+    src: "/assets/medias/ax-thumb.svg",
     alt: "Portfolio Project 12",
   },
   {
