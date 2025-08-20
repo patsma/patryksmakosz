@@ -5,8 +5,8 @@
   >
     <style>
       /* CSS-only loop: orca float, eyes bob, waves slide/bob */
-      #inforca { animation: orca-float 6s ease-in-out infinite; transform-origin: 50% 50%; transform-box: fill-box; }
-      #Leye, #Reye { animation: eye-bob 3.2s ease-in-out infinite; transform-origin: 50% 50%; transform-box: fill-box; }
+      .initialOrca { animation: orca-float 6s ease-in-out infinite; transform-origin: 50% 50%; transform-box: fill-box; }
+      #Leye, #Reye { animation: eye-bob 5.8s ease-in-out infinite; transform-origin: 50% 50%; transform-box: fill-box; }
       #Reye { animation-delay: .18s; }
 
       #waves { animation: waves-bob 6s ease-in-out infinite alternate; transform-origin: 50% 50%; transform-box: fill-box; }
@@ -15,7 +15,7 @@
       #wave03 { animation-duration: 5.4s; animation-direction: alternate-reverse; opacity: .9; }
       #wave04 { animation-duration: 6.8s; opacity: .85; }
 
-      @keyframes orca-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+      @keyframes orca-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
       @keyframes eye-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
       @keyframes waves-bob { 0% { transform: translateY(0); } 100% { transform: translateY(6px); } }
       @keyframes wave-slide { 0% { transform: translateX(-16px); } 100% { transform: translateX(16px); } }
