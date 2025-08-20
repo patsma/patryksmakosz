@@ -1,50 +1,18 @@
 
 <svg width="100%" height="100%" viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <style>
-        /* Lightweight CSS-only looped animations for thumbnail preview */
-        #artTech {
-            animation: logo-float 6s ease-in-out infinite;
-            transform-box: fill-box;
-            transform-origin: 50% 50%;
-        }
+   
         #artTechText {
             animation: text-bob 5s ease-in-out infinite alternate;
             transform-box: fill-box;
             transform-origin: 50% 50%;
         }
-        /* Subtle hero motion for the whole R group */
-        #letterR {
-            animation: r-pop 4.8s ease-in-out infinite;
-            transform-box: fill-box;
-            transform-origin: 50% 55%;
-            will-change: transform;
-        }
-        /* Glitch flicker on the R mark (color flashes + micro offsets) */
-        #letterRfill, #letterRpaths, #letterRpaths * {
-            animation: r-glitch 2.6s linear infinite;
-            transform-box: fill-box;
-            transform-origin: 50% 50%;
-            will-change: transform, filter, opacity;
-        }
+       
+    
+      
 
-        @keyframes logo-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
-        }
-        @keyframes text-bob { 0% { transform: translateY(0); } 50% { transform: translateY(-3.5px); } 100% { transform: translateY(0); } }
-        @keyframes r-pop { 0%, 100% { transform: translateY(0) scale(1) rotate(0deg); } 50% { transform: translateY(-1px) scale(1.024) rotate(0.6deg); } }
-        @keyframes r-glitch {
-            0%, 7% { transform: translate(0,0) skew(0deg,0deg) scale(1); filter: none; opacity: 1; }
-            8% { transform: translate(-3px,2px) skew(-1.3deg,0.8deg) scale(1.03); filter: hue-rotate(35deg) saturate(1.35) contrast(1.1) drop-shadow(0 0 2px #00ffff) drop-shadow(0 0 4px #e802fc); opacity: .94; }
-            8.6% { transform: translate(3px,-2px) skew(1.1deg,-0.8deg) scale(1.02); filter: hue-rotate(-35deg) saturate(1.35) contrast(1.1) drop-shadow(0 0 2px #00fe03) drop-shadow(0 0 4px #1100a3); opacity: .88; }
-            9.2% { transform: translate(-2px,0px) skew(-0.8deg,0.6deg) scale(1.02); filter: hue-rotate(210deg) saturate(1.25) contrast(1.15) drop-shadow(0 0 2px #00ffff); opacity: .92; }
-            10% { transform: translate(0,0) skew(0deg,0deg) scale(1); filter: none; opacity: 1; }
-            44%, 46% { transform: translate(0,0) skew(0deg,0deg) scale(1); filter: none; opacity: 1; }
-            47% { transform: translate(-2px,0) skew(-0.6deg,0deg) scale(1.015); filter: hue-rotate(25deg) saturate(1.2) drop-shadow(0 0 2px #e802fc); opacity: .97; }
-            48% { transform: translate(2px,0) skew(0.6deg,0deg) scale(1.015); filter: hue-rotate(-25deg) saturate(1.2) drop-shadow(0 0 2px #00ffff); opacity: .97; }
-            49% { transform: translate(0,0) skew(0deg,0deg) scale(1); filter: none; opacity: 1; }
-            100% { transform: translate(0,0); filter: none; opacity: 1; }
-        }
+     
+       
 
         /* Staggered fade-in for text elements */
         #tech > path, #art > path {
@@ -230,10 +198,10 @@
             </g>
         </g>
         <g id="letterR">
-            <path id="letterRfill" d="M532.3,414.7L500,358.7L403,526.7L427.3,526.8L455.5,478L463.4,491.8L443.3,526.8L467.7,526.7L487.82,491.83L475.72,470.73L500,470.73L532.3,414.7ZM471.9,449.6L500,400.8L508,414.7L487.8,449.6L471.9,449.6Z" style="fill:url(#_Linear29);fill-rule:nonzero;"/>
+            <path id="letterRfill" d="M532.3,414.7L500,358.7L403,526.7L427.3,526.8L455.5,478L463.4,491.8L443.3,526.8L467.7,526.7L487.82,491.83L475.72,470.73L500,470.73L532.3,414.7ZM471.9,449.6L500,400.8L508,414.7L487.8,449.6L471.9,449.6Z" style="fill:none"/>
             <g id="letterRpaths">
-                <path d="M500,366.7L527.68,414.7L497.68,466.7L468.78,466.7L472.22,472.7L483.17,491.81L465.37,522.72L450.22,522.78L466.86,493.78L468,491.78L466.86,489.78L459,476L455.55,470L452,476L425,522.79L409.91,522.73L500,366.7M500,358.7L403,526.7L427.3,526.8L455.5,478L463.4,491.8L443.3,526.8L467.7,526.7L487.8,491.8L475.7,470.7L500,470.7L532.3,414.7L500,358.7Z" style="fill:url(#_Linear30);fill-rule:nonzero;"/>
-                <path d="M500,408.82L503.38,414.69L485.49,445.6L478.82,445.6L500,408.82M500,400.82L471.9,449.62L487.8,449.62L508,414.7L500,400.8L500,400.82Z" style="fill:url(#_Linear31);fill-rule:nonzero;"/>
+                <path d="M500,366.7L527.68,414.7L497.68,466.7L468.78,466.7L472.22,472.7L483.17,491.81L465.37,522.72L450.22,522.78L466.86,493.78L468,491.78L466.86,489.78L459,476L455.55,470L452,476L425,522.79L409.91,522.73L500,366.7M500,358.7L403,526.7L427.3,526.8L455.5,478L463.4,491.8L443.3,526.8L467.7,526.7L487.8,491.8L475.7,470.7L500,470.7L532.3,414.7L500,358.7Z" style="fill:none"/>
+                <path d="M500,408.82L503.38,414.69L485.49,445.6L478.82,445.6L500,408.82M500,400.82L471.9,449.62L487.8,449.62L508,414.7L500,400.8L500,400.82Z" style="fill:none"/>
             </g>
         </g>
         <g id="shadows">
