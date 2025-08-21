@@ -65,7 +65,11 @@ const portfolioImages = ref([
     src: "/assets/medias/vibeuu-thumb.svg",
     alt: "Portfolio Project 01",
   },
-  { name: "13.png", src: "/assets/medias/13.png", alt: "Portfolio Project 13" },
+  {
+    name: "13.png",
+    src: "/assets/medias/page404-thumb.svg",
+    alt: "Portfolio Project 13",
+  },
   { name: "14.png", src: "/assets/medias/14.png", alt: "Portfolio Project 14" },
   { name: "15.png", src: "/assets/medias/15.png", alt: "Portfolio Project 15" },
 ]);
