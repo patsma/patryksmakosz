@@ -1,0 +1,30 @@
+<svg width="100%" height="100%" viewBox="0 0 41 41" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <style><![CDATA[
+        /* Plum drop loop: start above frame → land → color pulse → drop below → reset */
+        #plum { animation: plum-drop 2.6s cubic-bezier(0.57, 0.4, 0.55, 1.17) infinite; transform-box: fill-box; transform-origin: 50% 50%; }
+        #plum path { animation: plum-color 2.6s ease-in-out infinite; }
+
+        @keyframes plum-drop {
+            0%   { transform: translateY(-40px); }
+            40%  { transform: translateY(0); }
+            60%  { transform: translateY(0); }
+            90%  { transform: translateY(0); }
+            100% { transform: translateY(-40px); }
+        }
+        @keyframes plum-color {
+            0%, 40%   { fill: #3b3b3b; }
+            50%, 85%  { fill: #8e4585; }
+            100%      { fill: #3b3b3b; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #plum, #plum path { animation: none !important; }
+        }
+    ]]></style>
+    <g transform="matrix(1,0,0,1,-166.07,-170.07)">
+        <path id="logoFrame" d="M166.07,170.07L206.17,170.07L206.17,210.47L166.07,210.47L166.07,170.07ZM203.47,172.77L168.97,172.77L168.97,207.57L203.47,207.57L203.47,172.77Z" style="fill:rgb(59,59,59);"/>
+        <g id="plum">
+            <path d="M190.03,182.18C189.38,182.81 188.54,183.11 187.42,183.05C187.49,181.93 187.88,181.14 188.58,180.56C189.29,179.98 190.31,179.59 191.62,179.3C191.18,180.58 190.68,181.55 190.02,182.18M194.18,192.54C194.18,189.36 192.94,185.52 189.93,183.97C192.23,182.79 192.97,179.83 193.62,177.52C191.04,177.93 187.66,178.39 186.46,181.05C186.17,180.25 185.73,179.51 185.1,178.85L183.88,180C184.73,180.88 185.24,181.85 185.43,182.97C187.3,184.56 188.5,186.67 188.9,189.09C189.3,191.54 188.95,194.41 187.31,196.37L186.58,195.76C187.78,193.93 188.01,191.58 187.71,189.54C187.34,186.97 186.06,184.92 184.01,183.43C179.98,184.29 178.27,188.81 178.27,192.53C178.27,197.1 181.4,201.99 186.22,202.51C191.04,201.99 194.17,197.1 194.17,192.53L194.18,192.54Z" fill="#3b3b3b"/>
+        </g>
+    </g>
+</svg>

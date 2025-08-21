@@ -55,7 +55,11 @@ const portfolioImages = ref([
     src: "/assets/medias/riverscape-thumb.svg",
     alt: "Portfolio Project 10",
   },
-  { name: "11.png", src: "/assets/medias/11.png", alt: "Portfolio Project 11" },
+  {
+    name: "11.png",
+    src: "/assets/medias/sliwka-thumb.svg",
+    alt: "Portfolio Project 11",
+  },
   { name: "01.png", src: "/assets/medias/01.png", alt: "Portfolio Project 01" },
   { name: "13.png", src: "/assets/medias/13.png", alt: "Portfolio Project 13" },
   { name: "14.png", src: "/assets/medias/14.png", alt: "Portfolio Project 14" },
