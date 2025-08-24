@@ -70,8 +70,16 @@ const portfolioImages = ref([
     src: "/assets/medias/page404-thumb.svg",
     alt: "Portfolio Project 13",
   },
-  { name: "14.png", src: "/assets/medias/fort-privacy-thumb.svg", alt: "Portfolio Project 14" },
-  { name: "15.png", src: "/assets/medias/15.png", alt: "Portfolio Project 15" },
+  {
+    name: "14.png",
+    src: "/assets/medias/fort-privacy-thumb.svg",
+    alt: "Portfolio Project 14",
+  },
+  {
+    name: "15.png",
+    src: "/assets/medias/prototype-thumb.svg",
+    alt: "Portfolio Project 15",
+  },
 ]);
 
 // Project names mapping for better UX
