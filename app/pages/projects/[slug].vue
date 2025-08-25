@@ -126,26 +126,6 @@ onBeforeUnmount(() => {
   stopSwipe();
 });
 
-// Minimal swipe test box (per Maz-UI example) to verify swipe detection
-const swipeTestRef = ref(null);
-const lastSwipeDirection = ref("None");
-const { start: startTestSwipe, stop: stopTestSwipe } = useSwipe({
-  element: swipeTestRef,
-  onLeft: () => (lastSwipeDirection.value = "Swiped left"),
-  onRight: () => (lastSwipeDirection.value = "Swiped right"),
-  onUp: () => (lastSwipeDirection.value = "Swiped up"),
-  onDown: () => (lastSwipeDirection.value = "Swiped down"),
-  threshold: 70,
-});
-
-onMounted(() => {
-  startTestSwipe();
-});
-
-onBeforeUnmount(() => {
-  stopTestSwipe();
-});
-
 // Inline debug object visible in UI
 const debugInfo = computed(() => ({
   currentPath: currentPath.value,
@@ -177,19 +157,6 @@ const debugInfo = computed(() => ({
     <div v-else>
       <div class="project-page__body prose prose-invert">
         <ContentRenderer :value="project" />
-
-        <!-- Swipe test box: helps verify Maz-UI useSwipe integration -->
-        <div
-          ref="swipeTestRef"
-          class="mt-6 border border-[rgba(255,255,255,0.15)] rounded-lg h-40 flex items-center justify-center text-center text-base"
-        >
-          <div>
-            <p>Swipe in any direction</p>
-            <p class="opacity-70 text-sm">
-              Last swipe direction: {{ lastSwipeDirection }}
-            </p>
-          </div>
-        </div>
 
         <!-- Bottom navigation: Previous / Next projects -->
         <div v-if="prevProject || nextProject" class="project-container">
