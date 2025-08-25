@@ -1,4 +1,5 @@
 <script setup>
+import { useSwipe } from "maz-ui/composables";
 // Dynamic project page driven by @nuxt/content
 // - Renders markdown body via <ContentRenderer>
 // - Provides basic error and loading states
@@ -101,6 +102,50 @@ onBeforeUnmount(() => {
   window.removeEventListener("keydown", handleKeydown);
 });
 
+// Swipe navigation using Maz-UI useSwipe composable
+// Attach to the root section via a template ref
+const pageRef = ref(null);
+const { start: startSwipe, stop: stopSwipe } = useSwipe({
+  element: pageRef,
+  // Swipe Left: go to next project (content moves left)
+  onLeft: () => {
+    if (nextProject.value?.path) router.push(nextProject.value.path);
+  },
+  // Swipe Right: go to previous project
+  onRight: () => {
+    if (prevProject.value?.path) router.push(prevProject.value.path);
+  },
+  threshold: 56,
+});
+
+onMounted(() => {
+  startSwipe();
+});
+
+onBeforeUnmount(() => {
+  stopSwipe();
+});
+
+// Minimal swipe test box (per Maz-UI example) to verify swipe detection
+const swipeTestRef = ref(null);
+const lastSwipeDirection = ref("None");
+const { start: startTestSwipe, stop: stopTestSwipe } = useSwipe({
+  element: swipeTestRef,
+  onLeft: () => (lastSwipeDirection.value = "Swiped left"),
+  onRight: () => (lastSwipeDirection.value = "Swiped right"),
+  onUp: () => (lastSwipeDirection.value = "Swiped up"),
+  onDown: () => (lastSwipeDirection.value = "Swiped down"),
+  threshold: 70,
+});
+
+onMounted(() => {
+  startTestSwipe();
+});
+
+onBeforeUnmount(() => {
+  stopTestSwipe();
+});
+
 // Inline debug object visible in UI
 const debugInfo = computed(() => ({
   currentPath: currentPath.value,
@@ -118,7 +163,7 @@ const debugInfo = computed(() => ({
 </script>
 
 <template>
-  <section class="project-page">
+  <section ref="pageRef" class="project-page">
     <div v-if="status === 'pending'" class="project-page__content text-center">
       Loading…
     </div>
@@ -132,6 +177,19 @@ const debugInfo = computed(() => ({
     <div v-else>
       <div class="project-page__body prose prose-invert">
         <ContentRenderer :value="project" />
+
+        <!-- Swipe test box: helps verify Maz-UI useSwipe integration -->
+        <div
+          ref="swipeTestRef"
+          class="mt-6 border border-[rgba(255,255,255,0.15)] rounded-lg h-40 flex items-center justify-center text-center text-base"
+        >
+          <div>
+            <p>Swipe in any direction</p>
+            <p class="opacity-70 text-sm">
+              Last swipe direction: {{ lastSwipeDirection }}
+            </p>
+          </div>
+        </div>
 
         <!-- Bottom navigation: Previous / Next projects -->
         <div v-if="prevProject || nextProject" class="project-container">

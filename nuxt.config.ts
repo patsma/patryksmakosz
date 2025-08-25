@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     "@hypernym/nuxt-gsap",
     "@pinia/nuxt",
     "@nuxt/content",
+    "@maz-ui/nuxt",
   ],
 
   gsap: {
