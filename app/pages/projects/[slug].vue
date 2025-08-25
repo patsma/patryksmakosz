@@ -100,14 +100,13 @@ const debugInfo = computed(() => ({
             <NuxtLink
               v-if="prevProject"
               :to="prevProject.path"
-              class="group inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+              class="btn-standard-outlined"
               aria-label="Previous project"
             >
-              <Icon name="tabler:arrow-left" class="w-5 h-5" />
-              <span class="sr-only">Previous:</span>
-              <span class="underline-offset-2 group-hover:underline">{{
-                prevProject.title || "Previous"
-              }}</span>
+              <span class="inline-flex items-center gap-2">
+                <Icon name="tabler:arrow-left" class="w-5 h-5" />
+                {{ prevProject.title || "Previous" }}
+              </span>
             </NuxtLink>
 
             <div class="flex-1" />
@@ -115,24 +114,15 @@ const debugInfo = computed(() => ({
             <NuxtLink
               v-if="nextProject"
               :to="nextProject.path"
-              class="group inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+              class="btn-standard-outlined"
               aria-label="Next project"
             >
-              <span class="sr-only">Next:</span>
-              <span class="underline-offset-2 group-hover:underline">{{
-                nextProject.title || "Next"
-              }}</span>
-              <Icon name="tabler:arrow-right" class="w-5 h-5" />
+              <span class="inline-flex items-center gap-2">
+                {{ nextProject.title || "Next" }}
+                <Icon name="tabler:arrow-right" class="w-5 h-5" />
+              </span>
             </NuxtLink>
           </div>
-        </div>
-
-        <!-- DEBUG PANEL (remove when fixed) -->
-        <div class="project-container mt-4 text-xs text-white/70">
-          <details open>
-            <summary>Debug: navigation state</summary>
-            <pre>{{ debugInfo }}</pre>
-          </details>
         </div>
       </div>
     </div>
