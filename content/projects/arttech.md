@@ -8,8 +8,6 @@ slug: "arttech"
 category: "logo-animation"
 cover: "/assets/medias/arttech-thumb.svg"
 video: "/movies/web-optimized/art-tech.mp4"
-components:
-  - ProjectArtTech
 summary: "Experimental animation combining art and technology with GSAP."
 tags: ["animation", "logo", "gsap"]
 date: 2025-01-07
@@ -20,6 +18,7 @@ date: 2025-01-07
 ---
 # When true, starts animation automatically outside of grid
 autoPlay: true
+show-dev-tools: true
 ---
 ::
 

@@ -11,20 +11,6 @@
   display: flex;
   flex-direction: column;
 
-  &__hero {
-    width: 100vw; // full-bleed
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    // Ensure videos/SVG animations scale nicely
-    video,
-    svg,
-    .animation-component {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-  }
-
   &__content {
     // Responsive container paddings from tokens
     padding: $container-pad-mobile;
@@ -43,45 +29,21 @@
   // Title with brand gradient
   &__title {
     @include h2;
-    @include text-gradient-1;
     color: transparent; // ensure gradient shows
     margin-bottom: space(6);
   }
 
   // Nuxt Content markdown area customizations
   &__body {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    width: 100%;
+
     // Make markdown headings use gradient like carousel titles
     h1,
     h2 {
       @include text-gradient-1;
-      color: transparent;
     }
     // Tweak paragraph color for contrast
     p {
-      color: $gray-2;
-    }
-  }
-
-  // Inside markdown (ContentRenderer), allow specific components to bleed full width
-  // Vue renders component tags in kebab-case (e.g., <project-art-tech>)
-  .prose {
-    project-art-tech,
-    project-blueberry,
-    project-spectrum,
-    project-working-jobs-vyne,
-    project-zaksa,
-    project-inf-orca,
-    video {
-      display: block;
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      margin-right: calc(50% - 50vw);
-      // Provide vertical rhythm around full-bleed blocks
-      margin-top: space(10);
-      margin-bottom: space(10);
     }
   }
 
