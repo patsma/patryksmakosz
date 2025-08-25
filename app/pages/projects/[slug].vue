@@ -103,9 +103,9 @@ const debugInfo = computed(() => ({
               class="btn-standard-outlined"
               aria-label="Previous project"
             >
-              <span class="inline-flex items-center gap-2">
+              <span class="inline-flex items-center justify-center gap-2">
                 <Icon name="tabler:arrow-left" class="w-5 h-5" />
-                {{ prevProject.title || "Previous" }}
+                <!-- {{ prevProject.title || "Previous" }}  -->
               </span>
             </NuxtLink>
 
@@ -117,8 +117,8 @@ const debugInfo = computed(() => ({
               class="btn-standard-outlined"
               aria-label="Next project"
             >
-              <span class="inline-flex items-center gap-2">
-                {{ nextProject.title || "Next" }}
+              <span class="inline-flex items-center justify-center gap-2">
+                <!-- {{ nextProject.title || "Next" }} -->
                 <Icon name="tabler:arrow-right" class="w-5 h-5" />
               </span>
             </NuxtLink>
