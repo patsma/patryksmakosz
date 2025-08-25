@@ -16,7 +16,6 @@ date: 2025-01-07
 
 ::ProjectArtTech
 ---
-# When true, starts animation automatically outside of grid
 autoPlay: true
 show-dev-tools: true
 ---
