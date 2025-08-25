@@ -9,9 +9,9 @@ const category = computed(() => route.query.category || "");
 const { data: projects } = await useAsyncData(
   () => `projects-${category.value || "all"}`,
   async () => {
-    const q = queryContent("/projects");
+    const q = queryCollection("projects");
     if (category.value) q.where({ category: String(category.value) });
-    return q.sort({ title: 1 }).find();
+    return q.sort({ title: 1 }).all();
   }
 );
 

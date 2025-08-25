@@ -9,14 +9,14 @@ import { ref, computed } from "vue";
 const route = useRoute();
 const slug = computed(() => String(route.params.slug || ""));
 
-// Fetch project by path: /projects/:slug
+// Fetch project by path inside `projects` collection
 const {
   data: project,
   status,
   error,
 } = await useAsyncData(
   () => `project-${slug.value}`,
-  () => queryContent(`/projects/${slug.value}`).findOne()
+  () => queryCollection("projects").path(`/projects/${slug.value}`).first()
 );
 
 const pageTitle = computed(() => project.value?.title || slug.value);
