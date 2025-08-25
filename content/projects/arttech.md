@@ -17,7 +17,6 @@ date: 2025-01-07
 ::ProjectArtTech
 ---
 autoPlay: true
-show-dev-tools: true
 ---
 ::
 

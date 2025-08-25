@@ -14,16 +14,17 @@
   &__content {
     // Responsive container paddings from tokens
     padding: $container-pad-mobile;
+    // Constrain readable width while keeping layout centered
+    // Note: Declarations must appear before nested rules to avoid Sass mixed-decls deprecation
+    max-width: 64rem;
+    margin-left: auto;
+    margin-right: auto;
     @include tablet {
       padding: $container-pad-tablet;
     }
     @include laptop {
       padding: $container-pad-laptop;
     }
-    // Constrain readable width while keeping layout centered
-    max-width: 64rem;
-    margin-left: auto;
-    margin-right: auto;
   }
 
   // Title with brand gradient
@@ -43,8 +44,6 @@
       @include text-gradient-1;
     }
     // Tweak paragraph color for contrast
-    p {
-    }
   }
 
   // Reusable constrained container for text blocks inside markdown
