@@ -60,6 +60,47 @@ const nextProject = computed(() => {
     : null;
 });
 
+// Keyboard navigation: ArrowLeft / ArrowRight to move between projects
+const router = useRouter();
+
+/**
+ * Check if the event target is an editable element.
+ * We skip keyboard navigation when user is typing or interacting with inputs.
+ * @param {EventTarget|null} el
+ * @returns {boolean}
+ */
+const isEditableTarget = (el) => {
+  if (!el) return false;
+  const tag = (el.tagName || "").toLowerCase();
+  if (el.isContentEditable) return true;
+  return tag === "input" || tag === "textarea" || tag === "select";
+};
+
+/**
+ * Handle global keydown for Left/Right arrows. Navigates to prev/next project
+ * when available. Ignores when modifiers are pressed or target is editable.
+ * @param {KeyboardEvent} event
+ */
+const handleKeydown = (event) => {
+  if (!event || event.defaultPrevented) return;
+  if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+  if (isEditableTarget(event.target)) return;
+
+  if (event.key === "ArrowLeft" && prevProject.value?.path) {
+    router.push(prevProject.value.path);
+  } else if (event.key === "ArrowRight" && nextProject.value?.path) {
+    router.push(nextProject.value.path);
+  }
+};
+
+onMounted(() => {
+  window.addEventListener("keydown", handleKeydown, { passive: true });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", handleKeydown);
+});
+
 // Inline debug object visible in UI
 const debugInfo = computed(() => ({
   currentPath: currentPath.value,
