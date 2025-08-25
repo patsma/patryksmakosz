@@ -1,86 +1,17 @@
 this was working flawlessly
 
 <script setup>
-import { ref, onMounted, nextTick } from "vue";
+import { ref, computed, onMounted, nextTick } from "vue";
 
-// Portfolio data - centralized and maintainable
-const portfolioImages = ref([
-  {
-    name: "12.png",
-    src: "/assets/medias/ax-thumb.svg",
-    alt: "Portfolio Project 12",
-  },
-  {
-    name: "02.png",
-    src: "/assets/medias/zaksa-thumb.svg",
-    alt: "Portfolio Project 02",
-  },
-  {
-    name: "03.png",
-    src: "/assets/medias/arttech-thumb.svg",
-    alt: "Portfolio Project 03",
-  },
-  {
-    name: "04.png",
-    src: "/assets/medias/inforca-thumb.svg",
-    alt: "Portfolio Project 04",
-  },
-  {
-    name: "05.png",
-    src: "/assets/medias/spectrum-thumb.svg",
-    alt: "Portfolio Project 05",
-  },
-  {
-    name: "06.png",
-    src: "/assets/medias/working-jobs-vyne-thumb.svg",
-    alt: "Portfolio Project 06",
-  },
-  {
-    name: "lbc-thumb.svg",
-    src: "/assets/medias/lbc-thumb.svg",
-    alt: "LBC Animated Logo",
-  },
-  {
-    name: "08.png",
-    src: "/assets/medias/molkidesign-thumb.svg",
-    alt: "Portfolio Project 08",
-  },
-  {
-    name: "09.png",
-    src: "/assets/medias/pushups-thumb.svg",
-    alt: "Portfolio Project 09",
-  },
-  {
-    name: "10.png",
-    src: "/assets/medias/riverscape-thumb.svg",
-    alt: "Portfolio Project 10",
-  },
-  {
-    name: "11.png",
-    src: "/assets/medias/sliwka-thumb.svg",
-    alt: "Portfolio Project 11",
-  },
-  {
-    name: "01.png",
-    src: "/assets/medias/vibeuu-thumb.svg",
-    alt: "Portfolio Project 01",
-  },
-  {
-    name: "13.png",
-    src: "/assets/medias/page404-thumb.svg",
-    alt: "Portfolio Project 13",
-  },
-  {
-    name: "14.png",
-    src: "/assets/medias/fort-privacy-thumb.svg",
-    alt: "Portfolio Project 14",
-  },
-  {
-    name: "15.png",
-    src: "/assets/medias/prototype-thumb.svg",
-    alt: "Portfolio Project 15",
-  },
-]);
+// Build grid content directly from the mapping (single source of truth)
+const gridProjects = computed(() =>
+  Object.entries(projectMetaByImage).map(([filename, meta]) => ({
+    slug: meta.slug,
+    title: meta.title,
+    src: `/assets/medias/${filename}`,
+    alt: meta.title || meta.slug,
+  }))
+);
 
 // Map thumbnails to project slugs and titles for routing and UX
 // Keep this minimal; source of truth will be Content collection
@@ -115,26 +46,18 @@ const { $gsap } = useNuxtApp();
 const { $Observer } = useNuxtApp();
 
 /**
- * Handle image clicks for portfolio navigation
- * @param {string} imageName - The name of the clicked image
+ * Handle image clicks for portfolio navigation using mapping data
+ * @param {{ slug: string, title?: string }} project - Mapped project
  */
-const handleImageClick = (imageName) => {
-  // Resolve slug from image name; fallback to sanitized file stem
-  const meta = projectMetaByImage[imageName];
-  const stem = String(imageName || "").split(".")[0];
-  const fallbackSlug = stem
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-  const slug = meta?.slug || fallbackSlug;
-  const title = meta?.title || `Project ${stem}`;
-
+const handleImageClick = (project) => {
+  const slug = project?.slug;
+  const title = project?.title || project?.slug || "Project";
+  if (!slug) return;
   console.log(`Navigate to project: ${title} -> /projects/${slug}`);
   try {
     navigateTo(`/projects/${slug}`);
   } catch (e) {
-    // Non-blocking fallback to avoid UX dead-ends during early integration
-    alert(`Opening ${title} (/${slug}) soon...`);
+    alert(`Opening ${title} (/projects/${slug}) soon...`);
   }
 };
 
@@ -225,12 +148,12 @@ onMounted(() => {
     <div ref="containerRef" class="infinite-drag-grid__container">
       <div ref="contentRef" class="infinite-drag-grid__content">
         <div
-          v-for="(image, index) in portfolioImages"
+          v-for="(project, index) in gridProjects"
           :key="`original-${index}`"
           class="infinite-drag-grid__media"
-          @click="handleImageClick(image.name)"
+          @click="handleImageClick(project)"
         >
-          <img :src="image.src" :alt="image.alt" />
+          <img :src="project.src" :alt="project.alt" />
         </div>
       </div>
 
@@ -242,12 +165,12 @@ onMounted(() => {
         aria-hidden="true"
       >
         <div
-          v-for="(image, index) in portfolioImages"
+          v-for="(project, index) in gridProjects"
           :key="`duplicate-${duplicateIndex}-${index}`"
           class="infinite-drag-grid__media"
-          @click="handleImageClick(image.name)"
+          @click="handleImageClick(project)"
         >
-          <img :src="image.src" :alt="image.alt" />
+          <img :src="project.src" :alt="project.alt" />
         </div>
       </div>
     </div>
