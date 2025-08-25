@@ -7,6 +7,7 @@ const { $gsap } = useNuxtApp();
 const menuStore = useMenuStore();
 
 // Refs for DOM elements we animate
+const hamburgerRef = ref(null);
 const buttonRef = ref(null);
 const lineTopRef = ref(null);
 const lineBottomRef = ref(null);
@@ -16,6 +17,12 @@ const linksRef = ref([]);
 
 // Master timeline
 let tl = null;
+let introTl = null;
+
+// Allow adjusting when the hamburger button appears
+const props = defineProps({
+  showDelaySeconds: { type: Number, default: 3 },
+});
 
 onMounted(() => {
   // Basic overlay and panel animation
@@ -55,11 +62,20 @@ onMounted(() => {
   } else {
     tl.progress(0);
   }
+
+  // Reveal the hamburger button after a small delay (tweakable)
+  introTl = $gsap.timeline({ delay: 3.1 });
+  introTl.to(hamburgerRef.value, {
+    opacity: 1,
+    duration: 0.6,
+    ease: "power2.out",
+  });
 });
 
 onUnmounted(() => {
   try {
     tl && tl.kill();
+    introTl && introTl.kill();
   } catch (e) {}
 });
 
@@ -93,7 +109,7 @@ onUnmounted(() => {
 
 <template>
   <!-- Button -->
-  <div class="hamburger">
+  <div ref="hamburgerRef" class="hamburger opacity-0">
     <button
       ref="buttonRef"
       class="hamburger__button"
