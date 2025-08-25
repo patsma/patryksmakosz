@@ -11,13 +11,10 @@ video: "/movies/web-optimized/art-tech.mp4"
 components:
   - ProjectArtTech
 summary: "Experimental animation combining art and technology with GSAP."
-# tags: ["animation", "logo", "gsap"]
-# date: 2025-01-07
+tags: ["animation", "logo", "gsap"]
+date: 2025-01-07
 ---
 
-# ArtTech
-
-Welcome to the ArtTech project. Below we render the hero animation component, followed by details.
 
 ::ProjectArtTech
 ---
@@ -25,6 +22,8 @@ Welcome to the ArtTech project. Below we render the hero animation component, fo
 autoPlay: true
 ---
 ::
+
+<div class="project-container">
 
 ## About the Project
 
@@ -34,4 +33,6 @@ This piece explores how vector paths and masks can be orchestrated with GSAP tim
 
 - Animation: Tasty Sites
 - Tools: Nuxt 4, GSAP Club Plugins, TailwindCSS
+
+</div>
 

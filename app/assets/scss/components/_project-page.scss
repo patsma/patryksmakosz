@@ -1,0 +1,106 @@
+// Project page layout and typography styles
+// - Full-bleed hero at top
+// - Markdown content constrained to container
+// - Allow specific components inside markdown to break out full-width
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.project-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__hero {
+    width: 100vw; // full-bleed
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    // Ensure videos/SVG animations scale nicely
+    video,
+    svg,
+    .animation-component {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__content {
+    // Responsive container paddings from tokens
+    padding: $container-pad-mobile;
+    @include tablet {
+      padding: $container-pad-tablet;
+    }
+    @include laptop {
+      padding: $container-pad-laptop;
+    }
+    // Constrain readable width while keeping layout centered
+    max-width: 64rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Title with brand gradient
+  &__title {
+    @include h2;
+    @include text-gradient-1;
+    color: transparent; // ensure gradient shows
+    margin-bottom: space(6);
+  }
+
+  // Nuxt Content markdown area customizations
+  &__body {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    // Make markdown headings use gradient like carousel titles
+    h1,
+    h2 {
+      @include text-gradient-1;
+      color: transparent;
+    }
+    // Tweak paragraph color for contrast
+    p {
+      color: $gray-2;
+    }
+  }
+
+  // Inside markdown (ContentRenderer), allow specific components to bleed full width
+  // Vue renders component tags in kebab-case (e.g., <project-art-tech>)
+  .prose {
+    project-art-tech,
+    project-blueberry,
+    project-spectrum,
+    project-working-jobs-vyne,
+    project-zaksa,
+    project-inf-orca,
+    video {
+      display: block;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      // Provide vertical rhythm around full-bleed blocks
+      margin-top: space(10);
+      margin-bottom: space(10);
+    }
+  }
+
+  // Reusable constrained container for text blocks inside markdown
+  .project-container {
+    max-width: 64rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $container-pad-mobile;
+    padding-right: $container-pad-mobile;
+    padding-top: $container-pad-mobile;
+    padding-bottom: $container-pad-mobile;
+    @include tablet {
+      padding-left: $container-pad-tablet;
+      padding-right: $container-pad-tablet;
+    }
+    @include laptop {
+      padding-left: $container-pad-laptop;
+      padding-right: $container-pad-laptop;
+    }
+  }
+}
