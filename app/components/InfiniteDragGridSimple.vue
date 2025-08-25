@@ -82,23 +82,28 @@ const portfolioImages = ref([
   },
 ]);
 
-// Project names mapping for better UX
-const projectNames = {
-  "01.png": "Project Alpha",
-  "02.png": "Project Beta",
-  "03.png": "Project Gamma",
-  "04.png": "Project Delta",
-  "05.png": "Project Epsilon",
-  "06.png": "Project Zeta",
-  "07.png": "Project Eta",
-  "08.png": "Project Theta",
-  "09.png": "Project Iota",
-  "10.png": "Project Kappa",
-  "11.png": "Project Lambda",
-  "12.png": "Project Mu",
-  "13.png": "Project Nu",
-  "14.png": "Project Xi",
-  "15.png": "Project Omicron",
+// Map thumbnails to project slugs and titles for routing and UX
+// Keep this minimal; source of truth will be Content collection
+const projectMetaByImage = {
+  "ax-thumb.svg": { slug: "ax", title: "AX" },
+  "zaksa-thumb.svg": { slug: "zaksa", title: "Zaksa" },
+  "arttech-thumb.svg": { slug: "arttech", title: "ArtTech" },
+  "inforca-thumb.svg": { slug: "inforca", title: "Inforca" },
+  "spectrum-thumb.svg": { slug: "spectrum", title: "Spectrum" },
+  "working-jobs-vyne-thumb.svg": {
+    slug: "working-jobs-vyne",
+    title: "Working Jobs Vyne",
+  },
+  // Special case: this item uses an SVG name as identifier in data
+  "lbc-thumb.svg": { slug: "lbc", title: "LBC Animated Logo" },
+  "molkidesign-thumb.svg": { slug: "molkidesign", title: "Molki Design" },
+  "pushups-thumb.svg": { slug: "pushups", title: "Pushups" },
+  "riverscape-thumb.svg": { slug: "riverscape", title: "Riverscape" },
+  "sliwka-thumb.svg": { slug: "sliwka", title: "Sliwka" },
+  "vibeuu-thumb.svg": { slug: "vibeuu", title: "Vibeuu" },
+  "page404-thumb.svg": { slug: "404", title: "404" },
+  "fort-privacy-thumb.svg": { slug: "fort-privacy", title: "Fort Privacy" },
+  "prototype-thumb.svg": { slug: "prototype", title: "Prototype" },
 };
 
 // Vue refs for DOM elements
@@ -114,19 +119,23 @@ const { $Observer } = useNuxtApp();
  * @param {string} imageName - The name of the clicked image
  */
 const handleImageClick = (imageName) => {
-  console.log(`Portfolio item clicked: ${imageName}`);
+  // Resolve slug from image name; fallback to sanitized file stem
+  const meta = projectMetaByImage[imageName];
+  const stem = String(imageName || "").split(".")[0];
+  const fallbackSlug = stem
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+  const slug = meta?.slug || fallbackSlug;
+  const title = meta?.title || `Project ${stem}`;
 
-  const projectName = projectNames[imageName] || `Project ${imageName}`;
-
-  // TODO: Replace with actual portfolio navigation logic
-  // Examples:
-  // - navigateTo(`/portfolio/${imageName}`)
-  // - openModal(projectName)
-  // - window.open(`https://your-portfolio.com/${imageName}`)
-
-  alert(
-    `🎨 ${projectName}\n\nThis is where you'd navigate to your portfolio project!\n\nImage: ${imageName}`
-  );
+  console.log(`Navigate to project: ${title} -> /projects/${slug}`);
+  try {
+    navigateTo(`/projects/${slug}`);
+  } catch (e) {
+    // Non-blocking fallback to avoid UX dead-ends during early integration
+    alert(`Opening ${title} (/${slug}) soon...`);
+  }
 };
 
 /**

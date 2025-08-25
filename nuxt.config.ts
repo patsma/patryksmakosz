@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@hypernym/nuxt-gsap",
     "@pinia/nuxt",
+    "@nuxt/content",
   ],
 
   gsap: {

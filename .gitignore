@@ -8,7 +8,7 @@ yarn-error.log*
 .nuxt
 dist
 .output
-
+.data
 # Nuxt.js devtools
 .nuxt-devtools
 
