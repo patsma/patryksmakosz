@@ -1,5 +1,18 @@
 <template>
   <div ref="containerRef" class="morphing-logo">
+    <!-- Simple in-component full-viewport overlay; no teleport -->
+    <div
+      v-if="props.useIntroOverlay"
+      ref="overlayRef"
+      aria-hidden="true"
+      class="fixed inset-0 z-[9998] bg-white flex items-center justify-center w-screen h-screen left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+    >
+      <div
+        ref="pulseCircleRef"
+        aria-hidden="true"
+        class="rounded-full bg-black morphing-logo__pulse"
+      />
+    </div>
     <MorphingLogoSVG ref="svgComponentRef" />
   </div>
 </template>
@@ -18,6 +31,10 @@ let gsapCtx = null;
 // Ref to the SVG component instance
 const svgComponentRef = ref(null);
 
+// Intro overlay refs/state
+const overlayRef = ref(null);
+const pulseCircleRef = ref(null);
+
 // Optional props for dev workflow consistency
 const props = defineProps({
   /** @type {boolean} Show GSDevTools */
@@ -29,6 +46,8 @@ const props = defineProps({
   },
   /** @type {boolean} Autoplay on mount */
   autoPlay: { type: Boolean, default: true },
+  /** @type {boolean} Show intro overlay + pulsing circle before morph starts */
+  useIntroOverlay: { type: Boolean, default: true },
 });
 
 /**
@@ -107,6 +126,30 @@ const createAnimation = () => {
   return tl;
 };
 
+/**
+ * Fade out the intro overlay and circle, then hide them (display:none).
+ * @returns {GSAPTimeline}
+ */
+const fadeOutOverlay = () => {
+  const tl = $gsap.timeline({ id: "intro-overlay-fade" });
+  tl.to(
+    pulseCircleRef.value,
+    { autoAlpha: 0, duration: 0.45, ease: "power2.out" },
+    0
+  );
+  tl.to(
+    overlayRef.value,
+    { autoAlpha: 0, duration: 0.5, ease: "power2.out" },
+    0
+  );
+  tl.add(() => {
+    if (overlayRef.value) {
+      $gsap.set(overlayRef.value, { display: "none" });
+    }
+  });
+  return tl;
+};
+
 // Lifecycle
 onMounted(() => {
   nextTick(() => {
@@ -114,7 +157,15 @@ onMounted(() => {
     // and ensure automatic revert on unmount
     gsapCtx = $gsap.context(() => {
       const tl = createAnimation();
-      if (props.autoPlay) tl && tl.play();
+
+      // When ready: fade overlay, then begin morphing timeline
+      if (props.autoPlay && tl) {
+        if (props.useIntroOverlay) {
+          fadeOutOverlay().eventCallback("onComplete", () => tl.play());
+        } else {
+          tl.play();
+        }
+      }
     }, containerRef.value);
   });
 });
@@ -133,11 +184,51 @@ defineExpose({
   restart: () => timeline.value?.restart(),
   reverse: () => timeline.value?.reverse(),
   seek: (time) => timeline.value?.seek(time),
+  /** Allow skipping the intro overlay programmatically if needed */
+  skipIntro: () => {
+    if (overlayRef.value) {
+      overlayRef.value.style.display = "none";
+    }
+  },
 });
 </script>
 
 <style>
+/* Keep hidden until morph completes into the horizontal mark */
 #LogoHorizontal {
   opacity: 0;
+}
+
+/*
+  Size the pulsing circle responsively using viewport units.
+  This keeps it slightly larger than the logo and centered.
+*/
+.morphing-logo__pulse {
+  width: min(31vmin, 15rem);
+  height: min(31vmin, 15rem);
+  /* Pure CSS pulse so it runs before JS/GSAP are ready */
+  animation: morphing-logo-pulse 1.4s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes morphing-logo-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morphing-logo__pulse {
+    animation: none;
+  }
 }
 </style>
