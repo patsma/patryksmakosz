@@ -3,8 +3,6 @@
 // - Renders markdown body via <ContentRenderer>
 // - Provides basic error and loading states
 
-import { ref, computed } from "vue";
-
 const route = useRoute();
 const slug = computed(() => String(route.params.slug || ""));
 
@@ -22,31 +20,60 @@ const pageTitle = computed(() => project.value?.title || slug.value);
 
 useHead({ title: `${pageTitle.value} • Projects` });
 
-// Load all projects to compute prev/next navigation (sorted by date desc, then title)
-const { data: allProjects } = await useAsyncData(
-  () => `projects-all`,
-  () =>
-    queryCollection("projects")
-      .select(["_path", "title", "date", "slug"]) // keep payload light
-      .sort({ date: -1 })
-      .all()
+// Use Nuxt Content navigation helper (stable fields: title, path)
+const { data: navItems } = await useAsyncData(
+  () => `projects-nav`,
+  () => queryCollectionNavigation("projects").order("title", "ASC")
 );
 
-const currentPath = computed(() => `/projects/${slug.value}`);
+const normalizePath = (p) => String(p || "").replace(/\/+$/, "");
+const currentPath = computed(() => normalizePath(`/projects/${slug.value}`));
+const { data: allProjects } = await useAsyncData(
+  () => `projects-all`,
+  () => queryCollection("projects").all()
+);
+const navList = computed(() => {
+  const nav = (navItems.value || []).filter(Boolean);
+  if (nav.length > 1) return nav.map((i) => ({ title: i.title, path: i.path }));
+  const raw = allProjects.value || [];
+  return raw
+    .map((p) => ({
+      title: p.title || p.slug || "(untitled)",
+      path: p.path || p._path,
+    }))
+    .filter((i) => !!i.path)
+    .sort((a, b) => (a.title || "").localeCompare(b.title || ""));
+});
 const navIndex = computed(() =>
-  (allProjects.value || []).findIndex((p) => p._path === currentPath.value)
+  (navList.value || []).findIndex(
+    (item) => normalizePath(item.path) === currentPath.value
+  )
 );
 const prevProject = computed(() => {
-  const list = allProjects.value || [];
-  if (navIndex.value > 0) return list[navIndex.value - 1];
-  return null;
+  const list = navList.value || [];
+  return navIndex.value > 0 ? list[navIndex.value - 1] : null;
 });
 const nextProject = computed(() => {
-  const list = allProjects.value || [];
-  if (navIndex.value >= 0 && navIndex.value < list.length - 1)
-    return list[navIndex.value + 1];
-  return null;
+  const list = navList.value || [];
+  return navIndex.value >= 0 && navIndex.value < list.length - 1
+    ? list[navIndex.value + 1]
+    : null;
 });
+
+// Inline debug object visible in UI
+const debugInfo = computed(() => ({
+  currentPath: currentPath.value,
+  navIndex: navIndex.value,
+  prev: prevProject.value
+    ? { title: prevProject.value.title, path: prevProject.value.path }
+    : null,
+  next: nextProject.value
+    ? { title: nextProject.value.title, path: nextProject.value.path }
+    : null,
+  navItemsCount: (navItems.value || []).length,
+  navListCount: (navList.value || []).length,
+  navListPaths: (navList.value || []).map((i) => i.path),
+}));
 </script>
 
 <template>
@@ -72,7 +99,7 @@ const nextProject = computed(() => {
           >
             <NuxtLink
               v-if="prevProject"
-              :to="prevProject._path"
+              :to="prevProject.path"
               class="group inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors"
               aria-label="Previous project"
             >
@@ -87,7 +114,7 @@ const nextProject = computed(() => {
 
             <NuxtLink
               v-if="nextProject"
-              :to="nextProject._path"
+              :to="nextProject.path"
               class="group inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors"
               aria-label="Next project"
             >
@@ -98,6 +125,14 @@ const nextProject = computed(() => {
               <Icon name="tabler:arrow-right" class="w-5 h-5" />
             </NuxtLink>
           </div>
+        </div>
+
+        <!-- DEBUG PANEL (remove when fixed) -->
+        <div class="project-container mt-4 text-xs text-white/70">
+          <details open>
+            <summary>Debug: navigation state</summary>
+            <pre>{{ debugInfo }}</pre>
+          </details>
         </div>
       </div>
     </div>
