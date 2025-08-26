@@ -3,14 +3,10 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   // Global transitions for pages and layouts
-  // Keep it subtle and fast to avoid clashing with GSAP smooth scrolling
   app: {
     pageTransition: { name: "page", mode: "out-in" },
     layoutTransition: { name: "layout", mode: "out-in" },
-    // Global <head> configuration for accessibility & SEO
-    // - Provide a default title and template
-    // - Set the html[lang] attribute for screen readers
-    // - Provide a sensible default meta description
+
     head: {
       title:
         "Patryk Smakosz – Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
@@ -24,6 +20,41 @@ export default defineNuxtConfig({
           content:
             "Patryk Smakosz is a versatile Creative Developer and Front-End Developer specializing in web animations, interactive motion design, and immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
         },
+        // Open Graph Basics
+        { property: "og:type", content: "website" },
+        { property: "og:site_name", content: "Patryk Smakosz" },
+        {
+          property: "og:title",
+          content:
+            "Patryk Smakosz – Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
+        },
+        {
+          property: "og:description",
+          content:
+            "Patryk Smakosz is a versatile Creative Developer and Front-End Developer specializing in web animations, interactive motion design, and immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
+        },
+        { property: "og:image", content: "/og.png" },
+        {
+          property: "og:image:alt",
+          content:
+            "Open Graph image for Patryk Smakosz – Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
+        },
+        { property: "og:image:type", content: "image/png" },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        // Twitter Card
+        { name: "twitter:card", content: "summary_large_image" },
+        {
+          name: "twitter:title",
+          content:
+            "Patryk Smakosz – Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
+        },
+        {
+          name: "twitter:description",
+          content:
+            "Patryk Smakosz is a versatile Creative Developer and Front-End Developer specializing in web animations, interactive motion design, and immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
+        },
+        { name: "twitter:image", content: "/og.png" },
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
