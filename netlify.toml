@@ -4,6 +4,9 @@
   functions = "netlify/functions"
   publish = "dist"
 
+[build.environment]
+  NUXT_PUBLIC_SITE_URL = "https://patryksmakosz.com"
+
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
   #[[redirects]]

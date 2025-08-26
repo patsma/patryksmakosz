@@ -2,6 +2,11 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://patryksmakosz.com",
+    },
+  },
   // Global transitions for pages and layouts
   app: {
     pageTransition: { name: "page", mode: "out-in" },
@@ -33,7 +38,20 @@ export default defineNuxtConfig({
           content:
             "Patryk Smakosz is a versatile Creative Developer and Front-End Developer specializing in web animations, interactive motion design, and immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
         },
-        { property: "og:image", content: "/og.jpg" },
+        // Absolute URLs are required by some scrapers (e.g., Facebook)
+        {
+          property: "og:url",
+          content:
+            process.env.NUXT_PUBLIC_SITE_URL || "https://tastysites-2025.local",
+        },
+        {
+          property: "og:image",
+          content: `${process.env.NUXT_PUBLIC_SITE_URL || "https://tastysites-2025.local"}/og.jpg`,
+        },
+        {
+          property: "og:image:secure_url",
+          content: `${process.env.NUXT_PUBLIC_SITE_URL || "https://tastysites-2025.local"}/og.jpg`,
+        },
         {
           property: "og:image:alt",
           content:
@@ -54,7 +72,10 @@ export default defineNuxtConfig({
           content:
             "Patryk Smakosz is a versatile Creative Developer and Front-End Developer specializing in web animations, interactive motion design, and immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
         },
-        { name: "twitter:image", content: "/og.jpg" },
+        {
+          name: "twitter:image",
+          content: `${process.env.NUXT_PUBLIC_SITE_URL || "https://tastysites-2025.local"}/og.jpg`,
+        },
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
