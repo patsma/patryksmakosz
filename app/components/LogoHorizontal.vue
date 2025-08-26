@@ -1,7 +1,17 @@
 <template>
-  <NuxtLink to="/">
-    <div ref="containerRef" class="logo-horizontal w-full h-full">
-      <LogoHorizontalSVG ref="svgComponentRef" />
+  <NuxtLink to="/" aria-label="Go to home page" title="Home">
+    <div
+      ref="containerRef"
+      class="logo-horizontal w-full h-full"
+      role="img"
+      aria-label="TastySites wordmark"
+    >
+      <!-- The decorative SVG is hidden from accessibility tree; the label above is used instead -->
+      <LogoHorizontalSVG
+        ref="svgComponentRef"
+        aria-hidden="true"
+        focusable="false"
+      />
     </div>
   </NuxtLink>
 </template>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="sr-only">About</h1>
     <OrbitalCarousel
       class="z-10"
       :items="items"
@@ -140,4 +141,15 @@ const breakpointConfig = [
     itemScale: 0.9,
   },
 ];
+
+useHead({
+  title: "About",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Learn about TastySites’ process and approach to crafting interactive experiences.",
+    },
+  ],
+});
 </script>
