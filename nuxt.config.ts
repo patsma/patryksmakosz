@@ -33,7 +33,7 @@ export default defineNuxtConfig({
           content:
             "Patryk Smakosz is a versatile Creative Developer and Front-End Developer specializing in web animations, interactive motion design, and immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
         },
-        { property: "og:image", content: "/og.png" },
+        { property: "og:image", content: "/og.jpg" },
         {
           property: "og:image:alt",
           content:
@@ -54,7 +54,7 @@ export default defineNuxtConfig({
           content:
             "Patryk Smakosz is a versatile Creative Developer and Front-End Developer specializing in web animations, interactive motion design, and immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
         },
-        { name: "twitter:image", content: "/og.png" },
+        { name: "twitter:image", content: "/og.jpg" },
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
