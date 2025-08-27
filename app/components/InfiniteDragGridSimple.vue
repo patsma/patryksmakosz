@@ -31,7 +31,7 @@ const projectMetaByImage = {
     title: "LBC Animated Logo",
   },
   "molkidesign-thumb.svg": { slug: "molkidesign", title: "Molki Design" },
-  "pushups-thumb.svg": { slug: "pushups", title: "Pushups" },
+  "pushups-thumb.svg": { slug: "pushups-tracker", title: "Pushups Tracker" },
   "riverscape-thumb.svg": { slug: "riverscape", title: "Riverscape" },
   "sliwka-thumb.svg": { slug: "sliwka", title: "Sliwka" },
   "vibeuu-thumb.svg": { slug: "vibeuu", title: "Vibeuu" },
