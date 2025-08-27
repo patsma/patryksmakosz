@@ -11,8 +11,6 @@
         theme === 'light' ? 'var(--color-gray-2)' : 'rgba(72,72,72,1)',
     }"
   >
-    <p ref="scrollRef" class="simultaneous-words__scroll">{{ scrollLabel }}</p>
-
     <div ref="pinRef" class="simultaneous-words__pin">
       <div ref="containerRef" class="simultaneous-words__container">
         <p ref="paragraphRef" class="simultaneous-words__paragraph">

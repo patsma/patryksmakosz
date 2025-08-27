@@ -38,8 +38,7 @@ showMeta: true
 projectName: Zaksa
 meta:
   - Year 2024
-  - Category: Logo Animation
-  - Tech Stack Overview
+  - Logo Animation
 ---
 ::
 
@@ -51,15 +50,7 @@ paragraph: Zaksa is a concise brand motion study. It explores crisp geometric pa
 ---
 ::
 <div class="project-container">
-
-<!-- ## About the Project
-
-Short demo page for the Zaksa animation.
-
-## Credits
-
-- Animation: Tasty Sites
-- Tools: Nuxt 4, GSAP, TailwindCSS -->
+<!-- More info if needed -->
 
 </div>
 

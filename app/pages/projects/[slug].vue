@@ -19,6 +19,9 @@ const {
 
 const pageTitle = computed(() => project.value?.title || slug.value);
 
+// Extract optional live link from frontmatter if present
+const liveLink = computed(() => project.value?.liveLink || "");
+
 useHead({ title: `${pageTitle.value} • Projects` });
 
 // Use Nuxt Content navigation helper (stable fields: title, path)
@@ -157,6 +160,23 @@ const debugInfo = computed(() => ({
     <div v-else>
       <div class="project-page__body prose prose-invert">
         <ContentRenderer :value="project" />
+
+        <div v-if="liveLink" class="project-container">
+          <div class="flex items-center justify-center py-8">
+            <NuxtLink
+              :to="liveLink"
+              external
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-standard-outlined"
+              aria-label="Open live project in new tab"
+            >
+              <span class="inline-flex items-center justify-center gap-2">
+                Live Link
+              </span>
+            </NuxtLink>
+          </div>
+        </div>
 
         <!-- Bottom navigation: Previous / Next projects -->
         <div v-if="prevProject || nextProject" class="project-container">

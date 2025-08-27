@@ -18,11 +18,9 @@ export default defineContentConfig({
         category: z.string().optional(),
         cover: z.string().optional(),
         video: z.string().optional(),
+        liveLink: z.string().optional(),
         components: z.array(z.string()).optional(),
         summary: z.string().optional(),
-        // Optional extension fields you can start using later:
-        // tags: z.array(z.string()).optional(),
-        // date: z.date().optional()
       }),
     }),
   },
