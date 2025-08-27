@@ -155,7 +155,14 @@ onUnmounted(() => {
         >Portfolio</NuxtLink
       >
 
-      <a ref="linksRef" href="#" class="menu-overlay__link">Contact</a>
+      <a
+        ref="linksRef"
+        href="mailto:patryksmakosz1@gmail.com"
+        class="menu-overlay__link inline-flex items-center gap-2"
+      >
+        <span>Contact</span>
+        <Icon name="tabler:mail" size="20" />
+      </a>
 
       <!-- Social links row: accessible, keyboard-friendly, white icons on dark bg -->
       <div class="mt-8 flex flex-wrap items-center gap-4 text-white/80">
