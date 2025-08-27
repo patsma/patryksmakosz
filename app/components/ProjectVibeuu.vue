@@ -3,7 +3,6 @@
     ref="containerRef"
     class="animation-component animation-component--vibeuu"
   >
-    <!-- We keep a thin wrapper to mirror other project components -->
     <div ref="innerLogoRef" class="logo-animation">
       <VibeuuLogoSVG ref="svgComponentRef" />
     </div>
@@ -17,6 +16,7 @@ const { $DrawSVGPlugin } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
 const { $GSDevTools } = useNuxtApp();
 const { $ScrollTrigger } = useNuxtApp();
+const { $CustomBounce } = useNuxtApp();
 import { scopeSvgDefsIds, remapIdSelectors } from "/utils/scopeSvgIds";
 
 // Core refs
@@ -28,7 +28,6 @@ const timeline = ref(null);
 let gsapCtx = null;
 let scrollTriggerInstance = null;
 
-// Props consistent with other project components
 const props = defineProps({
   showDevTools: { type: Boolean, default: false },
   devToolsId: {
@@ -48,7 +47,7 @@ const props = defineProps({
  * Ported from public/oldportfolio/logo-animation/vibeuu/src/main.js
  * - Converts shapes to paths (for safety)
  * - Draws letter masks sequentially (VB, B, I)
- * - Bounces in the dot with CustomBounce-like ease using available eases
+ * - Bounces in the dot with GSAP CustomBounce
  */
 const createAnimation = () => {
   const svgRoot = svgComponentRef.value?.svgRootRef;
@@ -103,19 +102,24 @@ const createAnimation = () => {
       .from(iMask, { autoAlpha: 0, duration: 0.6 }, "-=0.3");
   }
 
-  // Dot bounce-in. CustomBounce is not guaranteed; emulate with y movement and squash via scale tween pair.
-  $gsap.set(dot, { y: -400, transformOrigin: "center center", autoAlpha: 1 });
-  tl.to(dot, { y: 0, duration: 1.2, ease: "bounce.out" }, "-=0.5")
+  $gsap.set(dot, { y: -100, autoAlpha: 0, transformOrigin: "center bottom" });
+  try {
+    $CustomBounce?.create("dotBounce", { strength: 0.6, squash: 2 });
+  } catch (e) {}
+  tl.to(dot, { y: 0, duration: 1.5, ease: "dotBounce" }, "-=0.75")
+    .to(dot, { autoAlpha: 1, duration: 0.25, ease: "linear" }, "<")
     .to(
       dot,
-      { scaleX: 1.2, scaleY: 0.85, duration: 0.25, ease: "power2.out" },
+      {
+        duration: 1.5,
+        scaleX: 1.2,
+        scaleY: 0.8,
+        ease: "dotBounce-squash",
+        transformOrigin: "center bottom",
+      },
       "<"
     )
-    .to(
-      dot,
-      { scaleX: 1, scaleY: 1, duration: 0.35, ease: "power2.out" },
-      ">-0.05"
-    );
+    .to(dot, { scaleX: 1, scaleY: 1, duration: 0.25 }, ">-=0.05");
 
   // Apply timeScale
   tl.timeScale(props.timeScale);
