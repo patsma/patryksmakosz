@@ -1,6 +1,4 @@
 <script setup>
-// Minimal hamburger menu with GSAP timeline for open/close
-// Uses Pinia store for state and a single master timeline that plays/reverses
 import { useMenuStore } from "/stores/menu";
 
 const { $gsap } = useNuxtApp();
@@ -13,7 +11,31 @@ const lineTopRef = ref(null);
 const lineBottomRef = ref(null);
 const overlayRef = ref(null);
 const panelRef = ref(null);
-const linksRef = ref([]);
+const menuLinksRefs = ref([]);
+const socialLinksRefs = ref([]);
+
+// Helpers to collect element refs into arrays for staggered animations
+// Normalize to actual DOM elements (NuxtLink refs are component instances)
+// We reset arrays on beforeUpdate to avoid duplicates across re-renders
+const toDomEl = (el) =>
+  el && el.nodeType === 1
+    ? el
+    : el && el.$el && el.$el.nodeType === 1
+      ? el.$el
+      : null;
+const setMenuLinkRef = (el) => {
+  const dom = toDomEl(el);
+  if (dom) menuLinksRefs.value.push(dom);
+};
+const setSocialLinkRef = (el) => {
+  const dom = toDomEl(el);
+  if (dom) socialLinksRefs.value.push(dom);
+};
+
+onBeforeUpdate(() => {
+  menuLinksRefs.value = [];
+  socialLinksRefs.value = [];
+});
 
 // Master timeline
 let tl = null;
@@ -25,10 +47,18 @@ const props = defineProps({
 });
 
 onMounted(() => {
+  // Compute rem→px to keep project sizing convention while feeding GSAP numbers
+  const rootFontSize = parseFloat(
+    getComputedStyle(document.documentElement).fontSize || "16"
+  );
+  const linkOffsetY = rootFontSize * 0.5; // 0.75rem
+  const socialOffsetY = rootFontSize * 0.75; // 0.5rem
+  const iconOffsetY = rootFontSize * 0.3125; // 0.3125rem
+
   // Basic overlay and panel animation
   tl = $gsap.timeline({
     paused: true,
-    defaults: { ease: "power3.out", duration: 0.4 },
+    defaults: { ease: "power3.out", duration: 0.5 },
   });
   // Overlay fade in
   tl.fromTo(
@@ -39,17 +69,39 @@ onMounted(() => {
   );
   // Slide panel from the right
   tl.fromTo(panelRef.value, { xPercent: 100 }, { xPercent: 0 }, 0);
-  // Stagger in links
-  tl.fromTo(
-    linksRef.value,
-    { y: 16, autoAlpha: 0 },
-    { y: 0, autoAlpha: 1, stagger: 0.06 },
-    0.1
-  );
+  // Stagger in primary menu links first (clear order and slower pace)
+  // Use rem units for vertical offset to follow project conventions
+  const menuTargets = (menuLinksRefs.value || []).filter(Boolean);
+  if (menuTargets.length) {
+    tl.fromTo(
+      menuTargets,
+      { x: linkOffsetY, autoAlpha: 0 },
+      { x: 0, autoAlpha: 1, stagger: 0.08, duration: 0.25 },
+      0.2
+    );
+  }
+
+  const socialTargets = (socialLinksRefs.value || []).filter(Boolean);
+  if (socialTargets.length) {
+    tl.fromTo(
+      socialTargets,
+      { x: socialOffsetY, autoAlpha: 0 },
+      {
+        x: 0,
+        autoAlpha: 1,
+        stagger: {
+          amount: 0.06,
+          from: "start",
+        },
+        duration: 0.25,
+      },
+      "<+=0.25"
+    );
+  }
 
   // Icon morph and color change driven by GSAP for perfect sync
-  tl.to(lineTopRef.value, { y: "0.3125rem", rotate: 45 }, 0);
-  tl.to(lineBottomRef.value, { y: "-0.3125rem", rotate: -45 }, 0);
+  tl.to(lineTopRef.value, { y: iconOffsetY, rotate: 45 }, 0);
+  tl.to(lineBottomRef.value, { y: -iconOffsetY, rotate: -45 }, 0);
   tl.to(
     [lineTopRef.value, lineBottomRef.value],
     { backgroundColor: "var(--color-white)" },
@@ -63,8 +115,7 @@ onMounted(() => {
     tl.progress(0);
   }
 
-  // Reveal the hamburger button after a small delay (tweakable)
-  introTl = $gsap.timeline({ delay: 3.1 });
+  introTl = $gsap.timeline({ delay: props.showDelaySeconds });
   introTl.to(hamburgerRef.value, {
     opacity: 1,
     duration: 0.6,
@@ -147,16 +198,18 @@ onUnmounted(() => {
       aria-label="Main navigation"
       @click.stop
     >
-      <NuxtLink ref="linksRef" to="/" class="menu-overlay__link">Home</NuxtLink>
-      <NuxtLink ref="linksRef" to="/about" class="menu-overlay__link"
+      <NuxtLink :ref="setMenuLinkRef" to="/" class="menu-overlay__link"
+        >Home</NuxtLink
+      >
+      <NuxtLink :ref="setMenuLinkRef" to="/about" class="menu-overlay__link"
         >About</NuxtLink
       >
-      <NuxtLink ref="linksRef" to="/portfolio" class="menu-overlay__link"
+      <NuxtLink :ref="setMenuLinkRef" to="/portfolio" class="menu-overlay__link"
         >Portfolio</NuxtLink
       >
 
       <a
-        ref="linksRef"
+        :ref="setMenuLinkRef"
         href="mailto:patryksmakosz1@gmail.com"
         class="menu-overlay__link inline-flex items-center gap-2"
       >
@@ -164,10 +217,9 @@ onUnmounted(() => {
         <Icon name="tabler:mail" size="20" />
       </a>
 
-      <!-- Social links row: accessible, keyboard-friendly, white icons on dark bg -->
       <div class="mt-8 flex flex-wrap items-center gap-4 text-white/80">
         <a
-          ref="linksRef"
+          :ref="setSocialLinkRef"
           href="https://www.facebook.com/TastySites/"
           target="_blank"
           rel="noopener noreferrer"
@@ -179,7 +231,7 @@ onUnmounted(() => {
           <span class="sr-only">Facebook</span>
         </a>
         <a
-          ref="linksRef"
+          :ref="setSocialLinkRef"
           href="https://dribbble.com/tastysites"
           target="_blank"
           rel="noopener noreferrer"
@@ -191,7 +243,7 @@ onUnmounted(() => {
           <span class="sr-only">Dribbble</span>
         </a>
         <a
-          ref="linksRef"
+          :ref="setSocialLinkRef"
           href="https://www.upwork.com/freelancers/~01085c23a2f6280a73"
           target="_blank"
           rel="noopener noreferrer"
@@ -203,7 +255,7 @@ onUnmounted(() => {
           <span class="sr-only">Upwork</span>
         </a>
         <a
-          ref="linksRef"
+          :ref="setSocialLinkRef"
           href="https://x.com/TastySites"
           target="_blank"
           rel="noopener noreferrer"
@@ -215,7 +267,7 @@ onUnmounted(() => {
           <span class="sr-only">X (Twitter)</span>
         </a>
         <a
-          ref="linksRef"
+          :ref="setSocialLinkRef"
           href="https://bsky.app/profile/tastysites.bsky.social"
           target="_blank"
           rel="noopener noreferrer"
@@ -227,7 +279,7 @@ onUnmounted(() => {
           <span class="sr-only">Bluesky</span>
         </a>
         <a
-          ref="linksRef"
+          :ref="setSocialLinkRef"
           href="https://codepen.io/tastysites"
           target="_blank"
           rel="noopener noreferrer"
@@ -239,7 +291,7 @@ onUnmounted(() => {
           <span class="sr-only">CodePen</span>
         </a>
         <a
-          ref="linksRef"
+          :ref="setSocialLinkRef"
           href="https://www.youtube.com/channel/UCj7wr_x-BwJ0Yam8uw5lDsw"
           target="_blank"
           rel="noopener noreferrer"
@@ -251,7 +303,7 @@ onUnmounted(() => {
           <span class="sr-only">YouTube</span>
         </a>
         <a
-          ref="linksRef"
+          :ref="setSocialLinkRef"
           href="https://github.com/patsma"
           target="_blank"
           rel="noopener noreferrer"
