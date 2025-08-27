@@ -98,6 +98,7 @@ const init = () => {
     start: "top top",
     end: "bottom bottom",
     pin: containerEl,
+    pinSpacing: true,
   });
   triggers.push(pinTrigger);
 
@@ -148,6 +149,12 @@ onMounted(() => {
       }
     } catch (e) {}
     init();
+
+    // Ensure ScrollTrigger recalculates pin spacing with Smoother
+    try {
+      const ST = $gsap.core.globals().ScrollTrigger;
+      ST && ST.refresh && ST.refresh();
+    } catch (e) {}
   });
 });
 

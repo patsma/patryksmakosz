@@ -11,6 +11,8 @@
 .opposite-direction-marquees {
   background: var(--odm-bg, var(--color-black));
   color: var(--odm-fg, var(--color-gray-1));
+  position: relative;
+  isolation: isolate;
 
   &__pin {
     height: var(--odm-pin-height, 200vh); // pin span
@@ -22,6 +24,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 0;
   }
 
   &__sentences {

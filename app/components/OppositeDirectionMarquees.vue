@@ -110,12 +110,31 @@ const props = defineProps({
   durationSec: { type: Number, default: 18 },
 });
 
-// Build meta with projectName first if provided
+// Build meta with projectName first and normalize values to strings
 const displayedMeta = computed(() => {
   const arr = Array.isArray(props.meta) ? [...props.meta] : [];
   if (props.projectName && arr[0] !== props.projectName)
     arr.unshift(props.projectName);
-  return arr;
+
+  const normalized = arr
+    .map((item) => {
+      if (item == null) return "";
+      if (typeof item === "string") return item;
+      if (typeof item === "number" || typeof item === "boolean")
+        return String(item);
+      if (typeof item === "object") {
+        try {
+          const pairs = Object.entries(item).map(([k, v]) => `${k}: ${v}`);
+          return pairs.join(", ");
+        } catch (e) {
+          return String(item);
+        }
+      }
+      return String(item);
+    })
+    .filter(Boolean);
+
+  return normalized;
 });
 
 /**
@@ -215,6 +234,7 @@ const initScroll = () => {
     start: "top top",
     end: "bottom bottom",
     pin: containerEl,
+    pinSpacing: true,
   });
   triggers.push(pinTrigger);
 
@@ -248,6 +268,12 @@ onMounted(() => {
 
     createMarqueeTweens();
     initScroll();
+
+    // Ensure ScrollTrigger recalculates pin spacing with Smoother
+    try {
+      const ST = $gsap.core.globals().ScrollTrigger;
+      ST && ST.refresh && ST.refresh();
+    } catch (e) {}
 
     // Recompute on resize (debounced)
     let t;

@@ -14,32 +14,52 @@ date: 2024-08-01
 autoPlay: true
 ---
 ::
-<OppositeDirectionMarquees
-  :items='["Nuxt 4", "GSAP", "ScrollTrigger", "ScrollSmoother", "Nuxt Icon", "TailwindCSS", "Nuxt Content"]'
-  separator-icon="uil:bolt"
-  :uppercase="true"
-  theme="light"
-  :repeat-blocks="2"
-  :pin-height-vh="160"
-  :font-size-vw="8"
-  :icon-size-vw="3.5"
-  :word-gap-vw="3"
-  :icon-gap-vw="3"
-  :duration-sec="50"
-  :show-meta="true"
-  project-name="Zaksa"
-  :meta='["Year 2024", "Category: Logo Animation", "Tech Stack Overview"]'
-/>
+::OppositeDirectionMarquees
+---
+items:
+  - Nuxt 4
+  - GSAP
+  - ScrollTrigger
+  - ScrollSmoother
+  - Nuxt Icon
+  - TailwindCSS
+  - Nuxt Content
+separatorIcon: uil:bolt
+uppercase: true
+theme: light
+repeatBlocks: 2
+pinHeightVh: 160
+fontSizeVw: 8
+iconSizeVw: 3.5
+wordGapVw: 3
+iconGapVw: 3
+durationSec: 50
+showMeta: true
+projectName: Zaksa
+meta:
+  - Year 2024
+  - Category: Logo Animation
+  - Tech Stack Overview
+---
+::
+
+::SimultaneousWords
+---
+theme: light
+pinHeightVh: 420
+paragraph: Zaksa is a concise brand motion study. It explores crisp geometric paths, tight easing, and scroll-scrubbed pacing to preview a bold identity reveal with GSAP and Nuxt.
+---
+::
 <div class="project-container">
 
-## About the Project
+<!-- ## About the Project
 
 Short demo page for the Zaksa animation.
 
 ## Credits
 
 - Animation: Tasty Sites
-- Tools: Nuxt 4, GSAP, TailwindCSS
+- Tools: Nuxt 4, GSAP, TailwindCSS -->
 
 </div>
 
