@@ -16,7 +16,7 @@ const gridProjects = computed(() =>
 // Map thumbnails to project slugs and titles for routing and UX
 // Keep this minimal; source of truth will be Content collection
 const projectMetaByImage = {
-  "ax-thumb.svg": { slug: "ax", title: "AX" },
+  "ax-thumb.svg": { slug: "artistx", title: "Artist X" },
   "zaksa-thumb.svg": { slug: "zaksa", title: "Zaksa" },
   "arttech-thumb.svg": { slug: "arttech", title: "ArtTech" },
   "inforca-thumb.svg": { slug: "inforca", title: "Inforca" },
