@@ -1,0 +1,82 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// ----------------------------------------------------------------------------
+// Opposite Direction Marquees
+// ----------------------------------------------------------------------------
+// - Follows the original demo styles but aligned to our variables and rem-first
+// - Colors align to design tokens via CSS variables
+// - Layout is responsive using vw for scalable marquee type
+
+.opposite-direction-marquees {
+  background: var(--color-black);
+  color: var(--color-gray-1);
+
+  &__pin {
+    height: 200vh; // pin span
+  }
+
+  &__container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__sentences {
+    position: relative;
+    font-family: $font-main;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.06em;
+    font-size: 10vw; // scalable headline size
+  }
+
+  &__sentence {
+    overflow: hidden;
+
+    p {
+      display: flex;
+      white-space: nowrap;
+      width: max-content;
+      will-change: transform;
+    }
+  }
+
+  &__sentence--second {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    p {
+      transform: translate(0, 100%);
+    }
+  }
+
+  &__glyph {
+    width: 5.5vw;
+    height: auto;
+    display: inline-block;
+    padding: 0 2vw;
+  }
+
+  &__texts {
+    display: flex;
+    justify-content: space-between;
+    margin: 1vw 0 0;
+    padding: 2vw 2vw 0;
+    border-top: 1px dashed rgba(72, 72, 72, 1);
+    font:
+      500 normal 0.9vw/1 "IBM Plex Mono",
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Monaco,
+      Consolas,
+      "Liberation Mono",
+      "Courier New",
+      monospace;
+    text-transform: uppercase;
+  }
+}
