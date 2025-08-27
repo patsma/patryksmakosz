@@ -266,13 +266,13 @@ const createAnimation = () => {
   masterTl.add(ballAndCharTl).add(finalSceneTl, "-=5").fromTo(
     shineRect,
     {
-      duration: 6,
       autoAlpha: 0,
       transformOrigin: "center center",
       yPercent: -50,
       xPercent: -50,
     },
     {
+      duration: 6,
       autoAlpha: 1,
       transformOrigin: "center center",
       yPercent: 50,
