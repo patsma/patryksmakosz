@@ -26,7 +26,10 @@ const projectMetaByImage = {
     title: "Working Jobs Vyne",
   },
   // Special case: this item uses an SVG name as identifier in data
-  "lbc-thumb.svg": { slug: "lbc", title: "LBC Animated Logo" },
+  "lbc-thumb.svg": {
+    slug: "life-balance-congress",
+    title: "LBC Animated Logo",
+  },
   "molkidesign-thumb.svg": { slug: "molkidesign", title: "Molki Design" },
   "pushups-thumb.svg": { slug: "pushups", title: "Pushups" },
   "riverscape-thumb.svg": { slug: "riverscape", title: "Riverscape" },
