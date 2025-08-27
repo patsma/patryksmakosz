@@ -14,7 +14,7 @@ export default defineNuxtConfig({
 
     head: {
       title:
-        "Patryk Smakosz – Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
+        "Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
       titleTemplate: "%s · Patryk Smakosz",
       htmlAttrs: { lang: "en" },
       meta: [
@@ -23,7 +23,7 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "Creative Developer and Front-End Developer specializing in web animations, interactive motion design, and immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
+            "Expertise in Interactive Motion Design,immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
         },
         // Open Graph Basics
         { property: "og:type", content: "website" },
@@ -31,31 +31,32 @@ export default defineNuxtConfig({
         {
           property: "og:title",
           content:
-            "Patryk Smakosz – Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
+            "Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
         },
         {
           property: "og:description",
           content:
-            "Creative Developer and Front-End Developer specializing in web animations, interactive motion design, and immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
+            "Expertise in Interactive Motion Design,immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
         },
         // Absolute URLs are required by some scrapers (e.g., Facebook)
         {
           property: "og:url",
           content:
-            process.env.NUXT_PUBLIC_SITE_URL || "https://tastysites-2025.local",
+            process.env.NUXT_PUBLIC_SITE_URL ||
+            "https://patryksmakosz.com/.local",
         },
         {
           property: "og:image",
-          content: `${process.env.NUXT_PUBLIC_SITE_URL || "https://tastysites-2025.local"}/og.jpg`,
+          content: `${process.env.NUXT_PUBLIC_SITE_URL || "https://patryksmakosz.com/.local"}/og.jpg`,
         },
         {
           property: "og:image:secure_url",
-          content: `${process.env.NUXT_PUBLIC_SITE_URL || "https://tastysites-2025.local"}/og.jpg`,
+          content: `${process.env.NUXT_PUBLIC_SITE_URL || "https://patryksmakosz.com/.local"}/og.jpg`,
         },
         {
           property: "og:image:alt",
           content:
-            "Open Graph image for Patryk Smakosz – Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
+            "Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
         },
         { property: "og:image:type", content: "image/png" },
         { property: "og:image:width", content: "1200" },
@@ -65,16 +66,16 @@ export default defineNuxtConfig({
         {
           name: "twitter:title",
           content:
-            "Patryk Smakosz – Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
+            "Creative Developer & Web Animator | Front-End Developer with Expertise in Interactive Motion Design",
         },
         {
           name: "twitter:description",
           content:
-            "Creative Developer and Front-End Developer specializing in web animations, interactive motion design, and immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
+            "Expertise in Interactive Motion Design,immersive user experiences. With over 10 years of experience building Vue.js/Nuxt.js apps, custom WordPress themes, and animated web banners using GreenSock, SVG, and Canvas technologies, Patryk crafts dynamic digital products that engage and inspire worldwide brands and agencies.",
         },
         {
           name: "twitter:image",
-          content: `${process.env.NUXT_PUBLIC_SITE_URL || "https://tastysites-2025.local"}/og.jpg`,
+          content: `${process.env.NUXT_PUBLIC_SITE_URL || "https://patryksmakosz.com/.local"}/og.jpg`,
         },
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
