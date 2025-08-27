@@ -156,6 +156,106 @@ onUnmounted(() => {
       >
 
       <a ref="linksRef" href="#" class="menu-overlay__link">Contact</a>
+
+      <!-- Social links row: accessible, keyboard-friendly, white icons on dark bg -->
+      <div class="mt-8 flex flex-wrap items-center gap-4 text-white/80">
+        <a
+          ref="linksRef"
+          href="https://www.facebook.com/TastySites/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+          title="Facebook"
+          class="hover:text-white focus-visible:text-white transition-colors outline-none"
+        >
+          <Icon name="tabler:brand-facebook" size="24" />
+          <span class="sr-only">Facebook</span>
+        </a>
+        <a
+          ref="linksRef"
+          href="https://dribbble.com/tastysites"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Dribbble"
+          title="Dribbble"
+          class="hover:text-white focus-visible:text-white transition-colors outline-none"
+        >
+          <Icon name="tabler:brand-dribbble" size="24" />
+          <span class="sr-only">Dribbble</span>
+        </a>
+        <a
+          ref="linksRef"
+          href="https://www.upwork.com/freelancers/~01085c23a2f6280a73"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Upwork"
+          title="Upwork"
+          class="hover:text-white focus-visible:text-white transition-colors outline-none"
+        >
+          <Icon name="simple-icons:upwork" size="24" />
+          <span class="sr-only">Upwork</span>
+        </a>
+        <a
+          ref="linksRef"
+          href="https://x.com/TastySites"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="X (Twitter)"
+          title="X (Twitter)"
+          class="hover:text-white focus-visible:text-white transition-colors outline-none"
+        >
+          <Icon name="tabler:brand-x" size="24" />
+          <span class="sr-only">X (Twitter)</span>
+        </a>
+        <a
+          ref="linksRef"
+          href="https://bsky.app/profile/tastysites.bsky.social"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Bluesky"
+          title="Bluesky"
+          class="hover:text-white focus-visible:text-white transition-colors outline-none"
+        >
+          <Icon name="simple-icons:bluesky" size="24" />
+          <span class="sr-only">Bluesky</span>
+        </a>
+        <a
+          ref="linksRef"
+          href="https://codepen.io/tastysites"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="CodePen"
+          title="CodePen"
+          class="hover:text-white focus-visible:text-white transition-colors outline-none"
+        >
+          <Icon name="tabler:brand-codepen" size="24" />
+          <span class="sr-only">CodePen</span>
+        </a>
+        <a
+          ref="linksRef"
+          href="https://www.youtube.com/channel/UCj7wr_x-BwJ0Yam8uw5lDsw"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="YouTube"
+          title="YouTube"
+          class="hover:text-white focus-visible:text-white transition-colors outline-none"
+        >
+          <Icon name="tabler:brand-youtube" size="24" />
+          <span class="sr-only">YouTube</span>
+        </a>
+        <a
+          ref="linksRef"
+          href="https://github.com/patsma"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          title="GitHub"
+          class="hover:text-white focus-visible:text-white transition-colors outline-none"
+        >
+          <Icon name="tabler:brand-github" size="24" />
+          <span class="sr-only">GitHub</span>
+        </a>
+      </div>
     </nav>
   </div>
 </template>
