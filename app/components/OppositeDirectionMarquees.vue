@@ -1,42 +1,69 @@
 <template>
-  <section class="opposite-direction-marquees">
+  <section
+    class="opposite-direction-marquees"
+    :style="{
+      '--odm-pin-height': `${pinHeightVh}vh`,
+      '--odm-font-size': `${fontSizeVw}vw`,
+      '--odm-icon-size': `${iconSizeVw}vw`,
+      '--odm-word-gap': `${wordGapVw}vw`,
+      '--odm-icon-gap': `${iconGapVw}vw`,
+      '--odm-bg':
+        theme === 'light' ? 'var(--color-white)' : 'var(--color-black)',
+      '--odm-fg':
+        theme === 'light' ? 'var(--color-black)' : 'var(--color-gray-1)',
+      '--odm-border-color':
+        theme === 'light' ? 'var(--color-gray-2)' : 'rgba(72, 72, 72, 1)',
+    }"
+  >
     <div ref="pinRef" class="opposite-direction-marquees__pin">
       <div ref="containerRef" class="opposite-direction-marquees__container">
         <div class="opposite-direction-marquees__sentences">
           <div
             class="opposite-direction-marquees__sentence opposite-direction-marquees__sentence--first"
           >
-            <p ref="sentence1Ref">
-              <template v-for="n in 4" :key="`row1-${n}`">
-                <span> Get your ticket now </span>
-                <span
-                  class="opposite-direction-marquees__glyph"
-                  aria-hidden="true"
-                  >✦</span
-                >
+            <p ref="sentence1Ref" :class="{ uppercase }">
+              <template v-for="n in repeatBlocks" :key="`row1-${n}`">
+                <template v-for="(label, idx) in items" :key="`r1-${n}-${idx}`">
+                  <span> {{ label }} </span>
+                  <Icon
+                    v-if="separatorIcon"
+                    :name="separatorIcon"
+                    class="opposite-direction-marquees__icon"
+                    aria-hidden="true"
+                  />
+                </template>
               </template>
             </p>
           </div>
           <div
             class="opposite-direction-marquees__sentence opposite-direction-marquees__sentence--second"
           >
-            <p ref="sentence2Ref">
-              <template v-for="n in 4" :key="`row2-${n}`">
-                <span> Get your ticket now </span>
-                <span
-                  class="opposite-direction-marquees__glyph"
-                  aria-hidden="true"
-                  >✦</span
-                >
+            <p ref="sentence2Ref" :class="{ uppercase }">
+              <template v-for="n in repeatBlocks" :key="`row2-${n}`">
+                <template v-for="(label, idx) in items" :key="`r2-${n}-${idx}`">
+                  <span> {{ label }} </span>
+                  <Icon
+                    v-if="separatorIcon"
+                    :name="separatorIcon"
+                    class="opposite-direction-marquees__icon"
+                    aria-hidden="true"
+                  />
+                </template>
               </template>
             </p>
           </div>
         </div>
-        <div class="opposite-direction-marquees__texts">
-          <p>Edition 2025</p>
-          <p>350 artists</p>
-          <p>4 days of music</p>
-          <p>Primavera Sound</p>
+        <div
+          v-if="showMeta && displayedMeta.length"
+          class="opposite-direction-marquees__texts"
+        >
+          <p
+            v-for="(text, i) in displayedMeta"
+            :key="`meta-${i}`"
+            :class="{ 'opposite-direction-marquees__project': i === 0 }"
+          >
+            {{ text }}
+          </p>
         </div>
       </div>
     </div>
@@ -44,7 +71,52 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick } from "vue";
+import { ref, onMounted, onBeforeUnmount, nextTick, computed } from "vue";
+
+/**
+ * Props for customization so the component can be used across projects.
+ * @typedef {Object} OppositeDirectionMarqueesProps
+ * @property {string[]} items - Labels to display in the marquee in order
+ * @property {string} [separatorIcon] - Icon name for @nuxt/icon (e.g., 'uil:bolt')
+ * @property {boolean} [uppercase] - Uppercase text rendering
+ * @property {number} [repeatBlocks] - How many times to repeat items per row
+ * @property {number} [pinHeightVh] - Pinned section height in vh
+ * @property {number} [fontSizeVw] - Headline font size in vw
+ * @property {number} [iconSizeVw] - Icon size in vw
+ * @property {number} [wordGapVw] - Horizontal gap around each word in vw
+ * @property {number} [iconGapVw] - Horizontal gap around the icon in vw
+ * @property {string} [theme] - 'dark' or 'light'
+ * @property {boolean} [showMeta] - Show meta footer row
+ * @property {string[]} [meta] - Meta footer texts (e.g., stats)
+ * @property {string} [projectName] - Project name to display before meta
+ * @property {number} [durationSec] - Duration (seconds) to travel half-width
+ */
+
+/** @type {OppositeDirectionMarqueesProps} */
+const props = defineProps({
+  items: { type: Array, default: () => ["Get your ticket now"] },
+  separatorIcon: { type: String, default: "uil:bolt" },
+  uppercase: { type: Boolean, default: false },
+  repeatBlocks: { type: Number, default: 4 },
+  pinHeightVh: { type: Number, default: 200 },
+  fontSizeVw: { type: Number, default: 10 },
+  iconSizeVw: { type: Number, default: 5.5 },
+  wordGapVw: { type: Number, default: 2 },
+  iconGapVw: { type: Number, default: 2 },
+  theme: { type: String, default: "dark" },
+  showMeta: { type: Boolean, default: false },
+  meta: { type: Array, default: () => [] },
+  projectName: { type: String, default: "" },
+  durationSec: { type: Number, default: 18 },
+});
+
+// Build meta with projectName first if provided
+const displayedMeta = computed(() => {
+  const arr = Array.isArray(props.meta) ? [...props.meta] : [];
+  if (props.projectName && arr[0] !== props.projectName)
+    arr.unshift(props.projectName);
+  return arr;
+});
 
 /**
  * OppositeDirectionMarquees
@@ -89,6 +161,11 @@ const createMarqueeTweens = () => {
     } catch (e) {}
   }
 
+  // Reset transforms before measuring
+  try {
+    $gsap.set([s1, s2], { x: 0 });
+  } catch (e) {}
+
   const distance1 = -s1.clientWidth / 2;
   const distance2 = -s2.clientWidth / 2;
 
@@ -97,7 +174,7 @@ const createMarqueeTweens = () => {
     $gsap.to(s1, {
       x: distance1,
       ease: "none",
-      duration: 10,
+      duration: props.durationSec,
       repeat: -1,
     })
   );
@@ -107,7 +184,7 @@ const createMarqueeTweens = () => {
     $gsap.from(s2, {
       x: distance2,
       ease: "none",
-      duration: 10,
+      duration: props.durationSec,
       repeat: -1,
     })
   );

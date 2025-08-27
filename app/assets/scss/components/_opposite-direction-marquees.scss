@@ -9,11 +9,11 @@
 // - Layout is responsive using vw for scalable marquee type
 
 .opposite-direction-marquees {
-  background: var(--color-black);
-  color: var(--color-gray-1);
+  background: var(--odm-bg, var(--color-black));
+  color: var(--odm-fg, var(--color-gray-1));
 
   &__pin {
-    height: 200vh; // pin span
+    height: var(--odm-pin-height, 200vh); // pin span
   }
 
   &__container {
@@ -30,7 +30,7 @@
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: -0.06em;
-    font-size: 10vw; // scalable headline size
+    font-size: var(--odm-font-size, 10vw); // scalable headline size
   }
 
   &__sentence {
@@ -41,6 +41,7 @@
       white-space: nowrap;
       width: max-content;
       will-change: transform;
+      gap: var(--odm-word-gap, 2vw);
     }
   }
 
@@ -54,11 +55,11 @@
     }
   }
 
-  &__glyph {
-    width: 5.5vw;
+  &__icon {
+    width: var(--odm-icon-size, 5.5vw);
     height: auto;
     display: inline-block;
-    padding: 0 2vw;
+    margin: 0 var(--odm-icon-gap, 2vw);
   }
 
   &__texts {
@@ -66,7 +67,7 @@
     justify-content: space-between;
     margin: 1vw 0 0;
     padding: 2vw 2vw 0;
-    border-top: 1px dashed rgba(72, 72, 72, 1);
+    border-top: 1px dashed var(--odm-border-color, rgba(72, 72, 72, 1));
     font:
       500 normal 0.9vw/1 "IBM Plex Mono",
       ui-monospace,
@@ -78,5 +79,9 @@
       "Courier New",
       monospace;
     text-transform: uppercase;
+  }
+
+  &__project {
+    font-weight: 700;
   }
 }
