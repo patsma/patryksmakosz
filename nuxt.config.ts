@@ -107,6 +107,7 @@ export default defineNuxtConfig({
       drawSvg: true,
       customBounce: true,
       customWiggle: true,
+      splitText: true,
       gsDevTools: true,
       scrollSmoother: true,
     },
