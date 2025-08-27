@@ -65,6 +65,22 @@
     height: 100dvh;
   }
 
+  &--vibeuu {
+    height: 100dvh;
+    .logo-animation {
+      height: 70dvh;
+      display: flex;
+      justify-content: center;
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+    }
+
+    .logo-animation svg {
+      width: 80%;
+      height: auto;
+    }
+  }
+
   // Standard GSDevTools embedding
   .gs-dev-tools {
     position: absolute !important;

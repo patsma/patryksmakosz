@@ -10,7 +10,7 @@ tags: ["nuxt3", "nuxt-ui", "nuxt-icon", "typescript", "rxdb", "dexie", "webrtc",
 date: 2025-01-15
 ---
 
-::::HeroVideo
+::HeroVideo
 ---
 src: "/movies/web-optimized/pushups-tracker.mp4"
 poster: ""
@@ -20,9 +20,9 @@ muted: true
 preload: auto
 fit: cover
 ---
-::::
+::
 
-::::OppositeDirectionMarquees
+::OppositeDirectionMarquees
 ---
 items:
   - Nuxt 3
@@ -49,15 +49,15 @@ meta:
   - Local-first Application
   - Real-time P2P Updates
 ---
-::::
+::
 
-::::SimultaneousWords
+::SimultaneousWords
 ---
 theme: light
 pinHeightVh: 420
 paragraph: Pushups Tracker is a local-first Nuxt 3 application using TypeScript, RxDB, Dexie.js and WebRTC for peer-to-peer sync. It works without a server, keeping data on-device while sharing updates instantly between friends. GSAP adds polish to the motion and micro-interactions.
 ---
-::::
+::
 
 <div class="project-container">
 
