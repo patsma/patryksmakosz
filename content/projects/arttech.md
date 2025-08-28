@@ -20,7 +20,7 @@ autoPlay: true
 ---
 ::
 
-:::::OppositeDirectionMarquees
+::OppositeDirectionMarquees
 ---
 items:
   - GSAP
@@ -31,7 +31,7 @@ items:
   - Logo Animation
 separatorIcon: uil:bolt
 uppercase: true
-theme: dark
+theme: light
 repeatBlocks: 2
 pinHeightVh: 160
 fontSizeVw: 8
@@ -46,15 +46,15 @@ meta:
   - GSAP + SVG + Next.js
   - Crypto company logo animation
 ---
-:::::
+::
 
-:::::SimultaneousWords
+::SimultaneousWords
 ---
 theme: dark
 pinHeightVh: 420
 paragraph: ArtTech is a cyberpunk-inspired SVG logo animation featuring dynamic path motion, glitch distortions, and layered GSAP timelines. It was delivered for a cryptocurrency company and embedded on a Next.js landing page.
 ---
-:::::
+::
 
 <div class="project-container">
 

@@ -10,7 +10,7 @@ tags: ["wordpress", "acf", "canvas", "gsap", "scroll", "portfolio"]
 date: 2025-01-15
 ---
 
-::::HeroVideo
+::HeroVideo
 ---
 src: "/movies/web-optimized/artistx.mp4"
 poster: ""
@@ -20,9 +20,9 @@ muted: true
 preload: auto
 fit: cover
 ---
-::::
+::
 
-::::OppositeDirectionMarquees
+::OppositeDirectionMarquees
 ---
 items:
   - WordPress
@@ -48,33 +48,18 @@ meta:
   - Custom ACF WordPress
   - Canvas + GSAP + Smooth Scroll
 ---
-::::
+::
 
-::::SimultaneousWords
+::SimultaneousWords
 ---
 theme: light
 pinHeightVh: 420
 paragraph: ArtistX is a custom ACF WordPress theme featuring performant canvas animations, smooth scrolling, and scroll-triggered interactions. 
 ---
-::::
+::
 
 <div class="project-container">
 
-<!--
-## About the Project
-
-ArtistX combines a WordPress + ACF content model with a bespoke front-end.
-Canvas animations and GSAP ScrollTrigger power rich motion and smooth scrolling.
-
-## Live Link
-
-https://ax.tastysites.pl/
-
-## Credits
-
-- Site: Tasty Sites
-- Stack: WordPress, ACF, GSAP, Canvas
--->
 
 </div>
 
