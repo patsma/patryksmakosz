@@ -39,7 +39,7 @@ projectName: InfOrca
 meta:
   - Year 2021
   - GSAP + SVG Morph
-  - Swimming orca morph
+  - Logo Animation
 ---
 ::
 

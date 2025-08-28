@@ -1,7 +1,7 @@
 ---
 title: "Life Balance Congress"
 slug: "life-balance-congress"
-category: "video-prototype"
+category: "website"
 cover: "/assets/medias/lbc-thumb.svg"
 video: "/movies/web-optimized/life-balance-prototype.mp4"
 liveLink: "https://example.com" 
@@ -10,7 +10,7 @@ tags: ["video", "autoplay", "nuxt", "gsap"]
 date: 2025-01-15
 ---
 
-:::HeroVideo
+::HeroVideo
 ---
 src: "/movies/web-optimized/life-balance-prototype.mp4"
 poster: ""
@@ -20,17 +20,16 @@ muted: true
 preload: auto
 fit: cover
 ---
-:::
+::
 
-:::OppositeDirectionMarquees
+::OppositeDirectionMarquees
 ---
 items:
-  - Nuxt 4
+  - Nuxt 3
   - GSAP
   - ScrollTrigger
-  - ScrollSmoother
-  - TailwindCSS
-  - Nuxt Content
+  - Tailwind CSS
+  - Transitions
 separatorIcon: uil:bolt
 uppercase: true
 theme: light
@@ -45,33 +44,21 @@ showMeta: true
 projectName: Life Balance Congress
 meta:
   - Year 2025
-  - Category: Video Prototype
-  - Tech Stack Overview
+  - Website
 ---
-:::
+::
 
-:::SimultaneousWords
+::SimultaneousWords
 ---
 theme: light
 pinHeightVh: 420
-paragraph: Life Balance Congress is a quick video-based hero prototype. It validates autoplay and loop across iOS Safari and modern browsers, using a clean full-viewport presentation in Nuxt.
+paragraph: Scroll animated Nuxt 3 App with seamless transitions between sections. Mixing various GSAP animation techniques to create a smooth and engaging experience. Mostly on desktop.
 ---
-:::
+::
 
 <div class="project-container">
 
-<!--
-## About the Project
 
-This page demonstrates a universal hero video component that attempts
-autoplay with best-practice attributes (muted, playsinline, loop) and
-falls back to a tap-to-play overlay when needed.
-
-## Credits
-
-- Video: Tasty Sites
-- Tools: Nuxt 4, TailwindCSS, GSAP
--->
 
 </div>
 

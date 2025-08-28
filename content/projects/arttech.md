@@ -44,7 +44,7 @@ projectName: ArtTech
 meta:
   - Year 2024
   - GSAP + SVG + Next.js
-  - Crypto company logo animation
+  - Logo Animation
 ---
 ::
 
