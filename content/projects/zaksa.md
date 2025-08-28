@@ -17,13 +17,10 @@ autoPlay: true
 ::OppositeDirectionMarquees
 ---
 items:
-  - Nuxt 4
+  - Vite
   - GSAP
-  - ScrollTrigger
-  - ScrollSmoother
-  - Nuxt Icon
-  - TailwindCSS
-  - Nuxt Content
+  - SVG
+  - GSAP Club Plugins
 separatorIcon: uil:bolt
 uppercase: true
 theme: light
@@ -37,7 +34,7 @@ durationSec: 50
 showMeta: true
 projectName: Zaksa
 meta:
-  - Year 2024
+  - Year 2021
   - Logo Animation
 ---
 ::
@@ -46,12 +43,12 @@ meta:
 ---
 theme: light
 pinHeightVh: 420
-paragraph: Zaksa is a concise brand motion study. It explores crisp geometric paths, tight easing, and scroll-scrubbed pacing to preview a bold identity reveal with GSAP and Nuxt.
+paragraph: Logo animation for a polish volleyball club website. Built with GSAP and SVG.
 ---
 ::
-<div class="project-container">
-<!-- More info if needed -->
+<!-- <div class="project-container">
 
-</div>
+
+</div> -->
 
 
