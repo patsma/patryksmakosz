@@ -1,6 +1,6 @@
 // Styles shared by GSAP animation components (Blueberry, ArtTech, etc.)
 @use "../variables" as *;
-
+@use "../mixins" as *;
 .animation-component {
   height: 100%;
   position: relative;
@@ -94,6 +94,19 @@
       width: 100%;
 
       height: 70dvh;
+    }
+  }
+
+  &--fort-privacy {
+    height: 100svh;
+    height: 100dvh;
+    .logo-animation-wrapper {
+      width: 100%;
+      height: 100dvh;
+      display: flex;
+      @include laptop {
+        display: block;
+      }
     }
   }
 
