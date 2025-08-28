@@ -2242,7 +2242,7 @@
             <g clip-path="url(#clip-path)">
               <g clip-path="url(#clip-path-2)">
                 <rect
-                  class="bottom__shadow"
+                  class="bottom__shadow opacity-0"
                   x="1091.9"
                   y="719.3"
                   width="385.23"
