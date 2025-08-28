@@ -180,9 +180,7 @@ const debugInfo = computed(() => ({
 
         <!-- Bottom navigation: Previous / Next projects -->
         <div v-if="prevProject || nextProject" class="project-container">
-          <div
-            class="flex items-center justify-between gap-4 py-8 border-t border-[rgba(255,255,255,0.08)] mt-8"
-          >
+          <div class="flex items-center justify-between gap-4 py-8">
             <NuxtLink
               v-if="prevProject"
               :to="prevProject.path"
