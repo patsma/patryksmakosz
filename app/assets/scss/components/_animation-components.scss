@@ -103,7 +103,7 @@
     .logo-animation-wrapper {
       width: 100%;
       height: 100dvh;
-      display: flex;
+      display: grid;
       @include laptop {
         display: block;
       }
