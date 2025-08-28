@@ -109,6 +109,10 @@
       }
     }
   }
+  &--player-prototype {
+    height: 100svh;
+    height: 100dvh;
+  }
 
   // Standard GSDevTools embedding
   .gs-dev-tools {
