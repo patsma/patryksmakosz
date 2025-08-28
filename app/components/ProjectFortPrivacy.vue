@@ -97,7 +97,18 @@ const createAnimation = () => {
     console.warn("FortPrivacy: SVG root not found");
     return null;
   }
-
+// Convert basic shapes to paths to ensure DrawSVG works across all elements (local to this SVG)
+try {
+    const svgRootEl = svgRoot.closest && svgRoot.closest("svg");
+    if ($MorphSVGPlugin && svgRootEl) {
+      const shapes = svgRootEl.querySelectorAll(
+        "circle, rect, ellipse, line, polygon, polyline"
+      );
+      if (shapes && shapes.length) {
+        $MorphSVGPlugin.convertToPath(shapes);
+      }
+    }
+  } catch (e) {}
   // Local query helpers scoped to this SVG root
   const q = (sel) => svgRoot.querySelector(sel);
   const qa = (sel) => Array.from(svgRoot.querySelectorAll(sel) || []);
@@ -151,18 +162,7 @@ const createAnimation = () => {
   // Initial states
   if (Glow) $gsap.set(Glow, { autoAlpha: 0 });
 
-  // Convert basic shapes to paths to ensure DrawSVG works across all elements (local to this SVG)
-  try {
-    const svgRootEl = svgRoot.closest && svgRoot.closest("svg");
-    if ($MorphSVGPlugin && svgRootEl) {
-      const shapes = svgRootEl.querySelectorAll(
-        "circle, rect, ellipse, line, polygon, polyline"
-      );
-      if (shapes && shapes.length) {
-        $MorphSVGPlugin.convertToPath(shapes);
-      }
-    }
-  } catch (e) {}
+  
 
   // tl1 – initial reveal
   const tl1 = $gsap.timeline();
