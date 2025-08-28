@@ -1,7 +1,7 @@
 ---
 title: "Molki Design"
 slug: "molkidesign"
-category: "nuxt-website"
+category: "website"
 cover: "/assets/medias/molkidesign-thumb.svg"
 video: "/movies/web-optimized/molkidesign.mp4"
 liveLink: "https://molkidesign.pl/"
@@ -10,7 +10,7 @@ tags: ["nuxt3", "content", "tailwind", "nuxt-studio", "typescript", "gsap", "scr
 date: 2025-01-15
 ---
 
-::::HeroVideo
+::HeroVideo
 ---
 src: "/movies/web-optimized/molkidesign.mp4"
 poster: ""
@@ -20,9 +20,9 @@ muted: true
 preload: auto
 fit: cover
 ---
-::::
+::
 
-::::OppositeDirectionMarquees
+::OppositeDirectionMarquees
 ---
 items:
   - Nuxt 3
@@ -45,36 +45,21 @@ showMeta: true
 projectName: Molki Design
 meta:
   - Year 2025
-  - Real Estate Website
   - Nuxt 3 + GSAP + Tailwind
+  - Website
 ---
-::::
+::
 
-::::SimultaneousWords
+::SimultaneousWords
 ---
 theme: light
 pinHeightVh: 420
 paragraph: Molki Design is a full Nuxt 3 website for a real estate company. It leverages Nuxt Content, Nuxt Studio, Tailwind CSS and GSAP to deliver a modern, scroll-animated experience with performance and maintainability in mind.
 ---
-::::
+::
 
 <div class="project-container">
 
-<!--
-## About the Project
-
-This build focuses on smooth scrolling and scroll-triggered animations powered by GSAP.
-Content is managed using Nuxt Content and editing assisted by Nuxt Studio.
-
-## Live Link
-
-https://molkidesign.pl/
-
-## Credits
-
-- Site: Tasty Sites
-- Stack: Nuxt 3, Nuxt Content, Tailwind CSS, Nuxt Studio, TypeScript, GSAP
--->
 
 </div>
 
