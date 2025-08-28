@@ -56,9 +56,9 @@ paragraph: ArtTech is a cyberpunk-inspired SVG logo animation featuring dynamic 
 ---
 ::
 
-<div class="project-container">
+<!-- <div class="project-container">
 
 
 
-</div>
+</div> -->
 

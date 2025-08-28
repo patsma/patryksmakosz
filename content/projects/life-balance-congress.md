@@ -56,10 +56,10 @@ paragraph: Scroll animated Nuxt 3 App with seamless transitions between sections
 ---
 ::
 
-<div class="project-container">
+<!-- <div class="project-container">
 
 
 
-</div>
+</div> -->
 
 

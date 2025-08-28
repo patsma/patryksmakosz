@@ -51,10 +51,10 @@ paragraph: InfOrca is a morphing SVG logo animation of an orca with smooth stage
 ---
 ::
 
-<div class="project-container">
+<!-- <div class="project-container">
 
 
 
-</div>
+</div> -->
 
 

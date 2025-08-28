@@ -58,9 +58,9 @@ paragraph: Molki Design is a full Nuxt 3 website for a real estate company. It l
 ---
 ::
 
-<div class="project-container">
+<!-- <div class="project-container">
 
 
-</div>
+</div> -->
 
 
