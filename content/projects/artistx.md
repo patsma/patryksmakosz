@@ -54,7 +54,7 @@ meta:
 ---
 theme: light
 pinHeightVh: 420
-paragraph: ArtistX is a custom ACF WordPress build featuring performant canvas animations, smooth scrolling, and scroll-triggered interactions. This page demonstrates the hero video and highlights the animation-driven UX.
+paragraph: ArtistX is a custom ACF WordPress theme featuring performant canvas animations, smooth scrolling, and scroll-triggered interactions. 
 ---
 ::::
 
