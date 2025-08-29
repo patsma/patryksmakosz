@@ -35,9 +35,9 @@ const projectMetaByImage = {
   "riverscape-thumb.svg": { slug: "riverscape", title: "Riverscape" },
   "sliwka-thumb.svg": { slug: "sliwka-w-kompot", title: "Sliwka w Kompot" },
   "vibeuu-thumb.svg": { slug: "vibeuu", title: "Vibeuu" },
-  "page404-thumb.svg": { slug: "404", title: "404" },
+  "page404-thumb.svg": { slug: "page-404", title: "Page 404" },
   "fort-privacy-thumb.svg": { slug: "fort-privacy", title: "Fort Privacy" },
-  "prototype-thumb.svg": { slug: "prototype", title: "Prototype" },
+  "prototype-thumb.svg": { slug: "player-prototype", title: "Prototype" },
 };
 
 // Vue refs for DOM elements
