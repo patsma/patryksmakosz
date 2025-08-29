@@ -36,7 +36,7 @@ const props = defineProps({
     default: () => `logo-horizontal-${Math.random().toString(36).slice(2, 9)}`,
   },
   autoPlay: { type: Boolean, default: true },
-  delaySeconds: { type: Number, default: 3 }, // play after 3s
+  delaySeconds: { type: Number, default: 3.4 }, // play after 3s
 });
 
 // Build the entry animation (reverse of MorphingLogo scatter)
