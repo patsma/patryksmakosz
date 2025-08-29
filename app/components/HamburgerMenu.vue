@@ -209,9 +209,9 @@ onUnmounted(() => {
         class="menu-overlay__link"
         >About</a
       >
-      <NuxtLink :ref="setMenuLinkRef" to="/about" class="menu-overlay__link"
+      <!-- <NuxtLink :ref="setMenuLinkRef" to="/about" class="menu-overlay__link"
         >About</NuxtLink
-      >
+      > -->
       <NuxtLink :ref="setMenuLinkRef" to="/portfolio" class="menu-overlay__link"
         >Portfolio</NuxtLink
       >
