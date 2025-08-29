@@ -1,13 +1,7 @@
 <template>
   <div>
     <h1 class="sr-only">About</h1>
-    <OrbitalCarousel
-      class="z-10"
-      :items="items"
-      :breakpoint-config="breakpointConfig"
-      :front-margin="1.4"
-      :back-margin="1"
-    />
+    <OrbitalCarousel />
     <CarouselTimeline
       headline="Customer experiences"
       text-under-headline="Short intro text"
@@ -67,81 +61,6 @@
 </template>
 
 <script setup>
-import { defaultItems as orbitalDefaultItems } from "/composables/useOrbitalCarousel";
-
-// Provide items for OrbitalCarousel to avoid undefined binding warnings
-const items = orbitalDefaultItems;
-
-// Responsive breakpoints for OrbitalCarousel
-const breakpointConfig = [
-  {
-    minWidth: 3800,
-    orbitXFactor: 0.35,
-    orbitYFactor: 0.16,
-    minOrbitX: 640,
-    minOrbitY: 200,
-    frontMargin: 1.4,
-    backMargin: 1,
-    verticalOffset: 400,
-    itemScale: 1.6,
-  },
-  {
-    minWidth: 2400,
-    orbitXFactor: 0.35,
-    orbitYFactor: 0.16,
-    minOrbitX: 640,
-    minOrbitY: 200,
-    frontMargin: 1.4,
-    backMargin: 1,
-    verticalOffset: 250,
-    itemScale: 1.2,
-  },
-  {
-    minWidth: 2040,
-    orbitXFactor: 0.35,
-    orbitYFactor: 0.16,
-    minOrbitX: 640,
-    minOrbitY: 200,
-    frontMargin: 1.4,
-    backMargin: 1,
-    verticalOffset: 225,
-    itemScale: 1.1,
-  },
-  {
-    minWidth: 1890,
-    orbitXFactor: 0.35,
-    orbitYFactor: 0.16,
-    minOrbitX: 640,
-    minOrbitY: 200,
-    frontMargin: 1.4,
-    backMargin: 1,
-    verticalOffset: 160,
-    itemScale: 1.1,
-  },
-  {
-    minWidth: 1400,
-    orbitXFactor: 0.35,
-    orbitYFactor: 0.16,
-    minOrbitX: 640,
-    minOrbitY: 200,
-    frontMargin: 1.4,
-    backMargin: 1,
-    verticalOffset: 140,
-    itemScale: 1.05,
-  },
-  {
-    minWidth: 1200,
-    orbitXFactor: 0.35,
-    orbitYFactor: 0.16,
-    minOrbitX: 640,
-    minOrbitY: 200,
-    frontMargin: 1.4,
-    backMargin: 1,
-    verticalOffset: 225,
-    itemScale: 0.9,
-  },
-];
-
 useHead({
   title: "About",
   meta: [

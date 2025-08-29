@@ -1,15 +1,3 @@
-// Composable for orbital carousel logic (state, animation, GSAP Draggable)
-// Only for use in OrbitalCarousel.vue
-// JS + JSDoc, no TypeScript
-
-import {
-  ref,
-  computed,
-  watch,
-  onMounted,
-  onBeforeUnmount,
-  nextTick,
-} from "vue";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 
@@ -27,8 +15,8 @@ try {
  * @property {number} minOrbitY
  * @property {number} [frontMargin]
  * @property {number} [backMargin]
- * @property {number} [verticalOffset] // px
- * @property {number} [itemScale] // multiplier
+ * @property {number} [verticalOffset]
+ * @property {number} [itemScale]
  */
 
 /**
@@ -164,6 +152,42 @@ export const defaultItems = [
   },
 ];
 
+export const defaultBreakpointConfig = [
+  {
+    minWidth: 0,
+    orbitXFactor: 0.35,
+    orbitYFactor: 0.16,
+    minOrbitX: 320,
+    minOrbitY: 180,
+    frontMargin: 1.2,
+    backMargin: 0.9,
+    verticalOffset: 180,
+    itemScale: 0.75,
+  },
+  {
+    minWidth: 768,
+    orbitXFactor: 0.35,
+    orbitYFactor: 0.16,
+    minOrbitX: 600,
+    minOrbitY: 200,
+    frontMargin: 1.2,
+    backMargin: 0.9,
+    verticalOffset: 225,
+    itemScale: 0.9,
+  },
+  {
+    minWidth: 1200,
+    orbitXFactor: 0.35,
+    orbitYFactor: 0.16,
+    minOrbitX: 640,
+    minOrbitY: 200,
+    frontMargin: 1.4,
+    backMargin: 0.9,
+    verticalOffset: 80,
+    itemScale: 1,
+  },
+];
+
 /**
  * useOrbitalCarousel composable
  * @param {UseOrbitalCarouselOptions} options
@@ -221,15 +245,36 @@ export default function useOrbitalCarousel(options = {}) {
   const hologramBlur = ref(0);
 
   // --- Breakpoint Config ---
+  // Use provided breakpoints if any, otherwise our defaults.
+  // Always ensure we have a mobile (minWidth: 0) entry.
+  function ensureMobileBreakpoint(config) {
+    const source =
+      Array.isArray(config) && config.length > 0
+        ? config
+        : defaultBreakpointConfig;
+    const hasMobile = source.some((c) => (c.minWidth || 0) === 0);
+    if (hasMobile) return source;
+    return [
+      // prepend our default mobile to guarantee a match on phones
+      { ...defaultBreakpointConfig[0] },
+      ...source,
+    ];
+  }
+  const breakpointConfig = ensureMobileBreakpoint(options.breakpointConfig);
+
+  // Pick the most specific config where viewport.width >= minWidth.
+  // If none match (e.g. smaller than the smallest minWidth), fall back to the
+  // smallest config instead of falling back to raw options.
   const selectedConfig = computed(() => {
-    if (!options.breakpointConfig || !Array.isArray(options.breakpointConfig))
-      return options;
-    const sorted = [...options.breakpointConfig].sort(
-      (a, b) => b.minWidth - a.minWidth
+    if (!Array.isArray(breakpointConfig) || breakpointConfig.length === 0)
+      return {};
+    const sortedAsc = [...breakpointConfig].sort(
+      (a, b) => a.minWidth - b.minWidth
     );
-    return (
-      sorted.find((cfg) => viewport.value.width >= cfg.minWidth) || options
-    );
+    const match = sortedAsc
+      .filter((cfg) => viewport.value.width >= (cfg.minWidth || 0))
+      .pop();
+    return match || sortedAsc[0] || {};
   });
 
   // --- Orbit Sizes (rem) ---
@@ -478,8 +523,6 @@ export default function useOrbitalCarousel(options = {}) {
     return "/orbital/hologram/ap-holo.png";
   }
 
-  // Hologram animations removed from composable
-
   // Initialize hologram source immediately to avoid empty NuxtImg src during SSR/hydration
   // Use the currentIndex (defaults to 0) so the first item's hologram is shown by default
   hologramSrc.value = getHologramImage(0);
@@ -499,7 +542,6 @@ export default function useOrbitalCarousel(options = {}) {
     });
     resetCarousel();
     createDraggable();
-    // Initialize hologram for active item
     hologramSrc.value = getHologramImage(currentIndex.value);
   });
 

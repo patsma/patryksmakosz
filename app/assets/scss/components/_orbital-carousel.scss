@@ -8,6 +8,7 @@
   grid-template-areas: "canvas";
   min-height: 100vh;
   overflow: hidden;
+  z-index: 0;
 
   &__canvas {
     grid-area: canvas;
@@ -22,7 +23,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -65%);
-    width: 42.375rem; // already rem-based
+    width: 42.375rem; // base desktop width
     height: auto;
     mix-blend-mode: screen;
     pointer-events: none;
@@ -55,8 +56,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: width 0.3s, height 0.3s, opacity 0.3s, background 0.3s,
-    border 0.3s, transform 0.3s, box-shadow 0.3s;
+  transition:
+    width 0.3s,
+    height 0.3s,
+    opacity 0.3s,
+    background 0.3s,
+    border 0.3s,
+    transform 0.3s,
+    box-shadow 0.3s;
   overflow: hidden;
   user-select: none;
   background: transparent;
@@ -184,4 +191,18 @@
 .fade-cursor-enter-to,
 .fade-cursor-leave-from {
   opacity: 1;
+}
+
+// Mobile-first sizing tweaks
+@media (max-width: 767px) {
+  .orbital-carousel {
+    &__canvas {
+      height: 100dvh;
+      min-height: 100dvh;
+    }
+    &__hologram {
+      width: 24rem; // smaller hologram on phones
+      transform: translate(-50%, -58%);
+    }
+  }
 }
