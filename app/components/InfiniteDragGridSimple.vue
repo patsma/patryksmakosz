@@ -49,22 +49,6 @@ const { $gsap } = useNuxtApp();
 const { $Observer } = useNuxtApp();
 
 /**
- * Handle image clicks for portfolio navigation using mapping data
- * @param {{ slug: string, title?: string }} project - Mapped project
- */
-const handleImageClick = (project) => {
-  const slug = project?.slug;
-  const title = project?.title || project?.slug || "Project";
-  if (!slug) return;
-  console.log(`Navigate to project: ${title} -> /projects/${slug}`);
-  try {
-    navigateTo(`/projects/${slug}`);
-  } catch (e) {
-    alert(`Opening ${title} (/projects/${slug}) soon...`);
-  }
-};
-
-/**
  * Initialize the infinite grid animation system
  */
 const initInfiniteGrid = () => {
@@ -150,14 +134,15 @@ onMounted(() => {
   <section class="infinite-drag-grid">
     <div ref="containerRef" class="infinite-drag-grid__container">
       <div ref="contentRef" class="infinite-drag-grid__content">
-        <div
+        <NuxtLink
           v-for="(project, index) in gridProjects"
           :key="`original-${index}`"
           class="infinite-drag-grid__media"
-          @click="handleImageClick(project)"
+          :to="`/projects/${project.slug}`"
+          :aria-label="`Open project: ${project.title}`"
         >
           <img :src="project.src" :alt="project.alt" />
-        </div>
+        </NuxtLink>
       </div>
 
       <!-- Duplicate content for seamless infinite scrolling -->
@@ -167,14 +152,17 @@ onMounted(() => {
         class="infinite-drag-grid__content"
         aria-hidden="true"
       >
-        <div
+        <NuxtLink
           v-for="(project, index) in gridProjects"
           :key="`duplicate-${duplicateIndex}-${index}`"
           class="infinite-drag-grid__media"
-          @click="handleImageClick(project)"
+          :to="`/projects/${project.slug}`"
+          :aria-label="`Open project: ${project.title}`"
+          tabindex="-1"
+          aria-hidden="true"
         >
           <img :src="project.src" :alt="project.alt" />
-        </div>
+        </NuxtLink>
       </div>
     </div>
   </section>
