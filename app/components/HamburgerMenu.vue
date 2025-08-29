@@ -228,6 +228,18 @@ onUnmounted(() => {
       <div class="mt-8 flex flex-wrap items-center gap-4 text-white/80">
         <a
           :ref="setSocialLinkRef"
+          href="https://discordapp.com/users/442079043307962378"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Discord"
+          title="Discord"
+          class="hover:text-white focus-visible:text-white transition-colors outline-none"
+        >
+          <Icon name="tabler:brand-discord" size="24" />
+          <span class="sr-only">Discord</span>
+        </a>
+        <a
+          :ref="setSocialLinkRef"
           href="https://www.facebook.com/TastySites/"
           target="_blank"
           rel="noopener noreferrer"
@@ -286,7 +298,7 @@ onUnmounted(() => {
           <Icon name="simple-icons:bluesky" size="24" />
           <span class="sr-only">Bluesky</span>
         </a>
-        <a
+        <!-- <a
           :ref="setSocialLinkRef"
           href="https://codepen.io/tastysites"
           target="_blank"
@@ -297,7 +309,7 @@ onUnmounted(() => {
         >
           <Icon name="tabler:brand-codepen" size="24" />
           <span class="sr-only">CodePen</span>
-        </a>
+        </a> -->
         <a
           :ref="setSocialLinkRef"
           href="https://www.youtube.com/channel/UCj7wr_x-BwJ0Yam8uw5lDsw"
