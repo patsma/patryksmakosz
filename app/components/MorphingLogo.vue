@@ -1,16 +1,20 @@
 <template>
   <div ref="containerRef" class="morphing-logo">
-    <!-- Simple in-component full-viewport overlay; no teleport -->
     <div
       v-if="props.useIntroOverlay"
       ref="overlayRef"
       aria-hidden="true"
-      class="fixed inset-0 z-[9998] bg-white flex items-center justify-center w-screen h-screen left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      class="fixed inset-0 z-[9998] flex items-center justify-center w-screen h-screen left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
     >
+      <div
+        ref="overlayBackgroundRef"
+        aria-hidden="true"
+        class="absolute inset-0 bg-white z-0"
+      />
       <div
         ref="pulseCircleRef"
         aria-hidden="true"
-        class="rounded-full bg-black morphing-logo__pulse"
+        class="rounded-full bg-black morphing-logo__pulse z-10"
       />
     </div>
     <MorphingLogoSVG ref="svgComponentRef" />
@@ -34,6 +38,7 @@ const svgComponentRef = ref(null);
 // Intro overlay refs/state
 const overlayRef = ref(null);
 const pulseCircleRef = ref(null);
+const overlayBackgroundRef = ref(null);
 
 // Optional props for dev workflow consistency
 const props = defineProps({
@@ -127,21 +132,61 @@ const createAnimation = () => {
 };
 
 /**
+ * Compute the on-screen diameter (in px) of the loader circle group inside the SVG.
+ * We use the larger of width/height to keep the CSS pulse perfectly circular.
+ * @returns {number|null}
+ */
+const getLoaderCircleDiameter = () => {
+  const svg = svgComponentRef.value;
+  const circleDivided = svg?.circleDividedRef;
+  if (!circleDivided || !circleDivided.getBoundingClientRect) return null;
+  const rect = circleDivided.getBoundingClientRect();
+  if (!rect || !(rect.width > 0) || !(rect.height > 0)) return null;
+  return Math.max(rect.width, rect.height);
+};
+
+/**
  * Fade out the intro overlay and circle, then hide them (display:none).
  * @returns {GSAPTimeline}
  */
 const fadeOutOverlay = () => {
   const tl = $gsap.timeline({ id: "intro-overlay-fade" });
+
+  // 1) Gently resize the CSS pulse to match the rendered SVG circle size
+  //    so the cross-fade feels like one circle seamlessly replaces the other.
+  const targetSize = getLoaderCircleDiameter();
+  if (targetSize && pulseCircleRef.value) {
+    // Stop the CSS keyframe pulse to avoid conflicting scale while resizing
+    tl.set(pulseCircleRef.value, { animation: "none" }, 0);
+    tl.to(
+      pulseCircleRef.value,
+      {
+        width: targetSize,
+        height: targetSize,
+        duration: 0.3,
+        ease: "power2.out",
+      },
+      0
+    );
+  }
+
+  // 2) Fade out the full-viewport white background first
+  if (overlayBackgroundRef.value) {
+    tl.to(
+      overlayBackgroundRef.value,
+      { autoAlpha: 0, duration: 0.4, ease: "linear" },
+      targetSize ? ">" : 0
+    );
+  }
+
+  // 3) Then fade out the pulse circle
   tl.to(
     pulseCircleRef.value,
-    { autoAlpha: 0, duration: 0.45, ease: "power2.out" },
-    0
+    { autoAlpha: 0, duration: 0.35, ease: "power2.out" },
+    ">"
   );
-  tl.to(
-    overlayRef.value,
-    { autoAlpha: 0, duration: 0.5, ease: "power2.out" },
-    0
-  );
+
+  // 4) Finally remove the overlay container from the flow
   tl.add(() => {
     if (overlayRef.value) {
       $gsap.set(overlayRef.value, { display: "none" });
@@ -204,8 +249,8 @@ defineExpose({
   This keeps it slightly larger than the logo and centered.
 */
 .morphing-logo__pulse {
-  width: min(31vmin, 15rem);
-  height: min(31vmin, 15rem);
+  width: min(31vmin, 18rem);
+  height: min(31vmin, 18rem);
   /* Pure CSS pulse so it runs before JS/GSAP are ready */
   animation: morphing-logo-pulse 1.4s ease-in-out infinite;
   transform-origin: 50% 50%;
