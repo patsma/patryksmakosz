@@ -201,6 +201,14 @@ onUnmounted(() => {
       <NuxtLink :ref="setMenuLinkRef" to="/" class="menu-overlay__link"
         >Home</NuxtLink
       >
+      <a
+        :ref="setMenuLinkRef"
+        href="https://github.com/patsma"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="menu-overlay__link"
+        >About</a
+      >
       <!-- <NuxtLink :ref="setMenuLinkRef" to="/about" class="menu-overlay__link"
         >About</NuxtLink
       > -->

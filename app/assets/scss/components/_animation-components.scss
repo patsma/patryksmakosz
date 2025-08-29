@@ -52,7 +52,10 @@
     background-color: var(--color-white);
     height: 100svh;
     height: 100dvh;
-    padding: $container-pad-laptop;
+    padding: $container-pad-mobile;
+    @include laptop {
+      padding: $container-pad-tablet;
+    }
   }
 
   &--wjv {
