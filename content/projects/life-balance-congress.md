@@ -4,7 +4,7 @@ slug: "life-balance-congress"
 category: "website"
 cover: "/assets/medias/lbc-thumb.svg"
 video: "/movies/web-optimized/life-balance-prototype.mp4"
-liveLink: "https://example.com" 
+liveLink: "https://life-balance-prototype.netlify.app/" 
 summary: "Hero video prototype for Life Balance Congress. Autoplaying loop test across devices."
 tags: ["video", "autoplay", "nuxt", "gsap"]
 date: 2025-01-15
