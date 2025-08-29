@@ -1,5 +1,10 @@
 <template>
   <div id="smooth-wrapper" class="min-h-screen">
+    <NuxtLoadingIndicator
+      :height="6"
+      color="#0089d0"
+      style="top: auto; bottom: 0"
+    />
     <!--
     Default layout with GSAP ScrollSmoother structure.
     - Keeps fixed UI outside transformed content to avoid position:fixed issues
@@ -39,5 +44,5 @@
 </template>
 
 <script setup>
-// No script needed for simple structural layout
+
 </script>
