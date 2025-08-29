@@ -129,11 +129,12 @@ const createAnimation = () => {
   tl2
     .to(guy2, { autoAlpha: 1, ease: "steps(1)" })
     .to(guy1, { autoAlpha: 0, ease: "steps(1)" }, "<")
+    // Limit repeats for DevTools-friendly scrubbing
     .to(guy3, {
       duration: 1,
       autoAlpha: 1,
       ease: "steps(1)",
-      repeat: -1,
+      repeat: 6,
       repeatDelay: 1,
     });
 
@@ -149,7 +150,7 @@ const createAnimation = () => {
       {
         // Use functional value; repeatRefresh picks a new one each cycle
         fill: random(colors),
-        repeat: -1,
+        repeat: 8,
         repeatRefresh: true,
         yoyo: true,
       },
@@ -160,7 +161,7 @@ const createAnimation = () => {
     .to(sharkM, { scaleY: 1 }, "shark")
     .to(
       shark,
-      { y: "+=5", repeatDelay: 0.05, x: "+=2", repeat: -1, yoyo: true },
+      { y: "+=5", repeatDelay: 0.05, x: "+=2", repeat: 10, yoyo: true },
       "shark+=0.5"
     )
     .to(sharkWave, { autoAlpha: 0, ease: "steps(1)" }, "shark+=0.4")
@@ -169,13 +170,13 @@ const createAnimation = () => {
     .to(octoM, { scaleY: 1 }, "octo")
     .to(
       octo,
-      { y: "+=5", x: "+=1", repeat: -1, repeatDelay: 0.1, yoyo: true },
+      { y: "+=5", x: "+=1", repeat: 10, repeatDelay: 0.1, yoyo: true },
       "octo+=0.5"
     )
     .from(octo, { y: "+=250", transformOrigin: "50% 100%" }, "octo");
 
   // Master timeline - paused by default, relies on internal infinite loops
-  const master = $gsap.timeline({ paused: true });
+  const master = $gsap.timeline({ paused: true, repeat: -1 });
   master
     .add(tl1)
     .add(tl2, "-=16.5")
@@ -186,7 +187,7 @@ const createAnimation = () => {
       {
         yPercent: "+=2",
         xPercent: "-=1",
-        repeat: -1,
+        repeat: 14,
         yoyo: true,
         ease: "bounce.inOut",
       },
@@ -194,7 +195,7 @@ const createAnimation = () => {
     )
     .to(
       background1,
-      { duration: 3, autoAlpha: 0, repeat: -1, ease: "steps(1)" },
+      { duration: 3, autoAlpha: 0, repeat: 6, ease: "steps(1)" },
       0
     )
     .to(shipWave, { autoAlpha: 0, ease: "steps(1)" }, 16);
