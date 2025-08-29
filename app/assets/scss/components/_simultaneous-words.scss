@@ -19,7 +19,6 @@
     height: var(--sw-pin-height, 500vh);
   }
 
-  // header removed
 
   &__container {
     height: 100vh;
@@ -30,9 +29,14 @@
   }
 
   &__paragraph {
-    width: 60%;
-    font: 500 normal 3.9vw/0.9 $font-main;
+    width: 90%;
+    @include h6;
     letter-spacing: -0.03em;
+
+    @include tablet {
+      width: 60%;
+      @include h3;
+    }
   }
 
   .word {
