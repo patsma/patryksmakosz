@@ -6,7 +6,7 @@
     - Displays an accessible play overlay if autoplay is blocked
   -->
   <section
-    class="relative w-full h-screen min-h-screen overflow-hidden bg-black"
+    class="relative cursor-pointer w-full h-screen min-h-screen overflow-hidden bg-black"
     :aria-label="ariaLabel || 'Hero video'"
   >
     <video
