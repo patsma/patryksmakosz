@@ -159,7 +159,6 @@ onMounted(() => {
           :to="`/projects/${project.slug}`"
           :aria-label="`Open project: ${project.title}`"
           tabindex="-1"
-          aria-hidden="true"
         >
           <img :src="project.src" :alt="project.alt" />
         </NuxtLink>

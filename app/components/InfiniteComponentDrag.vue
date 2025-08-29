@@ -71,7 +71,7 @@ const { $Observer } = useNuxtApp();
  * @param {number} index - The index of the clicked component
  */
 const handleComponentClick = (index) => {
-  console.log(`Grid component clicked: ${index}`);
+  // console.log(`Grid component clicked: ${index}`);
   alert(`Component #${index} — animating independently`);
 };
 

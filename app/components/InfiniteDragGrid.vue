@@ -18,7 +18,7 @@ const { $Observer } = useNuxtApp();
  * @param {Object} project - The clicked project object
  */
 const handleProjectClick = (project) => {
-  console.log(`Portfolio project clicked:`, project);
+  // console.log(`Portfolio project clicked:`, project);
 
   // Get the route path for the project
   const routePath = getProjectRoute(project.id);
