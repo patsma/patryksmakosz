@@ -59,21 +59,10 @@ paragraph: Pushups Tracker is a local-first Nuxt 3 application using TypeScript,
 ---
 ::
 
-<div class="project-container">
+<!-- <div class="project-container">
 
-<!--
-## About the App
 
-Built around local-first principles: all data stays on-device and syncs P2P
-via WebRTC. RxDB and Dexie.js provide offline-first storage and reactive
-state. Nuxt UI and Nuxt Icon offer a cohesive UI toolkit, while GSAP handles
-the motion layer for feedback and delight.
 
-## Status
-
-Prototype video demonstrating UX and interactions.
--->
-
-</div>
+</div> -->
 
 

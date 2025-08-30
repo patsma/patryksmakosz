@@ -58,9 +58,9 @@ paragraph: ArtistX is a custom ACF WordPress theme featuring performant canvas a
 ---
 ::
 
-<div class="project-container">
+<!-- <div class="project-container">
 
 
-</div>
+</div> -->
 
 
