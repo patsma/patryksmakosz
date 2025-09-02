@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "convert-videos": "node scripts/convert-videos.js"
+    "convert-videos": "node scripts/convert-videos.js",
+    "fetch:icons": "node scripts/fetch-icons.js"
   },
   "dependencies": {
     "@maz-ui/nuxt": "^4.1.6",
