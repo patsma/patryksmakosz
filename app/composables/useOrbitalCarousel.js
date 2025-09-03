@@ -1,9 +1,10 @@
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Ensure Draggable is registered once in client
 try {
-  gsap.registerPlugin(Draggable);
+  gsap.registerPlugin(Draggable, ScrollTrigger);
 } catch (e) {}
 
 /**
@@ -32,125 +33,6 @@ try {
  * @property {number} [itemScale]
  * @property {Array<Record<string, any>>} [items]
  */
-
-// Default items fallback (for dev/testing) — uses /public/orbital assets
-export const defaultItems = [
-  {
-    id: 0,
-    name: "Aneta Pisz",
-    title: "Psychoterapeutka systemowa",
-    showTitle:
-      "O, moje życie… prawie cię nie zauważyłam. Jak odzyskać siebie spod warstw pokoleń",
-    imageSrc: "/orbital/aneta-pisz-przestrzenserca.png",
-    hologramSrc: "/orbital/hologram/ap-holo.png",
-  },
-  {
-    id: 1,
-    name: "Paulina Próchnicka",
-    title: "Coach transformacyjny",
-    showTitle: "",
-    imageSrc: "/orbital/paulina-prochnicka.png",
-    hologramSrc: "/orbital/hologram/pp-holo.png",
-  },
-  {
-    id: 2,
-    name: "Karolina i Maciej Szaciłło",
-    title: "Dziennikarka /  Edukator zdrowego stylu życia",
-    showTitle: "JAK DBAĆ O ZDROWIE WIELOPOZIOMOWO?",
-    imageSrc: "/orbital/karolina-maciej-szacillo.png",
-    hologramSrc: "/orbital/hologram/kms-holo.png",
-  },
-  {
-    id: 3,
-    name: "Kamila Grześkowiak",
-    title: "Psycholożka",
-    showTitle: "Sekrety rodzinne",
-    imageSrc: "/orbital/kamila-grzeskowiak.png",
-    hologramSrc: "/orbital/hologram/kg-holo.png",
-  },
-  {
-    id: 4,
-    name: "Aria Olejniczak i Tomasz Kaliszak",
-    title: "Instruktorka jogi i AcroYogi,",
-    showTitle: "",
-    imageSrc: "/orbital/women-shadow.png",
-    hologramSrc: "",
-  },
-  {
-    id: 5,
-    name: "Anita Tomasik",
-    title: "Naturoterapeutka",
-    showTitle: "Gimnastyka Słowiańska - warsztaty",
-    imageSrc: "/orbital/anita-tomasik.png",
-    hologramSrc: "/orbital/hologram/at-holo.png",
-  },
-  {
-    id: 6,
-    name: "Pawel Nazaruk",
-    title: "Edukator zdrowia holistycznego",
-    showTitle: "Czarna mgła — czyli gdy ciało przestaje być Twoje",
-    imageSrc: "/orbital/pawel-nazaruk.png",
-    hologramSrc: "/orbital/hologram/pn-holo.png",
-  },
-  {
-    id: 7,
-    name: "Magdalena Cubała-Kucharska",
-    title: "",
-    showTitle: "Zdrowie jest warte więcej niż miliony",
-    imageSrc: "/orbital/dracubala.png",
-    hologramSrc: "/orbital/hologram/dr-holo.png",
-  },
-  {
-    id: 8,
-    name: "Malgorzata Zasanska",
-    title: "Mentorka zdrowia kobiet",
-    showTitle: "Zatrzymaj się, żeby przyspieszyć.",
-    imageSrc: "/orbital/malgorzata-zasanska.png",
-    hologramSrc: "/orbital/hologram/mz-holo.png",
-  },
-  {
-    id: 9,
-    name: "Marta Kuśpit i Darek Chwiejczak",
-    title: "Terapeuci holistyczni, specjaliści pracy z emocjami",
-    showTitle:
-      "Emocje mają głos – jak usłyszeć siebie i uzdrowić to, co niewidoczne",
-    imageSrc: "/orbital/dariusz-chwiejczak.png",
-    hologramSrc: "/orbital/hologram/dc-holo.png",
-  },
-  {
-    id: 10,
-    name: "Anna Gniłka",
-    title: "Holistyczna terapeutka ciała i ducha",
-    showTitle: "Zrozum Układ Nerwowy",
-    imageSrc: "/orbital/anna-gnilka.png",
-    hologramSrc: "/orbital/hologram/ag-holo.png",
-  },
-  {
-    id: 11,
-    name: "Adam Kin",
-    title: "Psycholog transpersonalny",
-    showTitle:
-      "Między duchowością a codziennością – jak żyć świadomie i nie odlecieć",
-    imageSrc: "/orbital/adam-kin.png",
-    hologramSrc: "/orbital/hologram/ak-holo.png",
-  },
-  {
-    id: 12,
-    name: "Piotr Szczerkowski",
-    title: "",
-    showTitle: "",
-    imageSrc: "/orbital/piotr-szczerkowski.png",
-    hologramSrc: "/orbital/hologram/ps-holo.png",
-  },
-  {
-    id: 13,
-    name: "Susan Hufnagel",
-    title: "Psycholog",
-    showTitle: "Doświadcz Kodu Emocji",
-    imageSrc: "/orbital/susan-hufnagel.png",
-    hologramSrc: "/orbital/hologram/sh-holo.png",
-  },
-];
 
 export const defaultBreakpointConfig = [
   {
@@ -250,6 +132,13 @@ export default function useOrbitalCarousel(options = {}) {
   let autoRotateTween = null; // gsap.Tween instance driving smooth step
   const AUTO_ROTATE_DELAY_SEC = 2.8; // delay between steps
   const AUTO_ROTATE_TWEEN_SEC = 0.8; // tween duration per step
+  // Visibility + viewport state
+  const isInView = ref(true);
+  const isPageVisible = ref(true);
+  let scrollTriggerInstance = null;
+  let handleVisibility = null;
+  let handleBlur = null;
+  let handleFocus = null;
 
   function pauseAutoRotate() {
     if (autoRotateTimer && typeof autoRotateTimer.kill === "function") {
@@ -315,6 +204,11 @@ export default function useOrbitalCarousel(options = {}) {
   }
 
   function startAutoRotate() {
+    // Only start if visible and not already running
+    if (dragging.value) return;
+    if (!isInView.value) return;
+    if (!isPageVisible.value) return;
+    if (autoRotateTimer || autoRotateTween) return;
     scheduleNextAutoRotate();
   }
 
@@ -609,6 +503,45 @@ export default function useOrbitalCarousel(options = {}) {
     await nextTick();
     updateViewport();
     window.addEventListener("resize", updateViewport, { passive: true });
+    // Track page visibility
+    handleVisibility = () => {
+      isPageVisible.value = document.visibilityState === "visible";
+      if (!isPageVisible.value) pauseAutoRotate();
+      else startAutoRotate();
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    // Track focus/blur for extra safety
+    handleBlur = () => pauseAutoRotate();
+    handleFocus = () => startAutoRotate();
+    window.addEventListener("blur", handleBlur);
+    window.addEventListener("focus", handleFocus);
+    // ScrollTrigger to pause when off-screen
+    try {
+      if (carouselRef.value) {
+        scrollTriggerInstance = ScrollTrigger.create({
+          trigger: carouselRef.value,
+          start: "top bottom",
+          end: "bottom top",
+          onEnter: () => {
+            isInView.value = true;
+            startAutoRotate();
+          },
+          onEnterBack: () => {
+            isInView.value = true;
+            startAutoRotate();
+          },
+          onLeave: () => {
+            isInView.value = false;
+            pauseAutoRotate();
+          },
+          onLeaveBack: () => {
+            isInView.value = false;
+            pauseAutoRotate();
+          },
+        });
+        ScrollTrigger.refresh();
+      }
+    } catch (e) {}
     gsap.set(carouselRef.value, { opacity: 0, visibility: "hidden" });
     ready.value = true;
     await nextTick();
@@ -623,6 +556,11 @@ export default function useOrbitalCarousel(options = {}) {
     hologramSrc.value = getHologramImage(currentIndex.value);
     // Kick off gentle autorotation
     startAutoRotate();
+    // Initialize visibility state
+    isPageVisible.value =
+      typeof document !== "undefined"
+        ? document.visibilityState === "visible"
+        : true;
   });
 
   onBeforeUnmount(() => {
@@ -637,6 +575,13 @@ export default function useOrbitalCarousel(options = {}) {
     gsap.killTweensOf(position);
     pauseAutoRotate();
     window.removeEventListener("resize", updateViewport);
+    try {
+      if (scrollTriggerInstance) scrollTriggerInstance.kill();
+    } catch (e) {}
+    if (handleVisibility)
+      document.removeEventListener("visibilitychange", handleVisibility);
+    if (handleBlur) window.removeEventListener("blur", handleBlur);
+    if (handleFocus) window.removeEventListener("focus", handleFocus);
   });
 
   return {
