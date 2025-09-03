@@ -162,18 +162,18 @@ export const defaultBreakpointConfig = [
     frontMargin: 1.2,
     backMargin: 0.9,
     verticalOffset: 180,
-    itemScale: 0.75,
+    itemScale: 0.55,
   },
   {
     minWidth: 768,
     orbitXFactor: 0.35,
     orbitYFactor: 0.16,
-    minOrbitX: 600,
-    minOrbitY: 200,
-    frontMargin: 1.2,
+    minOrbitX: 420,
+    minOrbitY: 180,
+    frontMargin: 1.4,
     backMargin: 0.9,
-    verticalOffset: 225,
-    itemScale: 0.9,
+    verticalOffset: 180,
+    itemScale: 0.75,
   },
   {
     minWidth: 1200,
@@ -244,6 +244,79 @@ export default function useOrbitalCarousel(options = {}) {
   const hologramSrc = ref("");
   const hologramOpacity = ref(1);
   const hologramBlur = ref(0);
+
+  // --- Auto-rotate ---
+  let autoRotateTimer = null; // gsap.DelayedCall instance
+  let autoRotateTween = null; // gsap.Tween instance driving smooth step
+  const AUTO_ROTATE_DELAY_SEC = 2.8; // delay between steps
+  const AUTO_ROTATE_TWEEN_SEC = 0.8; // tween duration per step
+
+  function pauseAutoRotate() {
+    if (autoRotateTimer && typeof autoRotateTimer.kill === "function") {
+      autoRotateTimer.kill();
+    }
+    autoRotateTimer = null;
+    // Stop any ongoing tween on position (e.g., in-flight auto step)
+    gsap.killTweensOf(position);
+    if (autoRotateTween && typeof autoRotateTween.kill === "function") {
+      autoRotateTween.kill();
+    }
+    autoRotateTween = null;
+  }
+
+  function animateStepBy(steps, duration = AUTO_ROTATE_TWEEN_SEC, onDone) {
+    // Simulate a user drag by smoothly increasing a proxy value and mapping
+    // it to the same math the onDrag handler uses (position in items space).
+    const startPosition = position.value;
+    const proxy = { p: 0 };
+    // Pre-fade hologram during motion
+    gsap.to(hologramOpacity, { value: 0, duration: 0.2, ease: "power2.in" });
+    gsap.to(hologramBlur, { value: 8, duration: 0.2, ease: "power2.in" });
+    autoRotateTween = gsap.to(proxy, {
+      p: steps,
+      duration,
+      ease: "power2.inOut",
+      onUpdate: () => {
+        const newPos =
+          (startPosition + proxy.p + ITEM_COUNT * 100) % ITEM_COUNT;
+        position.value = newPos;
+        currentIndex.value = Math.round(newPos) % ITEM_COUNT;
+      },
+      onComplete: () => {
+        // Snap to nearest integer index at the end of step
+        const targetPos =
+          ((Math.round(position.value) % ITEM_COUNT) + ITEM_COUNT) % ITEM_COUNT;
+        position.value = targetPos;
+        currentIndex.value = targetPos;
+        hologramSrc.value = getHologramImage(targetPos);
+        gsap.to(hologramOpacity, {
+          value: 1,
+          duration: 0.35,
+          ease: "power2.out",
+        });
+        gsap.to(hologramBlur, { value: 0, duration: 0.35, ease: "power2.out" });
+        autoRotateTween = null;
+        if (typeof onDone === "function") onDone();
+      },
+    });
+  }
+
+  function scheduleNextAutoRotate() {
+    pauseAutoRotate();
+    autoRotateTimer = gsap.delayedCall(AUTO_ROTATE_DELAY_SEC, () => {
+      if (dragging.value) {
+        scheduleNextAutoRotate();
+        return;
+      }
+      animateStepBy(1, AUTO_ROTATE_TWEEN_SEC, () => {
+        scheduleNextAutoRotate();
+      });
+    });
+  }
+
+  function startAutoRotate() {
+    scheduleNextAutoRotate();
+  }
 
   // --- Breakpoint Config ---
   // Use provided breakpoints if any, otherwise our defaults.
@@ -418,6 +491,8 @@ export default function useOrbitalCarousel(options = {}) {
         dragging.value = false;
         dragStarted = false;
         dragDistance = 0;
+        // Pause autorotation and stop any in-flight tweens immediately
+        pauseAutoRotate();
         resetCarousel();
         startPosition = position.value;
         startX = this.pointerX;
@@ -493,6 +568,8 @@ export default function useOrbitalCarousel(options = {}) {
               duration: 0.35,
               ease: "power2.out",
             });
+            // Resume autorotation after a small delay buffer
+            startAutoRotate();
           },
         });
         this.endDrag();
@@ -544,6 +621,8 @@ export default function useOrbitalCarousel(options = {}) {
     resetCarousel();
     createDraggable();
     hologramSrc.value = getHologramImage(currentIndex.value);
+    // Kick off gentle autorotation
+    startAutoRotate();
   });
 
   onBeforeUnmount(() => {
@@ -556,6 +635,7 @@ export default function useOrbitalCarousel(options = {}) {
       dblClickListenerAttached = false;
     }
     gsap.killTweensOf(position);
+    pauseAutoRotate();
     window.removeEventListener("resize", updateViewport);
   });
 
