@@ -167,8 +167,9 @@
   width: 32%;
   height: 32%;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+  filter: grayscale(1);
   transition:
+    filter 0.3s ease,
     transform 0.3s ease,
     opacity 0.3s ease;
 }
@@ -176,6 +177,7 @@
 .orbital-item__icon.is-active {
   transform: scale(1.3);
   opacity: 0.95;
+  filter: grayscale(0);
 }
 
 .orbital-item__overlay {
