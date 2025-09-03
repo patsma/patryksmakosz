@@ -1,51 +1,35 @@
 <script setup>
-// Props for the carousel item (JS + JSDoc)
+// Icon-only item for skills: we keep props minimal and focused on an icon.
+// Name can still be used for accessibility/labels.
 const props = defineProps({
   /** @type {boolean} */ active: { type: Boolean, default: false },
   /** @type {string} */ name: { type: String, default: "" },
-  /** @type {string} */ title: { type: String, default: "" },
-  /** @type {string} */ showTitle: { type: String, default: "" },
-  /** @type {string} */ imageSrc: {
-    type: String,
-    default: "/Image-component-3.png",
-  },
+  /** @type {string} */ iconSrc: { type: String, default: "" },
 });
 </script>
 
 <template>
   <!-- Aspect-ratio container ensures SVG and image always scale together -->
   <div class="orbital-item-container">
-    <!-- SVG frame and gradient background -->
+    <!-- SVG frame; keep gradient + shape minimal, center icon -->
     <div class="orbital-item__svg-frame">
       <OrbitalOutlineGradientSVG class="orbital-item__svg-gradient" />
-      <OrbitalCarouselShapeSVG class="orbital-item__svg-shape-frame" />
-    </div>
-    <!-- Image, fades out when active -->
-    <transition name="fade">
-      <NuxtImg
-        v-if="!active"
-        :src="imageSrc"
-        alt="mentor"
-        class="orbital-item__image"
-        draggable="false"
-        format="webp"
-        densities="x1 x2"
-        sizes="(min-width: 1024px) 320px, 200px"
-        :preload="false"
+      <OrbitalCarouselShapeSVG
+        class="orbital-item__svg-shape-frame"
+        :class="{ 'is-active': active }"
       />
-    </transition>
-    <!-- Overlay content, fades in when active -->
-    <transition name="fade">
-      <div v-if="active" class="orbital-item__overlay">
-        <OrbitalCarouselShapeSVG class="orbital-item__svg-shape-filled" />
-        <div class="orbital-item__overlay-inner">
-          <IconBulbSVG class="orbital-item__icon-bulb" />
-          <div class="orbital-item__name">{{ name }}</div>
-          <!-- <div class="title">{{ title }}</div> -->
-          <div class="orbital-item__show-title">{{ showTitle }}</div>
-        </div>
-      </div>
-    </transition>
+    </div>
+
+    <!-- Icon-only content (smooth, minimal text) -->
+    <div class="orbital-item__icon-wrapper">
+      <img
+        :src="iconSrc"
+        :alt="name + ' icon'"
+        class="orbital-item__icon"
+        :class="{ 'is-active': active }"
+        draggable="false"
+      />
+    </div>
   </div>
 </template>
 

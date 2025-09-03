@@ -213,15 +213,16 @@ export default function useOrbitalCarousel(options = {}) {
   }
 
   // All base sizes are in rem for accessibility and scalability
+  // Slightly more compact sizes to suit icon-only items
   const BASE_SIZES_PX = [
-    { width: 356, height: 316 },
-    { width: 274.16, height: 251.7 },
-    { width: 245.47, height: 214.03 },
-    { width: 185.11, height: 165.2 },
-    { width: 140.87, height: 127.73 },
-    { width: 124.74, height: 111.32 },
+    { width: 320, height: 284 },
+    { width: 256, height: 228 },
+    { width: 220, height: 192 },
+    { width: 172, height: 152 },
+    { width: 132, height: 120 },
+    { width: 116, height: 106 },
   ];
-  const SMALLEST_PX = { width: 100.53, height: 89.72 };
+  const SMALLEST_PX = { width: 96, height: 86 };
   let rootFontSize = getRootFontSize();
   // Sizes in rem
   const SIZES = BASE_SIZES_PX.map((s) => ({

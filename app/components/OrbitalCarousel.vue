@@ -8,6 +8,7 @@ import {
   nextTick,
   watch,
 } from "vue";
+import skills from "~/data/skills";
 
 const props = defineProps({
   /** @type {number} */ orbitXFactor: { type: Number, default: 0.7 },
@@ -45,7 +46,15 @@ const {
   breakpointConfig: props.breakpointConfig,
   frontMargin: props.frontMargin,
   backMargin: props.backMargin,
-  items: props.items,
+  // Inject skills as items for the carousel; map to expected structure
+  items: (skills || []).map((s, idx) => ({
+    id: idx,
+    name: s.name,
+    title: s.description,
+    showTitle: s.highlight,
+    imageSrc: s.svg,
+    hologramSrc: s.svg, // temporary: reuse icon as hologram visual with info overlay
+  })),
   verticalOffset: props.verticalOffset,
 });
 
@@ -54,6 +63,10 @@ const hologramImgRef = ref(null);
 const titleRef = ref(null);
 const subtitleRef = ref(null);
 const currentIndex = ref(0);
+const currentSkill = computed(() => {
+  const idx = currentIndex.value;
+  return Array.isArray(items) && items[idx] ? items[idx] : null;
+});
 
 // --- GSAP animation logic ---
 const { $gsap } = useNuxtApp();
@@ -143,13 +156,15 @@ watch(
       ref="sectionRef"
       class="orbital-carousel__canvas"
     >
-      <NuxtImg
+      <div
         ref="hologramImgRef"
-        :src="hologramSrc"
-        alt="Hologram"
-        class="orbital-carousel__hologram"
+        class="orbital-carousel__holo-text"
         :style="{ opacity: hologramOpacity, filter: `blur(${hologramBlur}px)` }"
-      />
+        aria-live="polite"
+      >
+        <div class="orbital-carousel__holo-title">{{ currentSkill?.name }}</div>
+        <div class="orbital-carousel__holo-desc">{{ currentSkill?.title }}</div>
+      </div>
       <div ref="proxyRef" style="display: none" aria-hidden="true" />
       <div
         ref="dragOverlay"
@@ -177,7 +192,7 @@ watch(
               transform:
                 `translate(${getItemProps(item.id).x}rem, ` +
                 `${getItemProps(item.id).y}rem)` +
-                ` scale(${getItemProps(item.id).isActive ? 1.1 : 1})`,
+                ` scale(${getItemProps(item.id).isActive ? 1.08 : 1})`,
               width: getItemProps(item.id).size.width + 'rem',
               height: getItemProps(item.id).size.height + 'rem',
               opacity: getItemProps(item.id).opacity,
@@ -185,15 +200,13 @@ watch(
               cursor: 'grab',
               pointerEvents: 'none',
             }"
-            aria-label="Mentor item"
+            :aria-label="item.name + ' skill'"
             tabindex="-1"
           >
             <OrbitalCarouselItem
               :active="getItemProps(item.id).isActive"
               :name="item.name"
-              :title="item.title"
-              :show-title="item.showTitle"
-              :image-src="item.imageSrc"
+              :icon-src="item.imageSrc"
             />
           </div>
         </template>
