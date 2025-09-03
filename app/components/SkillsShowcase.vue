@@ -110,12 +110,12 @@ const skills = ref([
     highlight: "Vertical progress bar indicator",
   },
   {
-    id: "canvas",
-    name: "Canvas & WebGL",
-    icon: "simple-icons:webgl",
-    svg: "/assets/icons/webgl.svg",
-    description: "High-performance graphics and effects",
-    highlight: "Shader ripple or scanline pass",
+    id: "animated-banners",
+    name: "Animated Banners",
+    icon: "mdi:billboard",
+    svg: "/assets/icons/billboard.svg",
+    description: "GSAP HTML5 banners, lightweight builds",
+    highlight: "Shine sweep and subtle bounce",
   },
   {
     id: "figma",

@@ -23,7 +23,8 @@ const ICONS = [
   { name: "mdi:api", component: "ApiIconSVG" },
   { name: "logos:css-3", component: "Css3IconSVG" },
   { name: "mdi:gesture-swipe-vertical", component: "ScrollIconSVG" },
-  { name: "simple-icons:webgl", component: "WebglIconSVG" },
+  // Replaced WebGL with Animated Banners (billboard icon)
+  { name: "mdi:billboard", component: "AnimatedBannersIconSVG" },
   { name: "logos:figma", component: "FigmaIconSVG" },
 ];
 

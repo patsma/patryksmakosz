@@ -1,24 +1,41 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 573 510" fill="none">
-    <path
-      d="M235.955 39.9043C258.226 1.66662 313.723 1.36759 336.513 39.0078L337.045 39.9043L554.015 412.433C576.348 450.779 548.529 499 503.47 499H69.5303C24.8228 499 -2.91208 451.529 18.4717 413.333L18.9854 412.433L235.955 39.9043Z"
-      stroke="url(#paint0_linear_29_3487)"
-      stroke-width="22"
-    />
+  <svg
+    width="100%"
+    height="100%"
+    viewBox="0 0 458 435"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xml:space="preserve"
+    xmlns:serif="http://www.serif.com/"
+    style="
+      fill-rule: evenodd;
+      clip-rule: evenodd;
+      stroke-linejoin: round;
+      stroke-miterlimit: 2;
+    "
+  >
+    <g transform="matrix(1,0,0,1,-2352.02,-303.659)">
+      <g transform="matrix(1,0,0,1,-226.65,0)">
+        <g transform="matrix(-1,-1.22465e-16,1.22465e-16,-1,3625.89,1020.84)">
+          <path
+            d="M818.692,282.502L1047.22,448.536L959.929,717.185L677.455,717.185L590.166,448.536L818.692,282.502ZM818.692,308.46L614.853,456.557L692.713,696.185L944.672,696.185L1022.53,456.557L818.692,308.46Z"
+            style="fill: url(#_Linear1)"
+          />
+        </g>
+      </g>
+    </g>
     <defs>
       <linearGradient
-        id="paint0_linear_29_3487"
-        x1="0.0869147"
-        y1="37.1875"
-        x2="619.854"
-        y2="109.9"
+        id="_Linear1"
+        x1="0"
+        y1="0"
+        x2="1"
+        y2="0"
         gradientUnits="userSpaceOnUse"
+        gradientTransform="matrix(77.689,340.345,-340.345,77.689,668.18,522.789)"
       >
-        <!-- Use CSS variables exposed in :root for easy theming -->
-        <stop
-          offset="0.341346"
-          style="stop-color: var(--gradient-primary-start)"
-        />
+        <stop offset="0" style="stop-color: var(--gradient-primary-start)" />
         <stop offset="1" style="stop-color: var(--gradient-primary-end)" />
       </linearGradient>
     </defs>
