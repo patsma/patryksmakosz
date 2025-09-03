@@ -32,9 +32,9 @@
 
   &__holo-text {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -120%);
+    // Position will be set inline from Vue using the active item anchor
+    // Keep a sensible default transform so it sits above the anchor point
+    transform: translate(-50%, -100%);
     width: min(90vw, 42rem);
     text-align: center;
     pointer-events: none;
@@ -256,7 +256,8 @@
       min-height: 100dvh;
     }
     &__holo-text {
-      transform: translate(-50%, -55%);
+      // Inline positioning from Vue; keep same anchor relationship on mobile
+      transform: translate(-50%, -100%);
       width: min(92vw, 28rem);
     }
   }

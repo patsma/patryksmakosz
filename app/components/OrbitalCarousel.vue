@@ -41,6 +41,7 @@ const {
   hologramSrc,
   hologramOpacity,
   hologramBlur,
+  activeAnchor,
 } = useOrbitalCarousel({
   ...props,
   breakpointConfig: props.breakpointConfig,
@@ -159,7 +160,13 @@ watch(
       <div
         ref="hologramImgRef"
         class="orbital-carousel__holo-text"
-        :style="{ opacity: hologramOpacity, filter: `blur(${hologramBlur}px)` }"
+        :style="{
+          left: (activeAnchor?.left ?? 0) + 'rem',
+          top: (activeAnchor?.top ?? 0) + 'rem',
+          transform: 'translate(-50%, -100%)',
+          opacity: hologramOpacity,
+          filter: `blur(${hologramBlur}px)`,
+        }"
         aria-live="polite"
       >
         <div class="orbital-carousel__holo-title">{{ currentSkill?.name }}</div>

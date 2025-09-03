@@ -17,6 +17,7 @@ try {
  * @property {number} [frontMargin]
  * @property {number} [backMargin]
  * @property {number} [verticalOffset]
+ * @property {number} [verticalOffsetFactor]
  * @property {number} [itemScale]
  */
 
@@ -30,6 +31,7 @@ try {
  * @property {number} [frontMargin]
  * @property {number} [backMargin]
  * @property {number} [verticalOffset]
+ * @property {number} [verticalOffsetFactor]
  * @property {number} [itemScale]
  * @property {Array<Record<string, any>>} [items]
  */
@@ -43,7 +45,7 @@ export const defaultBreakpointConfig = [
     minOrbitY: 180,
     frontMargin: 1.2,
     backMargin: 0.9,
-    verticalOffset: 180,
+    verticalOffsetFactor: 0.12,
     itemScale: 0.55,
   },
   {
@@ -54,7 +56,7 @@ export const defaultBreakpointConfig = [
     minOrbitY: 180,
     frontMargin: 1.4,
     backMargin: 0.9,
-    verticalOffset: 180,
+    verticalOffsetFactor: 0.12,
     itemScale: 0.75,
   },
   {
@@ -65,7 +67,7 @@ export const defaultBreakpointConfig = [
     minOrbitY: 200,
     frontMargin: 1.4,
     backMargin: 0.9,
-    verticalOffset: 80,
+    verticalOffsetFactor: 0.12,
     itemScale: 1,
   },
 ];
@@ -247,20 +249,21 @@ export default function useOrbitalCarousel(options = {}) {
 
   // --- Orbit Sizes (rem) ---
   const ORBIT_X = computed(() => {
+    // Use the smaller viewport dimension for proportional scaling, like Canvas/SVG
+    // This keeps the ellipse proportion more consistent across aspect ratios
     rootFontSize = getRootFontSize();
+    const minDim = Math.min(viewport.value.width, viewport.value.height);
     return Math.max(
-      (viewport.value.width * (selectedConfig.value.orbitXFactor ?? 0.7)) /
-        rootFontSize,
-      (viewport.value.height * (selectedConfig.value.orbitXFactor ?? 0.7)) /
-        rootFontSize,
+      (minDim * (selectedConfig.value.orbitXFactor ?? 0.7)) / rootFontSize,
       (selectedConfig.value.minOrbitX ?? 600) / rootFontSize
     );
   });
   const ORBIT_Y = computed(() => {
+    // Also derive Y radius from the smaller dimension for consistency
     rootFontSize = getRootFontSize();
+    const minDim = Math.min(viewport.value.width, viewport.value.height);
     return Math.max(
-      (viewport.value.height * (selectedConfig.value.orbitYFactor ?? 0.38)) /
-        rootFontSize,
+      (minDim * (selectedConfig.value.orbitYFactor ?? 0.38)) / rootFontSize,
       (selectedConfig.value.minOrbitY ?? 220) / rootFontSize
     );
   });
@@ -273,9 +276,19 @@ export default function useOrbitalCarousel(options = {}) {
   );
 
   // Responsive vertical offset and item scale
-  const verticalOffsetPx = computed(
-    () => selectedConfig.value.verticalOffset ?? options.verticalOffset ?? 28
-  );
+  const verticalOffsetPx = computed(() => {
+    // If explicit px offset is provided via props or config, prefer it
+    if (typeof selectedConfig.value.verticalOffset === "number") {
+      return selectedConfig.value.verticalOffset;
+    }
+    if (typeof options.verticalOffset === "number") {
+      return options.verticalOffset;
+    }
+    // Otherwise use a responsive factor of the smaller dimension
+    const minDim = Math.min(viewport.value.width, viewport.value.height);
+    const factor = selectedConfig.value.verticalOffsetFactor ?? 0.12;
+    return Math.round(minDim * factor);
+  });
   const itemScale = computed(() => selectedConfig.value.itemScale ?? 1);
 
   // --- Carousel Math ---
@@ -333,6 +346,19 @@ export default function useOrbitalCarousel(options = {}) {
       isActive,
     };
   }
+
+  // Convenience computed for the currently active item's layout props
+  const activeProps = computed(() => getItemProps(currentIndex.value));
+  const activeAnchor = computed(() => {
+    // Anchor near the active item's top center, with an adaptive offset
+    const a = activeProps.value;
+    // Offset scales with item height but has an upper limit for very large screens
+    const offsetRem = Math.min(8, a.size.height * 0.6);
+    return {
+      left: +(a.x + a.size.width / 2).toFixed(4),
+      top: +(a.y - offsetRem).toFixed(4),
+    };
+  });
 
   // --- GSAP Draggable ---
   const dragOverlay = ref(null);
@@ -599,5 +625,7 @@ export default function useOrbitalCarousel(options = {}) {
     hologramSrc,
     hologramOpacity,
     hologramBlur,
+    activeProps,
+    activeAnchor,
   };
 }
