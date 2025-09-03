@@ -40,7 +40,6 @@ const {
   getItemProps,
   hologramSrc,
   hologramOpacity,
-  hologramBlur,
   activeAnchor,
 } = useOrbitalCarousel({
   ...props,
@@ -94,6 +93,57 @@ onMounted(async () => {
   $gsap.set(getHologramEl(), { autoAlpha: 1, opacity: 1, scale: 1 });
 });
 
+// --- Simple split-text animation (no blur) ---
+/**
+ * Split an element's textContent into spans.
+ * @param {HTMLElement} el
+ * @param {"chars"|"words"} mode
+ * @returns {HTMLElement[]}
+ */
+function splitToSpans(el, mode) {
+  if (!el) return [];
+  const text = el.textContent || "";
+  el.innerHTML = "";
+  const parts = mode === "words" ? text.split(/(\s+)/) : Array.from(text);
+  const spans = [];
+  for (const part of parts) {
+    const span = document.createElement("span");
+    span.textContent = part;
+    if (/\s+/.test(part)) span.style.whiteSpace = "pre";
+    el.appendChild(span);
+    spans.push(span);
+  }
+  return spans;
+}
+
+function animateHoloText() {
+  const titleEl = titleRef.value;
+  const descEl = subtitleRef.value;
+  if (!titleEl || !descEl) return;
+  const titleSpans = splitToSpans(titleEl, "chars");
+  const descSpans = splitToSpans(descEl, "words");
+  $gsap.set([...titleSpans, ...descSpans], {
+    display: "inline-block",
+    opacity: 0,
+    y: 6,
+  });
+  $gsap.to(titleSpans, {
+    opacity: 1,
+    y: 0,
+    duration: 0.5,
+    ease: "power2.out",
+    stagger: 0.02,
+  });
+  $gsap.to(descSpans, {
+    opacity: 1,
+    y: 0,
+    duration: 0.5,
+    ease: "power2.out",
+    stagger: 0.02,
+    delay: 0.05,
+  });
+}
+
 // Always track mouse position in the section
 function handleSectionMouseMove(e) {
   mouse.value = { x: e.clientX, y: e.clientY };
@@ -109,6 +159,8 @@ onMounted(() => {
     sectionRef.value.addEventListener("mousemove", handleSectionMouseMove);
     sectionRef.value.addEventListener("mouseleave", handleSectionMouseLeave);
   }
+  // Initial split animation after first render
+  nextTick().then(() => animateHoloText());
 });
 
 // Clean up
@@ -147,6 +199,12 @@ watch(
   },
   { immediate: true, deep: true }
 );
+
+// Re-run split animation when the active item changes
+watch(currentIndex, async () => {
+  await nextTick();
+  animateHoloText();
+});
 </script>
 
 <template>
@@ -165,12 +223,15 @@ watch(
           top: (activeAnchor?.top ?? 0) + 'rem',
           transform: 'translate(-50%, -100%)',
           opacity: hologramOpacity,
-          filter: `blur(${hologramBlur}px)`,
         }"
         aria-live="polite"
       >
-        <div class="orbital-carousel__holo-title">{{ currentSkill?.name }}</div>
-        <div class="orbital-carousel__holo-desc">{{ currentSkill?.title }}</div>
+        <div ref="titleRef" class="orbital-carousel__holo-title">
+          {{ currentSkill?.name }}
+        </div>
+        <div ref="subtitleRef" class="orbital-carousel__holo-desc">
+          {{ currentSkill?.title }}
+        </div>
       </div>
       <div ref="proxyRef" style="display: none" aria-hidden="true" />
       <div

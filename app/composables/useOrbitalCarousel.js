@@ -127,7 +127,6 @@ export default function useOrbitalCarousel(options = {}) {
   // Hologram state (coupled to drag lifecycle for performance)
   const hologramSrc = ref("");
   const hologramOpacity = ref(1);
-  const hologramBlur = ref(0);
 
   // --- Auto-rotate ---
   let autoRotateTimer = null; // gsap.DelayedCall instance
@@ -160,9 +159,8 @@ export default function useOrbitalCarousel(options = {}) {
     // it to the same math the onDrag handler uses (position in items space).
     const startPosition = position.value;
     const proxy = { p: 0 };
-    // Pre-fade hologram during motion
+    // Pre-fade holo text during motion (no blur for performance)
     gsap.to(hologramOpacity, { value: 0, duration: 0.2, ease: "power2.in" });
-    gsap.to(hologramBlur, { value: 8, duration: 0.2, ease: "power2.in" });
     autoRotateTween = gsap.to(proxy, {
       p: steps,
       duration,
@@ -185,7 +183,7 @@ export default function useOrbitalCarousel(options = {}) {
           duration: 0.35,
           ease: "power2.out",
         });
-        gsap.to(hologramBlur, { value: 0, duration: 0.35, ease: "power2.out" });
+        // No blur restores
         autoRotateTween = null;
         if (typeof onDone === "function") onDone();
       },
@@ -354,8 +352,11 @@ export default function useOrbitalCarousel(options = {}) {
     const a = activeProps.value;
     // Offset scales with item height but has an upper limit for very large screens
     const offsetRem = Math.min(8, a.size.height * 0.6);
+    // Pin X to viewport center to avoid any horizontal jitter across item changes
+    rootFontSize = getRootFontSize();
+    const centerXRem = viewport.value.width / 2 / rootFontSize;
     return {
-      left: +(a.x + a.size.width / 2).toFixed(4),
+      left: +centerXRem.toFixed(4),
       top: +(a.y - offsetRem).toFixed(4),
     };
   });
@@ -416,13 +417,12 @@ export default function useOrbitalCarousel(options = {}) {
         resetCarousel();
         startPosition = position.value;
         startX = this.pointerX;
-        // Fade hologram out immediately on drag start
+        // Fade hologram out immediately on drag start (no blur)
         gsap.to(hologramOpacity, {
           value: 0,
           duration: 0.2,
           ease: "power2.in",
         });
-        gsap.to(hologramBlur, { value: 12, duration: 0.2, ease: "power2.in" });
       },
       onDrag() {
         dragDistance = this.pointerX - startX;
@@ -448,14 +448,9 @@ export default function useOrbitalCarousel(options = {}) {
       },
       onRelease() {
         if (!dragStarted) {
-          // Restore hologram if no real drag happened
+          // Restore hologram if no real drag happened (no blur)
           gsap.to(hologramOpacity, {
             value: 1,
-            duration: 0.25,
-            ease: "power2.out",
-          });
-          gsap.to(hologramBlur, {
-            value: 0,
             duration: 0.25,
             ease: "power2.out",
           });
@@ -480,11 +475,6 @@ export default function useOrbitalCarousel(options = {}) {
             hologramSrc.value = getHologramImage(targetPos);
             gsap.to(hologramOpacity, {
               value: 1,
-              duration: 0.35,
-              ease: "power2.out",
-            });
-            gsap.to(hologramBlur, {
-              value: 0,
               duration: 0.35,
               ease: "power2.out",
             });
@@ -624,7 +614,6 @@ export default function useOrbitalCarousel(options = {}) {
     handlePickActive,
     hologramSrc,
     hologramOpacity,
-    hologramBlur,
     activeProps,
     activeAnchor,
   };
