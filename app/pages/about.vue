@@ -2,7 +2,7 @@
   <div>
     <h1 class="sr-only">About</h1>
     <OrbitalCarousel />
-    <SkillsShowcase />
+    <!-- <SkillsShowcase /> -->
     <CarouselTimeline
       headline="Customer experiences"
       text-under-headline="Short intro text"
