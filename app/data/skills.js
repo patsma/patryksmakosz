@@ -86,12 +86,12 @@ export const skills = [
     highlight: "Cart bounce and shine sweep",
   },
   {
-    id: "api",
-    name: "API Integration",
-    icon: "mdi:api",
-    svg: "/assets/icons/api.svg",
-    description: "REST/GraphQL data, auth, webhooks",
-    highlight: "Linking nodes with flowing lines",
+    id: "ai",
+    name: "AI (Promptmaster Certified)",
+    icon: "mdi:brain",
+    svg: "/assets/icons/brain.svg",
+    description: "Automations, AI workflows, prompt systems",
+    highlight: "Neural pulse glow and link arcs",
   },
   {
     id: "css3",

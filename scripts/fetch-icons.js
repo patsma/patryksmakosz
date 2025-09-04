@@ -25,6 +25,8 @@ const ICONS = [
   { name: "mdi:gesture-swipe-vertical", component: "ScrollIconSVG" },
   // Replaced WebGL with Animated Banners (billboard icon)
   { name: "mdi:billboard", component: "AnimatedBannersIconSVG" },
+  // AI / Brain icon for Promptmaster Certified
+  { name: "mdi:brain", component: "AiBrainIconSVG" },
   { name: "logos:figma", component: "FigmaIconSVG" },
 ];
 
