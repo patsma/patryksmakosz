@@ -431,7 +431,7 @@ export default function useOrbitalCarousel(options = {}) {
           dragging.value = true;
         }
         if (!dragStarted) return;
-        const itemsDragged = -dragDistance / DRAG_RATIO;
+        const itemsDragged = dragDistance / DRAG_RATIO;
         const newPos =
           (startPosition + itemsDragged + ITEM_COUNT * 100) % ITEM_COUNT;
         position.value = newPos;
@@ -440,7 +440,7 @@ export default function useOrbitalCarousel(options = {}) {
       onThrowUpdate() {
         if (!dragStarted) return;
         dragDistance = this.pointerX - startX;
-        const itemsDragged = -dragDistance / DRAG_RATIO;
+        const itemsDragged = dragDistance / DRAG_RATIO;
         const newPos =
           (startPosition + itemsDragged + ITEM_COUNT * 100) % ITEM_COUNT;
         position.value = newPos;
@@ -458,7 +458,7 @@ export default function useOrbitalCarousel(options = {}) {
           return;
         }
         dragging.value = false;
-        const itemsDragged = -dragDistance / DRAG_RATIO;
+        const itemsDragged = dragDistance / DRAG_RATIO;
         let targetPos = Math.round(startPosition + itemsDragged);
         targetPos = ((targetPos % ITEM_COUNT) + ITEM_COUNT) % ITEM_COUNT;
         gsap.to(position, {
