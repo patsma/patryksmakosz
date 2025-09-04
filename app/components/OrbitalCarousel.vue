@@ -22,11 +22,6 @@ const props = defineProps({
   /** @type {number} */ verticalOffset: { type: Number, default: 28 },
 });
 
-// Mouse position for custom drag icon
-const mouse = ref({ x: 0, y: 0 }); // clientX/clientY (viewport)
-const lastPage = ref({ x: 0, y: 0 }); // pageX/pageY (document)
-const isPressed = ref(false);
-const showCustomCursor = ref(false);
 const sectionRef = ref(null);
 
 // Use the composable
@@ -144,49 +139,15 @@ function animateHoloText() {
   });
 }
 
-// Always track mouse position in the section
-function handleSectionMouseMove(e) {
-  mouse.value = { x: e.clientX, y: e.clientY };
-  lastPage.value = { x: e.pageX, y: e.pageY };
-  if (!showCustomCursor.value) showCustomCursor.value = true;
-}
-function handleSectionMouseLeave() {
-  showCustomCursor.value = false;
-}
-
 onMounted(() => {
-  if (sectionRef.value) {
-    sectionRef.value.addEventListener("mousemove", handleSectionMouseMove);
-    sectionRef.value.addEventListener("mouseleave", handleSectionMouseLeave);
-  }
   // Initial split animation after first render
   nextTick().then(() => animateHoloText());
 });
 
 // Clean up
-onBeforeUnmount(() => {
-  if (sectionRef.value) {
-    sectionRef.value.removeEventListener("mousemove", handleSectionMouseMove);
-    sectionRef.value.removeEventListener("mouseleave", handleSectionMouseLeave);
-  }
-});
+onBeforeUnmount(() => {});
 
-// Scale icon down on mousedown/dragging, restore on mouseup
-function handleMouseDown() {
-  isPressed.value = true;
-}
-function handleMouseUp() {
-  isPressed.value = false;
-}
 
-onMounted(() => {
-  window.addEventListener("mousedown", handleMouseDown);
-  window.addEventListener("mouseup", handleMouseUp);
-});
-onBeforeUnmount(() => {
-  window.removeEventListener("mousedown", handleMouseDown);
-  window.removeEventListener("mouseup", handleMouseUp);
-});
 
 // --- Watch for active item changes and update currentIndex ---
 watch(
@@ -278,22 +239,6 @@ watch(currentIndex, async () => {
             />
           </div>
         </template>
-        <!-- Custom drag icon at viewport (fixed) position -->
-        <transition name="fade-cursor">
-          <div
-            v-if="showCustomCursor"
-            :style="{
-              left: mouse.x + 'px',
-              top: mouse.y + 'px',
-              transform:
-                'translate(-50%, -50%) ' +
-                (isPressed || dragging ? 'scale(0.85)' : 'scale(1)'),
-            }"
-            class="fixed z-[300] pointer-events-none transition-transform duration-200"
-          >
-            <IconDraggableSVG class="w-16 h-16" />
-          </div>
-        </transition>
       </div>
     </div>
   </div>
