@@ -20,7 +20,7 @@
     <MorphingLogo
       class="fixed z-10 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
     />
-    <LogoHorizontal
+    <LogoHorizontalSmall
       class="fixed z-10 cursor-pointer left-1/2 top-8 -translate-x-1/2 -translate-y-1/2 w-full h-10"
     />
     <HamburgerMenu />
