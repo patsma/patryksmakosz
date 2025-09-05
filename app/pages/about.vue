@@ -129,7 +129,7 @@
         {
           type: 'filled',
           link: 'mailto:patryksmakosz1@gmail.com',
-          text: 'Start Your Project',
+          text: 'Let\'s chat 😁',
         },
       ]"
     />
