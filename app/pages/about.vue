@@ -102,7 +102,7 @@
     <ImageSteppers
       title="My Approach to Digital Craftsmanship"
       copy="Beyond the standard process, my commitment is to deliver exceptional, animated web experiences built on robust foundations and clear communication."
-      image-src="/assets/web-optimized-jpgs/about-me.jpg"
+      image-src="/assets/medias/steps.svg"
       :steps="[
         {
           title: 'Web Animation Mastery',

@@ -3,6 +3,9 @@
 .image-steppers {
   $root: &;
   display: grid;
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
   align-items: start;
   gap: space(14);
   @include padding;
@@ -34,7 +37,7 @@
       height: 60rem;
     }
     @include laptop {
-      height: 60%;
+      height: 100%;
     }
   }
 
