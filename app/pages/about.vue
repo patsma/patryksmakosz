@@ -61,7 +61,7 @@
           testimonial_name: 'Sarah Johnson',
           testimonial_position: 'Creative Director',
           permalink: '/projects/life-balance-congress',
-          thumbnail_url: '/assets/medias/lbc-thumb.svg',
+          thumbnail_url: '/assets/case/caseLbc.svg',
         },
         {
           post_title: 'ArtTech Logo Animation',
@@ -72,7 +72,7 @@
           testimonial_name: 'Michael Chen',
           testimonial_position: 'CEO',
           permalink: '/projects/arttech',
-          thumbnail_url: '/assets/medias/arttech-thumb.svg',
+          thumbnail_url: '/assets/case/caseArtTech.svg',
         },
         {
           post_title: 'Riverscape',
@@ -83,7 +83,7 @@
           testimonial_name: 'Emma Rodriguez',
           testimonial_position: 'Marketing Manager',
           permalink: '/projects/riverscape',
-          thumbnail_url: '/assets/web-optimized-jpgs/riverscape.jpg',
+          thumbnail_url: '/assets/case/caseRiverscape.svg',
         },
         {
           post_title: 'Pushups Tracker',
@@ -94,7 +94,7 @@
           testimonial_name: 'David Kim',
           testimonial_position: 'Product Manager',
           permalink: '/projects/pushups-tracker',
-          thumbnail_url: '/assets/medias/pushups-thumb.svg',
+          thumbnail_url: '/assets/case/casePushups.svg',
         },
       ]"
       id-attr="featured-cases-1"
