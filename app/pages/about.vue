@@ -51,7 +51,44 @@
       :alternative-colors="false"
       :gradient-title="true"
       view-all-href="/case-studies"
-      :cases="[]"
+      :cases="[
+        {
+          post_title: 'Life Balance Congress (LBC)',
+          post_excerpt: 'Interactive web experience rich in scroll transitions, SVG animations, and GSAP effects built in Nuxt',
+          testimonial_content: 'Outstanding work on our interactive platform. The scroll animations and user experience exceeded our expectations.',
+          testimonial_name: 'Sarah Johnson',
+          testimonial_position: 'Creative Director',
+          permalink: '#',
+          thumbnail_url: '/Image-component-3.png',
+        },
+        {
+          post_title: 'ArtTech Logo Animation',
+          post_excerpt: 'Cyberpunk-inspired SVG logo animation featuring dynamic path motion, glitch distortions, and layered GSAP timelines',
+          testimonial_content: 'The logo animation perfectly captured our brand identity. Professional execution and creative vision.',
+          testimonial_name: 'Michael Chen',
+          testimonial_position: 'CEO',
+          permalink: '#',
+          thumbnail_url: '/Image-component-4.png',
+        },
+        {
+          post_title: 'Riverscape',
+          post_excerpt: 'Nuxt 2 website powered by headless WordPress backend with Locomotive Scroll and GSAP animation layer',
+          testimonial_content: 'Seamless integration and beautiful animations. The smooth scrolling experience is exactly what we wanted.',
+          testimonial_name: 'Emma Rodriguez',
+          testimonial_position: 'Marketing Manager',
+          permalink: '#',
+          thumbnail_url: '/Image-component-3.png',
+        },
+        {
+          post_title: 'Pushups Tracker',
+          post_excerpt: 'Local-first Nuxt 3 application using TypeScript, RxDB, Dexie.js and WebRTC for peer-to-peer sync',
+          testimonial_content: 'Impressive technical implementation. The offline-first approach and real-time sync work flawlessly.',
+          testimonial_name: 'David Kim',
+          testimonial_position: 'Product Manager',
+          permalink: '#',
+          thumbnail_url: '/Image-component-4.png',
+        },
+      ]"
       id-attr="featured-cases-1"
     />
     <ImageSteppers
