@@ -27,7 +27,7 @@
   &__inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
     gap: space(4);
     padding-inline: space(1);
 
@@ -47,6 +47,9 @@
     height: $size-button-height; // Keep consistent height
     display: flex;
     align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0px);
   }
 }
 
