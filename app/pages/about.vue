@@ -54,66 +54,78 @@
       :cases="[
         {
           post_title: 'Life Balance Congress (LBC)',
-          post_excerpt: 'Interactive web experience rich in scroll transitions, SVG animations, and GSAP effects built in Nuxt',
-          testimonial_content: 'Outstanding work on our interactive platform. The scroll animations and user experience exceeded our expectations.',
+          post_excerpt:
+            'Interactive web experience rich in scroll transitions, SVG animations, and GSAP effects built in Nuxt',
+          testimonial_content:
+            'Outstanding work on our interactive platform. The scroll animations and user experience exceeded our expectations.',
           testimonial_name: 'Sarah Johnson',
           testimonial_position: 'Creative Director',
-          permalink: '#',
+          permalink: '/projects/life-balance-congress',
           thumbnail_url: '/Image-component-3.png',
         },
         {
           post_title: 'ArtTech Logo Animation',
-          post_excerpt: 'Cyberpunk-inspired SVG logo animation featuring dynamic path motion, glitch distortions, and layered GSAP timelines',
-          testimonial_content: 'The logo animation perfectly captured our brand identity. Professional execution and creative vision.',
+          post_excerpt:
+            'Cyberpunk-inspired SVG logo animation featuring dynamic path motion, glitch distortions, and layered GSAP timelines',
+          testimonial_content:
+            'The logo animation perfectly captured our brand identity. Professional execution and creative vision.',
           testimonial_name: 'Michael Chen',
           testimonial_position: 'CEO',
-          permalink: '#',
+          permalink: '/projects/arttech',
           thumbnail_url: '/Image-component-4.png',
         },
         {
           post_title: 'Riverscape',
-          post_excerpt: 'Nuxt 2 website powered by headless WordPress backend with Locomotive Scroll and GSAP animation layer',
-          testimonial_content: 'Seamless integration and beautiful animations. The smooth scrolling experience is exactly what we wanted.',
+          post_excerpt:
+            'Nuxt 2 website powered by headless WordPress backend with Locomotive Scroll and GSAP animation layer',
+          testimonial_content:
+            'Seamless integration and beautiful animations. The smooth scrolling experience is exactly what we wanted.',
           testimonial_name: 'Emma Rodriguez',
           testimonial_position: 'Marketing Manager',
-          permalink: '#',
+          permalink: '/projects/riverscape',
           thumbnail_url: '/Image-component-3.png',
         },
         {
           post_title: 'Pushups Tracker',
-          post_excerpt: 'Local-first Nuxt 3 application using TypeScript, RxDB, Dexie.js and WebRTC for peer-to-peer sync',
-          testimonial_content: 'Impressive technical implementation. The offline-first approach and real-time sync work flawlessly.',
+          post_excerpt:
+            'Local-first Nuxt 3 application using TypeScript, RxDB, Dexie.js and WebRTC for peer-to-peer sync',
+          testimonial_content:
+            'Impressive technical implementation. The offline-first approach and real-time sync work flawlessly.',
           testimonial_name: 'David Kim',
           testimonial_position: 'Product Manager',
-          permalink: '#',
+          permalink: '/projects/pushups-tracker',
           thumbnail_url: '/Image-component-4.png',
         },
       ]"
       id-attr="featured-cases-1"
     />
     <ImageSteppers
-      title="Our process"
-      copy="Short description that explains the steps."
+      title="My Approach to Digital Craftsmanship"
+      copy="Beyond the standard process, my commitment is to deliver exceptional, animated web experiences built on robust foundations and clear communication."
       image-src="/Image-component-5.png"
       :steps="[
         {
-          title: 'Discover',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
+          title: 'Web Animation Mastery',
+          text: 'As a Top Web Animation Expert with over a decade of experience, I specialize in GSAP, SVG, and Canvas animations, creating smooth, performant motion that captures attention and enhances user engagement.',
         },
         {
-          title: 'Design',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
+          title: 'Solid Technical Foundation',
+          text: 'Expert in Nuxt.js, Vue.js, and WordPress development, I build robust, high-performance applications with clean, efficient code and responsive design systems optimized for speed and functionality.',
         },
         {
-          title: 'Deliver',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
+          title: 'Client-Focused Collaboration',
+          text: 'A decade of freelancing has taught me to be communicative, helpful, and honest. I prioritize understanding your vision to deliver projects on time and budget while fostering lasting professional relationships.',
+        },
+        {
+          title: 'Proven Track Record',
+          text: 'I transform complex ideas into captivating digital products that drive results. My work has delivered engaging, high-performing solutions for top-tier clients including Disney, Mazda, and Novo Nordisk.',
         },
       ]"
       :alternative-colors="false"
       :gradient-title="true"
       :flipped="false"
       :big-title="false"
-      :buttons="[{ type: 'filled', link: '#', text: 'Get started' }]"
+      :buttons="[{ type: 'filled', link: 'mailto:patryksmakosz1@gmail.com', text: 'Start Your Project' }]"
     />
     <ProjectPathAnimation />
   </div>
