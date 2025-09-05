@@ -280,7 +280,6 @@ const buildAnimations = () => {
       items[index],
       {
         background: "var(--color-white)",
-        boxShadow: "var(--shadow-elevation-1)",
         width: "auto",
         duration: 0.5,
       },

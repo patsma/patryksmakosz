@@ -7,6 +7,9 @@
   --contentHeight: 31.25rem;
   --maxWidth: 30rem;
   min-height: 50vh;
+  isolation: isolate;
+  position: relative;
+  z-index: 0;
   display: grid;
   padding-bottom: 5rem;
   grid-template-areas: "title" "inner" "navigation";
