@@ -3,7 +3,7 @@
 .image-steppers {
   $root: &;
   display: grid;
-  align-items: center;
+  align-items: start;
   gap: space(14);
   @include padding;
 
@@ -21,20 +21,20 @@
       padding: 0 space(28);
     }
     @include laptop {
-      padding: space(16) 0;
+      padding: space(0) 0;
     }
   }
 
   &__img {
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
     height: 30.75rem;
     object-position: top;
     @include tablet {
       height: 60rem;
     }
     @include laptop {
-      height: 100%;
+      height: 60%;
     }
   }
 
@@ -42,6 +42,7 @@
     @include mobile-h4;
     max-width: 28.75rem;
     padding-bottom: 1.75rem;
+    @include text-gradient-1;
     @include laptop {
       @include h4;
     }

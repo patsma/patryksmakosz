@@ -50,7 +50,7 @@
       headline="Featured case studies"
       :alternative-colors="false"
       :gradient-title="true"
-      view-all-href="/case-studies"
+      view-all-href="/"
       :cases="[
         {
           post_title: 'Life Balance Congress (LBC)',
@@ -61,7 +61,7 @@
           testimonial_name: 'Sarah Johnson',
           testimonial_position: 'Creative Director',
           permalink: '/projects/life-balance-congress',
-          thumbnail_url: '/Image-component-3.png',
+          thumbnail_url: '/assets/medias/lbc-thumb.svg',
         },
         {
           post_title: 'ArtTech Logo Animation',
@@ -72,7 +72,7 @@
           testimonial_name: 'Michael Chen',
           testimonial_position: 'CEO',
           permalink: '/projects/arttech',
-          thumbnail_url: '/Image-component-4.png',
+          thumbnail_url: '/assets/medias/arttech-thumb.svg',
         },
         {
           post_title: 'Riverscape',
@@ -83,7 +83,7 @@
           testimonial_name: 'Emma Rodriguez',
           testimonial_position: 'Marketing Manager',
           permalink: '/projects/riverscape',
-          thumbnail_url: '/Image-component-3.png',
+          thumbnail_url: '/assets/web-optimized-jpgs/riverscape.jpg',
         },
         {
           post_title: 'Pushups Tracker',
@@ -94,7 +94,7 @@
           testimonial_name: 'David Kim',
           testimonial_position: 'Product Manager',
           permalink: '/projects/pushups-tracker',
-          thumbnail_url: '/Image-component-4.png',
+          thumbnail_url: '/assets/medias/pushups-thumb.svg',
         },
       ]"
       id-attr="featured-cases-1"
@@ -102,7 +102,7 @@
     <ImageSteppers
       title="My Approach to Digital Craftsmanship"
       copy="Beyond the standard process, my commitment is to deliver exceptional, animated web experiences built on robust foundations and clear communication."
-      image-src="/Image-component-5.png"
+      image-src="/assets/web-optimized-jpgs/about-me.jpg"
       :steps="[
         {
           title: 'Web Animation Mastery',
@@ -125,9 +125,16 @@
       :gradient-title="true"
       :flipped="false"
       :big-title="false"
-      :buttons="[{ type: 'filled', link: 'mailto:patryksmakosz1@gmail.com', text: 'Start Your Project' }]"
+      :buttons="[
+        {
+          type: 'filled',
+          link: 'mailto:patryksmakosz1@gmail.com',
+          text: 'Start Your Project',
+        },
+      ]"
     />
-    <ProjectPathAnimation />
+    <div class="spacer h-24"></div>
+    <!-- <ProjectPathAnimation /> -->
   </div>
 </template>
 

@@ -7,7 +7,10 @@
   gap: 4rem;
   min-height: 100vh;
   padding: 1.5rem;
+  padding-top: 5rem;
+  position: relative;
   isolation: isolate;
+  z-index: 5;
   @include laptop {
     padding: 5rem;
     min-height: unset;
@@ -20,8 +23,15 @@
   }
 
   .title {
-    @include h4;
+    @include h3;
+    line-height: 1;
     color: $black;
+    max-width: unset;
+    @include text-gradient-1;
+    @include laptop {
+      @include h1;
+      max-width: 50vw;
+    }
   }
 
   .paragraph {

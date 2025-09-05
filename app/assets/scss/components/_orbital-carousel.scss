@@ -5,6 +5,7 @@
 .orbital-carousel {
   position: relative;
   display: grid;
+  isolation: isolate;
   grid-template-areas: "canvas";
   min-height: 100vh;
   overflow: hidden;
