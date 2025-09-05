@@ -145,9 +145,10 @@
                 </g>
               </svg>
             </button>
+            <!-- Temporary hidden button until we have content -->
             <a
               :href="step.read_more_link || '#'"
-              class="button btn-standard-outlined carousel-timeline__button-inner"
+              class="button !hidden btn-standard-outlined carousel-timeline__button-inner"
               ref="buttonInnerRefs"
             >
               <span ref="buttonInnerSpanRefs">Read more</span>
