@@ -20,17 +20,19 @@
     <MorphingLogo
       class="fixed z-10 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
     />
-    <LogoHorizontalSmall
-      class="fixed z-10 cursor-pointer left-1/2 top-8 -translate-x-1/2 -translate-y-1/2 w-full h-10"
-    />
-    <HamburgerMenu />
+
+    <!-- Visible, semantic site header (fixed outside #smooth-content for GSAP) -->
+    <header class="site-header" role="banner" aria-label="Site header">
+      <div class="site-header__inner">
+        <div class="site-header__logo">
+          <LogoHorizontalSmall />
+        </div>
+        <HamburgerMenu />
+      </div>
+    </header>
 
     <div id="smooth-content">
       <!-- Use landmark roles and a main heading region -->
-      <header role="banner" aria-label="Site header" class="sr-only">
-        <!-- Hidden structural header (visual header is animated logo/menu) -->
-        <h1 class="sr-only">TastySites</h1>
-      </header>
 
       <main id="main-content" role="main" tabindex="-1">
         <slot />
