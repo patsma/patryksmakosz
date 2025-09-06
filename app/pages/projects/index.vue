@@ -7,11 +7,15 @@ const route = useRoute();
 const category = computed(() => route.query.category || "");
 
 const { data: projects } = await useAsyncData(
-  () => `projects-${category.value || "all"}`,
+  `projects-${category.value || "all"}`,
   async () => {
-    const q = queryCollection("projects");
-    if (category.value) q.where({ category: String(category.value) });
-    return q.sort({ title: 1 }).all();
+    const result = await queryCollection("projects").all();
+    
+    if (category.value) {
+      return result.filter(item => item.category === String(category.value));
+    }
+    
+    return result?.sort((a, b) => a.title?.localeCompare(b.title)) || [];
   }
 );
 
@@ -43,10 +47,10 @@ useHead({ title: "Projects" });
       <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <li
           v-for="p in projects"
-          :key="p._path"
+          :key="p.path || p.slug"
           class="border border-white/10 rounded-lg p-4"
         >
-          <NuxtLink :to="p._path" class="block">
+          <NuxtLink :to="p.path || `/projects/${p.slug}`" class="block">
             <div class="text-sm opacity-70">{{ p.category }}</div>
             <div class="text-lg font-medium">{{ p.title }}</div>
             <div v-if="p.summary" class="text-sm mt-2 opacity-80">

@@ -1,7 +1,7 @@
 ---
 title: "Player Prototype"
 slug: "player-prototype"
-category: "prototype"
+category: "custom-animation"
 cover: ""
 video: "/movies/web-optimized/player-svg-prototype.mp4"
 summary: "Prototype of an SVG NFL player presentation driven by JSON data. Supports dynamic player name and image with GSAP-powered motion and SVG filters."

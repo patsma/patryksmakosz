@@ -1,7 +1,7 @@
 ---
 title: "Riverscape"
 slug: "riverscape"
-category: "real-estate-website"
+category: "website"
 cover: "/assets/medias/riverscape-thumb.svg"
 video: "/movies/web-optimized/riverscape.mp4"
 liveLink: "https://www.riverscape.co.uk/"

@@ -1,7 +1,7 @@
 ---
 title: "Pushups Tracker"
 slug: "pushups-tracker"
-category: "local-first-app"
+category: "website"
 cover: "/assets/medias/pushups-thumb.svg"
 video: "/movies/web-optimized/pushups-tracker.mp4"
 liveLink: "https://pushup-tracker.netlify.app/"

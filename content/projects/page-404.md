@@ -1,7 +1,7 @@
 ---
 title: "Page 404"
 slug: "page-404"
-category: "custom-page"
+category: "website"
 cover: "/assets/medias/page404-thumb.svg"
 video: "/movies/web-optimized/page404.mp4"
 summary: "Pixel-art custom 404 page with playful island theme: krakens, octopuses, and passing ships. Built with GSAP and SVG as part of a bespoke website."
