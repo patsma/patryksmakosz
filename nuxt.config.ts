@@ -113,6 +113,7 @@ export default defineNuxtConfig({
     },
     extraPlugins: {
       observer: true,
+      flip: true,
       scrollTrigger: true,
       motionPath: true,
     },

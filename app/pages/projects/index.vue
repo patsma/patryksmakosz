@@ -1,170 +1,25 @@
 <script setup>
-// Projects index with reactive filtering and GSAP animations
-// - Lists all projects with smooth transitions
-// - Supports live category filtering with animations
-// - Uses GSAP following project component patterns
-
-// GSAP from Nuxt app (following ProjectZaksa/ProjectArtTech pattern)
-const { $gsap } = useNuxtApp();
-
+// Projects index with Vue CSS transitions
 const route = useRoute();
-const router = useRouter();
 const category = computed(() => route.query.category || "");
 
-// Reactive data that updates when category changes
+// Get all projects
 const { data: allProjects } = await useAsyncData("all-projects", async () => {
   const result = await queryCollection("projects").all();
   return result?.sort((a, b) => a.title?.localeCompare(b.title)) || [];
 });
 
-// Manually controlled projects data for smooth animations
-const currentCategory = ref(category.value);
+// Filtered projects - reactive
 const projects = computed(() => {
   if (!allProjects.value) return [];
-  
-  if (currentCategory.value) {
-    return allProjects.value.filter((item) => item.category === String(currentCategory.value));
+
+  if (category.value) {
+    return allProjects.value.filter(
+      (item) => item.category === String(category.value)
+    );
   }
-  
+
   return allProjects.value;
-});
-
-// Refs for GSAP animations
-const projectsContainerRef = ref(null);
-const projectItemsRef = ref([]);
-let gsapCtx = null;
-let isAnimating = ref(false);
-
-// Animation functions following ProjectZaksa pattern
-const animateProjectsOut = () => {
-  if (!projectItemsRef.value?.length) return Promise.resolve();
-  
-  return new Promise((resolve) => {
-    $gsap.to(projectItemsRef.value, {
-      duration: 0.3,
-      y: -20,
-      opacity: 0,
-      stagger: {
-        amount: 0.12,
-        from: "start"
-      },
-      ease: "power2.in",
-      onComplete: () => {
-        // Clear any transforms after animation
-        $gsap.set(projectItemsRef.value, { clearProps: "all" });
-        resolve();
-      },
-    });
-  });
-};
-
-const animateProjectsIn = () => {
-  return new Promise((resolve) => {
-    nextTick(() => {
-      if (!projectItemsRef.value?.length) {
-        resolve();
-        return;
-      }
-      
-      // Set initial state
-      $gsap.set(projectItemsRef.value, {
-        y: 20,
-        opacity: 0,
-        clearProps: "transform", // Clear any previous transforms
-      });
-      
-      // Animate in with clean final state
-      $gsap.to(projectItemsRef.value, {
-        duration: 0.4,
-        y: 0,
-        opacity: 1,
-        stagger: {
-          amount: 0.16,
-          from: "start"
-        },
-        ease: "power2.out",
-        onComplete: () => {
-          // Clear transforms when animation completes to prevent jumps
-          $gsap.set(projectItemsRef.value, { clearProps: "transform" });
-          resolve();
-        },
-      });
-    });
-  });
-};
-
-// Smooth transition function
-const transitionToCategory = async (newCategory) => {
-  if (isAnimating.value || newCategory === currentCategory.value) return;
-  
-  isAnimating.value = true;
-  
-  // Step 1: Animate out current projects
-  await animateProjectsOut();
-  
-  // Step 2: Update the data (triggers DOM re-render)
-  currentCategory.value = newCategory;
-  projectItemsRef.value = []; // Clear refs for new elements
-  
-  // Step 3: Wait a frame for DOM update, then animate in new projects
-  await nextTick();
-  await animateProjectsIn();
-  
-  isAnimating.value = false;
-};
-
-// Watch URL changes and trigger smooth transition
-watch(category, async (newCategory, oldCategory) => {
-  if (newCategory !== oldCategory) {
-    await transitionToCategory(newCategory);
-  }
-}, { immediate: false });
-
-// Set project item refs
-const setProjectItemRef = (el) => {
-  if (el && !projectItemsRef.value.includes(el)) {
-    projectItemsRef.value.push(el);
-  }
-};
-
-// Initialize current category on mount
-onMounted(() => {
-  // Set initial category from URL
-  currentCategory.value = category.value;
-  
-  nextTick(() => {
-    gsapCtx = $gsap.context(() => {
-      // Initial animation for projects on mount
-      if (projectItemsRef.value?.length) {
-        // Set initial state and animate in
-        $gsap.set(projectItemsRef.value, {
-          y: 25,
-          opacity: 0,
-          clearProps: "transform", // Start clean
-        });
-        
-        $gsap.to(projectItemsRef.value, {
-          duration: 0.5,
-          y: 0,
-          opacity: 1,
-          stagger: {
-            amount: 0.2,
-            from: "start"
-          },
-          ease: "power2.out",
-          delay: 0.1,
-          onComplete: () => {
-            // Clear transforms when done to prevent layout issues
-            $gsap.set(projectItemsRef.value, { clearProps: "transform" });
-          },
-        });
-      }
-    }, projectsContainerRef.value);
-  });
-});
-
-onUnmounted(() => {
-  if (gsapCtx) gsapCtx.revert();
 });
 
 useHead({ title: "Projects" });
@@ -173,45 +28,54 @@ useHead({ title: "Projects" });
 <template>
   <section class="min-h-screen w-full pt-12">
     <div class="container mx-auto px-6 py-10">
-      <div class="flex items-center justify-between mb-6">
-        <h1 class="text-2xl font-semibold">Projects</h1>
-        <div class="flex gap-2 flex-wrap">
-          <NuxtLink 
-            class="underline underline-offset-4 transition-opacity" 
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold mb-8 text-center text-gray-900">
+          Projects
+        </h1>
+
+        <!-- Filter Navigation -->
+        <div class="flex flex-wrap gap-4 justify-center mb-8">
+          <NuxtLink
+            class="filter-button group"
             to="/projects"
-            :class="{ 
-              'font-semibold': !currentCategory, 
-              'opacity-50 pointer-events-none': isAnimating 
-            }"
-            >All (15)</NuxtLink
+            :class="{ 'filter-button--active': !category }"
           >
+            <Icon name="mdi:view-grid" class="w-5 h-5" />
+            <span>All</span>
+            <span class="filter-count">(15)</span>
+          </NuxtLink>
+
           <NuxtLink
-            class="underline underline-offset-4 transition-opacity"
+            class="filter-button group"
             :to="{ path: '/projects', query: { category: 'logo-animation' } }"
-            :class="{ 
-              'font-semibold': currentCategory === 'logo-animation',
-              'opacity-50 pointer-events-none': isAnimating
-            }"
-            >Logo Animations (7)</NuxtLink
+            :class="{ 'filter-button--active': category === 'logo-animation' }"
           >
+            <Icon name="mdi:animation" class="w-5 h-5" />
+            <span>Logo Animations</span>
+            <span class="filter-count">(7)</span>
+          </NuxtLink>
+
           <NuxtLink
-            class="underline underline-offset-4 transition-opacity"
+            class="filter-button group"
             :to="{ path: '/projects', query: { category: 'website' } }"
-            :class="{ 
-              'font-semibold': currentCategory === 'website',
-              'opacity-50 pointer-events-none': isAnimating
-            }"
-            >Websites (6)</NuxtLink
+            :class="{ 'filter-button--active': category === 'website' }"
           >
+            <Icon name="mdi:web" class="w-5 h-5" />
+            <span>Websites</span>
+            <span class="filter-count">(6)</span>
+          </NuxtLink>
+
           <NuxtLink
-            class="underline underline-offset-4 transition-opacity"
+            class="filter-button group"
             :to="{ path: '/projects', query: { category: 'custom-animation' } }"
-            :class="{ 
-              'font-semibold': currentCategory === 'custom-animation',
-              'opacity-50 pointer-events-none': isAnimating
+            :class="{
+              'filter-button--active': category === 'custom-animation',
             }"
-            >Custom Animations (2)</NuxtLink
           >
+            <Icon name="mdi:palette" class="w-5 h-5" />
+            <span>Custom Animations</span>
+            <span class="filter-count">(2)</span>
+          </NuxtLink>
         </div>
       </div>
 
@@ -219,26 +83,199 @@ useHead({ title: "Projects" });
         <p>No projects found.</p>
       </div>
 
-      <ul ref="projectsContainerRef" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <li
-          v-for="p in projects"
-          :key="p.path || p.slug"
-          :ref="setProjectItemRef"
-          class="border border-white/10 rounded-lg p-4 transition-transform hover:scale-[1.02]"
-        >
-          <NuxtLink :to="p.path || `/projects/${p.slug}`" class="block">
-            <div class="text-sm opacity-70">{{ p.category }}</div>
-            <div class="text-lg font-medium">{{ p.title }}</div>
-            <div v-if="p.summary" class="text-sm mt-2 opacity-80">
+      <TransitionGroup
+        name="list"
+        tag="ul"
+        class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        <li v-for="p in projects" :key="p.path || p.slug" class="project-card">
+          <NuxtLink
+            :to="p.path || `/projects/${p.slug}`"
+            class="project-card__link"
+          >
+            <div class="project-card__header">
+              <span class="project-card__category">
+                <Icon
+                  :name="
+                    p.category === 'logo-animation'
+                      ? 'mdi:animation'
+                      : p.category === 'website'
+                        ? 'mdi:web'
+                        : 'mdi:palette'
+                  "
+                  class="w-4 h-4"
+                />
+                {{ p.category }}
+              </span>
+            </div>
+
+            <h3 class="project-card__title">{{ p.title }}</h3>
+
+            <p v-if="p.summary" class="project-card__summary">
               {{ p.summary }}
+            </p>
+
+            <div class="project-card__footer">
+              <span class="project-card__cta">
+                View Project
+                <Icon name="mdi:arrow-right" class="w-4 h-4" />
+              </span>
             </div>
           </NuxtLink>
         </li>
-      </ul>
+      </TransitionGroup>
     </div>
   </section>
 </template>
 
-<style scoped>
-/* Keep styling minimal; rely on Tailwind */
+<style lang="scss" scoped>
+@use "~/assets/scss/variables" as *;
+
+/* Simple fade transitions */
+.list-enter-active,
+.list-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+}
+
+.list-move {
+  transition: transform 0.3s ease;
+}
+
+/* Filter buttons */
+.filter-button {
+  display: flex;
+  align-items: center;
+  gap: space(2);
+  padding: space(3) space(4);
+  background: rgba($gray-1, 0.5);
+  border: $border-1 solid rgba($gray-3, 0.3);
+  border-radius: $radius-lg;
+  color: $gray-5;
+  text-decoration: none;
+  transition: $transition;
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  &:hover {
+    background: rgba($primary-3, 0.3);
+    border-color: $primary-2;
+    color: $primary-1;
+    transform: translateY(-2px);
+  }
+
+  &--active {
+    background: $gradient-1;
+    border-color: $primary-2;
+    color: $white;
+    font-weight: 600;
+  }
+}
+
+.filter-count {
+  opacity: 0.6;
+  font-size: 0.75rem;
+}
+
+/* Project cards */
+.project-card {
+  transition: $transition;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.project-card__link {
+  display: block;
+  height: 100%;
+  background: $white;
+  border: $border-1 solid rgba($gray-3, 0.4);
+  border-radius: $radius-lg;
+  padding: space(6);
+  text-decoration: none;
+  transition: $transition;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba($black, 0.05);
+
+  &:hover {
+    background: $white;
+    // border-color: $primary-2;
+    box-shadow: 0 8px 25px rgba($primary-2, 0.15);
+
+    .project-card__cta {
+      transform: translateX(space(1));
+      opacity: 1;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: space(2.25);
+    background: $gradient-1;
+    opacity: 0;
+    transition: $transition;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+.project-card__header {
+  margin-bottom: space(4);
+}
+
+.project-card__category {
+  display: inline-flex;
+  align-items: center;
+  gap: space(1);
+  padding: space(1) space(3);
+  background: rgba($primary-2, 0.1);
+  border-radius: $radius-sm;
+  color: $primary-2;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.project-card__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $primary-1;
+  margin-bottom: space(3);
+  line-height: 1.3;
+}
+
+.project-card__summary {
+  color: $gray-5;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: space(4);
+}
+
+.project-card__footer {
+  margin-top: auto;
+}
+
+.project-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: space(1);
+  color: $primary-2;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: $transition;
+  opacity: 0.8;
+}
 </style>
