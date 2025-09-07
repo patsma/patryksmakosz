@@ -1,5 +1,7 @@
 <script setup>
 import { useSwipe } from "maz-ui/composables";
+import { useHintsStore } from "~/stores/hints";
+import useIsMobile from "~/composables/useIsMobile";
 // Dynamic project page driven by @nuxt/content
 // - Renders markdown body via <ContentRenderer>
 // - Provides basic error and loading states
@@ -97,14 +99,6 @@ const handleKeydown = (event) => {
   }
 };
 
-onMounted(() => {
-  window.addEventListener("keydown", handleKeydown, { passive: true });
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("keydown", handleKeydown);
-});
-
 // Swipe navigation using Maz-UI useSwipe composable
 // Attach to the root section via a template ref
 const pageRef = ref(null);
@@ -121,11 +115,59 @@ const { start: startSwipe, stop: stopSwipe } = useSwipe({
   threshold: 56,
 });
 
+// Navigation hints management
+const hintsStore = useHintsStore();
+const showDesktopHint = ref(false);
+const showMobileHint = ref(false);
+
+// Use proper mobile detection composable
+const { isMobile } = useIsMobile();
+
+// Check if we should show navigation hints
+const shouldShowNavigationHints = computed(() => {
+  // Only show hints if there are multiple projects to navigate between
+  return !!(prevProject.value || nextProject.value) && !!project.value;
+});
+
 onMounted(() => {
+  // Initialize keyboard navigation
+  window.addEventListener("keydown", handleKeydown, { passive: true });
+
+  // Initialize swipe navigation
   startSwipe();
+
+  // Initialize hints system
+  hintsStore.loadPersistedHints();
+
+  // Show hints after a delay if they haven't been shown before
+  setTimeout(() => {
+    if (shouldShowNavigationHints.value) {
+      if (
+        !hintsStore.hasShown("project-navigation-desktop") &&
+        !isMobile.value
+      ) {
+        showDesktopHint.value = true;
+        // Auto-hide after 4 seconds
+        setTimeout(() => {
+          showDesktopHint.value = false;
+          hintsStore.markAsShown("project-navigation-desktop");
+        }, 4000);
+      }
+
+      if (!hintsStore.hasShown("project-navigation-mobile") && isMobile.value) {
+        showMobileHint.value = true;
+        // Auto-hide after 4 seconds
+        setTimeout(() => {
+          showMobileHint.value = false;
+          hintsStore.markAsShown("project-navigation-mobile");
+        }, 4000);
+      }
+    }
+  }, 2000);
 });
 
 onBeforeUnmount(() => {
+  window.removeEventListener("keydown", handleKeydown);
   stopSwipe();
 });
 
@@ -210,6 +252,61 @@ const debugInfo = computed(() => ({
         </div>
       </div>
     </div>
+
+    <!-- Desktop Navigation Hint (Arrow Keys) -->
+    <Transition
+      enter-active-class="transition-all duration-500 ease-out"
+      leave-active-class="transition-all duration-300 ease-in"
+      enter-from-class="opacity-0 translate-y-2 scale-95"
+      enter-to-class="opacity-100 translate-y-0 scale-100"
+      leave-from-class="opacity-100 translate-y-0 scale-100"
+      leave-to-class="opacity-0 translate-y-2 scale-95"
+    >
+      <div
+        v-if="showDesktopHint"
+        class="fixed top-[70vh] left-1/2 transform -translate-x-1/2 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white/80 text-xs max-w-xs pointer-events-none z-50"
+      >
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1">
+            <kbd class="px-2 py-1 bg-white/20 rounded text-xs">←</kbd>
+            <kbd class="px-2 py-1 bg-white/20 rounded text-xs">→</kbd>
+          </div>
+          <span>Use arrow keys to navigate projects</span>
+        </div>
+      </div>
+    </Transition>
+
+    <!-- Mobile Navigation Hint (Swipe Gestures) -->
+    <Transition
+      enter-active-class="transition-all duration-500 ease-out"
+      leave-active-class="transition-all duration-300 ease-in"
+      enter-from-class="opacity-0 translate-y-2 scale-95"
+      enter-to-class="opacity-100 translate-y-0 scale-100"
+      leave-from-class="opacity-100 translate-y-0 scale-100"
+      leave-to-class="opacity-0 translate-y-2 scale-95"
+    >
+      <div
+        v-if="showMobileHint"
+        class="fixed top-[70vh] left-1/2 transform -translate-x-1/2 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white/80 text-xs max-w-xs pointer-events-none z-50"
+      >
+        <div class="flex items-center gap-2">
+          <svg
+            class="w-4 h-4 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 16l-4-4m0 0l4-4m-4 4h18M17 8l4 4m0 0l-4 4"
+            />
+          </svg>
+          <span>Swipe to navigate</span>
+        </div>
+      </div>
+    </Transition>
   </section>
 </template>
 

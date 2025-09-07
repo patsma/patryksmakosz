@@ -7,7 +7,7 @@
     - User-friendly messaging for autoplay blocks and fullscreen capability
   -->
   <section
-    class="relative w-full h-vh-minus-header min-h-vh-minus-header overflow-hidden bg-black"
+    class="relative w-full h-vh-minus-header min-h-vh-minus-header overflow-hidden cursor-pointer bg-black"
     :aria-label="ariaLabel || 'Hero video'"
   >
     <!-- Video element with smooth opacity transition -->
