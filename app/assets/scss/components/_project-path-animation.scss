@@ -44,7 +44,7 @@
         background: linear-gradient(
           135deg,
           var(--color-white),
-          var(--color-primary-1)
+          var(--color-primary-2)
         );
         -webkit-background-clip: text;
         background-clip: text;
@@ -290,7 +290,7 @@
     height: 100%;
     z-index: 2;
     pointer-events: none;
-    // opacity: 0; // keep non-intrusive by default
+    opacity: 0; // keep non-intrusive by default
   }
 
   .path-svg path {

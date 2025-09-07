@@ -41,6 +41,10 @@
                 data-control-x="0.25"
                 data-control-y="-100"
               ></div>
+              <!-- 
+                data-offset-x="-15"
+                data-offset-y="-10"
+              -->
               <Icon name="logos:nuxt-icon" size="24" />
               <span>Nuxt.js</span>
             </div>
@@ -51,6 +55,8 @@
                 data-path-order="2"
                 data-control-x="0.25"
                 data-control-y="-100"
+                data-offset-x="2"
+                data-offset-y="-1"
               ></div>
               <Icon name="logos:vue" size="24" />
               <span>Vue.js</span>
@@ -73,6 +79,8 @@
                 data-path-order="4"
                 data-control-x="0.25"
                 data-control-y="-100"
+                data-offset-x="3"
+                data-offset-y="0.5"
               ></div>
               <Icon name="logos:threejs" size="24" />
               <span>Three.js</span>
@@ -116,6 +124,8 @@
                 data-path-order="6"
                 data-control-x="0.25"
                 data-control-y="-100"
+                data-offset-x="-2"
+                data-offset-y="-0.5"
               ></div>
             </div>
             <div class="milestone-content">
@@ -303,9 +313,17 @@ const getPathPointPositions = (rootEl) => {
     const baseX = rect.left - rootRect.left + rect.width / 2;
     const baseY = rect.top - rootRect.top + rect.height / 2;
 
+    // Get responsive offsets (in viewport units for easy responsiveness)
+    const offsetXVw = parseFloat(point.getAttribute("data-offset-x")) || 0;
+    const offsetYVh = parseFloat(point.getAttribute("data-offset-y")) || 0;
+
+    // Convert viewport units to pixels
+    const offsetX = (offsetXVw / 100) * window.innerWidth;
+    const offsetY = (offsetYVh / 100) * window.innerHeight;
+
     return {
-      x: baseX,
-      y: baseY,
+      x: baseX + offsetX,
+      y: baseY + offsetY,
       controlX: parseFloat(point.getAttribute("data-control-x")) || 0.25,
       controlY: parseFloat(point.getAttribute("data-control-y")) || -100,
       order: parseInt(point.getAttribute("data-path-order")) || 0,
