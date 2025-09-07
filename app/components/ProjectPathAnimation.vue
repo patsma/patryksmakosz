@@ -13,52 +13,150 @@
     </svg>
 
     <!-- Three full-screen sections with built-in dummy points -->
+    <!-- Section 1: Introduction & Skills Constellation -->
     <div class="section section-1">
       <div class="content">
-        <h2>Section One</h2>
-        <p>Scroll to move the ball along the path.</p>
+        <div class="intro-header">
+          <h1>Hello! I'm Patryk</h1>
+          <p class="intro-tagline">
+            Front-end Developer & Creative Web Animator with 10+ years experience
+          </p>
+          <p class="intro-description">
+            Passionate about bringing 'fun things in web' to life - transforming static designs 
+            into captivating, interactive experiences. Recognized as a Top Web Animation Expert on UpWork.
+          </p>
+        </div>
+        
+        <div class="skills-constellation">
+          <h3>Skills & Technologies</h3>
+          <div class="skills-grid">
+            <!-- Skill bubbles with positioned dummy points -->
+            <div class="skill-bubble" data-skill="nuxt">
+              <div class="dummy-point" data-path-point data-path-order="1" data-control-x="0.3" data-control-y="-120"></div>
+              <Icon name="logos:nuxt-icon" size="24" />
+              <span>Nuxt.js</span>
+            </div>
+            <div class="skill-bubble" data-skill="vue">
+              <div class="dummy-point" data-path-point data-path-order="2" data-control-x="0.25" data-control-y="-80"></div>
+              <Icon name="logos:vue" size="24" />
+              <span>Vue.js</span>
+            </div>
+            <div class="skill-bubble" data-skill="gsap">
+              <div class="dummy-point" data-path-point data-path-order="3" data-control-x="0.2" data-control-y="-100"></div>
+              <Icon name="simple-icons:greensock" size="24" />
+              <span>GSAP</span>
+            </div>
+            <div class="skill-bubble" data-skill="threejs">
+              <div class="dummy-point" data-path-point data-path-order="4" data-control-x="0.25" data-control-y="-150"></div>
+              <Icon name="logos:threejs" size="24" />
+              <span>Three.js</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div
-        v-for="(d, i) in section1Dummies"
-        :key="`s1-${i}`"
-        :ref="setDummyRef"
-        class="dummy dummy-desktop"
-        :data-control-x="d.controlX"
-        :data-control-y="d.controlY"
-        :style="{ top: d.top, left: d.left }"
-      />
+      
     </div>
 
+    <!-- Section 2: Experience Timeline -->
     <div class="section section-2">
       <div class="content">
-        <h2>Section Two</h2>
-        <p>Smoothly continues across the page.</p>
+        <div class="timeline-header">
+          <h2>Professional Journey</h2>
+          <p>A decade of crafting digital experiences</p>
+        </div>
+        
+        <div class="timeline-milestones">
+          <!-- Career milestones with ordered dummy points -->
+          <div class="milestone" data-year="2023">
+            <div class="milestone-dot">
+              <div class="dummy-point" data-path-point data-path-order="5" data-control-x="0.3" data-control-y="-100"></div>
+            </div>
+            <div class="milestone-content">
+              <h4>Complex SVG Animations</h4>
+              <p>Advanced logo animations & isometric projects</p>
+            </div>
+          </div>
+          
+          <div class="milestone" data-year="2022-2023">
+            <div class="milestone-dot">
+              <div class="dummy-point" data-path-point data-path-order="6" data-control-x="0.25" data-control-y="-120"></div>
+            </div>
+            <div class="milestone-content">
+              <h4>Senior Frontend @ BÆRNHOLDT</h4>
+              <p>Disney, Mazda, Novo Nordisk projects</p>
+            </div>
+          </div>
+          
+          <div class="milestone" data-year="2018">
+            <div class="milestone-dot">
+              <div class="dummy-point" data-path-point data-path-order="7" data-control-x="0.2" data-control-y="-80"></div>
+            </div>
+            <div class="milestone-content">
+              <h4>Founded TastySites</h4>
+              <p>CEO & Creative Lead</p>
+            </div>
+          </div>
+          
+          <div class="milestone" data-year="2017-2018">
+            <div class="milestone-dot">
+              <div class="dummy-point" data-path-point data-path-order="8" data-control-x="0.25" data-control-y="-150"></div>
+            </div>
+            <div class="milestone-content">
+              <h4>Creative Coder @ GREEN RUBINO</h4>
+              <p>Interactive web content & SVG banners</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div
-        v-for="(d, i) in section2Dummies"
-        :key="`s2-${i}`"
-        :ref="setDummyRef"
-        class="dummy dummy-desktop"
-        :data-control-x="d.controlX"
-        :data-control-y="d.controlY"
-        :style="{ top: d.top, left: d.left }"
-      />
+      
     </div>
 
+    <!-- Section 3: Contact & Future -->
     <div class="section section-3">
       <div class="content">
-        <h2>Section Three</h2>
-        <p>Path ends here.</p>
+        <div class="contact-header">
+          <h2>Let's Connect!</h2>
+          <p>Ready to bring your vision to life</p>
+        </div>
+        
+        <div class="contact-info">
+          <div class="contact-grid">
+            <!-- Contact items with dummy points -->
+            <div class="contact-item">
+              <div class="dummy-point" data-path-point data-path-order="9" data-control-x="0.2" data-control-y="-100"></div>
+              <Icon name="mdi:email" size="24" />
+              <span>kontakt@tastysites.pl</span>
+            </div>
+            <div class="contact-item">
+              <div class="dummy-point" data-path-point data-path-order="10" data-control-x="0.25" data-control-y="-120"></div>
+              <Icon name="mdi:linkedin" size="24" />
+              <span>@patryksmakosz</span>
+            </div>
+            <div class="contact-item">
+              <Icon name="mdi:web" size="24" />
+              <span>tastysites.pl</span>
+            </div>
+            <div class="contact-item">
+              <Icon name="mdi:map-marker" size="24" />
+              <span>Gdansk, Poland</span>
+            </div>
+          </div>
+          
+          <div class="cta-section">
+            <!-- Final target with ordered dummy point -->
+            <div class="connection-target" id="final-target">
+              <div class="dummy-point" data-path-point data-path-order="11" data-control-x="0.15" data-control-y="-80"></div>
+              <div class="target-ring"></div>
+              <div class="target-center">🎯</div>
+            </div>
+            <p class="cta-text">
+              Whether you need GSAP animations, Nuxt.js apps, or bespoke WordPress development - 
+              I'm here to transform your ideas into exceptional digital experiences.
+            </p>
+          </div>
+        </div>
       </div>
-      <div
-        v-for="(d, i) in section3Dummies"
-        :key="`s3-${i}`"
-        :ref="setDummyRef"
-        class="dummy dummy-desktop"
-        :data-control-x="d.controlX"
-        :data-control-y="d.controlY"
-        :style="{ top: d.top, left: d.left }"
-      />
+      
     </div>
   </section>
 </template>
@@ -73,31 +171,9 @@ const rootRef = ref(null);
 const ballRef = ref(null);
 const pathSvgRef = ref(null);
 const pathRef = ref(null);
-const dummyRefs = ref([]);
 let resizeObserver = null;
 let resizeTimer = null;
 
-onBeforeUpdate(() => {
-  dummyRefs.value = [];
-});
-
-// Helper to collect refs from v-for reliably
-const setDummyRef = (el) => {
-  if (el) dummyRefs.value.push(el);
-};
-
-const section1Dummies = [
-  { top: "50%", left: "50%", controlX: 0.25, controlY: -100 },
-  { top: "55%", left: "60%", controlX: 0.25, controlY: -150 },
-];
-const section2Dummies = [
-  { top: "50%", left: "10%", controlX: 0.25, controlY: -100 },
-  { top: "70%", left: "50%", controlX: 0.25, controlY: -200 },
-];
-const section3Dummies = [
-  { top: "30%", left: "75%", controlX: 0.25, controlY: -150 },
-  { top: "85%", left: "30%", controlX: 0.25, controlY: -100 },
-];
 
 onMounted(() => {
   nextTick(() => {
@@ -128,17 +204,29 @@ onUnmounted(() => {
   }
 });
 
-const getDummyPositionsFromRefs = (rootEl) => {
-  const rootRect = rootEl
-    ? rootEl.getBoundingClientRect()
-    : { left: 0, top: 0 };
-  return dummyRefs.value.map((dummy) => {
-    const rect = dummy.getBoundingClientRect();
+// Enhanced system: get positions from ordered DOM elements with [data-path-point]
+const getPathPointPositions = (rootEl) => {
+  if (!rootEl) return [];
+  
+  const rootRect = rootEl.getBoundingClientRect();
+  const pathPoints = rootEl.querySelectorAll('[data-path-point]');
+  
+  // Sort by data-path-order attribute to ensure correct sequence
+  const sortedPoints = Array.from(pathPoints).sort((a, b) => {
+    const orderA = parseInt(a.getAttribute("data-path-order")) || 0;
+    const orderB = parseInt(b.getAttribute("data-path-order")) || 0;
+    return orderA - orderB;
+  });
+  
+  return sortedPoints.map((point) => {
+    const rect = point.getBoundingClientRect();
     return {
       x: rect.left - rootRect.left + rect.width / 2,
       y: rect.top - rootRect.top + rect.height / 2,
-      controlX: parseFloat(dummy.getAttribute("data-control-x")) || 0.25,
-      controlY: parseFloat(dummy.getAttribute("data-control-y")) || -100,
+      controlX: parseFloat(point.getAttribute("data-control-x")) || 0.25,
+      controlY: parseFloat(point.getAttribute("data-control-y")) || -100,
+      order: parseInt(point.getAttribute("data-path-order")) || 0,
+      element: point, // Keep reference for future interactions
     };
   });
 };
@@ -173,19 +261,32 @@ const createBouncyPath = (points) => {
   return path;
 };
 
-const drawPath = (rootEl, selector, pathEl) => {
-  const points = getDummyPositionsFromRefs(rootEl);
+const drawPath = (rootEl, pathEl) => {
+  const points = getPathPointPositions(rootEl);
   if (points.length < 2) return { pathData: "", points: [] };
   const pathData = createBouncyPath(points);
   pathEl.setAttribute("d", pathData);
   return { pathData, points };
 };
 
+// Enhanced positioning system for precise element alignment
+const getElementPosition = (element, rootEl) => {
+  if (!element || !rootEl) return null;
+  const rootRect = rootEl.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+  return {
+    x: elementRect.left - rootRect.left + elementRect.width / 2,
+    y: elementRect.top - rootRect.top + elementRect.height / 2,
+  };
+};
+
 const recalcPathAndPosition = (root, pathEl, ball) => {
   // Wait a frame to ensure layout is settled after resize
   requestAnimationFrame(() => {
-    const { pathData, points } = drawPath(root, ".dummy-desktop", pathEl);
+    const { pathData, points } = drawPath(root, pathEl);
     if (!pathData || points.length === 0) return;
+    
+    // Position ball at first path point
     const firstPt = points[0];
     const half = 12; // ball is 24px
     $gsap.set(ball, { left: firstPt.x - half, top: firstPt.y - half });
@@ -198,7 +299,7 @@ const initializePathAnimation = () => {
   const pathEl = pathRef.value;
   if (!root || !ball || !pathEl) return;
 
-  const { pathData, points } = drawPath(root, ".dummy-desktop", pathEl);
+  let { pathData, points } = drawPath(root, pathEl);
   if (!pathData || points.length === 0) return;
 
   // Place the ball at the first dummy coordinates immediately (no snapping)
