@@ -2,7 +2,6 @@
 // Use GSAP through Nuxt injection to align with our animation standards
 const { $gsap } = useNuxtApp();
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import useParallaxImages from "/composables/useParallaxImages";
 
 /**
  * @typedef {Object} StepItem
@@ -159,10 +158,7 @@ onMounted(() => {
   };
   window.addEventListener("resize", resizeHandler, { passive: true });
 
-  // Enable parallax effect for any `.image--parallax-01 img` inside this component
-  parallaxCleanup = useParallaxImages({
-    containerElements: [parallaxContainerRef.value],
-  });
+  // ScrollSmoother handles data-speed="auto" automatically - no composable needed
 });
 
 onUnmounted(() => {
@@ -173,9 +169,7 @@ onUnmounted(() => {
   if (resizeHandler) {
     window.removeEventListener("resize", resizeHandler);
   }
-  if (parallaxCleanup) {
-    parallaxCleanup();
-  }
+  // ScrollSmoother cleans up automatically
 });
 </script>
 <template>
@@ -194,6 +188,7 @@ onUnmounted(() => {
           :src="imageSrcNormalized"
           alt=""
           data-speed="auto"
+          data-lag="0.2"
           format="webp"
         />
       </div>

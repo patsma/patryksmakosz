@@ -121,6 +121,7 @@
             :src="item.thumbnail_url"
             :alt="item.post_title"
             data-speed="auto"
+            data-lag="0.15"
             format="webp"
           />
         </div>
@@ -135,7 +136,6 @@ const { $gsap } = useNuxtApp();
 
 // We'll register ScrollTrigger on client only
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import useParallaxImages from "/composables/useParallaxImages";
 
 /**
  * @typedef {Object} CaseStudy
@@ -338,10 +338,7 @@ onMounted(() => {
     initAnimation();
   });
 
-  // Enable reusable parallax on images inside `.image--parallax-01`
-  parallaxCleanup = useParallaxImages({
-    containerElements: parallaxContainerRefs,
-  });
+  // ScrollSmoother handles data-speed="auto" automatically - no composable needed
 });
 
 onUnmounted(() => {
@@ -351,9 +348,7 @@ onUnmounted(() => {
   if (scrollTriggerRef.value) {
     scrollTriggerRef.value.kill();
   }
-  if (parallaxCleanup) {
-    parallaxCleanup();
-  }
+  // ScrollSmoother cleans up automatically
 });
 </script>
 

@@ -123,6 +123,83 @@
       </div>
     </section>
 
+    <!-- Image Parallax Test Section -->
+    <section class="min-h-screen bg-gradient-to-b from-orange-400 to-red-500 py-20 relative">
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-16 text-white">Image Parallax Tests</h2>
+        
+        <!-- Test different image parallax speeds -->
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+          <!-- Auto-calculated parallax (recommended) -->
+          <div class="image image--parallax-01 h-64 rounded-lg overflow-hidden relative">
+            <NuxtImg
+              src="/og.jpg"
+              alt="Auto parallax test"
+              data-speed="auto"
+              data-lag="0.2"
+              class="w-full h-[120%] object-cover"
+              format="webp"
+            />
+            <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+              <p class="text-white font-semibold">data-speed="auto"</p>
+              <p class="text-white text-sm mt-1">Auto-calculated optimal distance</p>
+            </div>
+          </div>
+
+          <!-- Manual slow parallax -->
+          <div class="image image--parallax-01 h-64 rounded-lg overflow-hidden relative">
+            <NuxtImg
+              src="/og.jpg"
+              alt="Slow parallax test"
+              data-speed="0.3"
+              data-lag="0.15"
+              class="w-full h-[130%] object-cover"
+              format="webp"
+            />
+            <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+              <p class="text-white font-semibold">data-speed="0.3"</p>
+              <p class="text-white text-sm mt-1">Manual slow parallax</p>
+            </div>
+          </div>
+
+          <!-- Manual fast parallax -->
+          <div class="image image--parallax-01 h-64 rounded-lg overflow-hidden relative">
+            <NuxtImg
+              src="/og.jpg"
+              alt="Fast parallax test"
+              data-speed="1.2"
+              data-lag="0.1"
+              class="w-full h-[140%] object-cover"
+              format="webp"
+            />
+            <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+              <p class="text-white font-semibold">data-speed="1.2"</p>
+              <p class="text-white text-sm mt-1">Manual fast parallax</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Large hero-style parallax image with auto calculation -->
+        <div class="image image--parallax-01 h-96 rounded-2xl overflow-hidden relative">
+          <NuxtImg
+            src="/og.jpg"
+            alt="Hero parallax test"
+            data-speed="auto"
+            data-lag="0.3"
+            class="w-full h-[125%] object-cover"
+            format="webp"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end justify-center p-8">
+            <div class="text-center text-white">
+              <h3 class="text-3xl font-bold mb-2">Hero Auto Parallax</h3>
+              <p class="text-lg opacity-90">data-speed="auto" data-lag="0.3"</p>
+              <p class="text-sm opacity-75 mt-2">ScrollSmoother calculates perfect movement range</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Instructions section -->
     <section class="min-h-screen bg-white py-20">
       <div class="container mx-auto px-4 max-w-4xl">
@@ -131,8 +208,9 @@
         <div class="prose prose-lg max-w-none">
           <h3>Data Attributes</h3>
           <ul>
-            <li><strong>data-speed</strong>: Controls parallax speed (0-2 range typical)
+            <li><strong>data-speed</strong>: Controls parallax speed
               <ul>
+                <li><strong>"auto"</strong> = ScrollSmoother automatically calculates optimal parallax distance based on element overflow (RECOMMENDED)</li>
                 <li>0.5 = moves at half scroll speed (slower parallax)</li>
                 <li>1.0 = normal scroll speed (default)</li>
                 <li>1.5 = moves faster than scroll</li>
@@ -178,6 +256,8 @@ useHead({
     { name: 'description', content: 'Test page for GSAP ScrollSmoother data-speed and data-lag effects' }
   ]
 })
+
+// ScrollSmoother handles data-speed and data-lag automatically - no composable needed
 </script>
 
 <style scoped>
