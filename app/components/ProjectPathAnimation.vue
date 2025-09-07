@@ -215,7 +215,6 @@
                   data-control-y="-100"
                   data-center-on="#target-center"
                 ></div>
-                🎯
               </div>
             </div>
             <p class="cta-text">
@@ -289,7 +288,7 @@ const getPathPointPositions = (rootEl) => {
   return sortedPoints.map((point) => {
     const centerOnSelector = point.getAttribute("data-center-on");
     let targetElement = point;
-    
+
     // If data-center-on is specified, find the target element to center on
     if (centerOnSelector) {
       const targetEl = rootEl.querySelector(centerOnSelector);
@@ -297,7 +296,7 @@ const getPathPointPositions = (rootEl) => {
         targetElement = targetEl;
       }
     }
-    
+
     const rect = targetElement.getBoundingClientRect();
 
     // Position at center of target element (could be the dummy point itself or specified element)
@@ -420,7 +419,7 @@ const initializePathAnimation = () => {
     .timeline({
       scrollTrigger: {
         trigger: root,
-        start: "top top",
+        start: "top top+=25%",
         end: "bottom bottom",
         scrub: true,
         invalidateOnRefresh: true,

@@ -247,7 +247,7 @@
 
           .target-center {
             font-size: 2rem;
-            background: var(--color-primary-1);
+            background: var(--color-primary-2);
             border-radius: 50%;
             width: 4rem;
             height: 4rem;
@@ -322,7 +322,7 @@
     opacity: 0; // Hidden by default
     pointer-events: none;
     z-index: 1;
-    
+
     // Enhanced debugging: show points for debugging path with order numbers
     // Uncomment below for debugging
     // &[data-path-point] {
@@ -345,18 +345,18 @@
     //   }
     // }
   }
-  
+
   // Enhanced path point highlighting
   [data-path-point] {
     position: relative;
     transition: all 0.3s ease;
-    
+
     // Subtle indicator when ball is approaching/at this point
     &.ball-approaching {
       transform: scale(1.05);
       box-shadow: 0 0 20px rgba(var(--color-primary-1-rgb), 0.3);
     }
-    
+
     &.ball-at-point {
       transform: scale(1.1);
       box-shadow: 0 0 30px rgba(var(--color-primary-1-rgb), 0.5);
