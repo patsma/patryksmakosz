@@ -43,7 +43,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       // Enable conservative smoothing on touch while keeping viewport stable
       smoothTouch: 0.2,
       // Normalize scrolling to reduce iOS/Safari bounce and bar toggling per GSAP docs
-      normalizeScroll: true,
+      // normalizeScroll: true,
       ignoreMobileResize: true, // helps reduce jumpiness on orientation change
       // Prevent GSAP from setting fixed heights that could affect iOS bars
       // We'll let the DOM size naturally; Smoother just handles transform-based scrolling
