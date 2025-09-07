@@ -42,7 +42,9 @@
       :class="{ 'opacity-0 pointer-events-none': !isLoading }"
     >
       <div class="text-white/60 text-center">
-        <div class="w-8 h-8 mx-auto mb-3 border-2 border-white/30 border-t-white/80 rounded-full animate-spin"></div>
+        <div
+          class="w-8 h-8 mx-auto mb-3 border-2 border-white/30 border-t-white/80 rounded-full animate-spin"
+        ></div>
         <p class="text-sm">Loading video...</p>
       </div>
     </div>
@@ -57,25 +59,39 @@
       @keydown.enter.prevent="handleUserPlay"
     >
       <!-- Play icon -->
-      <div class="w-16 h-16 mb-4 rounded-full bg-white/20 backdrop-blur flex items-center justify-center border border-white/30">
+      <div
+        class="w-16 h-16 mb-4 rounded-full bg-white/20 backdrop-blur flex items-center justify-center border border-white/30"
+      >
         <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M8 5v14l11-7z"/>
+          <path d="M8 5v14l11-7z" />
         </svg>
       </div>
       <!-- Message -->
       <p class="text-lg font-medium mb-2">Tap to play</p>
-      <p class="text-sm text-white/80 max-w-xs text-center">Your browser requires user interaction to autoplay videos</p>
+      <p class="text-sm text-white/80 max-w-xs text-center">
+        Your browser requires user interaction to autoplay videos
+      </p>
     </button>
 
     <!-- Fullscreen hint (bottom-right corner) -->
     <div
       v-if="showFullscreenHint && showFullscreenHintState && !showPlayOverlay"
-      class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white/80 text-xs max-w-xs transition-all duration-300"
+      class="absolute bottom-12 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white/80 text-xs max-w-xs transition-all duration-300"
       :class="{ 'opacity-0 pointer-events-none': !showFullscreenHintState }"
     >
       <div class="flex items-center gap-2">
-        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+        <svg
+          class="w-4 h-4 flex-shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+          />
         </svg>
         <span>Tap for fullscreen</span>
       </div>
@@ -302,9 +318,16 @@ const enterFullscreen = async () => {
 const handleVideoClick = async () => {
   if (!props.allowFullscreenOnClick && !props.forceFullscreenOnClick) return;
 
-  // Ensure playback starts on click as well
-  if (!isPlaying.value) {
-    await attemptPlay();
+  // If video isn't playing, try to play without reloading
+  if (!isPlaying.value && videoEl.value) {
+    try {
+      await videoEl.value.play();
+      isPlaying.value = true;
+      showPlayOverlay.value = false;
+    } catch (err) {
+      // If play fails, show the overlay but still try fullscreen
+      showPlayOverlay.value = true;
+    }
   }
 
   if (props.forceFullscreenOnClick) {
