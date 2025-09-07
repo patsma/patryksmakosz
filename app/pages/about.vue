@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pt-header">
     <h1 class="sr-only">About</h1>
     <CarouselTimeline
       headline="Your Project Journey With Me"

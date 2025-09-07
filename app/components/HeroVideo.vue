@@ -74,28 +74,36 @@
     </button>
 
     <!-- Fullscreen hint (bottom-right corner) -->
-    <div
-      v-if="showFullscreenHint && showFullscreenHintState && !showPlayOverlay"
-      class="absolute bottom-12 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white/80 text-xs max-w-xs transition-all duration-300"
-      :class="{ 'opacity-0 pointer-events-none': !showFullscreenHintState }"
+    <Transition
+      enter-active-class="transition-all duration-500 ease-out"
+      leave-active-class="transition-all duration-300 ease-in"
+      enter-from-class="opacity-0 translate-y-2 scale-95"
+      enter-to-class="opacity-100 translate-y-0 scale-100"
+      leave-from-class="opacity-100 translate-y-0 scale-100"
+      leave-to-class="opacity-0 translate-y-2 scale-95"
     >
-      <div class="flex items-center gap-2">
-        <svg
-          class="w-4 h-4 flex-shrink-0"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-          />
-        </svg>
-        <span>Tap for fullscreen</span>
+      <div
+        v-if="shouldShowHint"
+        class="absolute bottom-8 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white/80 text-xs max-w-xs pointer-events-none"
+      >
+        <div class="flex items-center gap-2">
+          <svg
+            class="w-4 h-4 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+            />
+          </svg>
+          <span>Fullscreen</span>
+        </div>
       </div>
-    </div>
+    </Transition>
   </section>
 </template>
 
@@ -161,6 +169,15 @@ const videoObjectClass = computed(() => {
 // Compute video opacity class for smooth fade-in
 const videoOpacityClass = computed(() => {
   return videoReady.value && !isLoading.value ? "opacity-100" : "opacity-0";
+});
+
+// Compute hint visibility for clean transitions
+const shouldShowHint = computed(() => {
+  return (
+    props.showFullscreenHint &&
+    showFullscreenHintState.value &&
+    !showPlayOverlay.value
+  );
 });
 
 // Attempt to play the video. If autoplay is blocked, show overlay.

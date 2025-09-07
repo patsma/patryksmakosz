@@ -41,12 +41,12 @@
 
 // Full viewport height minus header
 .h-vh-minus-header {
-  height: calc(100vh - var(--header-height));
+  height: calc(101dvh - var(--header-height));
 }
 
-// Minimum height variants  
+// Minimum height variants
 .min-h-vh-minus-header {
-  min-height: calc(100vh - var(--header-height));
+  min-height: calc(101dvh - var(--header-height));
 }
 
 // -----------------------------------------------------------------------------
