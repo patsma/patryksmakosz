@@ -323,10 +323,26 @@
     pointer-events: none;
     z-index: 1;
     
-    // Optional: show points for debugging path
+    // Enhanced debugging: show points for debugging path with order numbers
+    // Uncomment below for debugging
     // &[data-path-point] {
-    //   opacity: 0.4;
+    //   opacity: 0.6;
     //   box-shadow: 0 0 0 2px rgba(var(--color-primary-1-rgb), 0.3);
+    //   &::after {
+    //     content: attr(data-path-order);
+    //     position: absolute;
+    //     top: -1.5rem;
+    //     left: 50%;
+    //     transform: translateX(-50%);
+    //     background: var(--color-primary-2);
+    //     color: var(--color-white);
+    //     padding: 0.2rem 0.4rem;
+    //     border-radius: 0.25rem;
+    //     font-size: 0.7rem;
+    //     font-weight: 600;
+    //     min-width: 1rem;
+    //     text-align: center;
+    //   }
     // }
   }
   
