@@ -213,6 +213,7 @@
                   data-path-order="11"
                   data-control-x="0.25"
                   data-control-y="-100"
+                  data-center-on="#target-center"
                 ></div>
                 🎯
               </div>
@@ -286,9 +287,20 @@ const getPathPointPositions = (rootEl) => {
   });
 
   return sortedPoints.map((point) => {
-    const rect = point.getBoundingClientRect();
+    const centerOnSelector = point.getAttribute("data-center-on");
+    let targetElement = point;
+    
+    // If data-center-on is specified, find the target element to center on
+    if (centerOnSelector) {
+      const targetEl = rootEl.querySelector(centerOnSelector);
+      if (targetEl) {
+        targetElement = targetEl;
+      }
+    }
+    
+    const rect = targetElement.getBoundingClientRect();
 
-    // Simple positioning: center of element
+    // Position at center of target element (could be the dummy point itself or specified element)
     const baseX = rect.left - rootRect.left + rect.width / 2;
     const baseY = rect.top - rootRect.top + rect.height / 2;
 
