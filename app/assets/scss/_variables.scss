@@ -100,6 +100,17 @@ $menu-panel-max-width: 12rem; // 360px in rem for overlays
 $shadow-elevation-1: var(--shadow-elevation-1);
 
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// Header Height System
+// -----------------------------------------------------------------------------
+// Calculate total header height for layout compensation
+$header-padding-mobile: space(1); // 0.75rem (top + bottom = 1.5rem)
+$header-padding-tablet: space(1); // 1rem (top + bottom = 2rem)  
+$header-content-height: $size-button-height; // 3rem
+$header-height-mobile: $header-content-height + ($header-padding-mobile * 2); // 4.5rem
+$header-height-tablet: $header-content-height + ($header-padding-tablet * 2); // 5rem
+
+// -----------------------------------------------------------------------------
 // Animation Components - local brand backgrounds
 // -----------------------------------------------------------------------------
 // Use named variables so components don't hardcode colors

@@ -146,7 +146,7 @@ const debugInfo = computed(() => ({
 </script>
 
 <template>
-  <section ref="pageRef" class="project-page">
+  <section ref="pageRef" class="project-page pt-header">
     <div v-if="status === 'pending'" class="project-page__content text-center">
       Loading…
     </div>

@@ -4,6 +4,9 @@
 @use "./variables" as *;
 @use "./mixins" as *;
 
+// Utilities (must come before components that @extend them)
+@use "./utilities/header-compensation";
+
 // Components
 @use "./components/carousel-featured-case-studies";
 @use "./components/button";
