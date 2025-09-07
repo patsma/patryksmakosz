@@ -1,13 +1,14 @@
 // Styles for OrbitalCarousel component (global, BEM, matches project structure)
 @use "../variables" as *;
 @use "../mixins" as *;
+@use "../utilities/header-compensation" as *;
 
 .orbital-carousel {
   position: relative;
   display: grid;
   isolation: isolate;
   grid-template-areas: "canvas";
-  min-height: 100vh;
+  @extend .min-h-vh-minus-header;
   overflow: hidden;
   z-index: 0;
 
@@ -15,8 +16,7 @@
     grid-area: canvas;
     position: relative;
     width: 100vw;
-    height: 100vh;
-    min-height: 100vh;
+    @extend .h-vh-minus-header;
   }
 
   &__hologram {
@@ -254,8 +254,7 @@
 @media (max-width: 767px) {
   .orbital-carousel {
     &__canvas {
-      height: 100dvh;
-      min-height: 100dvh;
+      // Height handled by @extend .h-dvh-minus-header above
     }
     &__holo-text {
       // Inline positioning from Vue; keep same anchor relationship on mobile

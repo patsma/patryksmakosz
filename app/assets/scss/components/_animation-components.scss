@@ -3,7 +3,7 @@
 @use "../mixins" as *;
 @use "../utilities/header-compensation" as *;
 .animation-component {
-  @extend .h-screen-minus-header;
+  @extend .h-vh-minus-header;
   position: relative;
   display: flex;
   align-items: center;
@@ -45,12 +45,10 @@
 
   &--arttech {
     background-color: $animation-arttech-bg;
-    @extend .h-dvh-minus-header;
   }
 
   &--spectrum {
     background-color: var(--color-white);
-    @extend .h-dvh-minus-header;
     padding: $container-pad-mobile;
     @include laptop {
       padding: $container-pad-tablet;
@@ -59,7 +57,7 @@
 
   &--vibeuu {
     .logo-animation {
-      height: 70dvh;
+      height: 70vh;
       display: flex;
       justify-content: center;
       visibility: hidden; // revealed by GSAP set(autoAlpha:1)
@@ -81,7 +79,7 @@
     }
     .logo-animation svg {
       width: 100%;
-      height: 70dvh;
+      height: 70vh;
     }
   }
 

@@ -1,7 +1,7 @@
 <template>
   <svg
     ref="svgRootRef"
-    preserveAspectRatio="xMidYMid slice"
+    preserveAspectRatio="xMidYMid meet"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="644.31 0 2871 2128.9"
   >

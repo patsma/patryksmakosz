@@ -1,13 +1,14 @@
 @use "../variables" as *;
 @use "../mixins" as *;
+@use "../utilities/header-compensation" as *;
 
 .carousel-timeline {
   $root: &;
   display: grid;
   gap: 4rem;
-  min-height: 100vh;
+  @extend .min-h-vh-minus-header;
   padding: 1.5rem;
-  padding-top: 5rem;
+  @extend .pt-header;
   position: relative;
   isolation: isolate;
   z-index: 5;

@@ -104,7 +104,7 @@
 body {
   // Prevent history swipe on horizontal overscroll
   overscroll-behavior-x: none;
-  min-height: 101vh;
+  min-height: calc(101vh - var(--header-height));
 }
 
 // SVG elements should fill their containers by default

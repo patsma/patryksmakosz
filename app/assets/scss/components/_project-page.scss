@@ -4,10 +4,11 @@
 // - Allow specific components inside markdown to break out full-width
 @use "../variables" as *;
 @use "../mixins" as *;
+@use "../utilities/header-compensation" as *;
 
 .project-page {
   width: 100%;
-  min-height: 100vh;
+  @extend .min-h-vh-minus-header;
   display: flex;
   flex-direction: column;
 
