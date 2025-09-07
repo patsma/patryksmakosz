@@ -1,18 +1,20 @@
 <template>
   <!--
-    Full-viewport hero video component.
+    Full-viewport hero video component with smooth loading.
     - Autoplays on loop, including on mobile Safari (muted + playsinline)
     - Uses TailwindCSS for layout and sizing
-    - Displays an accessible play overlay if autoplay is blocked
+    - Smooth fade-in prevents black flashes during loading
+    - User-friendly messaging for autoplay blocks and fullscreen capability
   -->
   <section
-    class="relative cursor-pointer w-full h-screen min-h-screen overflow-hidden bg-black"
+    class="relative w-full h-screen min-h-screen overflow-hidden bg-black"
     :aria-label="ariaLabel || 'Hero video'"
   >
+    <!-- Video element with smooth opacity transition -->
     <video
       ref="videoEl"
-      class="absolute inset-0 h-full w-full"
-      :class="videoObjectClass"
+      class="absolute inset-0 h-full w-full transition-opacity duration-700 ease-out"
+      :class="[videoObjectClass, videoOpacityClass]"
       :src="src"
       :poster="poster || undefined"
       :preload="preload"
@@ -26,20 +28,58 @@
       :controls="showControls"
       @click="handleVideoClick"
       @canplay="handleCanPlay"
+      @loadeddata="handleLoadedData"
       @playing="handlePlaying"
       @pause="handlePause"
       @ended="handleEnded"
+      @loadstart="handleLoadStart"
     />
 
-    <!-- Tap-to-play overlay shown when autoplay is blocked -->
+    <!-- Loading state overlay -->
+    <div
+      v-if="isLoading && showLoadingSpinner"
+      class="absolute inset-0 bg-black flex items-center justify-center transition-opacity duration-500"
+      :class="{ 'opacity-0 pointer-events-none': !isLoading }"
+    >
+      <div class="text-white/60 text-center">
+        <div class="w-8 h-8 mx-auto mb-3 border-2 border-white/30 border-t-white/80 rounded-full animate-spin"></div>
+        <p class="text-sm">Loading video...</p>
+      </div>
+    </div>
+
+    <!-- Tap-to-play overlay with improved messaging -->
     <button
       v-if="showPlayOverlay"
       type="button"
-      class="absolute inset-0 flex items-center justify-center text-white/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+      class="absolute inset-0 bg-black/40 backdrop-blur-sm flex flex-col items-center justify-center text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 transition-all duration-300"
       aria-label="Play video"
       @click="handleUserPlay"
       @keydown.enter.prevent="handleUserPlay"
-    ></button>
+    >
+      <!-- Play icon -->
+      <div class="w-16 h-16 mb-4 rounded-full bg-white/20 backdrop-blur flex items-center justify-center border border-white/30">
+        <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+      <!-- Message -->
+      <p class="text-lg font-medium mb-2">Tap to play</p>
+      <p class="text-sm text-white/80 max-w-xs text-center">Your browser requires user interaction to autoplay videos</p>
+    </button>
+
+    <!-- Fullscreen hint (bottom-right corner) -->
+    <div
+      v-if="showFullscreenHint && showFullscreenHintState && !showPlayOverlay"
+      class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white/80 text-xs max-w-xs transition-all duration-300"
+      :class="{ 'opacity-0 pointer-events-none': !showFullscreenHintState }"
+    >
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+        </svg>
+        <span>Tap for fullscreen</span>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -64,6 +104,8 @@ import { onMounted, onBeforeUnmount, ref, computed, watch } from "vue";
  * @property {string} [ariaLabel] - Accessible label for the video section
  * @property {boolean} [allowFullscreenOnClick] - Allow entering fullscreen when video is clicked
  * @property {boolean} [forceFullscreenOnClick] - Force fullscreen on click, even if already inline
+ * @property {boolean} [showFullscreenHint] - Show fullscreen hint in corner (defaults true)
+ * @property {boolean} [showLoadingSpinner] - Show loading spinner during video load (defaults true)
  */
 
 /** @type {Props} */
@@ -80,6 +122,8 @@ const props = defineProps({
   ariaLabel: { type: String, default: "" },
   allowFullscreenOnClick: { type: Boolean, default: true },
   forceFullscreenOnClick: { type: Boolean, default: false },
+  showFullscreenHint: { type: Boolean, default: true },
+  showLoadingSpinner: { type: Boolean, default: true },
 });
 
 /** @type {import('vue').Ref<HTMLVideoElement|null>} */
@@ -89,10 +133,18 @@ const videoEl = ref(null);
 const isPlaying = ref(false);
 const showPlayOverlay = ref(false);
 const hasTriedAutoplay = ref(false);
+const isLoading = ref(true);
+const videoReady = ref(false);
+const showFullscreenHintState = ref(false);
 
 // Compute object-fit Tailwind class based on `fit` prop
 const videoObjectClass = computed(() => {
   return props.fit === "contain" ? "object-contain" : "object-cover";
+});
+
+// Compute video opacity class for smooth fade-in
+const videoOpacityClass = computed(() => {
+  return videoReady.value && !isLoading.value ? "opacity-100" : "opacity-0";
 });
 
 // Attempt to play the video. If autoplay is blocked, show overlay.
@@ -144,6 +196,20 @@ const addOneTimePointerResume = () => {
 };
 
 // Handlers
+const handleLoadStart = () => {
+  isLoading.value = true;
+  videoReady.value = false;
+  showFullscreenHintState.value = false;
+};
+
+const handleLoadedData = () => {
+  videoReady.value = true;
+  // Small delay for smooth transition
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 300);
+};
+
 const handleCanPlay = () => {
   // Try autoplay once we know the browser can play the media
   if (props.autoPlay && !hasTriedAutoplay.value) {
@@ -155,10 +221,21 @@ const handleCanPlay = () => {
 const handlePlaying = () => {
   isPlaying.value = true;
   showPlayOverlay.value = false;
+  // Show fullscreen hint after a delay if autoplay succeeded and prop allows it
+  if (!showPlayOverlay.value && props.showFullscreenHint) {
+    setTimeout(() => {
+      showFullscreenHintState.value = true;
+      // Auto-hide hint after 4 seconds
+      setTimeout(() => {
+        showFullscreenHintState.value = false;
+      }, 4000);
+    }, 2000);
+  }
 };
 
 const handlePause = () => {
   isPlaying.value = false;
+  showFullscreenHintState.value = false;
 };
 
 const handleEnded = () => {
@@ -247,6 +324,9 @@ watch(
     hasTriedAutoplay.value = false;
     isPlaying.value = false;
     showPlayOverlay.value = false;
+    isLoading.value = true;
+    videoReady.value = false;
+    showFullscreenHintState.value = false;
     // Small delay allows the browser to register the new source
     setTimeout(() => attemptPlay(), 0);
   }

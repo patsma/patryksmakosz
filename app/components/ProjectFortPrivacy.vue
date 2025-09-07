@@ -23,8 +23,7 @@ const { $GSDevTools } = useNuxtApp();
 const { $ScrollTrigger } = useNuxtApp();
 const { $DrawSVGPlugin } = useNuxtApp();
 const { $MorphSVGPlugin } = useNuxtApp();
-
-// Using direct in-SVG queries for simplicity (no defs ID scoping)
+import { scopeSvgDefsIds, remapIdSelectors } from "/utils/scopeSvgIds";
 
 // Core refs: mirrors ProjectZaksa.vue for consistency
 const containerRef = ref(null);
@@ -79,9 +78,7 @@ const props = defineProps({
   timeScale: { type: Number, default: 1 },
 });
 
-// No scoped selector helpers; we'll use local q/qa inside createAnimation
-
-// DrawSVG plugin is registered globally via Nuxt GSAP module; importing above ensures availability
+// Scoped selector helpers will be created after ID scoping
 
 /**
  * Port of legacy public/oldportfolio/logo-animation/fort-privacy/main.js
@@ -97,8 +94,14 @@ const createAnimation = () => {
     console.warn("FortPrivacy: SVG root not found");
     return null;
   }
-// Convert basic shapes to paths to ensure DrawSVG works across all elements (local to this SVG)
-try {
+
+  // Prefix defs IDs to avoid cross-SVG collisions and compute selector remaps
+  const idPrefix =
+    props.devToolsId || `fort-privacy-${Math.random().toString(36).slice(2, 6)}`;
+  const idMap = scopeSvgDefsIds(svgRoot, idPrefix);
+
+  // Convert basic shapes to paths to ensure DrawSVG works across all elements (local to this SVG)
+  try {
     const svgRootEl = svgRoot.closest && svgRoot.closest("svg");
     if ($MorphSVGPlugin && svgRootEl) {
       const shapes = svgRootEl.querySelectorAll(
@@ -109,9 +112,10 @@ try {
       }
     }
   } catch (e) {}
-  // Local query helpers scoped to this SVG root
-  const q = (sel) => svgRoot.querySelector(sel);
-  const qa = (sel) => Array.from(svgRoot.querySelectorAll(sel) || []);
+
+  // Local query helpers scoped to this SVG root with ID remapping
+  const q = (sel) => svgRoot.querySelector(remapIdSelectors(sel, idMap));
+  const qa = (sel) => Array.from(svgRoot.querySelectorAll(remapIdSelectors(sel, idMap)) || []);
 
   // Reveal inner container – legacy relied on visibility toggles on layout wrappers
   $gsap.set(innerLogoRef.value, { autoAlpha: 1 });
@@ -566,6 +570,7 @@ try {
           id: props.devToolsId,
           globalSync: false,
         });
+        // Ensure timeScale remains applied after DevTools initialization
         masterTl.timeScale(props.timeScale);
       } catch (e) {
         console.debug("FortPrivacy: GSDevTools error", e);

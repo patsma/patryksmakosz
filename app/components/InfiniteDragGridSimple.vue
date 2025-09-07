@@ -28,7 +28,7 @@ const projectMetaByImage = {
   // Special case: this item uses an SVG name as identifier in data
   "lbc-thumb.svg": {
     slug: "life-balance-congress",
-    title: "LBC Animated Logo",
+    title: "Life Balance Congress",
   },
   "molkidesign-thumb.svg": { slug: "molkidesign", title: "Molki Design" },
   "pushups-thumb.svg": { slug: "pushups-tracker", title: "Pushups Tracker" },
@@ -37,7 +37,10 @@ const projectMetaByImage = {
   "vibeuu-thumb.svg": { slug: "vibeuu", title: "Vibeuu" },
   "page404-thumb.svg": { slug: "page-404", title: "Page 404" },
   "fort-privacy-thumb.svg": { slug: "fort-privacy", title: "Fort Privacy" },
-  "prototype-thumb.svg": { slug: "player-prototype", title: "Prototype" },
+  "prototype-thumb.svg": {
+    slug: "player-prototype",
+    title: "Player Prototype",
+  },
 };
 
 // Vue refs for DOM elements
