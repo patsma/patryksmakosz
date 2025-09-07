@@ -8,7 +8,7 @@
   display: grid;
   isolation: isolate;
   grid-template-areas: "canvas";
-  @extend .min-h-vh-minus-header;
+  min-height: 100vh;
   overflow: hidden;
   z-index: 0;
 
@@ -16,7 +16,7 @@
     grid-area: canvas;
     position: relative;
     width: 100vw;
-    @extend .h-vh-minus-header;
+    height: 100vh;
   }
 
   &__hologram {

@@ -39,7 +39,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       wrapper,
       content,
       smooth: 0.8,
-      effects: false, // avoid data-speed effects; we manage our own parallax
+      effects: true, // enable data-speed and data-lag effects
       // Enable conservative smoothing on touch while keeping viewport stable
       smoothTouch: 0.2,
       // Normalize scrolling to reduce iOS/Safari bounce and bar toggling per GSAP docs

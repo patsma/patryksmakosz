@@ -51,6 +51,7 @@
     </div>
 
     <div
+      data-speed="0.95"
       class="title"
       :class="{
         'gradient-text-2': alternativeColors && gradientTitle,
@@ -72,7 +73,9 @@
             <div class="text-top-tags">
               <div class="text-top-tag">Case-study</div>
             </div>
-            <div class="text-top-title">{{ item.post_title }}</div>
+            <div class="text-top-title">
+              {{ item.post_title }}
+            </div>
             <div class="text-top-paragraph">{{ item.post_excerpt }}...</div>
           </div>
           <div class="text-bottom">
