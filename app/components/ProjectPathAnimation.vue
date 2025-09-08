@@ -458,7 +458,7 @@ const initializePathAnimation = () => {
     .timeline({
       scrollTrigger: {
         trigger: root,
-        start: "top top+=25%",
+        start: "top center",
         end: "bottom bottom",
         scrub: true,
         invalidateOnRefresh: true,
