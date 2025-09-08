@@ -61,7 +61,14 @@
           <p class="intro-description">
             Passionate about bringing 'fun things in web' to life - transforming
             static designs into captivating, interactive experiences. Recognized
-            as a Top Web Animation Expert on UpWork.
+            as a
+            <a
+              href="https://www.upwork.com/freelancers/~01085c23a2f6280a73"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline hover:text-primary-1 transition-colors"
+              >Top Web Animation Expert on UpWork</a
+            >.
           </p>
         </div>
 
@@ -194,7 +201,9 @@
                 data-control-y="-400"
               ></div>
               <Icon name="mdi:email" size="24" />
-              <span>kontakt@tastysites.pl</span>
+              <a href="mailto:patryksmakosz1@gmail.com">
+                patryksmakosz1@gmail.com</a
+              >
             </div>
             <div class="contact-item relative">
               <div
@@ -205,11 +214,23 @@
                 data-control-y="-300"
               ></div>
               <Icon name="mdi:linkedin" size="24" />
-              <span>@patryksmakosz</span>
+              <a
+                href="https://www.linkedin.com/in/patryksmakosz/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline hover:text-primary-1 transition-colors"
+                >@patryksmakosz</a
+              >
             </div>
             <div class="contact-item">
               <Icon name="mdi:web" size="24" />
-              <span>tastysites.pl</span>
+              <a
+                href="https://tastysites.pl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline hover:text-primary-1 transition-colors"
+                >tastysites.pl</a
+              >
             </div>
             <div class="contact-item">
               <Icon name="mdi:map-marker" size="24" />

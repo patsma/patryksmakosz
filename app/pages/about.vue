@@ -50,7 +50,7 @@
       headline="Featured case studies"
       :alternative-colors="false"
       :gradient-title="true"
-      view-all-href="/"
+      view-all-href="/projects"
       :cases="[
         {
           post_title: 'Life Balance Congress (LBC)',

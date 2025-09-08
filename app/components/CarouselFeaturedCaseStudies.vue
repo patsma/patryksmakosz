@@ -38,7 +38,7 @@
         </template>
       </div>
 
-      <a
+      <NuxtLink
         v-if="viewAllHref"
         :href="viewAllHref"
         class="navigation-button"
@@ -46,7 +46,7 @@
         aria-label="View all case studies"
       >
         View all
-      </a>
+      </NuxtLink>
       <!-- If you need a custom button component, we'll wire it in a follow-up -->
     </div>
 
@@ -98,13 +98,13 @@
 
         <div class="button">
           <!-- Button styles and component can be enhanced later -->
-          <a
-            :href="item.permalink"
+          <NuxtLink
+            :to="item.permalink"
             class="btn-standard"
             :class="{ 'btn-standard--incident': alternativeColors }"
           >
             <span>Explore case</span>
-          </a>
+          </NuxtLink>
         </div>
       </div>
     </div>

@@ -129,6 +129,7 @@
 
   // Section 2: Experience Timeline
   .section-2 {
+    padding-bottom: 0;
     background: var(--color-white);
     color: var(--color-black);
 
@@ -202,6 +203,7 @@
 
   // Section 3: Contact & Future
   .section-3 {
+    padding-top: 0;
     // background: var(--color-gray-1);
     color: var(--color-black);
 
@@ -227,7 +229,10 @@
     .contact-info {
       .contact-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(space(62.5), 1fr)); // 250px min
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(space(62.5), 1fr)
+        ); // 250px min
         gap: space(8); // 2rem
         margin-bottom: space(16); // 4rem
 
