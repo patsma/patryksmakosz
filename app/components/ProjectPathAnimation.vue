@@ -5,7 +5,12 @@
     aria-label="Path animation"
   >
     <!-- Ball that moves along the motion path -->
-    <div ref="ballRef" class="ball" aria-hidden="true" :class="{ '!opacity-0': !isClient }" />
+    <div
+      ref="ballRef"
+      class="ball"
+      aria-hidden="true"
+      :class="{ '!opacity-0': !isClient }"
+    />
 
     <!-- Hidden SVG used for motion path alignment/debugging -->
     <svg ref="pathSvgRef" class="path-svg" width="100%" height="100%">
@@ -72,7 +77,6 @@
                 data-control-x="0.25"
                 data-control-y="-300"
                 data-offset-x="2"
-                
               ></div>
               <Icon name="logos:nuxt-icon" size="24" />
               <span>Nuxt.js</span>
@@ -132,7 +136,7 @@
             <div class="milestone-dot"></div>
             <div class="milestone-content">
               <h4>Senior Frontend @ BÆRNHOLDT</h4>
-              <p>Disney, Mazda, Novo Nordisk projects</p>
+              <p>Tabellae, Nixu, Novo Nordisk projects</p>
             </div>
           </div>
 
@@ -162,7 +166,7 @@
               ></div>
             </div>
             <div class="milestone-content">
-              <h4>Creative Coder @ GREEN RUBINO</h4>
+              <h4>Creative Coder @ UpWork</h4>
               <p>Interactive web content & SVG banners</p>
             </div>
           </div>
@@ -337,8 +341,12 @@ const getPathPointPositions = (rootEl) => {
     const offsetYVh = parseFloat(point.getAttribute("data-offset-y")) || 0;
 
     // Convert viewport units to pixels (with client-side guard)
-    const offsetX = typeof window !== 'undefined' ? (offsetXVw / 100) * window.innerWidth : 0;
-    const offsetY = typeof window !== 'undefined' ? (offsetYVh / 100) * window.innerHeight : 0;
+    const offsetX =
+      typeof window !== "undefined" ? (offsetXVw / 100) * window.innerWidth : 0;
+    const offsetY =
+      typeof window !== "undefined"
+        ? (offsetYVh / 100) * window.innerHeight
+        : 0;
 
     return {
       x: baseX + offsetX,
@@ -434,7 +442,7 @@ const recalcPathAndPosition = (root, pathEl, ball) => {
 const initializePathAnimation = () => {
   // Guard against server-side execution
   if (!process.client || !isClient.value) return;
-  
+
   const root = rootRef.value;
   const ball = ballRef.value;
   const pathEl = pathRef.value;
@@ -442,7 +450,7 @@ const initializePathAnimation = () => {
 
   // Ensure GSAP is available
   if (!$gsap) {
-    console.warn('GSAP not available, retrying...');
+    console.warn("GSAP not available, retrying...");
     setTimeout(initializePathAnimation, 200);
     return;
   }
@@ -489,9 +497,9 @@ const initializePathAnimation = () => {
   // Observe root size changes and window resize to force refresh
   try {
     const st = $gsap.core.globals().ScrollTrigger;
-    if (typeof window !== 'undefined' && st) {
+    if (typeof window !== "undefined" && st) {
       // Only create ResizeObserver if available
-      if (typeof ResizeObserver !== 'undefined') {
+      if (typeof ResizeObserver !== "undefined") {
         resizeObserver = new ResizeObserver(() => {
           if (resizeTimer) clearTimeout(resizeTimer);
           resizeTimer = setTimeout(() => {

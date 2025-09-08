@@ -42,9 +42,10 @@
       margin-bottom: 4rem;
 
       h1 {
-        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-family: $font-main;
+        font-size: clamp(space(10), 5vw, space(16)); // 2.5rem to 4rem
         font-weight: 800;
-        margin-bottom: 1rem;
+        margin-bottom: space(4); // 1rem
         background: linear-gradient(
           135deg,
           var(--color-white),
@@ -56,14 +57,16 @@
       }
 
       .intro-tagline {
-        font-size: 1.25rem;
+        font-family: $font-main;
+        font-size: space(5); // 1.25rem
         font-weight: 600;
-        margin-bottom: 1.5rem;
+        margin-bottom: space(6); // 1.5rem
         opacity: 0.9;
       }
 
       .intro-description {
-        font-size: 1.1rem;
+        font-family: $font-main;
+        font-size: space(4.4); // ~1.1rem
         line-height: 1.6;
         opacity: 0.8;
         max-width: 60ch;
@@ -73,37 +76,51 @@
 
     .skills-constellation {
       h3 {
+        font-family: $font-main;
         text-align: center;
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
+        font-size: space(6); // 1.5rem
+        font-weight: 700;
+        margin-bottom: space(8); // 2rem
         opacity: 0.9;
       }
 
       .skills-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(2, 1fr); // Force equal 2-column layout
+        gap: space(6); // 1.5rem
+        max-width: space(200); // 50rem - constrain width for better alignment
+        margin: 0 auto;
+
+        @include tablet {
+          grid-template-columns: repeat(4, 1fr); // 4 equal columns on tablet+
+          gap: space(8); // 2rem
+        }
 
         .skill-bubble {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          padding: 1rem 1.5rem;
+          justify-content: center; // Center content within each bubble
+          gap: space(3); // 0.75rem
+          padding: space(4) space(6); // 1rem 1.5rem
           background: rgba(255, 255, 255, 0.1);
-          border-radius: 50px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          transition: all 0.3s ease;
+          border-radius: $radius-xl; // Use consistent radius from variables
+          border: $border-1 solid rgba(255, 255, 255, 0.2);
+          transition: $transition; // Use consistent transition
           backdrop-filter: blur(10px);
+          text-align: center;
+          min-height: space(12); // Ensure consistent height across all bubbles
 
           &:hover {
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-elevation-1);
           }
 
           span {
+            font-family: $font-main;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: space(3.8); // ~0.95rem
+            white-space: nowrap; // Prevent text wrapping
           }
         }
       }
@@ -117,59 +134,64 @@
 
     .timeline-header {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: space(16); // 4rem
 
       h2 {
-        font-size: clamp(2rem, 4vw, 3rem);
+        font-family: $font-main;
+        font-size: clamp(space(8), 4vw, space(12)); // 2rem to 3rem
         font-weight: 700;
-        margin-bottom: 0.5rem;
+        margin-bottom: space(2); // 0.5rem
         color: var(--color-primary-2);
       }
 
       p {
-        font-size: 1.1rem;
+        font-family: $font-main;
+        font-size: space(4.4); // ~1.1rem
         opacity: 0.7;
       }
     }
 
     .timeline-milestones {
       display: grid;
-      gap: 3rem;
+      gap: space(12); // 3rem
 
       .milestone {
         display: flex;
         align-items: center;
-        gap: 2rem;
-        padding: 2rem;
+        gap: space(8); // 2rem
+        padding: space(8); // 2rem
         background: var(--color-gray-1);
-        border-radius: 1rem;
-        border: 2px solid transparent;
-        transition: all 0.3s ease;
+        border-radius: space(4); // 1rem
+        border: $border-2 solid transparent;
+        transition: $transition;
 
         &:hover {
           border-color: var(--color-primary-1);
-          transform: translateX(8px);
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+          transform: translateX(space(2)); // 8px
+          box-shadow: var(--shadow-elevation-1);
         }
 
         .milestone-dot {
-          width: 1.5rem;
-          height: 1.5rem;
+          width: space(6); // 1.5rem
+          height: space(6); // 1.5rem
           border-radius: 50%;
           background: var(--color-primary-1);
-          box-shadow: 0 0 0 4px rgba(var(--color-primary-1-rgb), 0.2);
+          box-shadow: 0 0 0 space(1) rgba(var(--color-primary-1-rgb), 0.2); // 4px
           flex-shrink: 0;
         }
 
         .milestone-content {
           h4 {
-            font-size: 1.25rem;
+            font-family: $font-main;
+            font-size: space(5); // 1.25rem
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: space(2); // 0.5rem
             color: var(--color-primary-2);
           }
 
           p {
+            font-family: $font-main;
+            font-size: space(4); // 1rem
             opacity: 0.7;
             line-height: 1.5;
           }
@@ -185,17 +207,19 @@
 
     .contact-header {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: space(16); // 4rem
 
       h2 {
-        font-size: clamp(2rem, 4vw, 3rem);
+        font-family: $font-main;
+        font-size: clamp(space(8), 4vw, space(12)); // 2rem to 3rem
         font-weight: 700;
-        margin-bottom: 0.5rem;
+        margin-bottom: space(2); // 0.5rem
         color: var(--color-primary-2);
       }
 
       p {
-        font-size: 1.1rem;
+        font-family: $font-main;
+        font-size: space(4.4); // ~1.1rem
         opacity: 0.7;
       }
     }
@@ -203,27 +227,29 @@
     .contact-info {
       .contact-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        margin-bottom: 4rem;
+        grid-template-columns: repeat(auto-fit, minmax(space(62.5), 1fr)); // 250px min
+        gap: space(8); // 2rem
+        margin-bottom: space(16); // 4rem
 
         .contact-item {
           display: flex;
           align-items: center;
-          gap: 1rem;
-          padding: 1.5rem;
+          gap: space(4); // 1rem
+          padding: space(6); // 1.5rem
           background: var(--color-white);
-          border-radius: 0.75rem;
+          border-radius: space(3); // 0.75rem
           box-shadow: var(--shadow-elevation-1);
-          transition: all 0.3s ease;
+          transition: $transition;
 
           &:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-elevation-2);
+            box-shadow: var(--shadow-elevation-1);
           }
 
           span {
+            font-family: $font-main;
             font-weight: 600;
+            font-size: space(4); // 1rem
           }
         }
       }
@@ -236,25 +262,25 @@
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          width: 6rem;
-          height: 6rem;
-          margin: 2rem auto;
+          width: space(24); // 6rem
+          height: space(24); // 6rem
+          margin: space(8) auto; // 2rem auto
 
           .target-ring {
             position: absolute;
             inset: 0;
-            border: 3px solid var(--color-primary-1);
+            border: $border-2 solid var(--color-primary-1); // Use consistent border
             border-radius: 50%;
             opacity: 0.5;
             animation: pulse-ring 2s ease-in-out infinite;
           }
 
           .target-center {
-            font-size: 2rem;
+            font-size: space(8); // 2rem
             background: var(--color-primary-2);
             border-radius: 50%;
-            width: 4rem;
-            height: 4rem;
+            width: space(16); // 4rem
+            height: space(16); // 4rem
             display: flex;
             align-items: center;
             justify-content: center;
@@ -265,7 +291,8 @@
         .cta-text {
           max-width: 60ch;
           margin: 0 auto;
-          font-size: 1.1rem;
+          font-family: $font-main;
+          font-size: space(4.4); // ~1.1rem
           line-height: 1.6;
           opacity: 0.8;
         }
@@ -276,9 +303,9 @@
   // Floating ball that moves along the motion path
   .ball {
     position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 9999px;
+    width: space(6); // 1.5rem
+    height: space(6); // 1.5rem
+    border-radius: $radius-full;
     background: var(--color-primary-1);
     box-shadow: var(--shadow-elevation-1);
     z-index: 3;
@@ -319,8 +346,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 0.5rem;
-    height: 0.5rem;
+    width: space(2); // 0.5rem
+    height: space(2); // 0.5rem
     border-radius: 50%;
     background: var(--color-primary-1);
     opacity: 0; // Hidden by default
@@ -331,20 +358,20 @@
     // Uncomment below for debugging
     // &[data-path-point] {
     //   opacity: 0.6;
-    //   box-shadow: 0 0 0 2px rgba(var(--color-primary-1-rgb), 0.3);
+    //   box-shadow: 0 0 0 space(0.5) rgba(var(--color-primary-1-rgb), 0.3); // 2px
     //   &::after {
     //     content: attr(data-path-order);
     //     position: absolute;
-    //     top: -1.5rem;
+    //     top: -#{space(6)}; // -1.5rem
     //     left: 50%;
     //     transform: translateX(-50%);
     //     background: var(--color-primary-2);
     //     color: var(--color-white);
-    //     padding: 0.2rem 0.4rem;
-    //     border-radius: 0.25rem;
-    //     font-size: 0.7rem;
+    //     padding: space(0.8) space(1.6); // 0.2rem 0.4rem
+    //     border-radius: $radius-xs;
+    //     font-size: space(2.8); // ~0.7rem
     //     font-weight: 600;
-    //     min-width: 1rem;
+    //     min-width: space(4); // 1rem
     //     text-align: center;
     //   }
     // }
@@ -353,17 +380,17 @@
   // Enhanced path point highlighting
   [data-path-point] {
     position: relative;
-    transition: all 0.3s ease;
+    transition: $transition;
 
     // Subtle indicator when ball is approaching/at this point
     &.ball-approaching {
       transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(var(--color-primary-1-rgb), 0.3);
+      box-shadow: 0 0 space(5) rgba(var(--color-primary-1-rgb), 0.3); // 20px
     }
 
     &.ball-at-point {
       transform: scale(1.1);
-      box-shadow: 0 0 30px rgba(var(--color-primary-1-rgb), 0.5);
+      box-shadow: 0 0 space(7.5) rgba(var(--color-primary-1-rgb), 0.5); // 30px
     }
   }
 }
