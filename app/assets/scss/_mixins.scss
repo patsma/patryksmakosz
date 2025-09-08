@@ -278,6 +278,14 @@
   transition: color 0.3s ease-in-out;
 }
 
+@mixin gradient-text {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  background-clip: text;
+}
+
 @mixin tablet {
   @media (min-width: $tablet) {
     @content;
