@@ -1,5 +1,6 @@
 <template>
   <svg
+    ref="svgRootRef"
     width="100%"
     height="100%"
     viewBox="0 0 683 579"
@@ -48,6 +49,7 @@
           </g>
           <g
             id="circle"
+            class="opacity-0"
             transform="matrix(66.0274,0,0,66.0274,-426908,-29810.1)"
           >
             <path
@@ -61,6 +63,10 @@
   </svg>
 </template>
 
-<script lang="ts" setup></script>
+<script setup>
+// Expose the root <svg> element so parent components can scope IDs and query nodes
+const svgRootRef = ref(null);
+defineExpose({ svgRootRef });
+</script>
 
 <style></style>

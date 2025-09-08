@@ -134,7 +134,7 @@
       ]"
     />
     <ProjectPathAnimation />
-    <!-- <div class="spacer h-24"></div> -->
+    <div class="spacer h-24"></div>
     <!-- <ProjectPathAnimation /> -->
   </div>
 </template>

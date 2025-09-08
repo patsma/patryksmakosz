@@ -12,13 +12,51 @@
       <path ref="pathRef" id="desktop-motion-path" />
     </svg>
 
+    <!-- Intro animation starting point (above viewport) -->
+    <div
+      class="intro-start"
+      style="
+        position: absolute;
+        top: -20vh;
+        left: 50%;
+        transform: translateX(-50%);
+      "
+    >
+      <div
+        class="dummy-point"
+        data-path-point
+        data-path-order="0"
+        data-control-x="0.25"
+        data-control-y="-50"
+      ></div>
+    </div>
+
     <!-- Three full-screen sections with built-in dummy points -->
     <!-- Section 1: Introduction & Skills Constellation -->
     <div class="section section-1">
       <div class="content">
         <div class="intro-header">
-          <SentenceHiSVG class="w-40" />
-          <h1>I'm Patryk</h1>
+          <SentenceHiSVG ref="sentenceHiRef" class="w-40" />
+          <div
+            class="dummy-point"
+            data-path-point
+            data-path-order="1"
+            data-control-x="0.25"
+            data-control-y="-100"
+            data-center-on-svg="circle"
+          ></div>
+          <h1>
+            I'm Patryk
+            <div
+              class="dummy-point"
+              data-path-point
+              data-path-order="2"
+              data-control-x="0.25"
+              data-control-y="-80"
+              data-offset-x="-5"
+              data-offset-y="0"
+            ></div>
+          </h1>
           <p class="intro-tagline">
             Front-end Developer & Creative Web Animator with 10+ years
             experience
@@ -35,17 +73,6 @@
           <div class="skills-grid">
             <!-- Skill bubbles with positioned dummy points -->
             <div class="skill-bubble" data-skill="nuxt">
-              <div
-                class="dummy-point"
-                data-path-point
-                data-path-order="1"
-                data-control-x="0.25"
-                data-control-y="-100"
-              ></div>
-              <!-- 
-                data-offset-x="-15"
-                data-offset-y="-10"
-              -->
               <Icon name="logos:nuxt-icon" size="24" />
               <span>Nuxt.js</span>
             </div>
@@ -53,7 +80,7 @@
               <div
                 class="dummy-point"
                 data-path-point
-                data-path-order="2"
+                data-path-order="5"
                 data-control-x="0.25"
                 data-control-y="-100"
                 data-offset-x="2"
@@ -66,7 +93,7 @@
               <div
                 class="dummy-point"
                 data-path-point
-                data-path-order="3"
+                data-path-order="6"
                 data-control-x="0.25"
                 data-control-y="-100"
               ></div>
@@ -74,15 +101,6 @@
               <span>GSAP</span>
             </div>
             <div class="skill-bubble" data-skill="threejs">
-              <div
-                class="dummy-point"
-                data-path-point
-                data-path-order="4"
-                data-control-x="0.25"
-                data-control-y="-100"
-                data-offset-x="3"
-                data-offset-y="0.5"
-              ></div>
               <Icon name="logos:threejs" size="24" />
               <span>Three.js</span>
             </div>
@@ -106,7 +124,7 @@
               <div
                 class="dummy-point"
                 data-path-point
-                data-path-order="5"
+                data-path-order="8"
                 data-control-x="0.25"
                 data-control-y="-100"
               ></div>
@@ -118,17 +136,7 @@
           </div>
 
           <div class="milestone" data-year="2022-2023">
-            <div class="milestone-dot">
-              <div
-                class="dummy-point"
-                data-path-point
-                data-path-order="6"
-                data-control-x="0.25"
-                data-control-y="-100"
-                data-offset-x="-2"
-                data-offset-y="-0.5"
-              ></div>
-            </div>
+            <div class="milestone-dot"></div>
             <div class="milestone-content">
               <h4>Senior Frontend @ BÆRNHOLDT</h4>
               <p>Disney, Mazda, Novo Nordisk projects</p>
@@ -140,7 +148,7 @@
               <div
                 class="dummy-point"
                 data-path-point
-                data-path-order="7"
+                data-path-order="8"
                 data-control-x="0.25"
                 data-control-y="-100"
               ></div>
@@ -156,7 +164,7 @@
               <div
                 class="dummy-point"
                 data-path-point
-                data-path-order="8"
+                data-path-order="9"
                 data-control-x="0.25"
                 data-control-y="-100"
               ></div>
@@ -185,7 +193,7 @@
               <div
                 class="dummy-point"
                 data-path-point
-                data-path-order="9"
+                data-path-order="10"
                 data-control-x="0.25"
                 data-control-y="-100"
               ></div>
@@ -196,7 +204,7 @@
               <div
                 class="dummy-point"
                 data-path-point
-                data-path-order="10"
+                data-path-order="11"
                 data-control-x="0.25"
                 data-control-y="-100"
               ></div>
@@ -221,7 +229,7 @@
                 <div
                   class="dummy-point"
                   data-path-point
-                  data-path-order="11"
+                  data-path-order="12"
                   data-control-x="0.25"
                   data-control-y="-100"
                   data-center-on="#target-center"
@@ -250,6 +258,7 @@ const rootRef = ref(null);
 const ballRef = ref(null);
 const pathSvgRef = ref(null);
 const pathRef = ref(null);
+const sentenceHiRef = ref(null);
 let resizeObserver = null;
 let resizeTimer = null;
 
@@ -305,6 +314,17 @@ const getPathPointPositions = (rootEl) => {
       const targetEl = rootEl.querySelector(centerOnSelector);
       if (targetEl) {
         targetElement = targetEl;
+      }
+    }
+
+    // If data-center-on-svg is specified, find the SVG element within the SentenceHi component
+    const centerOnSvgId = point.getAttribute("data-center-on-svg");
+    if (centerOnSvgId && sentenceHiRef.value?.svgRootRef) {
+      const svgElement = sentenceHiRef.value.svgRootRef.querySelector(
+        `#${centerOnSvgId}`
+      );
+      if (svgElement) {
+        targetElement = svgElement;
       }
     }
 

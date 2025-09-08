@@ -4,6 +4,8 @@
 
 .project-path-animation {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   width: 100%;
   min-height: 100vh;
   display: block;
@@ -35,7 +37,7 @@
 
     .intro-header {
       text-align: center;
-      display:grid;
+      display: grid;
       justify-items: center;
       margin-bottom: 4rem;
 
@@ -178,7 +180,7 @@
 
   // Section 3: Contact & Future
   .section-3 {
-    background: var(--color-gray-1);
+    // background: var(--color-gray-1);
     color: var(--color-black);
 
     .contact-header {
@@ -292,7 +294,7 @@
     height: 100%;
     z-index: 2;
     pointer-events: none;
-    // opacity: 0; // keep non-intrusive by default
+    opacity: 0; // keep non-intrusive by default
   }
 
   .path-svg path {
