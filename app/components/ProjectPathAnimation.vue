@@ -40,7 +40,7 @@
     >
       <div class="project-path-animation__content content">
         <div class="project-path-animation__intro intro-header">
-          <SentenceHiSVG ref="sentenceHiRef" class="w-40" />
+          <SentenceHiSVG ref="sentenceHiRef" class="w-40 h-40" />
           <div
             class="dummy-point"
             data-path-point
@@ -563,7 +563,7 @@ const initializePathAnimation = () => {
     .timeline({
       scrollTrigger: {
         trigger: root,
-        start: "top center",
+        start: "top center+=25",
         end: "bottom bottom",
         scrub: true,
         invalidateOnRefresh: true,
