@@ -192,12 +192,25 @@ const debugInfo = computed(() => ({
     <div v-if="status === 'pending'" class="project-page__content text-center">
       Loading…
     </div>
-    <div
-      v-else-if="error || !project"
-      class="project-page__content text-center"
-    >
-      <p class="text-lg">Project not found.</p>
-      <NuxtLink to="/projects" class="underline">Back to projects</NuxtLink>
+    <div v-else-if="error || !project" class="project-page__content">
+      <div class="empty-state" role="status" aria-live="polite">
+        <div class="empty-state__icon" aria-hidden="true">
+          <Icon name="mdi:file-search-outline" />
+        </div>
+        <h2 class="empty-state__title">Project not found</h2>
+        <p class="empty-state__copy">
+          It may have been moved or renamed. Explore other projects or learn
+          more about me.
+        </p>
+        <div class="empty-state__actions">
+          <NuxtLink to="/projects" class="btn-standard">
+            <span>Browse Projects</span>
+          </NuxtLink>
+          <NuxtLink to="/about" class="btn-standard-outlined">
+            <span>About</span>
+          </NuxtLink>
+        </div>
+      </div>
     </div>
     <div v-else>
       <div class="project-page__body prose prose-invert">
@@ -310,6 +323,68 @@ const debugInfo = computed(() => ({
   </section>
 </template>
 
-<style scoped>
-/* Project page-specific styles can live here or in SCSS partials */
+<style scoped lang="scss">
+@use "~/assets/scss/variables" as *;
+
+/* Empty state (aligned with design tokens) */
+.empty-state {
+  display: grid;
+  justify-items: center;
+  gap: space(4);
+  padding: space(24) 0;
+  text-align: center;
+
+  &__icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    color: $primary-2;
+    background: rgba($primary-2, 0.08);
+    border: $border-1 solid rgba($primary-2, 0.2);
+    border-radius: $radius-full;
+    display: grid;
+    place-items: center;
+    animation: pulseGlow 2s ease-in-out infinite;
+
+    svg,
+    .iconify {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  &__title {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: $primary-1;
+  }
+
+  &__copy {
+    max-width: 36rem;
+    color: $gray-5;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: space(2);
+    padding: 0 space(6);
+  }
+
+  &__actions {
+    display: grid;
+    grid-auto-flow: column;
+    gap: space(4);
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba($primary-2, 0.25);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba($primary-2, 0);
+    transform: scale(1.04);
+  }
+}
 </style>
