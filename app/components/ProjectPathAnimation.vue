@@ -17,7 +17,8 @@
     <div class="section section-1">
       <div class="content">
         <div class="intro-header">
-          <h1>Hello! I'm Patryk</h1>
+          <SentenceHiSVG class="w-40" />
+          <h1>I'm Patryk</h1>
           <p class="intro-tagline">
             Front-end Developer & Creative Web Animator with 10+ years
             experience

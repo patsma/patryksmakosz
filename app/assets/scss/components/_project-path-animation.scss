@@ -35,6 +35,8 @@
 
     .intro-header {
       text-align: center;
+      display:grid;
+      justify-items: center;
       margin-bottom: 4rem;
 
       h1 {
@@ -290,7 +292,7 @@
     height: 100%;
     z-index: 2;
     pointer-events: none;
-    opacity: 0; // keep non-intrusive by default
+    // opacity: 0; // keep non-intrusive by default
   }
 
   .path-svg path {
