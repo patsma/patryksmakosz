@@ -45,21 +45,20 @@
             data-control-y="-100"
             data-center-on-svg="circle"
           ></div>
-          <h1>
-            I'm Patryk
+          <h1>I'm Patryk</h1>
+          <p class="intro-tagline relative">
+            Front-end Developer & Creative Web Animator with 10+ years
+            experience
             <div
               class="dummy-point"
+              style="position: absolute; top: 0; left: 25%; right: unset; bottom: unset;"
               data-path-point
               data-path-order="2"
               data-control-x="0.25"
-              data-control-y="-80"
+              data-control-y="-300"
               data-offset-x="-5"
               data-offset-y="0"
             ></div>
-          </h1>
-          <p class="intro-tagline">
-            Front-end Developer & Creative Web Animator with 10+ years
-            experience
           </p>
           <p class="intro-description">
             Passionate about bringing 'fun things in web' to life - transforming
@@ -73,19 +72,19 @@
           <div class="skills-grid">
             <!-- Skill bubbles with positioned dummy points -->
             <div class="skill-bubble" data-skill="nuxt">
-              <Icon name="logos:nuxt-icon" size="24" />
-              <span>Nuxt.js</span>
-            </div>
-            <div class="skill-bubble" data-skill="vue">
               <div
                 class="dummy-point"
                 data-path-point
                 data-path-order="5"
                 data-control-x="0.25"
-                data-control-y="-100"
+                data-control-y="-300"
                 data-offset-x="2"
-                data-offset-y="-1"
+                
               ></div>
+              <Icon name="logos:nuxt-icon" size="24" />
+              <span>Nuxt.js</span>
+            </div>
+            <div class="skill-bubble" data-skill="vue">
               <Icon name="logos:vue" size="24" />
               <span>Vue.js</span>
             </div>
@@ -95,7 +94,8 @@
                 data-path-point
                 data-path-order="6"
                 data-control-x="0.25"
-                data-control-y="-100"
+                data-control-y="-200"
+                data-offset-x="2"
               ></div>
               <Icon name="simple-icons:greensock" size="24" />
               <span>GSAP</span>
@@ -144,18 +144,24 @@
           </div>
 
           <div class="milestone" data-year="2018">
-            <div class="milestone-dot">
+            <div class="milestone-dot"></div>
+            <div class="milestone-content relative">
+              <h4>Founded TastySites</h4>
+              <p>CEO & Creative Lead</p>
               <div
                 class="dummy-point"
+                style="
+                  position: absolute;
+                  top: unset;
+                  left: unset;
+                  right: 0;
+                  bottom: 0;
+                "
                 data-path-point
                 data-path-order="8"
                 data-control-x="0.25"
-                data-control-y="-100"
+                data-control-y="-200"
               ></div>
-            </div>
-            <div class="milestone-content">
-              <h4>Founded TastySites</h4>
-              <p>CEO & Creative Lead</p>
             </div>
           </div>
 
@@ -189,24 +195,26 @@
         <div class="contact-info">
           <div class="contact-grid">
             <!-- Contact items with dummy points -->
-            <div class="contact-item">
+            <div class="contact-item relative">
               <div
                 class="dummy-point"
+                style="position: absolute; top: 0; left: 0"
                 data-path-point
                 data-path-order="10"
                 data-control-x="0.25"
-                data-control-y="-100"
+                data-control-y="-400"
               ></div>
               <Icon name="mdi:email" size="24" />
               <span>kontakt@tastysites.pl</span>
             </div>
-            <div class="contact-item">
+            <div class="contact-item relative">
               <div
                 class="dummy-point"
+                style="position: absolute; top: 0; left:70%"
                 data-path-point
                 data-path-order="11"
                 data-control-x="0.25"
-                data-control-y="-100"
+                data-control-y="-300"
               ></div>
               <Icon name="mdi:linkedin" size="24" />
               <span>@patryksmakosz</span>
@@ -231,7 +239,7 @@
                   data-path-point
                   data-path-order="12"
                   data-control-x="0.25"
-                  data-control-y="-100"
+                  data-control-y="-600"
                   data-center-on="#target-center"
                 ></div>
               </div>
