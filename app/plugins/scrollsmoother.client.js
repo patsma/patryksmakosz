@@ -50,7 +50,8 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
       getBoundingClientRect() {
         return {
-          top: 0, left: 0,
+          top: 0,
+          left: 0,
           width: window.innerWidth,
           height: window.innerHeight,
         };
@@ -63,17 +64,17 @@ export default defineNuxtPlugin((nuxtApp) => {
   };
 
   // Initialize on app mount
-  nuxtApp.hook('app:mounted', () => {
+  nuxtApp.hook("app:mounted", () => {
     setTimeout(initScrollSmoother, 100);
   });
 
   // Reinitialize on every page change - SIMPLE
-  nuxtApp.hook('page:finish', () => {
+  nuxtApp.hook("page:finish", () => {
     setTimeout(initScrollSmoother, 500); // Wait for components to mount
   });
 
   // Cleanup
-  nuxtApp.hook('app:beforeUnmount', () => {
+  nuxtApp.hook("app:beforeUnmount", () => {
     const existing = ScrollSmoother.get();
     if (existing) existing.kill();
   });
