@@ -5,7 +5,7 @@
     aria-label="Path animation"
   >
     <!-- Ball that moves along the motion path -->
-    <div ref="ballRef" class="ball" aria-hidden="true" />
+    <div ref="ballRef" class="ball" aria-hidden="true" :class="{ '!opacity-0': !isClient }" />
 
     <!-- Hidden SVG used for motion path alignment/debugging -->
     <svg ref="pathSvgRef" class="path-svg" width="100%" height="100%">
@@ -13,15 +13,7 @@
     </svg>
 
     <!-- Intro animation starting point (above viewport) -->
-    <div
-      class="intro-start"
-      style="
-        position: absolute;
-        top: -20vh;
-        left: 50%;
-        transform: translateX(-50%);
-      "
-    >
+    <div class="intro-start !absolute !-top-[20vh] !left-1/2 !-translate-x-1/2">
       <div
         class="dummy-point"
         data-path-point
@@ -46,12 +38,13 @@
             data-center-on-svg="circle"
           ></div>
           <h1>I'm Patryk</h1>
-          <p class="intro-tagline relative">
-            Front-end Developer & Creative Web Animator with 10+ years
-            experience
+          <div class="relative">
+            <p class="intro-tagline">
+              Front-end Developer & Creative Web Animator with 10+ years
+              experience
+            </p>
             <div
-              class="dummy-point"
-              style="position: absolute; top: 0; left: 25%; right: unset; bottom: unset;"
+              class="dummy-point !absolute !top-0 !left-1/4 !right-auto !bottom-auto"
               data-path-point
               data-path-order="2"
               data-control-x="0.25"
@@ -59,7 +52,7 @@
               data-offset-x="-5"
               data-offset-y="0"
             ></div>
-          </p>
+          </div>
           <p class="intro-description">
             Passionate about bringing 'fun things in web' to life - transforming
             static designs into captivating, interactive experiences. Recognized
@@ -149,14 +142,7 @@
               <h4>Founded TastySites</h4>
               <p>CEO & Creative Lead</p>
               <div
-                class="dummy-point"
-                style="
-                  position: absolute;
-                  top: unset;
-                  left: unset;
-                  right: 0;
-                  bottom: 0;
-                "
+                class="dummy-point !absolute !top-auto !left-auto !right-0 !bottom-0"
                 data-path-point
                 data-path-order="8"
                 data-control-x="0.25"
@@ -197,8 +183,7 @@
             <!-- Contact items with dummy points -->
             <div class="contact-item relative">
               <div
-                class="dummy-point"
-                style="position: absolute; top: 0; left: 0"
+                class="dummy-point !absolute !top-0 !left-0"
                 data-path-point
                 data-path-order="10"
                 data-control-x="0.25"
@@ -209,8 +194,7 @@
             </div>
             <div class="contact-item relative">
               <div
-                class="dummy-point"
-                style="position: absolute; top: 0; left:70%"
+                class="dummy-point !absolute !top-0 !left-[70%]"
                 data-path-point
                 data-path-order="11"
                 data-control-x="0.25"
@@ -267,12 +251,18 @@ const ballRef = ref(null);
 const pathSvgRef = ref(null);
 const pathRef = ref(null);
 const sentenceHiRef = ref(null);
+const isClient = ref(false);
 let resizeObserver = null;
 let resizeTimer = null;
 
 onMounted(() => {
+  isClient.value = true;
+  // Wait for hydration to complete and DOM to be ready
   nextTick(() => {
-    initializePathAnimation();
+    // Additional delay to ensure GSAP and all components are fully initialized
+    setTimeout(() => {
+      initializePathAnimation();
+    }, 100);
   });
 });
 
@@ -346,9 +336,9 @@ const getPathPointPositions = (rootEl) => {
     const offsetXVw = parseFloat(point.getAttribute("data-offset-x")) || 0;
     const offsetYVh = parseFloat(point.getAttribute("data-offset-y")) || 0;
 
-    // Convert viewport units to pixels
-    const offsetX = (offsetXVw / 100) * window.innerWidth;
-    const offsetY = (offsetYVh / 100) * window.innerHeight;
+    // Convert viewport units to pixels (with client-side guard)
+    const offsetX = typeof window !== 'undefined' ? (offsetXVw / 100) * window.innerWidth : 0;
+    const offsetY = typeof window !== 'undefined' ? (offsetYVh / 100) * window.innerHeight : 0;
 
     return {
       x: baseX + offsetX,
@@ -442,10 +432,20 @@ const recalcPathAndPosition = (root, pathEl, ball) => {
 };
 
 const initializePathAnimation = () => {
+  // Guard against server-side execution
+  if (!process.client || !isClient.value) return;
+  
   const root = rootRef.value;
   const ball = ballRef.value;
   const pathEl = pathRef.value;
   if (!root || !ball || !pathEl) return;
+
+  // Ensure GSAP is available
+  if (!$gsap) {
+    console.warn('GSAP not available, retrying...');
+    setTimeout(initializePathAnimation, 200);
+    return;
+  }
 
   let { pathData, points } = drawPath(root, pathEl);
   if (!pathData || points.length === 0) return;
@@ -489,15 +489,18 @@ const initializePathAnimation = () => {
   // Observe root size changes and window resize to force refresh
   try {
     const st = $gsap.core.globals().ScrollTrigger;
-    if (window && st) {
-      resizeObserver = new ResizeObserver(() => {
-        if (resizeTimer) clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          recalcPathAndPosition(root, pathEl, ball);
-          st.refresh();
-        }, 100);
-      });
-      resizeObserver.observe(root);
+    if (typeof window !== 'undefined' && st) {
+      // Only create ResizeObserver if available
+      if (typeof ResizeObserver !== 'undefined') {
+        resizeObserver = new ResizeObserver(() => {
+          if (resizeTimer) clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            recalcPathAndPosition(root, pathEl, ball);
+            st.refresh();
+          }, 100);
+        });
+        resizeObserver.observe(root);
+      }
 
       window.addEventListener(
         "resize",
