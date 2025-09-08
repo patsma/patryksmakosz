@@ -36,13 +36,6 @@
           read_more_link: '#',
         },
       ]"
-      :buttons="[
-        {
-          type: 'outline',
-          link: 'mailto:patryksmakosz1@gmail.com',
-          text: 'Contact',
-        },
-      ]"
     />
     <OrbitalCarousel class="-mt-[30vh]" />
 
