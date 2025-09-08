@@ -138,11 +138,11 @@
       margin-bottom: space(16); // 4rem
 
       h2 {
+        @include text-gradient-1;
         font-family: $font-main;
         font-size: clamp(space(8), 4vw, space(12)); // 2rem to 3rem
         font-weight: 700;
         margin-bottom: space(2); // 0.5rem
-        color: var(--color-primary-2);
       }
 
       p {
@@ -216,6 +216,7 @@
         font-size: clamp(space(8), 4vw, space(12)); // 2rem to 3rem
         font-weight: 700;
         margin-bottom: space(2); // 0.5rem
+        @include text-gradient-1;
       }
 
       p {
