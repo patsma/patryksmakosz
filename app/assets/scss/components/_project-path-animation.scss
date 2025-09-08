@@ -1,6 +1,8 @@
 // Styles for ProjectPathAnimation component (global)
+// Refactored to consistent BEM naming and shared tokens
 @use "../variables" as *;
 @use "../mixins" as *;
+@use "../utilities/header-compensation" as *;
 
 .project-path-animation {
   position: relative;
@@ -14,101 +16,105 @@
     min-height: 100vh;
   }
 
+  // Section wrapper
+  &__section,
   .section {
     position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4rem 2rem;
+    @include padding; // standardized responsive padding
 
-    .content {
+    // Inner content wrapper
+    & > .project-path-animation__content,
+    & > .content {
       max-width: 80rem;
       width: 100%;
       z-index: 1;
       position: relative;
+      display: grid;
+      gap: space(10);
     }
   }
 
   // Section 1: Introduction & Skills
+  &__section--intro,
   .section-1 {
     background: var(--color-primary-2);
     color: var(--color-white);
 
+    .project-path-animation__intro,
     .intro-header {
       text-align: center;
       display: grid;
       justify-items: center;
-      margin-bottom: 4rem;
+      margin-bottom: space(16);
 
       h1 {
-        font-family: $font-main;
-        font-size: clamp(space(10), 5vw, space(16)); // 2.5rem to 4rem
-        font-weight: 800;
-        margin-bottom: space(4); // 1rem
-        background: linear-gradient(
-          135deg,
-          var(--color-white),
-          var(--color-primary-2)
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
+        @include h2; // mobile baseline
+        margin-bottom: space(4);
+        @include laptop {
+          @include h1;
+        }
+        // @include text-gradient-1;
+        color: var(--color-white);
       }
 
+      .project-path-animation__intro-tagline,
       .intro-tagline {
-        font-family: $font-main;
-        font-size: space(5); // 1.25rem
+        @include paragraph;
         font-weight: 600;
-        margin-bottom: space(6); // 1.5rem
+        margin-bottom: space(6);
         opacity: 0.9;
       }
 
+      .project-path-animation__intro-description,
       .intro-description {
-        font-family: $font-main;
-        font-size: space(4.4); // ~1.1rem
-        line-height: 1.6;
+        @include paragraph;
         opacity: 0.8;
         max-width: 60ch;
         margin: 0 auto;
       }
     }
 
+    .project-path-animation__skills,
     .skills-constellation {
       h3 {
-        font-family: $font-main;
+        @include h5;
         text-align: center;
-        font-size: space(6); // 1.5rem
         font-weight: 700;
-        margin-bottom: space(8); // 2rem
+        margin-bottom: space(8);
         opacity: 0.9;
       }
 
+      .project-path-animation__skills-grid,
       .skills-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); // Force equal 2-column layout
-        gap: space(6); // 1.5rem
-        max-width: space(200); // 50rem - constrain width for better alignment
+        grid-template-columns: repeat(2, 1fr);
+        gap: space(6);
+        max-width: space(200);
         margin: 0 auto;
 
         @include tablet {
-          grid-template-columns: repeat(4, 1fr); // 4 equal columns on tablet+
-          gap: space(8); // 2rem
+          grid-template-columns: repeat(4, 1fr);
+          gap: space(8);
         }
 
+        .project-path-animation__skill,
         .skill-bubble {
           display: flex;
           align-items: center;
-          justify-content: center; // Center content within each bubble
-          gap: space(3); // 0.75rem
-          padding: space(4) space(6); // 1rem 1.5rem
+          justify-content: center;
+          gap: space(3);
+          padding: space(4) space(6);
           background: rgba(255, 255, 255, 0.1);
-          border-radius: $radius-xl; // Use consistent radius from variables
+          border-radius: $radius-xl;
           border: $border-1 solid rgba(255, 255, 255, 0.2);
-          transition: $transition; // Use consistent transition
+          transition: $transition;
           backdrop-filter: blur(10px);
           text-align: center;
-          min-height: space(12); // Ensure consistent height across all bubbles
+          min-height: space(12);
 
           &:hover {
             background: rgba(255, 255, 255, 0.15);
@@ -119,8 +125,8 @@
           span {
             font-family: $font-main;
             font-weight: 600;
-            font-size: space(3.8); // ~0.95rem
-            white-space: nowrap; // Prevent text wrapping
+            font-size: space(3.8);
+            white-space: nowrap;
           }
         }
       }
@@ -128,73 +134,76 @@
   }
 
   // Section 2: Experience Timeline
+  &__section--timeline,
   .section-2 {
     padding-bottom: 0;
     background: var(--color-white);
     color: var(--color-black);
 
+    .project-path-animation__timeline-header,
     .timeline-header {
       text-align: center;
-      margin-bottom: space(16); // 4rem
+      margin-bottom: space(16);
 
       h2 {
         @include text-gradient-1;
-        font-family: $font-main;
-        font-size: clamp(space(8), 4vw, space(12)); // 2rem to 3rem
+        @include h5;
         font-weight: 700;
-        margin-bottom: space(2); // 0.5rem
+        margin-bottom: space(2);
+        @include laptop {
+          @include h3;
+        }
       }
 
       p {
-        font-family: $font-main;
-        font-size: space(4.4); // ~1.1rem
-        opacity: 0.7;
+        @include paragraph;
+        color: $gray-5;
       }
     }
 
+    .project-path-animation__timeline,
     .timeline-milestones {
       display: grid;
-      gap: space(12); // 3rem
+      gap: space(12);
 
+      .project-path-animation__milestone,
       .milestone {
         display: flex;
         align-items: center;
-        gap: space(8); // 2rem
-        padding: space(8); // 2rem
+        gap: space(8);
+        padding: space(8);
         background: var(--color-gray-1);
-        border-radius: space(4); // 1rem
+        border-radius: space(4);
         border: $border-2 solid transparent;
         transition: $transition;
 
         &:hover {
           border-color: var(--color-primary-1);
-          transform: translateX(space(2)); // 8px
+          transform: translateX(space(2));
           box-shadow: var(--shadow-elevation-1);
         }
 
+        .project-path-animation__milestone-dot,
         .milestone-dot {
-          width: space(6); // 1.5rem
-          height: space(6); // 1.5rem
+          width: space(6);
+          height: space(6);
           border-radius: 50%;
           background: var(--color-primary-1);
-          box-shadow: 0 0 0 space(1) rgba(var(--color-primary-1-rgb), 0.2); // 4px
+          box-shadow: 0 0 0 space(1) rgba($primary-1, 0.2);
           flex-shrink: 0;
         }
 
+        .project-path-animation__milestone-content,
         .milestone-content {
           h4 {
-            font-family: $font-main;
-            font-size: space(5); // 1.25rem
-            font-weight: 700;
-            margin-bottom: space(2); // 0.5rem
+            @include h6;
+            margin-bottom: space(2);
             color: var(--color-primary-2);
           }
 
           p {
-            font-family: $font-main;
-            font-size: space(4); // 1rem
-            opacity: 0.7;
-            line-height: 1.5;
+            @include paragraph-small;
+            color: $gray-5;
           }
         }
       }
@@ -202,47 +211,47 @@
   }
 
   // Section 3: Contact & Future
+  &__section--contact,
   .section-3 {
-    // padding-top: 0;
-    // background: var(--color-gray-1);
     color: var(--color-black);
 
+    .project-path-animation__contact-header,
     .contact-header {
       text-align: center;
-      margin-bottom: space(16); // 4rem
+      margin-bottom: space(16);
 
       h2 {
-        font-family: $font-main;
-        font-size: clamp(space(8), 4vw, space(12)); // 2rem to 3rem
-        font-weight: 700;
-        margin-bottom: space(2); // 0.5rem
+        @include h5;
+        margin-bottom: space(2);
+        @include laptop {
+          @include h3;
+        }
         @include text-gradient-1;
       }
 
       p {
-        font-family: $font-main;
-        font-size: space(4.4); // ~1.1rem
-        opacity: 0.7;
+        @include paragraph;
+        color: $gray-5;
       }
     }
 
+    .project-path-animation__contact,
     .contact-info {
+      .project-path-animation__contact-grid,
       .contact-grid {
         display: grid;
-        grid-template-columns: repeat(
-          auto-fit,
-          minmax(space(62.5), 1fr)
-        ); // 250px min
-        gap: space(8); // 2rem
-        margin-bottom: space(16); // 4rem
+        grid-template-columns: repeat(auto-fit, minmax(space(62.5), 1fr));
+        gap: space(8);
+        margin-bottom: space(16);
 
+        .project-path-animation__contact-item,
         .contact-item {
           display: flex;
           align-items: center;
-          gap: space(4); // 1rem
-          padding: space(6); // 1.5rem
+          gap: space(4);
+          padding: space(6);
           background: var(--color-white);
-          border-radius: space(3); // 0.75rem
+          border-radius: space(3);
           box-shadow: var(--shadow-elevation-1);
           transition: $transition;
 
@@ -252,40 +261,43 @@
           }
 
           span {
-            font-family: $font-main;
+            @include paragraph-small;
             font-weight: 600;
-            font-size: space(4); // 1rem
           }
         }
       }
 
+      .project-path-animation__cta,
       .cta-section {
         text-align: center;
 
+        .project-path-animation__target,
         .connection-target {
           position: relative;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          width: space(24); // 6rem
-          height: space(24); // 6rem
-          margin: space(8) auto; // 2rem auto
+          width: space(24);
+          height: space(24);
+          margin: space(8) auto;
 
+          .project-path-animation__target-ring,
           .target-ring {
             position: absolute;
             inset: 0;
-            border: $border-2 solid var(--color-primary-1); // Use consistent border
+            border: $border-2 solid var(--color-primary-1);
             border-radius: 50%;
             opacity: 0.5;
             animation: pulse-ring 2s ease-in-out infinite;
           }
 
+          .project-path-animation__target-center,
           .target-center {
-            font-size: space(8); // 2rem
+            font-size: space(8);
             background: var(--color-primary-2);
             border-radius: 50%;
-            width: space(16); // 4rem
-            height: space(16); // 4rem
+            width: space(16);
+            height: space(16);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -293,12 +305,11 @@
           }
         }
 
+        .project-path-animation__cta-text,
         .cta-text {
           max-width: 60ch;
           margin: 0 auto;
-          font-family: $font-main;
-          font-size: space(4.4); // ~1.1rem
-          line-height: 1.6;
+          @include paragraph;
           opacity: 0.8;
         }
       }
@@ -306,10 +317,11 @@
   }
 
   // Floating ball that moves along the motion path
+  &__ball,
   .ball {
     position: absolute;
-    width: space(6); // 1.5rem
-    height: space(6); // 1.5rem
+    width: space(6);
+    height: space(6);
     border-radius: $radius-full;
     background: var(--color-primary-1);
     box-shadow: var(--shadow-elevation-1);
@@ -319,6 +331,7 @@
   }
 
   // SVG overlay used for debugging/visualizing the path (kept hidden by default)
+  &__path-svg,
   .path-svg {
     position: absolute;
     inset: 0;
@@ -329,13 +342,15 @@
     opacity: 0; // keep non-intrusive by default
   }
 
-  .path-svg path {
+  .path-svg path,
+  .project-path-animation__path-svg path {
     fill: none;
     stroke: var(--color-gray-3);
     stroke-width: $border-1;
   }
 
   // Loader overlay that plays the logo animation
+  &__loader,
   .loader {
     position: absolute;
     inset: 0;
@@ -346,37 +361,37 @@
   }
 
   // Dummy points positioned within UI elements for path generation
+  &__point,
   .dummy-point {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: space(2); // 0.5rem
-    height: space(2); // 0.5rem
+    width: space(2);
+    height: space(2);
     border-radius: 50%;
     background: var(--color-primary-1);
     opacity: 0; // Hidden by default
     pointer-events: none;
     z-index: 1;
 
-    // Enhanced debugging: show points for debugging path with order numbers
-    // Uncomment below for debugging
+    // Enhanced debugging (optional)
     // &[data-path-point] {
     //   opacity: 0.6;
-    //   box-shadow: 0 0 0 space(0.5) rgba(var(--color-primary-1-rgb), 0.3); // 2px
+    //   box-shadow: 0 0 0 space(0.5) rgba($primary-1, 0.3);
     //   &::after {
     //     content: attr(data-path-order);
     //     position: absolute;
-    //     top: -#{space(6)}; // -1.5rem
+    //     top: -#{space(6)};
     //     left: 50%;
     //     transform: translateX(-50%);
     //     background: var(--color-primary-2);
     //     color: var(--color-white);
-    //     padding: space(0.8) space(1.6); // 0.2rem 0.4rem
+    //     padding: space(0.8) space(1.6);
     //     border-radius: $radius-xs;
-    //     font-size: space(2.8); // ~0.7rem
+    //     font-size: space(2.8);
     //     font-weight: 600;
-    //     min-width: space(4); // 1rem
+    //     min-width: space(4);
     //     text-align: center;
     //   }
     // }
@@ -390,12 +405,12 @@
     // Subtle indicator when ball is approaching/at this point
     &.ball-approaching {
       transform: scale(1.05);
-      box-shadow: 0 0 space(5) rgba(var(--color-primary-1-rgb), 0.3); // 20px
+      box-shadow: 0 0 space(5) rgba($primary-1, 0.3);
     }
 
     &.ball-at-point {
       transform: scale(1.1);
-      box-shadow: 0 0 space(7.5) rgba(var(--color-primary-1-rgb), 0.5); // 30px
+      box-shadow: 0 0 space(7.5) rgba($primary-1, 0.5);
     }
   }
 }

@@ -7,13 +7,18 @@
     <!-- Ball that moves along the motion path -->
     <div
       ref="ballRef"
-      class="ball"
+      class="project-path-animation__ball ball"
       aria-hidden="true"
       :class="{ '!opacity-0': !isClient }"
     />
 
     <!-- Hidden SVG used for motion path alignment/debugging -->
-    <svg ref="pathSvgRef" class="path-svg" width="100%" height="100%">
+    <svg
+      ref="pathSvgRef"
+      class="project-path-animation__path-svg path-svg"
+      width="100%"
+      height="100%"
+    >
       <path ref="pathRef" id="desktop-motion-path" />
     </svg>
 
@@ -30,9 +35,11 @@
 
     <!-- Three full-screen sections with built-in dummy points -->
     <!-- Section 1: Introduction & Skills Constellation -->
-    <div class="section section-1">
-      <div class="content">
-        <div class="intro-header">
+    <div
+      class="project-path-animation__section project-path-animation__section--intro section section-1"
+    >
+      <div class="project-path-animation__content content">
+        <div class="project-path-animation__intro intro-header">
           <SentenceHiSVG ref="sentenceHiRef" class="w-40" />
           <div
             class="dummy-point"
@@ -44,7 +51,7 @@
           ></div>
           <h1>I'm Patryk</h1>
           <div class="relative">
-            <p class="intro-tagline">
+            <p class="project-path-animation__intro-tagline intro-tagline">
               Front-end Developer & Creative Web Animator with 10+ years
               experience
             </p>
@@ -58,7 +65,9 @@
               data-offset-y="0"
             ></div>
           </div>
-          <p class="intro-description">
+          <p
+            class="project-path-animation__intro-description intro-description"
+          >
             Passionate about bringing 'fun things in web' to life - transforming
             static designs into captivating, interactive experiences. Recognized
             as a
@@ -72,11 +81,14 @@
           </p>
         </div>
 
-        <div class="skills-constellation">
+        <div class="project-path-animation__skills skills-constellation">
           <h3>Skills & Technologies</h3>
-          <div class="skills-grid">
+          <div class="project-path-animation__skills-grid skills-grid">
             <!-- Skill bubbles with positioned dummy points -->
-            <div class="skill-bubble" data-skill="nuxt">
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="nuxt"
+            >
               <div
                 class="dummy-point"
                 data-path-point
@@ -88,11 +100,17 @@
               <Icon name="logos:nuxt-icon" size="24" />
               <span>Nuxt.js</span>
             </div>
-            <div class="skill-bubble" data-skill="vue">
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="vue"
+            >
               <Icon name="logos:vue" size="24" />
               <span>Vue.js</span>
             </div>
-            <div class="skill-bubble" data-skill="gsap">
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="gsap"
+            >
               <div
                 class="dummy-point"
                 data-path-point
@@ -104,7 +122,10 @@
               <Icon name="simple-icons:greensock" size="24" />
               <span>GSAP</span>
             </div>
-            <div class="skill-bubble" data-skill="threejs">
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="threejs"
+            >
               <Icon name="logos:threejs" size="24" />
               <span>Three.js</span>
             </div>
@@ -114,17 +135,22 @@
     </div>
 
     <!-- Section 2: Experience Timeline -->
-    <div class="section section-2">
-      <div class="content">
-        <div class="timeline-header">
+    <div
+      class="project-path-animation__section project-path-animation__section--timeline section section-2"
+    >
+      <div class="project-path-animation__content content">
+        <div class="project-path-animation__timeline-header timeline-header">
           <h2>Professional Journey</h2>
           <p>A decade of crafting digital experiences</p>
         </div>
 
-        <div class="timeline-milestones">
+        <div class="project-path-animation__timeline timeline-milestones">
           <!-- Career milestones with ordered dummy points -->
-          <div class="milestone" data-year="2023">
-            <div class="milestone-dot">
+          <div
+            class="project-path-animation__milestone milestone"
+            data-year="2023"
+          >
+            <div class="project-path-animation__milestone-dot milestone-dot">
               <div
                 class="dummy-point"
                 data-path-point
@@ -133,23 +159,39 @@
                 data-control-y="-100"
               ></div>
             </div>
-            <div class="milestone-content">
+            <div
+              class="project-path-animation__milestone-content milestone-content"
+            >
               <h4>Complex SVG Animations</h4>
               <p>Advanced logo animations & isometric projects</p>
             </div>
           </div>
 
-          <div class="milestone" data-year="2022-2023">
-            <div class="milestone-dot"></div>
-            <div class="milestone-content">
+          <div
+            class="project-path-animation__milestone milestone"
+            data-year="2022-2023"
+          >
+            <div
+              class="project-path-animation__milestone-dot milestone-dot"
+            ></div>
+            <div
+              class="project-path-animation__milestone-content milestone-content"
+            >
               <h4>Senior Frontend @ BÆRNHOLDT</h4>
               <p>Tabellae, Nixu, Novo Nordisk projects</p>
             </div>
           </div>
 
-          <div class="milestone" data-year="2018">
-            <div class="milestone-dot"></div>
-            <div class="milestone-content relative">
+          <div
+            class="project-path-animation__milestone milestone"
+            data-year="2018"
+          >
+            <div
+              class="project-path-animation__milestone-dot milestone-dot"
+            ></div>
+            <div
+              class="project-path-animation__milestone-content milestone-content relative"
+            >
               <h4>Founded TastySites</h4>
               <p>CEO & Creative Lead</p>
               <div
@@ -162,8 +204,11 @@
             </div>
           </div>
 
-          <div class="milestone" data-year="2017-2018">
-            <div class="milestone-dot">
+          <div
+            class="project-path-animation__milestone milestone"
+            data-year="2017-2018"
+          >
+            <div class="project-path-animation__milestone-dot milestone-dot">
               <div
                 class="dummy-point"
                 data-path-point
@@ -172,7 +217,9 @@
                 data-control-y="-100"
               ></div>
             </div>
-            <div class="milestone-content">
+            <div
+              class="project-path-animation__milestone-content milestone-content"
+            >
               <h4>Creative Coder @ UpWork</h4>
               <p>Interactive web content & SVG banners</p>
             </div>
@@ -182,17 +229,21 @@
     </div>
 
     <!-- Section 3: Contact & Future -->
-    <div class="section section-3">
-      <div class="content">
-        <div class="contact-header">
+    <div
+      class="project-path-animation__section project-path-animation__section--contact section section-3"
+    >
+      <div class="project-path-animation__content content">
+        <div class="project-path-animation__contact-header contact-header">
           <h2>Let's Connect!</h2>
           <p>Ready to bring your vision to life</p>
         </div>
 
-        <div class="contact-info">
-          <div class="contact-grid">
+        <div class="project-path-animation__contact contact-info">
+          <div class="project-path-animation__contact-grid contact-grid">
             <!-- Contact items with dummy points -->
-            <div class="contact-item relative">
+            <div
+              class="project-path-animation__contact-item contact-item relative"
+            >
               <div
                 class="dummy-point !absolute !top-0 !left-0"
                 data-path-point
@@ -205,7 +256,9 @@
                 patryksmakosz1@gmail.com</a
               >
             </div>
-            <div class="contact-item relative">
+            <div
+              class="project-path-animation__contact-item contact-item relative"
+            >
               <div
                 class="dummy-point !absolute !top-0 !left-[70%]"
                 data-path-point
@@ -222,7 +275,7 @@
                 >@patryksmakosz</a
               >
             </div>
-            <div class="contact-item">
+            <div class="project-path-animation__contact-item contact-item">
               <Icon name="mdi:web" size="24" />
               <a
                 href="https://tastysites.pl"
@@ -232,17 +285,25 @@
                 >tastysites.pl</a
               >
             </div>
-            <div class="contact-item">
+            <div class="project-path-animation__contact-item contact-item">
               <Icon name="mdi:map-marker" size="24" />
               <span>Gdansk, Poland</span>
             </div>
           </div>
 
-          <div class="cta-section">
+          <div class="project-path-animation__cta cta-section">
             <!-- Final target with ordered dummy point -->
-            <div class="connection-target" id="final-target">
-              <div class="target-ring"></div>
-              <div class="target-center" id="target-center">
+            <div
+              class="project-path-animation__target connection-target"
+              id="final-target"
+            >
+              <div
+                class="project-path-animation__target-ring target-ring"
+              ></div>
+              <div
+                class="project-path-animation__target-center target-center"
+                id="target-center"
+              >
                 <div
                   class="dummy-point"
                   data-path-point
@@ -253,7 +314,7 @@
                 ></div>
               </div>
             </div>
-            <p class="cta-text">
+            <p class="project-path-animation__cta-text cta-text">
               Whether you need GSAP animations, Nuxt.js apps, or bespoke
               WordPress development - I'm here to transform your ideas into
               exceptional digital experiences.
@@ -431,10 +492,17 @@ const getElementPosition = (element, rootEl) => {
 
 // Enhanced positioning system with special element targeting
 const getSpecialElementPositions = (rootEl) => {
+  // Support both legacy and BEM selectors
+  const skillsHeaderEl =
+    rootEl.querySelector(".skills-constellation h3") ||
+    rootEl.querySelector(".project-path-animation__skills h3");
+  const timelineHeaderEl =
+    rootEl.querySelector(".timeline-header h2") ||
+    rootEl.querySelector(".project-path-animation__timeline-header h2");
   const specialElements = {
     finalTarget: rootEl.querySelector("#final-target"),
-    skillsHeader: rootEl.querySelector(".skills-constellation h3"),
-    timelineHeader: rootEl.querySelector(".timeline-header h2"),
+    skillsHeader: skillsHeaderEl,
+    timelineHeader: timelineHeaderEl,
   };
 
   const positions = {};
