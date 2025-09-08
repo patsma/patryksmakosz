@@ -184,7 +184,7 @@
     <!-- Section 3: Contact & Future -->
     <div class="section section-3">
       <div class="content">
-        <div class="contact-header">
+        <div class="contact-header gradient-text-1">
           <h2>Let's Connect!</h2>
           <p>Ready to bring your vision to life</p>
         </div>
