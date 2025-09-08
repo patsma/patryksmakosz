@@ -54,11 +54,11 @@
       h1 {
         @include h2; // mobile baseline
         margin-bottom: space(4);
+        color: var(--color-white);
         @include laptop {
           @include h1;
         }
         // @include text-gradient-1;
-        color: var(--color-white);
       }
 
       .project-path-animation__intro-tagline,
@@ -223,10 +223,10 @@
       h2 {
         @include h5;
         margin-bottom: space(2);
+        @include text-gradient-1;
         @include laptop {
           @include h3;
         }
-        @include text-gradient-1;
       }
 
       p {
