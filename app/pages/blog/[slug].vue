@@ -59,18 +59,30 @@ const nextPost = computed(() => {
 });
 
 /**
- * Format ISO date to a readable short date.
- * @param {string|undefined} iso
+ * Parse and format date deterministically across SSR/CSR to avoid hydration mismatches.
  */
+const parseISODate = (iso) => {
+  if (!iso) return null;
+  const isShort = /^\d{4}-\d{2}-\d{2}$/.test(iso);
+  const safe = isShort ? `${iso}T00:00:00Z` : iso;
+  const d = new Date(safe);
+  return Number.isNaN(d.getTime()) ? null : d;
+};
+
 const formatDate = (iso) => {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "2-digit",
-  });
+  const d = parseISODate(iso);
+  if (!d) return iso || "";
+  try {
+    return new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    }).format(d);
+  } catch {
+    return `${d.getUTCDate().toString().padStart(2, "0")} ${d
+      .toLocaleString("en", { month: "short", timeZone: "UTC" })
+      .replace(".", "")} ${d.getUTCFullYear()}`;
+  }
 };
 </script>
 
@@ -118,22 +130,22 @@ const formatDate = (iso) => {
         <NuxtLink
           v-if="prevPost"
           :to="prevPost.path"
-          class="btn-standard-outlined"
+          class="btn-standard-outlined btn-wide"
           aria-label="Previous post"
         >
-          <span class="inline-flex items-center gap-2"
-            ><Icon name="tabler:arrow-left" class="w-5 h-5" />Prev</span
+          <span class="btn-content"
+            ><Icon name="tabler:arrow-left" class="w-5 h-5" /> Prev</span
           >
         </NuxtLink>
         <div class="flex-1" />
         <NuxtLink
           v-if="nextPost"
           :to="nextPost.path"
-          class="btn-standard-outlined"
+          class="btn-standard-outlined btn-wide"
           aria-label="Next post"
         >
-          <span class="inline-flex items-center gap-2"
-            >Next<Icon name="tabler:arrow-right" class="w-5 h-5"
+          <span class="btn-content"
+            >Next <Icon name="tabler:arrow-right" class="w-5 h-5"
           /></span>
         </NuxtLink>
       </nav>

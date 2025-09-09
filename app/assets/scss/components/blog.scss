@@ -2,12 +2,108 @@
 @use "~/assets/scss/mixins" as *;
 
 // Minimal blog component styles
-.btn-standard,
-.btn-standard-outlined {
-  // rely on existing button partial if present; these are just safety tweaks
-}
-
 .blog-index,
 .blog-post {
   // shared hooks if we need global adjustments later
+}
+
+// Responsive grid for blog lists (align with component grids)
+.blog-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: space(6);
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+    gap: space(10);
+  }
+  @include desktop {
+    gap: space(12);
+  }
+}
+
+.blog-card {
+  padding: space(6);
+  background: rgba($white, 0.02);
+  border: $border-1 solid rgba($white, 0.06);
+  border-radius: $radius-lg;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    background: rgba($white, 0.04);
+    border-color: rgba($white, 0.12);
+  }
+}
+
+.blog-card__inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: space(4);
+}
+
+.blog-card__arrow {
+  display: grid;
+  place-items: center;
+  width: $size-circle-btn;
+  height: $size-circle-btn;
+  border-radius: $radius-full;
+  border: $border-1 solid var(--color-gray-3);
+  color: var(--color-black);
+  background: var(--color-gray-1);
+  .iconify,
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}
+
+.blog-card__title {
+  @include h6;
+  color: $white;
+}
+
+.blog-card__excerpt {
+  @include paragraph-small;
+  color: $gray-5;
+  margin-top: space(2);
+}
+
+.blog-meta {
+  display: flex;
+  align-items: center;
+  gap: space(2);
+  color: $gray-4;
+  margin-top: space(3);
+  font-size: 0.875rem;
+}
+.blog-meta__dot {
+  opacity: 0.6;
+}
+
+.blog-tags {
+  display: inline-flex;
+  gap: space(2);
+  flex-wrap: wrap;
+}
+.blog-tag {
+  color: $gray-4;
+}
+
+// Button/content helpers for icon + text layout
+.btn-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: space(2);
+}
+
+// Slightly wider buttons for prev/next with icons
+.btn-wide {
+  min-width: calc(#{$size-button-min-width} + 2.5rem);
+  padding-left: space(6);
+  padding-right: space(6);
 }

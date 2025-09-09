@@ -198,9 +198,13 @@ onUnmounted(() => {
       aria-label="Main navigation"
       @click.stop
     >
+      <NuxtLink :ref="setMenuLinkRef" to="/blog" class="menu-overlay__link"
+        >Blog</NuxtLink
+      >
       <NuxtLink :ref="setMenuLinkRef" to="/" class="menu-overlay__link"
         >Home</NuxtLink
       >
+
       <!-- <a
         :ref="setMenuLinkRef"
         href="https://github.com/patsma"
@@ -213,7 +217,7 @@ onUnmounted(() => {
         >About</NuxtLink
       >
       <NuxtLink :ref="setMenuLinkRef" to="/portfolio" class="menu-overlay__link"
-        >Portfolio</NuxtLink
+        >Projects</NuxtLink
       >
 
       <a

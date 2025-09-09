@@ -35,15 +35,29 @@ const postsSorted = computed(() => {
  * Keep it tiny; no external deps.
  * @param {string|undefined} iso
  */
+const parseISODate = (iso) => {
+  // Ensure stable parsing even on server by forcing UTC midnight for YYYY-MM-DD
+  if (!iso) return null;
+  const isShort = /^\d{4}-\d{2}-\d{2}$/.test(iso);
+  const safe = isShort ? `${iso}T00:00:00Z` : iso;
+  const d = new Date(safe);
+  return Number.isNaN(d.getTime()) ? null : d;
+};
+
 const formatDate = (iso) => {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "2-digit",
-  });
+  const d = parseISODate(iso);
+  if (!d) return iso || "";
+  try {
+    return new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    }).format(d);
+  } catch {
+    return `${d.getUTCDate().toString().padStart(2, "0")} ${d
+      .toLocaleString("en", { month: "short", timeZone: "UTC" })
+      .replace(".", "")} ${d.getUTCFullYear()}`;
+  }
 };
 </script>
 
@@ -66,30 +80,35 @@ const formatDate = (iso) => {
               :to="post.path"
               class="block focus:outline-none focus:ring-2 focus:ring-sky-500 rounded-md"
             >
-              <article>
-                <h2 class="blog-card__title">{{ post.title }}</h2>
-                <p v-if="post.excerpt" class="blog-card__excerpt">
-                  {{ post.excerpt }}
-                </p>
-                <div class="blog-meta">
-                  <time v-if="post.date" :datetime="post.date">{{
-                    formatDate(post.date)
-                  }}</time>
-                  <span
-                    v-if="post.tags?.length"
-                    class="blog-meta__dot"
-                    aria-hidden="true"
-                    >•</span
-                  >
-                  <ul
-                    v-if="post.tags?.length"
-                    class="blog-tags"
-                    aria-label="Tags"
-                  >
-                    <li v-for="t in post.tags" :key="t" class="blog-tag">
-                      #{{ t }}
-                    </li>
-                  </ul>
+              <article class="blog-card__inner">
+                <div>
+                  <h2 class="blog-card__title">{{ post.title }}</h2>
+                  <p v-if="post.excerpt" class="blog-card__excerpt">
+                    {{ post.excerpt }}
+                  </p>
+                  <div class="blog-meta">
+                    <time v-if="post.date" :datetime="post.date">{{
+                      formatDate(post.date)
+                    }}</time>
+                    <span
+                      v-if="post.tags?.length"
+                      class="blog-meta__dot"
+                      aria-hidden="true"
+                      >•</span
+                    >
+                    <ul
+                      v-if="post.tags?.length"
+                      class="blog-tags"
+                      aria-label="Tags"
+                    >
+                      <li v-for="t in post.tags" :key="t" class="blog-tag">
+                        #{{ t }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="blog-card__arrow" aria-hidden="true">
+                  <Icon name="tabler:arrow-right" class="w-5 h-5" />
                 </div>
               </article>
             </NuxtLink>
