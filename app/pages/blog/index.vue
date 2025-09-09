@@ -66,35 +66,37 @@ const formatDate = (iso) => {
     <section class="blog-index">
       <!-- Background Parallax Elements -->
       <div class="parallax-bg">
-        <div 
-          class="parallax-element parallax-element--1" 
-          data-speed="0.3" 
+        <div
+          class="parallax-element parallax-element--1"
+          data-speed="0.3"
           data-lag="0.2"
         ></div>
-        <div 
-          class="parallax-element parallax-element--2" 
-          data-speed="0.5" 
+        <div
+          class="parallax-element parallax-element--2"
+          data-speed="0.5"
           data-lag="0.15"
         ></div>
-        <div 
-          class="parallax-element parallax-element--3" 
-          data-speed="0.2" 
+        <div
+          class="parallax-element parallax-element--3"
+          data-speed="0.2"
           data-lag="0.25"
         ></div>
       </div>
 
       <div class="blog-container">
         <!-- Hero Header Section -->
-        <header class="blog-hero" data-lag="0.1">
+        <header class="blog-hero">
           <div class="blog-hero__content">
-            <h1 class="blog-hero__title" data-speed="0.8" data-lag="0.15">
+            <h1 class="blog-hero__title">
               <span class="blog-hero__title-main">Blog</span>
               <span class="blog-hero__title-sub gradient-text">& Insights</span>
             </h1>
-            <p class="blog-hero__description" data-speed="0.9" data-lag="0.1">
-              Latest notes on web animation mastery, Nuxt wizardry, Vue composition, and the art of motion design that brings digital experiences to life.
+            <p class="blog-hero__description">
+              Latest notes on web animation mastery, Nuxt wizardry, Vue
+              composition, and the art of motion design that brings digital
+              experiences to life.
             </p>
-            <div class="blog-hero__stats" data-speed="0.85" data-lag="0.2">
+            <div class="blog-hero__stats">
               <div class="blog-stat">
                 <span class="blog-stat__number">{{ postsSorted.length }}</span>
                 <span class="blog-stat__label">Articles</span>
@@ -114,15 +116,17 @@ const formatDate = (iso) => {
         </div>
         <div v-else-if="error" class="blog-error">
           <h2 class="blog-error__title">Oops! Something went sideways</h2>
-          <p class="blog-error__message">Failed to load posts. The internet gremlins are at it again.</p>
+          <p class="blog-error__message">
+            Failed to load posts. The internet gremlins are at it again.
+          </p>
         </div>
-        
+
         <!-- Blog Posts Grid -->
         <div v-else class="blog-content" data-lag="0.05">
           <div class="blog-grid">
-            <article 
-              v-for="(post, index) in postsSorted" 
-              :key="post.path" 
+            <article
+              v-for="(post, index) in postsSorted"
+              :key="post.path"
               class="blog-card"
               :class="`blog-card--${index % 3}`"
               :data-speed="0.95 + (index % 3) * 0.02"
@@ -136,11 +140,19 @@ const formatDate = (iso) => {
                 <div class="blog-card__inner">
                   <div class="blog-card__content">
                     <div class="blog-card__meta">
-                      <time v-if="post.date" :datetime="post.date" class="blog-card__date">
+                      <time
+                        v-if="post.date"
+                        :datetime="post.date"
+                        class="blog-card__date"
+                      >
                         {{ formatDate(post.date) }}
                       </time>
                       <div v-if="post.tags?.length" class="blog-card__tags">
-                        <span v-for="t in post.tags.slice(0, 2)" :key="t" class="blog-card__tag">
+                        <span
+                          v-for="t in post.tags.slice(0, 2)"
+                          :key="t"
+                          class="blog-card__tag"
+                        >
                           {{ t }}
                         </span>
                       </div>
@@ -199,29 +211,41 @@ const formatDate = (iso) => {
   position: absolute;
   border-radius: 50%;
   opacity: 0.4;
-  
+
   &--1 {
     top: 10%;
     left: 10%;
     width: 200px;
     height: 200px;
-    background: linear-gradient(135deg, rgba($alternative-1, 0.15) 0%, rgba($alternative-2, 0.1) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba($alternative-1, 0.15) 0%,
+      rgba($alternative-2, 0.1) 100%
+    );
   }
-  
+
   &--2 {
     top: 60%;
     right: 15%;
     width: 150px;
     height: 150px;
-    background: linear-gradient(135deg, rgba($alternative-2, 0.12) 0%, rgba($primary-2, 0.08) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba($alternative-2, 0.12) 0%,
+      rgba($primary-2, 0.08) 100%
+    );
   }
-  
+
   &--3 {
     bottom: 20%;
     left: 20%;
     width: 120px;
     height: 120px;
-    background: linear-gradient(135deg, rgba($primary-2, 0.1) 0%, rgba($alternative-1, 0.08) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba($primary-2, 0.1) 0%,
+      rgba($alternative-1, 0.08) 100%
+    );
   }
 }
 
@@ -230,7 +254,7 @@ const formatDate = (iso) => {
   text-align: center;
   padding: space(16) 0 space(20);
   position: relative;
-  
+
   @include tablet {
     padding: space(20) 0 space(24);
   }
@@ -249,11 +273,11 @@ const formatDate = (iso) => {
   @include mobile-h1;
   color: $black;
   display: block;
-  
+
   @include tablet {
     @include h1;
   }
-  
+
   @include desktop {
     @include desktop-h1-extralight;
   }
@@ -263,7 +287,7 @@ const formatDate = (iso) => {
   @include mobile-h2-extralight;
   display: block;
   margin-top: space(2);
-  
+
   @include tablet {
     @include h2-extralight;
   }
@@ -278,7 +302,7 @@ const formatDate = (iso) => {
   color: $gray-6;
   max-width: 600px;
   margin: 0 auto space(8);
-  
+
   @include tablet {
     @include paragraph-large;
   }
@@ -312,7 +336,7 @@ const formatDate = (iso) => {
 .blog-loading {
   text-align: center;
   padding: space(16) 0;
-  
+
   p {
     @include paragraph;
     color: $gray-4;
@@ -331,7 +355,9 @@ const formatDate = (iso) => {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 // Error State
@@ -360,12 +386,12 @@ const formatDate = (iso) => {
   display: grid;
   grid-template-columns: 1fr;
   gap: space(8);
-  
+
   @include tablet {
     grid-template-columns: repeat(2, 1fr);
     gap: space(10);
   }
-  
+
   @include desktop {
     grid-template-columns: repeat(3, 1fr);
     gap: space(12);
@@ -376,11 +402,17 @@ const formatDate = (iso) => {
 .blog-card {
   position: relative;
   height: 100%;
-  
+
   // Staggered animation delays
-  &--0 { animation-delay: 0ms; }
-  &--1 { animation-delay: 100ms; }
-  &--2 { animation-delay: 200ms; }
+  &--0 {
+    animation-delay: 0ms;
+  }
+  &--1 {
+    animation-delay: 100ms;
+  }
+  &--2 {
+    animation-delay: 200ms;
+  }
 }
 
 .blog-card__link {
@@ -394,30 +426,30 @@ const formatDate = (iso) => {
   border: $border-1 solid rgba($gray-3, 0.3);
   box-shadow: 0 4px 20px rgba($black, 0.08);
   transition: all 300ms ease;
-  
+
   &:hover {
     transform: translateY(-8px);
     border-color: rgba($alternative-1, 0.4);
     box-shadow: 0 12px 40px rgba($black, 0.12);
-    
+
     .blog-card__glow {
       opacity: 1;
     }
-    
+
     .arrow-circle {
       transform: scale(1.1) rotate(45deg);
       background: $alternative-1;
     }
-    
+
     .arrow-icon {
       color: $white;
     }
-    
+
     .blog-card__title {
       color: $alternative-1;
     }
   }
-  
+
   &:focus-visible {
     outline: 2px solid $alternative-1;
     outline-offset: 4px;
@@ -473,7 +505,7 @@ const formatDate = (iso) => {
   margin-bottom: space(4);
   transition: color 300ms ease;
   line-height: 1.3;
-  
+
   @media (max-width: #{$tablet - 1px}) {
     @include mobile-h6;
   }
@@ -517,7 +549,11 @@ const formatDate = (iso) => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 50% 0%, rgba($alternative-1, 0.05) 0%, transparent 70%);
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba($alternative-1, 0.05) 0%,
+    transparent 70%
+  );
   opacity: 0;
   transition: opacity 300ms ease;
   pointer-events: none;
@@ -529,15 +565,15 @@ const formatDate = (iso) => {
   .blog-hero {
     padding: space(12) 0 space(16);
   }
-  
+
   .blog-hero__stats {
     gap: space(8);
   }
-  
+
   .blog-grid {
     gap: space(6);
   }
-  
+
   .blog-card__inner {
     padding: space(6);
   }

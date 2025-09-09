@@ -86,7 +86,7 @@ const formatDate = (iso) => {
 };
 
 const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 </script>
 
@@ -101,7 +101,7 @@ const scrollToTop = () => {
         </div>
       </div>
     </section>
-    
+
     <!-- Error State -->
     <section v-else-if="error || !post" class="blog-post blog-post--error">
       <div class="blog-container">
@@ -111,7 +111,8 @@ const scrollToTop = () => {
           </div>
           <h1 class="empty-state__title">Article Not Found</h1>
           <p class="empty-state__message">
-            This post seems to have vanished into the digital void. Perhaps it's still brewing in our creative cauldron.
+            This post seems to have vanished into the digital void. Perhaps it's
+            still brewing in our creative cauldron.
           </p>
           <div class="empty-state__actions">
             <NuxtLink to="/blog" class="btn-back">
@@ -122,35 +123,39 @@ const scrollToTop = () => {
         </div>
       </div>
     </section>
-    
+
     <!-- Article Content -->
     <section v-else class="blog-post">
       <!-- Subtle background parallax elements -->
       <div class="parallax-bg">
-        <div 
-          class="parallax-element parallax-element--post-1" 
-          data-speed="0.4" 
+        <div
+          class="parallax-element parallax-element--post-1"
+          data-speed="0.4"
           data-lag="0.3"
         ></div>
-        <div 
-          class="parallax-element parallax-element--post-2" 
-          data-speed="0.6" 
+        <div
+          class="parallax-element parallax-element--post-2"
+          data-speed="0.6"
           data-lag="0.2"
         ></div>
       </div>
 
       <div class="blog-container">
         <!-- Article Header -->
-        <header class="blog-post__header" data-lag="0.1">
-          <div class="blog-post__breadcrumb" data-speed="0.9" data-lag="0.05">
+        <header class="blog-post__header">
+          <div class="blog-post__breadcrumb">
             <NuxtLink to="/blog" class="breadcrumb-link">
               <Icon name="tabler:arrow-left" class="breadcrumb-icon" />
               Blog
             </NuxtLink>
           </div>
-          
+
           <div class="blog-post__meta">
-            <time v-if="post.date" :datetime="post.date" class="blog-post__date">
+            <time
+              v-if="post.date"
+              :datetime="post.date"
+              class="blog-post__date"
+            >
               {{ formatDate(post.date) }}
             </time>
             <div v-if="post.tags?.length" class="blog-post__tags">
@@ -159,15 +164,15 @@ const scrollToTop = () => {
               </span>
             </div>
           </div>
-          
-          <h1 class="blog-post__title" data-speed="0.85" data-lag="0.15">
+
+          <h1 class="blog-post__title">
             {{ post.title }}
           </h1>
-          
+
           <div v-if="post.excerpt" class="blog-post__excerpt">
             {{ post.excerpt }}
           </div>
-          
+
           <div class="blog-post__author" v-if="post.author">
             <span class="author-label">By</span>
             <span class="author-name">{{ post.author }}</span>
@@ -175,15 +180,15 @@ const scrollToTop = () => {
         </header>
 
         <!-- Article Content -->
-        <article class="blog-post__content" data-lag="0.08">
-          <div class="prose-wrapper" data-speed="0.95" data-lag="0.05">
+        <article class="blog-post__content">
+          <div class="prose-wrapper" data-speed="1.05">
             <ContentRenderer :value="post" class="prose prose-light" />
           </div>
         </article>
 
         <!-- Navigation -->
         <nav v-if="prevPost || nextPost" class="blog-post__nav" data-lag="0.1">
-          <div class="blog-nav" data-speed="0.9">
+          <div class="blog-nav" data-speed="1.1">
             <NuxtLink
               v-if="prevPost"
               :to="prevPost.path"
@@ -196,9 +201,9 @@ const scrollToTop = () => {
               </div>
               <h3 class="blog-nav__title">{{ prevPost.title }}</h3>
             </NuxtLink>
-            
+
             <div class="blog-nav__spacer"></div>
-            
+
             <NuxtLink
               v-if="nextPost"
               :to="nextPost.path"
@@ -213,11 +218,11 @@ const scrollToTop = () => {
             </NuxtLink>
           </div>
         </nav>
-        
+
         <!-- Back to top -->
         <div class="blog-post__footer">
-          <button 
-            @click="scrollToTop" 
+          <button
+            @click="scrollToTop"
             class="back-to-top"
             aria-label="Scroll to top"
           >
@@ -238,7 +243,7 @@ const scrollToTop = () => {
   min-height: 100vh;
   background: $white;
   position: relative;
-  
+
   &--loading,
   &--error {
     display: flex;
@@ -263,21 +268,29 @@ const scrollToTop = () => {
   position: absolute;
   border-radius: 50%;
   opacity: 0.3;
-  
+
   &--post-1 {
     top: 20%;
     right: 10%;
     width: 120px;
     height: 120px;
-    background: linear-gradient(135deg, rgba($alternative-1, 0.1) 0%, rgba($alternative-2, 0.06) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba($alternative-1, 0.1) 0%,
+      rgba($alternative-2, 0.06) 100%
+    );
   }
-  
+
   &--post-2 {
     bottom: 30%;
     left: 8%;
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, rgba($primary-2, 0.08) 0%, rgba($alternative-1, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba($primary-2, 0.08) 0%,
+      rgba($alternative-1, 0.05) 100%
+    );
   }
 }
 
@@ -293,7 +306,7 @@ const scrollToTop = () => {
 .blog-loading {
   text-align: center;
   padding: space(16) 0;
-  
+
   p {
     @include paragraph;
     color: $gray-4;
@@ -312,7 +325,9 @@ const scrollToTop = () => {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 // Error State
@@ -330,7 +345,7 @@ const scrollToTop = () => {
   @include h4;
   color: $white;
   margin-bottom: space(4);
-  
+
   @media (max-width: #{$tablet - 1px}) {
     @include mobile-h4;
   }
@@ -360,7 +375,7 @@ const scrollToTop = () => {
   color: $white;
   text-decoration: none;
   transition: all 300ms ease;
-  
+
   &:hover {
     background: rgba($alternative-1, 0.1);
     border-color: rgba($alternative-1, 0.3);
@@ -399,7 +414,7 @@ const scrollToTop = () => {
   text-decoration: none;
   @include caption;
   transition: all 300ms ease;
-  
+
   &:hover {
     color: $alternative-1;
     transform: translateX(-2px);
@@ -455,11 +470,11 @@ const scrollToTop = () => {
   line-height: 1.2;
   position: relative;
   z-index: 1;
-  
+
   @include tablet {
     @include h2;
   }
-  
+
   @include desktop {
     font-size: 3.5rem;
   }
@@ -504,7 +519,7 @@ const scrollToTop = () => {
   border-radius: $radius-xl;
   padding: space(12);
   box-shadow: 0 8px 30px rgba($black, 0.06);
-  
+
   @include tablet {
     padding: space(16);
   }
@@ -514,26 +529,31 @@ const scrollToTop = () => {
 :deep(.prose) {
   max-width: none;
   color: $gray-6;
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: $black;
     font-weight: 500;
     margin-top: space(12);
     margin-bottom: space(6);
-    
+
     &:first-child {
       margin-top: 0;
     }
   }
-  
+
   h2 {
     @include h5;
     color: $alternative-1;
     position: relative;
     padding-left: space(6);
-    
+
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       top: 50%;
@@ -544,18 +564,18 @@ const scrollToTop = () => {
       border-radius: 2px;
     }
   }
-  
+
   h3 {
     @include h6;
     color: $gray-6;
   }
-  
+
   p {
     @include paragraph;
     margin-bottom: space(6);
     line-height: 1.7;
   }
-  
+
   code {
     background: rgba($gray-2, 0.5);
     color: $alternative-1;
@@ -564,7 +584,7 @@ const scrollToTop = () => {
     font-size: 0.9em;
     border: 1px solid rgba($gray-3, 0.3);
   }
-  
+
   pre {
     background: rgba($gray-6, 0.95);
     border: $border-1 solid rgba($gray-4, 0.2);
@@ -572,7 +592,7 @@ const scrollToTop = () => {
     padding: space(6);
     margin: space(8) 0;
     overflow-x: auto;
-    
+
     code {
       background: none;
       border: none;
@@ -580,7 +600,7 @@ const scrollToTop = () => {
       color: $gray-1;
     }
   }
-  
+
   blockquote {
     border-left: 4px solid $alternative-1;
     padding-left: space(6);
@@ -588,7 +608,7 @@ const scrollToTop = () => {
     background: rgba($alternative-1, 0.05);
     padding: space(6);
     border-radius: 0 $radius-lg $radius-lg 0;
-    
+
     p {
       @include quote;
       color: $gray-6;
@@ -596,28 +616,29 @@ const scrollToTop = () => {
       margin: 0;
     }
   }
-  
-  ul, ol {
+
+  ul,
+  ol {
     margin: space(6) 0;
     padding-left: space(6);
-    
+
     li {
       margin-bottom: space(3);
       color: $gray-6;
-      
+
       &::marker {
         color: $alternative-1;
       }
     }
   }
-  
+
   a {
     color: $alternative-1;
     text-decoration: underline;
     text-decoration-color: rgba($alternative-1, 0.3);
     text-underline-offset: 2px;
     transition: all 300ms ease;
-    
+
     &:hover {
       color: $alternative-2;
       text-decoration-color: $alternative-2;
@@ -635,7 +656,7 @@ const scrollToTop = () => {
   grid-template-columns: 1fr auto 1fr;
   gap: space(6);
   align-items: center;
-  
+
   @media (max-width: #{$tablet - 1px}) {
     grid-template-columns: 1fr;
     gap: space(8);
@@ -657,22 +678,22 @@ const scrollToTop = () => {
   text-decoration: none;
   transition: all 300ms ease;
   box-shadow: 0 2px 10px rgba($black, 0.05);
-  
+
   &:hover {
     background: rgba($alternative-1, 0.02);
     border-color: rgba($alternative-1, 0.3);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba($black, 0.1);
   }
-  
+
   &--prev {
     text-align: left;
   }
-  
+
   &--next {
     text-align: right;
   }
-  
+
   @media (max-width: #{$tablet - 1px}) {
     &--prev,
     &--next {
@@ -686,10 +707,10 @@ const scrollToTop = () => {
   align-items: center;
   gap: space(2);
   margin-bottom: space(2);
-  
+
   .blog-nav__link--next & {
     justify-content: flex-end;
-    
+
     @media (max-width: #{$tablet - 1px}) {
       justify-content: flex-start;
     }
@@ -712,7 +733,7 @@ const scrollToTop = () => {
   &.tabler-arrow-left {
     transform: translateX(-2px);
   }
-  
+
   &.tabler-arrow-right {
     transform: translateX(2px);
   }
@@ -746,7 +767,7 @@ const scrollToTop = () => {
   transition: all 300ms ease;
   @include caption;
   box-shadow: 0 2px 8px rgba($black, 0.05);
-  
+
   &:hover {
     background: rgba($alternative-1, 0.05);
     border-color: rgba($alternative-1, 0.3);
@@ -771,15 +792,15 @@ const scrollToTop = () => {
   .blog-post__header {
     padding: space(8) 0 space(12);
   }
-  
+
   .prose-wrapper {
     padding: space(8);
   }
-  
+
   .blog-post__content {
     margin: space(12) 0;
   }
-  
+
   .blog-post__nav {
     margin: space(16) 0 space(12);
   }
