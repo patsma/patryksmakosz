@@ -97,8 +97,10 @@ Markdown image with caption using HTML figure:
 ![OG cover](/og.jpg "Open Graph cover")
 
 <figure>
-  <NuxtImg src="/assets/web-optimized-jpgs/caseRiverscape.jpg" alt="Riverscape sample" width="1200" height="675" />
+<div class="image image--parallax-01">
+  <nuxt-img src="/assets/web-optimized-jpgs/riverscape.jpg" alt="Riverscape sample" width="1200" height="675" data-speed="auto" data-lag="0.2" />
   <figcaption>Sample optimized image served with Nuxt Image</figcaption>
+</div>
 </figure>
 
 ## Tables
@@ -149,7 +151,7 @@ autoPlay: true
 
 You can also use standard component syntax inline if preferred:
 
-<ProjectZaksa :autoPlay="false" />
+<project-zaksa :auto-play="false" />
 
 ## Accessibility Reminders
 
