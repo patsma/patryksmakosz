@@ -62,61 +62,87 @@ const formatDate = (iso) => {
 </script>
 
 <template>
-  <section class="blog-index pt-header">
-    <div class="blog-container">
-      <header class="mb-8">
-        <h1 class="text-3xl font-light">Blog</h1>
-        <p class="text-sm text-gray-400 mt-2">
-          Latest notes on Nuxt, Vue, and motion.
-        </p>
-      </header>
+  <div class="pt-header">
+    <section class="blog-index">
+      <div class="blog-container">
+        <!-- Hero Header Section -->
+        <header class="blog-hero">
+          <div class="blog-hero__content">
+            <h1 class="blog-hero__title">
+              <span class="blog-hero__title-main">Blog</span>
+              <span class="blog-hero__title-sub gradient-text">& Insights</span>
+            </h1>
+            <p class="blog-hero__description">
+              Latest notes on web animation mastery, Nuxt wizardry, Vue composition, and the art of motion design that brings digital experiences to life.
+            </p>
+            <div class="blog-hero__stats">
+              <div class="blog-stat">
+                <span class="blog-stat__number">{{ postsSorted.length }}</span>
+                <span class="blog-stat__label">Articles</span>
+              </div>
+              <div class="blog-stat">
+                <span class="blog-stat__number">∞</span>
+                <span class="blog-stat__label">Ideas</span>
+              </div>
+            </div>
+          </div>
+        </header>
 
-      <div v-if="status === 'pending'">Loading…</div>
-      <div v-else-if="error">Failed to load posts.</div>
-      <div v-else>
-        <ul class="blog-list">
-          <li v-for="post in postsSorted" :key="post.path" class="blog-card">
-            <NuxtLink
-              :to="post.path"
-              class="block focus:outline-none focus:ring-2 focus:ring-sky-500 rounded-md"
+        <!-- Loading & Error States -->
+        <div v-if="status === 'pending'" class="blog-loading">
+          <div class="loading-spinner"></div>
+          <p>Crafting pixels...</p>
+        </div>
+        <div v-else-if="error" class="blog-error">
+          <h2 class="blog-error__title">Oops! Something went sideways</h2>
+          <p class="blog-error__message">Failed to load posts. The internet gremlins are at it again.</p>
+        </div>
+        
+        <!-- Blog Posts Grid -->
+        <div v-else class="blog-content">
+          <div class="blog-grid">
+            <article 
+              v-for="(post, index) in postsSorted" 
+              :key="post.path" 
+              class="blog-card"
+              :class="`blog-card--${index % 3}`"
             >
-              <article class="blog-card__inner">
-                <div>
-                  <h2 class="blog-card__title">{{ post.title }}</h2>
-                  <p v-if="post.excerpt" class="blog-card__excerpt">
-                    {{ post.excerpt }}
-                  </p>
-                  <div class="blog-meta">
-                    <time v-if="post.date" :datetime="post.date">{{
-                      formatDate(post.date)
-                    }}</time>
-                    <span
-                      v-if="post.tags?.length"
-                      class="blog-meta__dot"
-                      aria-hidden="true"
-                      >•</span
-                    >
-                    <ul
-                      v-if="post.tags?.length"
-                      class="blog-tags"
-                      aria-label="Tags"
-                    >
-                      <li v-for="t in post.tags" :key="t" class="blog-tag">
-                        #{{ t }}
-                      </li>
-                    </ul>
+              <NuxtLink
+                :to="post.path"
+                class="blog-card__link"
+                :aria-label="`Read article: ${post.title}`"
+              >
+                <div class="blog-card__inner">
+                  <div class="blog-card__content">
+                    <div class="blog-card__meta">
+                      <time v-if="post.date" :datetime="post.date" class="blog-card__date">
+                        {{ formatDate(post.date) }}
+                      </time>
+                      <div v-if="post.tags?.length" class="blog-card__tags">
+                        <span v-for="t in post.tags.slice(0, 2)" :key="t" class="blog-card__tag">
+                          {{ t }}
+                        </span>
+                      </div>
+                    </div>
+                    <h2 class="blog-card__title">{{ post.title }}</h2>
+                    <p v-if="post.excerpt" class="blog-card__excerpt">
+                      {{ post.excerpt }}
+                    </p>
+                  </div>
+                  <div class="blog-card__arrow">
+                    <div class="arrow-circle">
+                      <Icon name="tabler:arrow-up-right" class="arrow-icon" />
+                    </div>
                   </div>
                 </div>
-                <div class="blog-card__arrow" aria-hidden="true">
-                  <Icon name="tabler:arrow-right" class="w-5 h-5" />
-                </div>
-              </article>
-            </NuxtLink>
-          </li>
-        </ul>
+                <div class="blog-card__glow"></div>
+              </NuxtLink>
+            </article>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -124,64 +150,342 @@ const formatDate = (iso) => {
 @use "~/assets/scss/mixins" as *;
 
 .blog-index {
-  // reserved for page-level hooks
+  min-height: 100vh;
+  background: linear-gradient(135deg, $black 0%, rgba($primary-1, 0.1) 100%);
 }
 
 .blog-container {
   @include padding;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.blog-list {
+// Hero Section
+.blog-hero {
+  text-align: center;
+  padding: space(16) 0 space(20);
+  position: relative;
+  
+  @include tablet {
+    padding: space(20) 0 space(24);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba($alternative-1, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+}
+
+.blog-hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.blog-hero__title {
+  margin-bottom: space(6);
+}
+
+.blog-hero__title-main {
+  @include mobile-h1;
+  color: $white;
+  display: block;
+  
+  @include tablet {
+    @include h1;
+  }
+  
+  @include desktop {
+    @include desktop-h1-extralight;
+  }
+}
+
+.blog-hero__title-sub {
+  @include mobile-h2-extralight;
+  display: block;
+  margin-top: space(2);
+  
+  @include tablet {
+    @include h2-extralight;
+  }
+}
+
+.gradient-text {
+  @include text-gradient-1;
+}
+
+.blog-hero__description {
+  @include paragraph;
+  color: $gray-4;
+  max-width: 600px;
+  margin: 0 auto space(8);
+  
+  @include tablet {
+    @include paragraph-large;
+  }
+}
+
+.blog-hero__stats {
+  display: flex;
+  justify-content: center;
+  gap: space(12);
+  margin-top: space(8);
+}
+
+.blog-stat {
+  text-align: center;
+}
+
+.blog-stat__number {
+  @include h3;
+  color: $alternative-1;
+  display: block;
+  line-height: 1;
+}
+
+.blog-stat__label {
+  @include caption-small;
+  color: $gray-5;
+  margin-top: space(2);
+}
+
+// Loading State
+.blog-loading {
+  text-align: center;
+  padding: space(16) 0;
+  
+  p {
+    @include paragraph;
+    color: $gray-4;
+    margin-top: space(4);
+  }
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba($alternative-1, 0.1);
+  border-top: 3px solid $alternative-1;
+  border-radius: 50%;
+  margin: 0 auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Error State
+.blog-error {
+  text-align: center;
+  padding: space(16) 0;
+}
+
+.blog-error__title {
+  @include h5;
+  color: $white;
+  margin-bottom: space(4);
+}
+
+.blog-error__message {
+  @include paragraph;
+  color: $gray-4;
+}
+
+// Blog Content
+.blog-content {
+  margin-top: space(8);
+}
+
+.blog-grid {
   display: grid;
-  gap: space(6);
+  grid-template-columns: 1fr;
+  gap: space(8);
+  
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: space(10);
+  }
+  
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: space(12);
+  }
 }
 
+// Blog Cards
 .blog-card {
-  padding: space(6);
+  position: relative;
+  height: 100%;
+  
+  // Staggered animation delays
+  &--0 { animation-delay: 0ms; }
+  &--1 { animation-delay: 100ms; }
+  &--2 { animation-delay: 200ms; }
+}
+
+.blog-card__link {
+  display: block;
+  height: 100%;
+  position: relative;
+  text-decoration: none;
+  border-radius: $radius-xl;
+  overflow: hidden;
   background: rgba($white, 0.02);
   border: $border-1 solid rgba($white, 0.06);
-  border-radius: $radius-lg;
-  transition:
-    transform 160ms ease,
-    background 160ms ease,
-    border-color 160ms ease;
-
+  transition: all 300ms ease;
+  
   &:hover {
-    transform: translateY(-2px);
-    background: rgba($white, 0.04);
-    border-color: rgba($white, 0.12);
+    transform: translateY(-8px);
+    border-color: rgba($alternative-1, 0.3);
+    
+    .blog-card__glow {
+      opacity: 1;
+    }
+    
+    .arrow-circle {
+      transform: scale(1.1) rotate(45deg);
+      background: $alternative-1;
+    }
+    
+    .arrow-icon {
+      color: $black;
+    }
+    
+    .blog-card__title {
+      color: $alternative-1;
+    }
   }
+  
+  &:focus-visible {
+    outline: 2px solid $alternative-1;
+    outline-offset: 4px;
+  }
+}
+
+.blog-card__inner {
+  padding: space(8);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.blog-card__content {
+  flex: 1;
+}
+
+.blog-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: space(6);
+  flex-wrap: wrap;
+  gap: space(2);
+}
+
+.blog-card__date {
+  @include caption-small;
+  color: $gray-4;
+}
+
+.blog-card__tags {
+  display: flex;
+  gap: space(2);
+  flex-wrap: wrap;
+}
+
+.blog-card__tag {
+  @include caption-small;
+  color: $alternative-2;
+  background: rgba($alternative-2, 0.1);
+  padding: space(1) space(2);
+  border-radius: $radius-sm;
+  border: 1px solid rgba($alternative-2, 0.2);
 }
 
 .blog-card__title {
   @include h6;
   color: $white;
+  margin-bottom: space(4);
+  transition: color 300ms ease;
+  line-height: 1.3;
+  
+  @media (max-width: #{$tablet - 1px}) {
+    @include mobile-h6;
+  }
 }
 
 .blog-card__excerpt {
   @include paragraph-small;
   color: $gray-5;
-  margin-top: space(2);
+  line-height: 1.6;
+  margin-bottom: space(6);
 }
 
-.blog-meta {
+.blog-card__arrow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: space(4);
+}
+
+.arrow-circle {
+  width: $size-circle-btn;
+  height: $size-circle-btn;
+  border-radius: 50%;
+  background: rgba($white, 0.1);
+  border: $border-1 solid rgba($white, 0.2);
   display: flex;
   align-items: center;
-  gap: space(2);
-  color: $gray-4;
-  margin-top: space(3);
-  font-size: 0.875rem;
+  justify-content: center;
+  transition: all 300ms ease;
 }
 
-.blog-meta__dot {
-  opacity: 0.6;
+.arrow-icon {
+  width: 20px;
+  height: 20px;
+  color: $white;
+  transition: color 300ms ease;
 }
 
-.blog-tags {
-  display: inline-flex;
-  gap: space(2);
+.blog-card__glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba($alternative-1, 0.1) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  border-radius: $radius-xl;
 }
-.blog-tag {
-  color: $gray-4;
+
+// Responsive adjustments
+@media (max-width: #{$tablet - 1px}) {
+  .blog-hero {
+    padding: space(12) 0 space(16);
+  }
+  
+  .blog-hero__stats {
+    gap: space(8);
+  }
+  
+  .blog-grid {
+    gap: space(6);
+  }
+  
+  .blog-card__inner {
+    padding: space(6);
+  }
 }
 </style>
