@@ -37,6 +37,35 @@
   }
 }
 
+// Ensure list markers and emphasis styles inside any markdown-like content summary
+.blog-card__content {
+  strong,
+  b {
+    color: $black;
+    font-weight: 700;
+  }
+
+  em,
+  i {
+    font-style: italic;
+    color: $gray-6;
+  }
+
+  ul,
+  ol {
+    margin: space(3) 0;
+    padding-left: space(5);
+    list-style-position: outside;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+}
+
 // Enhanced typography classes for blog content
 .blog-display-title {
   @include text-gradient-1;
@@ -295,6 +324,15 @@
   .blog-card:hover & {
     color: $white;
   }
+}
+
+// Performance hints for GSAP ScrollSmoother on the blog index ambient elements
+.blog-index [data-speed],
+.blog-index [data-lag] {
+  transition-property: transform;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 // Enhanced blog meta styles

@@ -343,6 +343,19 @@
     line-height: 1.7;
   }
 
+  // Emphasis styles
+  strong,
+  b {
+    color: $black;
+    font-weight: 700; // Ensure bold stands out within prose
+  }
+
+  em,
+  i {
+    font-style: italic;
+    color: $gray-6; // Subtle emphasis color for italics
+  }
+
   code {
     background: rgba($gray-2, 0.5);
     color: $alternative-2;
@@ -388,6 +401,7 @@
   ol {
     margin: space(6) 0;
     padding-left: space(6);
+    list-style-position: outside; // Ensure markers are visible outside
 
     li {
       margin-bottom: space(3);
@@ -395,6 +409,31 @@
 
       &::marker {
         color: $alternative-1;
+      }
+    }
+  }
+
+  // Explicit marker styles to counter any global resets
+  ul {
+    list-style-type: disc;
+
+    ul {
+      list-style-type: circle;
+
+      ul {
+        list-style-type: square;
+      }
+    }
+  }
+
+  ol {
+    list-style-type: decimal;
+
+    ol {
+      list-style-type: lower-alpha;
+
+      ol {
+        list-style-type: lower-roman;
       }
     }
   }
@@ -440,6 +479,15 @@
       background: rgba($gray-2, 0.2);
     }
   }
+}
+
+// Performance hints for GSAP ScrollSmoother-driven elements inside posts
+.blog-post [data-speed],
+.blog-post [data-lag] {
+  transition-property: transform;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0); // Promote to its own layer
 }
 
 // Navigation
