@@ -125,10 +125,24 @@ const scrollToTop = () => {
     
     <!-- Article Content -->
     <section v-else class="blog-post">
+      <!-- Subtle background parallax elements -->
+      <div class="parallax-bg">
+        <div 
+          class="parallax-element parallax-element--post-1" 
+          data-speed="0.4" 
+          data-lag="0.3"
+        ></div>
+        <div 
+          class="parallax-element parallax-element--post-2" 
+          data-speed="0.6" 
+          data-lag="0.2"
+        ></div>
+      </div>
+
       <div class="blog-container">
         <!-- Article Header -->
-        <header class="blog-post__header">
-          <div class="blog-post__breadcrumb">
+        <header class="blog-post__header" data-lag="0.1">
+          <div class="blog-post__breadcrumb" data-speed="0.9" data-lag="0.05">
             <NuxtLink to="/blog" class="breadcrumb-link">
               <Icon name="tabler:arrow-left" class="breadcrumb-icon" />
               Blog
@@ -146,7 +160,7 @@ const scrollToTop = () => {
             </div>
           </div>
           
-          <h1 class="blog-post__title">
+          <h1 class="blog-post__title" data-speed="0.85" data-lag="0.15">
             {{ post.title }}
           </h1>
           
@@ -161,15 +175,15 @@ const scrollToTop = () => {
         </header>
 
         <!-- Article Content -->
-        <article class="blog-post__content">
-          <div class="prose-wrapper">
-            <ContentRenderer :value="post" class="prose prose-invert" />
+        <article class="blog-post__content" data-lag="0.08">
+          <div class="prose-wrapper" data-speed="0.95" data-lag="0.05">
+            <ContentRenderer :value="post" class="prose prose-light" />
           </div>
         </article>
 
         <!-- Navigation -->
-        <nav v-if="prevPost || nextPost" class="blog-post__nav">
-          <div class="blog-nav">
+        <nav v-if="prevPost || nextPost" class="blog-post__nav" data-lag="0.1">
+          <div class="blog-nav" data-speed="0.9">
             <NuxtLink
               v-if="prevPost"
               :to="prevPost.path"
@@ -222,7 +236,8 @@ const scrollToTop = () => {
 
 .blog-post {
   min-height: 100vh;
-  background: linear-gradient(135deg, $black 0%, rgba($primary-1, 0.05) 100%);
+  background: $white;
+  position: relative;
   
   &--loading,
   &--error {
@@ -232,10 +247,46 @@ const scrollToTop = () => {
   }
 }
 
+// Parallax Background Elements for Post
+.parallax-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.parallax-element {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  
+  &--post-1 {
+    top: 20%;
+    right: 10%;
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, rgba($alternative-1, 0.1) 0%, rgba($alternative-2, 0.06) 100%);
+  }
+  
+  &--post-2 {
+    bottom: 30%;
+    left: 8%;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba($primary-2, 0.08) 0%, rgba($alternative-1, 0.05) 100%);
+  }
+}
+
 .blog-container {
   @include padding;
   max-width: 900px;
   margin: 0 auto;
+  position: relative;
+  z-index: 10;
 }
 
 // Loading State
@@ -332,19 +383,6 @@ const scrollToTop = () => {
   padding: space(12) 0 space(16);
   text-align: center;
   position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba($alternative-1, 0.08) 0%, transparent 60%);
-    border-radius: 50%;
-    z-index: 0;
-  }
 }
 
 .blog-post__breadcrumb {
@@ -357,7 +395,7 @@ const scrollToTop = () => {
   display: inline-flex;
   align-items: center;
   gap: space(2);
-  color: $gray-4;
+  color: $gray-6;
   text-decoration: none;
   @include caption;
   transition: all 300ms ease;
@@ -391,7 +429,7 @@ const scrollToTop = () => {
 
 .blog-post__date {
   @include caption-small;
-  color: $gray-4;
+  color: $gray-6;
 }
 
 .blog-post__tags {
@@ -412,7 +450,7 @@ const scrollToTop = () => {
 
 .blog-post__title {
   @include mobile-h2;
-  color: $white;
+  color: $black;
   margin-bottom: space(6);
   line-height: 1.2;
   position: relative;
@@ -429,7 +467,7 @@ const scrollToTop = () => {
 
 .blog-post__excerpt {
   @include paragraph-large;
-  color: $gray-4;
+  color: $gray-6;
   margin-bottom: space(8);
   max-width: 700px;
   margin-left: auto;
@@ -461,11 +499,11 @@ const scrollToTop = () => {
 }
 
 .prose-wrapper {
-  background: rgba($white, 0.02);
-  border: $border-1 solid rgba($white, 0.06);
+  background: $white;
+  border: $border-1 solid rgba($gray-3, 0.2);
   border-radius: $radius-xl;
   padding: space(12);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba($black, 0.06);
   
   @include tablet {
     padding: space(16);
@@ -475,10 +513,10 @@ const scrollToTop = () => {
 // Enhanced prose styles
 :deep(.prose) {
   max-width: none;
-  color: $gray-3;
+  color: $gray-6;
   
   h1, h2, h3, h4, h5, h6 {
-    color: $white;
+    color: $black;
     font-weight: 500;
     margin-top: space(12);
     margin-bottom: space(6);
@@ -509,7 +547,7 @@ const scrollToTop = () => {
   
   h3 {
     @include h6;
-    color: $white;
+    color: $gray-6;
   }
   
   p {
@@ -519,17 +557,17 @@ const scrollToTop = () => {
   }
   
   code {
-    background: rgba($alternative-2, 0.1);
+    background: rgba($gray-2, 0.5);
     color: $alternative-1;
     padding: space(1) space(2);
     border-radius: $radius-sm;
     font-size: 0.9em;
-    border: 1px solid rgba($alternative-2, 0.2);
+    border: 1px solid rgba($gray-3, 0.3);
   }
   
   pre {
-    background: rgba($black, 0.5);
-    border: $border-1 solid rgba($white, 0.1);
+    background: rgba($gray-6, 0.95);
+    border: $border-1 solid rgba($gray-4, 0.2);
     border-radius: $radius-lg;
     padding: space(6);
     margin: space(8) 0;
@@ -539,7 +577,7 @@ const scrollToTop = () => {
       background: none;
       border: none;
       padding: 0;
-      color: $gray-2;
+      color: $gray-1;
     }
   }
   
@@ -553,7 +591,7 @@ const scrollToTop = () => {
     
     p {
       @include quote;
-      color: $gray-3;
+      color: $gray-6;
       font-style: italic;
       margin: 0;
     }
@@ -565,7 +603,7 @@ const scrollToTop = () => {
     
     li {
       margin-bottom: space(3);
-      color: $gray-3;
+      color: $gray-6;
       
       &::marker {
         color: $alternative-1;
@@ -613,16 +651,18 @@ const scrollToTop = () => {
 .blog-nav__link {
   display: block;
   padding: space(6);
-  background: rgba($white, 0.02);
-  border: $border-1 solid rgba($white, 0.06);
+  background: $white;
+  border: $border-1 solid rgba($gray-3, 0.2);
   border-radius: $radius-lg;
   text-decoration: none;
   transition: all 300ms ease;
+  box-shadow: 0 2px 10px rgba($black, 0.05);
   
   &:hover {
-    background: rgba($white, 0.04);
+    background: rgba($alternative-1, 0.02);
     border-color: rgba($alternative-1, 0.3);
     transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba($black, 0.1);
   }
   
   &--prev {
@@ -658,13 +698,13 @@ const scrollToTop = () => {
 
 .blog-nav__label {
   @include caption-small;
-  color: $gray-4;
+  color: $gray-6;
 }
 
 .blog-nav__icon {
   width: 14px;
   height: 14px;
-  color: $gray-4;
+  color: $gray-6;
   transition: transform 300ms ease;
 }
 
@@ -680,7 +720,7 @@ const scrollToTop = () => {
 
 .blog-nav__title {
   @include paragraph;
-  color: $white;
+  color: $black;
   margin: 0;
   font-weight: 500;
 }
@@ -689,7 +729,7 @@ const scrollToTop = () => {
 .blog-post__footer {
   text-align: center;
   padding: space(12) 0;
-  border-top: $border-1 solid rgba($white, 0.06);
+  border-top: $border-1 solid rgba($gray-3, 0.2);
   margin-top: space(16);
 }
 
@@ -698,19 +738,21 @@ const scrollToTop = () => {
   align-items: center;
   gap: space(2);
   padding: space(3) space(5);
-  background: rgba($white, 0.05);
-  border: $border-1 solid rgba($white, 0.15);
+  background: $white;
+  border: $border-1 solid rgba($gray-3, 0.3);
   border-radius: $radius-md;
-  color: $gray-4;
+  color: $gray-6;
   cursor: pointer;
   transition: all 300ms ease;
   @include caption;
+  box-shadow: 0 2px 8px rgba($black, 0.05);
   
   &:hover {
-    background: rgba($alternative-1, 0.1);
+    background: rgba($alternative-1, 0.05);
     border-color: rgba($alternative-1, 0.3);
     color: $alternative-1;
     transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba($black, 0.1);
   }
 }
 
