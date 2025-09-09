@@ -315,7 +315,7 @@
 
   h2 {
     @include h5;
-    @include text-gradient-1;
+    color: $alternative-1;
     position: relative;
     padding-left: space(6);
 
@@ -327,7 +327,7 @@
       transform: translateY(-50%);
       width: 4px;
       height: 60%;
-      background: linear-gradient(135deg, $alternative-1, $alternative-1);
+      background: linear-gradient(135deg, $alternative-1, $alternative-2);
       border-radius: 2px;
     }
   }
@@ -345,7 +345,7 @@
 
   code {
     background: rgba($gray-2, 0.5);
-    color: $alternative-1;
+    color: $alternative-2;
     padding: space(1) space(2);
     border-radius: $radius-sm;
     font-size: 0.9em;
@@ -401,18 +401,10 @@
 
   // Keep links subtle and accessible; avoid flashy alt-2
   a {
-    color: $alternative-1;
-    text-decoration: underline;
-    text-decoration-color: rgba($alternative-1, 0.4);
-    text-underline-offset: 2px;
-    transition:
-      color 200ms ease,
-      text-decoration-color 200ms ease,
-      transform 200ms ease;
-
+    color: $alternative-2;
+    transition: all 200ms ease;
     &:hover {
-      color: $alternative-1;
-      text-decoration-color: $alternative-1;
+      color: $alternative-1 !important;
       transform: translateY(-1px);
     }
   }
