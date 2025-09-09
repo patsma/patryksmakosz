@@ -88,17 +88,7 @@ export default defineNuxtConfig({
   // Simple global SCSS entry point (Nuxt standard assets dir)
   css: ["~/assets/scss/main.scss"],
 
-  modules: [
-    "@nuxt/fonts",
-    "@nuxt/icon",
-    "@nuxt/image",
-    "@nuxt/eslint",
-    "@nuxtjs/tailwindcss",
-    "@hypernym/nuxt-gsap",
-    "@pinia/nuxt",
-    "@nuxt/content",
-    "@maz-ui/nuxt",
-  ],
+  modules: ["@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@nuxt/eslint", "@nuxtjs/tailwindcss", "@hypernym/nuxt-gsap", "@pinia/nuxt", "@nuxt/content", "@maz-ui/nuxt", "@tresjs/nuxt"],
 
   gsap: {
     composables: true,
