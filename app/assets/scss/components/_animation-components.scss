@@ -95,6 +95,10 @@
   }
   &--player-prototype {
     overflow: hidden;
+    aspect-ratio: 1/1;
+    display: grid;
+    justify-self: center;
+    align-self: center;
   }
   &--page404 {
   }
