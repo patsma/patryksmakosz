@@ -198,9 +198,9 @@ onUnmounted(() => {
       aria-label="Main navigation"
       @click.stop
     >
-      <NuxtLink :ref="setMenuLinkRef" to="/blog" class="menu-overlay__link"
+      <!-- <NuxtLink :ref="setMenuLinkRef" to="/blog" class="menu-overlay__link"
         >Blog</NuxtLink
-      >
+      > -->
       <NuxtLink :ref="setMenuLinkRef" to="/" class="menu-overlay__link"
         >Home</NuxtLink
       >

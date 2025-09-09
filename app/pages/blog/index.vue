@@ -189,11 +189,11 @@ const formatDate = (iso) => {
 }
 
 .blog-container {
-  @include padding;
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
   z-index: 10;
+  @include padding;
 }
 
 // Parallax Background Elements
