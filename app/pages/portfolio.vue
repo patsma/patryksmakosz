@@ -1,6 +1,11 @@
 <template>
-  <div>
+  <div class="pt-header">
     <h1 class="sr-only">Portfolio</h1>
+    <ProjectHeroSplitText
+      title="PORTFOLIO"
+      :show-dev-tools="true"
+      :stagger="0.05"
+    />
     <ProjectFluidGradientBackground />
     <ProjectArtTech :show-dev-tools="true" />
     <ProjectFortPrivacy :show-dev-tools="true" />
