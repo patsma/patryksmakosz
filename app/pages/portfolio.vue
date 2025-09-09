@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1 class="sr-only">Portfolio</h1>
+    <ProjectFluidGradientBackground />
     <ProjectArtTech :show-dev-tools="true" />
     <ProjectFortPrivacy :show-dev-tools="true" />
     <ProjectSpectrum :show-dev-tools="true" />
