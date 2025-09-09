@@ -29,7 +29,7 @@
       ),
       radial-gradient(
         ellipse at 80% 20%,
-        rgba($alternative-2, 0.02) 0%,
+        rgba($alternative-1, 0.02) 0%,
         transparent 50%
       );
     z-index: -1;
@@ -39,11 +39,7 @@
 
 // Enhanced typography classes for blog content
 .blog-display-title {
-  color: $black;
-  background: linear-gradient(135deg, $black 0%, $gray-6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  @include text-gradient-1;
   
   @include mobile-h1;
 
@@ -246,7 +242,7 @@
 .blog-card__title {
   color: $black;
   margin-bottom: space(3);
-  transition: color 300ms ease;
+  transition: all 300ms ease;
   line-height: 1.3;
   @include h6;
 
@@ -255,7 +251,7 @@
   }
 
   .blog-card:hover & {
-    color: $alternative-1;
+    @include text-gradient-1;
   }
 }
 
