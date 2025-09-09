@@ -98,9 +98,7 @@ const createAnimation = () => {
   // Create SplitText instance with character and line splitting
   const split = $SplitText.create(titleRef.value, {
     type: "chars, lines",
-    linesClass: "split-line",
-    charsClass: "split-char",
-    position: "relative"
+    mask: "lines"
   });
 
   if (!split.chars || split.chars.length === 0) {

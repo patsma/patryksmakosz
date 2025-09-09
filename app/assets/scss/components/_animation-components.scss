@@ -100,8 +100,9 @@
   }
 
   &--split-text {
-    background-color: $animation-split-text-bg;
-    color: #86c7df;
+    $root: &;
+    background-color: var(--color-white);
+    @include padding;
 
     .wrapper {
       height: 100%;
@@ -112,26 +113,22 @@
     }
 
     h1 {
-      font-family: $font-main;
-      font-weight: 800;
-      font-size: clamp(32px, 12vw, 160px);
+      @include mobile-h1-extralight;
+      color: var(--color-black);
       margin: 0;
       padding: 0;
       user-select: none;
       text-transform: uppercase;
-      line-height: 1.1;
       text-align: center;
-    }
-
-    // SplitText line masking
-    .split-line {
-      overflow: hidden;
-      position: relative;
-    }
-
-    .split-char {
-      position: relative;
-      display: inline-block;
+      max-width: 90vw;
+      
+      @include tablet {
+        @include h1-extralight;
+      }
+      
+      @include desktop {
+        @include desktop-h1-extralight;
+      }
     }
   }
 
