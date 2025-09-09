@@ -20,6 +20,8 @@
 
 <script setup>
 const { $gsap } = useNuxtApp();
+// Access DrawSVG plugin the same way as in Project* components
+const { $DrawSVGPlugin } = useNuxtApp();
 
 // Standard container/timeline refs
 const containerRef = ref(null);
@@ -89,11 +91,11 @@ const hoverVariantBounceText = () => {
     allTextPaths,
     { y: 0 },
     {
-      y: -3,
+      y: 3,
       duration: 0.18,
       yoyo: true,
       repeat: 1,
-      stagger: { each: 0.01, from: "random" },
+      stagger: { each: 0.05, from: "random" },
     }
   );
 };
@@ -172,24 +174,30 @@ const getPathLength = (pathEl) => {
   return len;
 };
 
-// Variant 6: Draw SVG effect using strokeDasharray/offset (no external plugin)
+// Variant 6: Draw SVG using DrawSVG plugin when available (smooth + stagger)
 const hoverVariantDrawSVG = () => {
   const allTextPaths = getAllTextPaths();
   if (!allTextPaths.length) return null;
-  // Pre-configure dash for each path
-  allTextPaths.forEach((p) => {
-    const len = getPathLength(p);
-    if (len > 0) {
-      $gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
+
+  // Prefer DrawSVG plugin for smoothness (mirrors usage in ProjectArtTech)
+  try {
+    if ($DrawSVGPlugin && $DrawSVGPlugin.getLength) {
+      const tl = $gsap.timeline({ defaults: { ease: "power2.out" } });
+      // Start fully hidden, then draw with a gentle stagger
+      tl.set(allTextPaths, { drawSVG: "0% 0%" });
+      tl.to(allTextPaths, {
+        drawSVG: "0% 100%",
+        duration: 0.4,
+        yoyo: true,
+        repeat: 2,
+        // Smooth left-to-right reveal; tweak each to taste
+        stagger: { each: -0.02, from: 0 },
+      });
+      return tl;
     }
-  });
-  return $gsap.timeline({ defaults: { ease: "power1.out" } }).to(allTextPaths, {
-    strokeDashoffset: 0,
-    duration: 0.22,
-    yoyo: true,
-    repeat: 2,
-    stagger: 0.012,
-  });
+  } catch (e) {
+    // fall through to manual fallback
+  }
 };
 
 // Pick a random variant and play
