@@ -23,5 +23,23 @@ export default defineContentConfig({
         summary: z.string().optional(),
       }),
     }),
+    // Blog collection: simple blog posts in content/blog
+    blog: defineCollection({
+      type: "page",
+      source: {
+        include: "blog/*.md",
+        prefix: "/blog",
+      },
+      // Lightweight schema for a basic blog
+      schema: z.object({
+        title: z.string(),
+        slug: z.string(),
+        date: z.string().optional(), // ISO date string
+        tags: z.array(z.string()).optional(),
+        excerpt: z.string().optional(),
+        cover: z.string().optional(),
+        author: z.string().optional(),
+      }),
+    }),
   },
 });

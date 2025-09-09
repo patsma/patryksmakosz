@@ -1,0 +1,13 @@
+@use "~/assets/scss/variables" as *;
+@use "~/assets/scss/mixins" as *;
+
+// Minimal blog component styles
+.btn-standard,
+.btn-standard-outlined {
+  // rely on existing button partial if present; these are just safety tweaks
+}
+
+.blog-index,
+.blog-post {
+  // shared hooks if we need global adjustments later
+}
