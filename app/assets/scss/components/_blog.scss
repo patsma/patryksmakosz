@@ -41,14 +41,14 @@
 .blog-card__content {
   strong,
   b {
-    color: $black;
-    font-weight: 700;
+    color: $black !important;
+    font-weight: 700 !important;
   }
 
   em,
   i {
-    font-style: italic;
-    color: $gray-6;
+    font-style: italic !important;
+    color: $gray-6 !important;
   }
 
   ul,

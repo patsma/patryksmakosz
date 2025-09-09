@@ -346,14 +346,14 @@
   // Emphasis styles
   strong,
   b {
-    color: $black;
-    font-weight: 700; // Ensure bold stands out within prose
+    color: $black !important;
+    font-weight: 700 !important; // Ensure bold stands out within prose
   }
 
   em,
   i {
-    font-style: italic;
-    color: $gray-6; // Subtle emphasis color for italics
+    font-style: italic !important;
+    color: $gray-6 !important; // Subtle emphasis color for italics
   }
 
   code {

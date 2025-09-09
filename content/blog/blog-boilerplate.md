@@ -37,7 +37,7 @@ author: "Your Name"     # optional
 
 Use standard Markdown:
 
-- Bold, italics, and `inline code`
+- This sentence contains **bold** text, *italic* text, and `inline code`
 - Internal link to the blog index: [/blog](/blog)
 - External link to Nuxt Content docs: [Nuxt Content](https://content.nuxt.com)
 
@@ -121,6 +121,20 @@ Markdown image with caption using HTML figure:
 Inline icons work anywhere thanks to global components:
 
 <Icon name="tabler:sparkles" class="inline-block align-[-2px] w-5 h-5" /> Shiny!
+
+## ScrollSmoother Demo
+
+Below are simple blocks with ScrollSmoother data attributes so you can verify the performance hints and motion. Try scrolling this page.
+
+<div class="p-4 my-6 rounded-lg bg-gray-100 border border-gray-200" data-speed="0.6" data-lag="0.2">
+  <strong>Speed 0.6 · Lag 0.2</strong> — Smooth, subtle parallax
+  <div class="mt-2 text-sm text-gray-600">Uses transform-based motion; promoted layer</div>
+  </div>
+
+<div class="p-4 my-6 rounded-lg bg-blue-50 border border-blue-200" data-speed="1.2" data-lag="0.4">
+  <strong>Speed 1.2 · Lag 0.4</strong> — Faster with noticeable lag
+  <div class="mt-2 text-sm text-blue-700/80">Great for accent blocks; avoid overuse</div>
+</div>
 
 ## Embedding Local Components (MDC)
 
