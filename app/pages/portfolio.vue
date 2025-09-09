@@ -3,10 +3,10 @@
     <h1 class="sr-only">Portfolio</h1>
     <ProjectHeroSplitText
       title="PORTFOLIO"
-      :show-dev-tools="true"
-      :stagger="0.05"
+      theme="light"
+      :show-dev-tools="false"
+      :stagger="0.1"
     />
-    <ProjectFluidGradientBackground />
     <ProjectArtTech :show-dev-tools="true" />
     <ProjectFortPrivacy :show-dev-tools="true" />
     <ProjectSpectrum :show-dev-tools="true" />
@@ -17,6 +17,7 @@
     <ProjectSliwka :show-dev-tools="true" />
     <ProjectVibeuu :show-dev-tools="true" />
     <ProjectPlayerPrototype :showDevTools="true" />
+    <ProjectFluidGradientBackground />
   </div>
 </template>
 

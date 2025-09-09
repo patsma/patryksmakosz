@@ -2,6 +2,12 @@
   <div
     ref="containerRef"
     class="animation-component animation-component--split-text"
+    :style="{
+      '--split-text-bg':
+        theme === 'light' ? 'var(--color-white)' : 'var(--color-black)',
+      '--split-text-fg':
+        theme === 'light' ? 'var(--color-black)' : 'var(--color-white)',
+    }"
   >
     <div class="wrapper">
       <h1 ref="titleRef">{{ title }}</h1>
@@ -83,6 +89,15 @@ const props = defineProps({
     type: Number,
     default: 0.1,
   },
+
+  /**
+   * @type {string}
+   * Theme mode - 'light' or 'dark'
+   */
+  theme: {
+    type: String,
+    default: "light",
+  },
 });
 
 /**
@@ -91,14 +106,16 @@ const props = defineProps({
  */
 const createAnimation = () => {
   if (!titleRef.value || !$SplitText) {
-    console.warn("ProjectHeroSplitText: Title element or SplitText plugin not found");
+    console.warn(
+      "ProjectHeroSplitText: Title element or SplitText plugin not found"
+    );
     return null;
   }
 
   // Create SplitText instance with character and line splitting
   const split = $SplitText.create(titleRef.value, {
     type: "chars, lines",
-    mask: "lines"
+    mask: "lines",
   });
 
   if (!split.chars || split.chars.length === 0) {
@@ -112,15 +129,17 @@ const createAnimation = () => {
   // Build main timeline
   const tl = $gsap.timeline({
     paused: true,
+    repeat: -1,
+    repeatDelay: 3,
     delay: 0.2,
   });
 
   // Animate characters from bottom with yPercent
   tl.from(split.chars, {
-    yPercent: 100,
+    yPercent: (i) => $gsap.utils.wrap([-100, 100])(i),
     stagger: props.stagger,
-    duration: 0.8,
-    ease: "power2.out",
+    duration: 0.6,
+    ease: "sine.out",
   });
 
   // DevTools integration

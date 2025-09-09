@@ -101,7 +101,8 @@
 
   &--split-text {
     $root: &;
-    background-color: var(--color-white);
+    background-color: var(--split-text-bg, var(--color-white));
+    color: var(--split-text-fg, var(--color-black));
     @include padding;
 
     .wrapper {
@@ -114,7 +115,7 @@
 
     h1 {
       @include mobile-h1-extralight;
-      color: var(--color-black);
+      color: var(--split-text-fg, var(--color-black));
       margin: 0;
       padding: 0;
       user-select: none;
