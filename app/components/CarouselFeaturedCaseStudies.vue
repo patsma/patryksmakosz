@@ -7,11 +7,7 @@
     aria-label="Featured case studies carousel"
   >
     <div class="navigation">
-      <div
-        ref="navigationPaginationRef"
-        class="navigation-pagination"
-        aria-hidden="true"
-      >
+      <div ref="navigationPaginationRef" class="navigation-pagination">
         <template
           v-for="(item, index) in normalizedCases"
           :key="`nav-${index}`"
@@ -208,6 +204,13 @@ const navigationPaginationRef = ref(null);
 // GSAP timeline and scrolltrigger refs
 const paginationTl = ref(null);
 const scrollTriggerRef = ref(null);
+/**
+ * Track the currently active slide index for potential external integrations
+ * or future UI bindings. This fixes a ReferenceError from a leftover callback
+ * that updates the index during timeline progression.
+ * @type {import('vue').Ref<number>}
+ */
+const activeIndex = ref(0);
 let parallaxCleanup = null;
 // SplitText instances for titles to revert on cleanup
 let splitTitleInstances = [];
