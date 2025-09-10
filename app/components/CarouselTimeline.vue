@@ -1,5 +1,10 @@
 <template>
-  <div class="carousel-timeline" role="region" aria-label="Process timeline">
+  <div
+    class="carousel-timeline"
+    role="region"
+    aria-label="Process timeline"
+    ref="containerRef"
+  >
     <div class="text-wrapper">
       <div class="title">{{ headline }}</div>
       <div class="paragraph">{{ textUnderHeadline }}</div>
@@ -162,6 +167,7 @@
 
 <script setup>
 const { $gsap } = useNuxtApp();
+const { $ScrollTrigger } = useNuxtApp();
 
 /**
  * @typedef {Object} TimelineStep
@@ -213,6 +219,9 @@ const paginationDividerInnerRefs = ref([]);
 const paginationGradientFillRefs = ref([]);
 const paginationSolidFillRefs = ref([]);
 const paginationItemTextRefs = ref([]);
+const containerRef = ref(null);
+let scrollTriggerInstance = null;
+const hasTriggeredFirst = ref(false);
 
 // State
 const tlPaginationItems = ref(null);
@@ -382,9 +391,32 @@ const handleNext = () => {
   openIndex(next);
 };
 
+// Fire once on first visibility to auto-open the first item
+const triggerFirstOnce = () => {
+  if (hasTriggeredFirst.value) return;
+  hasTriggeredFirst.value = true;
+  openIndex(0);
+  try {
+    scrollTriggerInstance?.kill();
+  } catch (e) {}
+  scrollTriggerInstance = null;
+};
+
 onMounted(() => {
   nextTick(() => {
     buildAnimations();
+    // Minimal ScrollTrigger: open first item on section entry (once)
+    if ($ScrollTrigger && containerRef.value) {
+      try {
+        scrollTriggerInstance = $ScrollTrigger.create({
+          trigger: containerRef.value,
+          start: "top center",
+          onEnter: () => triggerFirstOnce(),
+          onEnterBack: () => triggerFirstOnce(),
+        });
+        $ScrollTrigger.refresh();
+      } catch (e) {}
+    }
   });
 });
 
@@ -393,6 +425,10 @@ onUnmounted(() => {
     tlPaginationItems.value?.kill();
   } catch (e) {}
   itemTimelines.value?.forEach((tl) => tl?.kill());
+  try {
+    scrollTriggerInstance?.kill();
+  } catch (e) {}
+  scrollTriggerInstance = null;
 });
 </script>
 
