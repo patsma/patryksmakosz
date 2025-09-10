@@ -198,6 +198,7 @@
   }
 
   .navigation {
+    // Keep navigation visible, but disable interactions due to carousel crash
     display: grid;
     grid-auto-flow: column;
     justify-content: space-between;
@@ -221,6 +222,7 @@
     transition: $transition;
     color: rgba(0, 0, 0, 0);
     @include rainbow;
+
     &:hover {
       color: var(--color-black);
     }
@@ -241,6 +243,8 @@
 
   .navigation-item {
     cursor: pointer;
+    // Disable clicking on pagination items
+    pointer-events: none;
   }
 
   .navigation-divider {
