@@ -91,22 +91,25 @@
       .project-path-animation__skills-grid,
       .skills-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(space(50), 1fr));
         gap: space(6);
         max-width: space(200);
         margin: 0 auto;
+        justify-content: center; // center tracks when fewer columns per row
+        justify-items: center; // center items within their grid cells
 
         @include tablet {
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(auto-fit, minmax(space(56), 1fr));
           gap: space(8);
         }
 
         .project-path-animation__skill,
         .skill-bubble {
+          position: relative; // ensure dummy-point absolute centers within each bubble
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: space(3);
+          gap: space(2);
           padding: space(4) space(6);
           background: rgba(255, 255, 255, 0.1);
           border-radius: $radius-xl;
@@ -115,6 +118,7 @@
           backdrop-filter: blur(10px);
           text-align: center;
           min-height: space(12);
+          width: 100%; // consistent cell fill for alignment on small screens
 
           &:hover {
             background: rgba(255, 255, 255, 0.15);
@@ -127,6 +131,7 @@
             font-weight: 600;
             font-size: space(3.8);
             white-space: nowrap;
+            margin-inline: auto; // visual centering for single-line labels
           }
         }
       }

@@ -84,50 +84,144 @@
         <div class="project-path-animation__skills skills-constellation">
           <h3>Skills & Technologies</h3>
           <div class="project-path-animation__skills-grid skills-grid">
-            <!-- Skill bubbles with positioned dummy points -->
+            <!-- Text-only skill bullets; preserve dummy points on Nuxt & GSAP -->
             <div
               class="project-path-animation__skill skill-bubble"
               data-skill="nuxt"
             >
               <div
-                class="dummy-point"
+                class="dummy-point !absolute !top-0 !left-1/4 !right-auto !bottom-auto"
                 data-path-point
                 data-path-order="5"
                 data-control-x="0.25"
                 data-control-y="-300"
                 data-offset-x="2"
               ></div>
-              <Icon name="logos:nuxt-icon" size="24" />
               <span>Nuxt.js</span>
             </div>
             <div
               class="project-path-animation__skill skill-bubble"
               data-skill="vue"
             >
-              <Icon name="logos:vue" size="24" />
               <span>Vue.js</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="javascript"
+            >
+              <span>JavaScript (ES6+)</span>
+            </div>
+
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="scrolltrigger"
+            >
+              <span>ScrollTrigger</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="svg-animation"
+            >
+              <span>SVG Animation</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="canvas"
+            >
+              <span>HTML5 Canvas</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="threejs"
+            >
+              <span>Three.js</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="ui-animation"
+            >
+              <span>UI Animation</span>
             </div>
             <div
               class="project-path-animation__skill skill-bubble"
               data-skill="gsap"
             >
               <div
-                class="dummy-point"
+                class="dummy-point !absolute !top-0 !left-1/4 !right-auto !bottom-auto"
                 data-path-point
                 data-path-order="6"
                 data-control-x="0.25"
-                data-control-y="-200"
+                data-control-y="-600"
                 data-offset-x="2"
               ></div>
-              <Icon name="simple-icons:greensock" size="24" />
-              <span>GSAP</span>
+              <span>GSAP Animation</span>
             </div>
             <div
               class="project-path-animation__skill skill-bubble"
-              data-skill="threejs"
+              data-skill="banners"
             >
-              <Icon name="logos:threejs" size="24" />
-              <span>Three.js</span>
+              <span>HTML5 Banners</span>
+            </div>
+
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="tailwind"
+            >
+              <span>Tailwind CSS</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="css-grid-flex"
+            >
+              <span>CSS Grid/Flexbox</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="performance"
+            >
+              <span>Performance Optimization</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="a11y"
+            >
+              <span>Accessibility (A11y)</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="headless-wp"
+            >
+              <span>Headless WordPress</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="figma"
+            >
+              <span>Figma to Code</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="animation-architecture"
+            >
+              <span>Animation Architecture</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="parallax"
+            >
+              <span>Parallax & Transitions</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="prototypes"
+            >
+              <span>Interactive Prototypes</span>
+            </div>
+            <div
+              class="project-path-animation__skill skill-bubble"
+              data-skill="creative-coding"
+            >
+              <span>Creative Coding</span>
             </div>
           </div>
         </div>
@@ -156,7 +250,7 @@
                 data-path-point
                 data-path-order="8"
                 data-control-x="0.25"
-                data-control-y="-100"
+                data-control-y="-800"
               ></div>
             </div>
             <div
@@ -199,7 +293,7 @@
                 data-path-point
                 data-path-order="8"
                 data-control-x="0.25"
-                data-control-y="-200"
+                data-control-y="-800"
               ></div>
             </div>
           </div>
@@ -214,7 +308,7 @@
                 data-path-point
                 data-path-order="9"
                 data-control-x="0.25"
-                data-control-y="-100"
+                data-control-y="-700"
               ></div>
             </div>
             <div
@@ -275,16 +369,7 @@
                 >@patryksmakosz</a
               >
             </div>
-            <div class="project-path-animation__contact-item contact-item">
-              <Icon name="mdi:web" size="24" />
-              <a
-                href="https://tastysites.pl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="underline hover:text-primary-1 transition-colors"
-                >tastysites.pl</a
-              >
-            </div>
+
             <div class="project-path-animation__contact-item contact-item">
               <Icon name="mdi:map-marker" size="24" />
               <span>Gdansk, Poland</span>
