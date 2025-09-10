@@ -6,14 +6,17 @@
     role="region"
     aria-label="Featured case studies carousel"
   >
-    <div class="navigation">
-      <div ref="navigationPaginationRef" class="navigation-pagination">
+    <div class="carousel-featured-case-studies__nav navigation">
+      <div
+        ref="navigationPaginationRef"
+        class="carousel-featured-case-studies__nav-pagination navigation-pagination"
+      >
         <template
           v-for="(item, index) in normalizedCases"
           :key="`nav-${index}`"
         >
           <div
-            class="navigation-item"
+            class="carousel-featured-case-studies__nav-item navigation-item"
             role="button"
             tabindex="0"
             @click="handleNavigate(index)"
@@ -22,9 +25,12 @@
           >
             {{ index + 1 }}
           </div>
-          <div class="navigation-divider" ref="navigationDividerRefs">
+          <div
+            class="carousel-featured-case-studies__nav-divider navigation-divider"
+            ref="navigationDividerRefs"
+          >
             <div
-              class="navigation-divider__inner"
+              class="carousel-featured-case-studies__nav-divider-inner navigation-divider__inner"
               :class="{
                 'navigation-divider__inner--incident': alternativeColors,
               }"
@@ -37,7 +43,7 @@
       <NuxtLink
         v-if="viewAllHref"
         :href="viewAllHref"
-        class="navigation-button"
+        class="carousel-featured-case-studies__nav-button navigation-button"
         :class="{ 'navigation-button--incident': alternativeColors }"
         aria-label="View all case studies"
       >
@@ -48,7 +54,7 @@
 
     <div
       data-speed="0.95"
-      class="title"
+      class="carousel-featured-case-studies__title title"
       :class="{
         'gradient-text-2': alternativeColors && gradientTitle,
         'gradient-text-1': !alternativeColors && gradientTitle,
@@ -57,34 +63,46 @@
       {{ headline }}
     </div>
 
-    <div class="inner-wrapper">
+    <div class="carousel-featured-case-studies__inner inner-wrapper">
       <div
         v-for="(item, index) in normalizedCases"
         :key="`text-${index}`"
-        class="inner-item"
+        class="carousel-featured-case-studies__slide inner-item"
         ref="textItemRefs"
       >
         <div class="text-wrapper">
           <div class="text-top">
-            <div class="text-top-tags" ref="tagRefs">
+            <div
+              class="carousel-featured-case-studies__tags text-top-tags"
+              ref="tagRefs"
+            >
               <div class="text-top-tag">Case-study</div>
             </div>
-            <div class="text-top-title" ref="titleRefs">
+            <div
+              class="carousel-featured-case-studies__item-title text-top-title"
+              ref="titleRefs"
+            >
               {{ item.post_title }}
             </div>
-            <div class="text-top-paragraph" ref="excerptRefs">
+            <div
+              class="carousel-featured-case-studies__excerpt text-top-paragraph"
+              ref="excerptRefs"
+            >
               {{ item.post_excerpt }}...
             </div>
           </div>
-          <div class="text-bottom">
+          <div class="carousel-featured-case-studies__text-bottom text-bottom">
             <div
-              class="text-bottom-paragraph"
+              class="carousel-featured-case-studies__quote text-bottom-paragraph"
               :class="{ 'text-bottom-paragraph--incident': alternativeColors }"
               ref="quoteRefs"
             >
               “{{ item.testimonial_content }}“
             </div>
-            <div class="text-bottom-captions" ref="captionsRefs">
+            <div
+              class="carousel-featured-case-studies__captions text-bottom-captions"
+              ref="captionsRefs"
+            >
               <div class="text-bottom-caption">
                 {{ item.testimonial_name }},
               </div>
@@ -95,7 +113,7 @@
           </div>
         </div>
 
-        <div class="button">
+        <div class="button carousel-featured-case-studies__cta">
           <!-- Button styles and component can be enhanced later -->
           <NuxtLink
             :to="item.permalink"
@@ -109,14 +127,17 @@
       </div>
     </div>
 
-    <div class="image-wrapper">
+    <div class="carousel-featured-case-studies__images image-wrapper">
       <div
         v-for="(item, index) in normalizedCases"
         :key="`img-${index}`"
-        class="image-item"
+        class="carousel-featured-case-studies__image-item image-item"
         ref="imageItemRefs"
       >
-        <div class="image image--parallax-01" ref="parallaxContainerRefs">
+        <div
+          class="carousel-featured-case-studies__image image image--parallax-01"
+          ref="parallaxContainerRefs"
+        >
           <NuxtImg
             :src="item.thumbnail_url"
             :alt="item.post_title"

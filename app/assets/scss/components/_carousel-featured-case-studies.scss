@@ -3,6 +3,7 @@
 @use "../mixins" as *;
 
 .carousel-featured-case-studies {
+  $root: &;
   --contentWidth: 18.5rem;
   --contentHeight: 31.25rem;
   --maxWidth: 30rem;
@@ -11,7 +12,9 @@
   position: relative;
   z-index: 0;
   display: grid;
-  padding-bottom: 5rem;
+  @include padding;
+  
+  padding-bottom: space(20);
   grid-template-areas: "title" "inner" "navigation";
 
   @include tablet {
@@ -35,16 +38,15 @@
     }
   }
 
+  #{$root}__title,
   .title {
     grid-area: title;
-    padding-bottom: 3rem;
-    padding-left: 1.5rem;
+    padding-bottom: space(12);
     color: var(--color-gray-4);
-    padding-top: 5rem;
+    padding-top: space(20);
     @include mobile-h2-extralight;
     @include tablet {
-      padding-bottom: 3.5rem;
-      padding-left: 4.25rem;
+      padding-bottom: space(14);
       @include h1-extralight;
     }
     @include laptop {
@@ -59,10 +61,10 @@
     background: var(--gradient-2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-fill-color: transparent;
     background-clip: text;
   }
 
+  #{$root}__inner,
   .inner-wrapper {
     width: var(--contentWidth);
     grid-area: inner;
@@ -73,8 +75,8 @@
     }
   }
 
+  #{$root}__slide,
   .inner-item {
-    padding: 1.5rem;
     position: absolute;
     left: 0;
     top: 0;
@@ -83,7 +85,6 @@
     height: 100%;
     align-content: space-between;
     @include tablet {
-      padding: 4rem 4.25rem;
     }
     @include laptop {
       max-width: var(--maxWidth);
@@ -92,6 +93,7 @@
     }
   }
 
+  #{$root}__images,
   .image-wrapper {
     position: relative;
     width: 100%;
@@ -106,6 +108,7 @@
     }
   }
 
+  #{$root}__image-item,
   .image-item {
     width: var(--contentWidth);
     height: var(--contentHeight);
@@ -116,6 +119,7 @@
   }
 
   // Ensure the visual image fully covers the available area (so button appears inside)
+  #{$root}__image,
   .image {
     position: relative;
     width: 100%;
@@ -123,6 +127,7 @@
     overflow: hidden;
   }
 
+  #{$root}__image img,
   .image img {
     display: block;
     width: 100%;
@@ -132,12 +137,13 @@
     will-change: transform;
   }
 
+  #{$root}__tags,
   .text-top-tags {
     display: grid;
     grid-auto-flow: column;
     justify-content: start;
-    grid-column-gap: 0.25rem;
-    padding-bottom: 1rem;
+    grid-column-gap: space(1);
+    padding-bottom: space(4);
     @include caption-small;
     color: var(--color-gray-2);
     @include laptop {
@@ -145,15 +151,17 @@
     }
   }
 
+  #{$root}__item-title,
   .text-top-title {
     @include h5;
-    padding-bottom: 1.5rem;
+    padding-bottom: space(6);
     color: var(--color-white);
     @include laptop {
       color: var(--color-black);
     }
   }
 
+  #{$root}__excerpt,
   .text-top-paragraph {
     display: none;
     @include paragraph;
@@ -163,10 +171,11 @@
     }
     @include laptop {
       color: var(--color-gray-5);
-      padding-bottom: 2.5rem;
+      padding-bottom: space(10);
     }
   }
 
+  #{$root}__text-bottom,
   .text-bottom {
     display: none;
     @include laptop {
@@ -174,43 +183,48 @@
     }
   }
 
+  #{$root}__quote,
   .text-bottom-paragraph {
     @include quote;
     color: var(--color-primary-2);
-    padding-bottom: 0.5rem;
-    &--incident {
+    padding-bottom: space(2);
+    &--incident,
+    #{$root}__quote--incident {
       color: var(--color-alt-3);
     }
   }
 
+  #{$root}__captions,
   .text-bottom-captions {
     justify-content: start;
-    grid-column-gap: 0.25rem;
+    grid-column-gap: space(1);
     display: grid;
     grid-auto-flow: column;
     @include caption;
     color: var(--color-gray-4);
-    padding-bottom: 1.5rem;
+    padding-bottom: space(6);
   }
 
+  #{$root}__nav,
   .navigation {
     display: grid;
     grid-auto-flow: column;
     justify-content: space-between;
     grid-area: navigation;
-    padding: 1.75rem 1.5rem 0;
+    padding: space(7) space(6) 0;
     @include tablet {
-      padding-right: 11.25rem;
-      padding-left: 4.25rem;
-      padding-top: 2.5rem;
+      padding-right: space(45);
+      padding-left: $container-pad-tablet;
+      padding-top: space(10);
     }
     @include laptop {
       max-width: var(--contentWidth);
       align-self: end;
-      padding: 0 0 2.5rem 0;
+      padding: 0 0 space(10) 0;
     }
   }
 
+  #{$root}__nav-button,
   .navigation-button {
     display: grid;
     align-items: center;
@@ -220,11 +234,13 @@
     &:hover {
       color: var(--color-black);
     }
-    &--incident {
+    &--incident,
+    #{$root}__nav-button--incident {
       @include rainbow-incident;
     }
   }
 
+  #{$root}__nav-pagination,
   .navigation-pagination {
     display: grid;
     grid-column-gap: space(4);
@@ -235,25 +251,29 @@
     color: var(--color-gray-4);
   }
 
+  #{$root}__nav-item,
   .navigation-item {
     cursor: pointer;
   }
 
+  #{$root}__nav-divider,
   .navigation-divider {
     display: grid;
     position: relative;
     width: 0;
     height: $border-1;
     background: var(--color-gray-3);
+  }
 
-    &__inner {
-      position: absolute;
-      width: 0;
-      height: 100%;
-      background: var(--gradient-1);
-      &--incident {
-        background: var(--gradient-2);
-      }
+  #{$root}__nav-divider-inner,
+  .navigation-divider__inner {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    background: var(--gradient-1);
+    &--incident,
+    #{$root}__nav-divider-inner--incident {
+      background: var(--gradient-2);
     }
   }
 
