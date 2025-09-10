@@ -85,15 +85,21 @@ export default function useOrbitalCarousel(options = {}) {
   // --- Config ---
   const ITEM_COUNT = items.length;
 
-  // Manual breakpoint-based root font size to match CSS
+  // Read the ACTUAL root font-size from CSS to keep rem math in sync.
+  // Avoid width-based guesses which cause large-screen offsets.
   function getRootFontSize() {
-    if (typeof window !== "undefined") {
-      const w = window.innerWidth;
-      if (w >= 3800) return 26;
-      if (w >= 2500) return 20;
+    if (typeof window === "undefined" || typeof document === "undefined") {
       return 16;
     }
-    return 16;
+    try {
+      const fontSize = window
+        .getComputedStyle(document.documentElement)
+        .getPropertyValue("font-size");
+      const parsed = parseFloat(fontSize);
+      return Number.isFinite(parsed) ? parsed : 16;
+    } catch (e) {
+      return 16;
+    }
   }
 
   // All base sizes are in rem for accessibility and scalability
