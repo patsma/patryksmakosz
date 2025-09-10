@@ -311,6 +311,18 @@ const initAnimation = () => {
   for (let i = images.length, j = 0; i > 0; i--, j++) {
     $gsap.set(images[j], { zIndex: i });
   }
+  // Ensure current text for first slide is visible (SplitText anim will handle next steps)
+  $gsap.set(
+    [
+      ...[titleRefs.value?.[0]].filter(Boolean),
+      ...[excerptRefs.value?.[0]].filter(Boolean),
+      ...[quoteRefs.value?.[0]].filter(Boolean),
+      ...[buttonRefs.value?.[0]].filter(Boolean),
+    ]
+      .map((n) => (n && n.$el ? n.$el : n))
+      .filter((el) => el && el.nodeType === 1),
+    { autoAlpha: 1 }
+  );
 
   // Prepare SplitText instances for titles (mask by lines, animate chars)
   if ($SplitText && titles.length) {
@@ -325,29 +337,15 @@ const initAnimation = () => {
 
   // Helper: resolve Vue component refs to DOM elements
   const toEl = (node) => (node && node.$el ? node.$el : node);
-  // Helper: normalize state at a given label (used for first-click navigation)
-  const normalizeAtIndex = (idx) => {
-    if (!texts[idx] || !images[idx]) return;
-    try {
-      texts.forEach((el) => $gsap.set(el, { autoAlpha: 0 }));
-      $gsap.set(texts[idx], { autoAlpha: 1 });
-      images.forEach((el) => $gsap.set(el, { autoAlpha: 0 }));
-      $gsap.set(images[idx], { autoAlpha: 1 });
-      // Ensure the next image preview is visible and relies on CSS transform (right, scaled)
-      const nextIdx = (idx + 1) % images.length;
-      if (images[nextIdx]) {
-        $gsap.set(images[nextIdx], { autoAlpha: 1, clearProps: "transform" });
-      }
-    } catch (e) {}
-  };
 
   if (images.length > 1) {
     const tl = $gsap.timeline({ paused: true, repeat: -1 });
 
     navigationDividersInner.forEach((_, index) => {
       tl.addLabel(`${index}`);
-      tl.add(() => normalizeAtIndex(index), `${index}`);
-      // Removed activeIndex tracking to avoid first-click errors and keep timeline stateless
+      tl.call(() => {
+        activeIndex.value = index;
+      });
 
       // Animate OUT previous content and IN current in parallel
       if (index !== 0) {
