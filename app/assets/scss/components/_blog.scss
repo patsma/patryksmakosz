@@ -38,7 +38,8 @@
 }
 
 // Ensure list markers and emphasis styles inside any markdown-like content summary
-.blog-card__content {
+.blog-index .blog-card__content,
+.blog-post .blog-card__content {
   strong,
   b {
     color: $black !important;
@@ -67,7 +68,8 @@
 }
 
 // Enhanced typography classes for blog content
-.blog-display-title {
+.blog-index .blog-display-title,
+.blog-post .blog-display-title {
   @include text-gradient-1;
 
   @include mobile-h1;
@@ -81,7 +83,8 @@
   }
 }
 
-.blog-subtitle {
+.blog-index .blog-subtitle,
+.blog-post .blog-subtitle {
   @include text-gradient-1;
   @include mobile-h2-extralight;
 
@@ -90,7 +93,8 @@
   }
 }
 
-.blog-lead-text {
+.blog-index .blog-lead-text,
+.blog-post .blog-lead-text {
   color: $gray-6;
   @include paragraph;
 
@@ -100,7 +104,8 @@
 }
 
 // Enhanced grid system for blog listings
-.blog-grid {
+.blog-index .blog-grid,
+.blog-post .blog-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: space(8);
@@ -147,12 +152,52 @@
 }
 
 // Legacy support for existing blog-list class
-.blog-list {
-  @extend .blog-grid;
+// Map blog-list to the same rules as blog-grid without using @extend on a complex selector
+.blog-index .blog-grid,
+.blog-post .blog-grid,
+.blog-index .blog-list,
+.blog-post .blog-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: space(8);
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: space(10);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: space(12);
+  }
+
+  // Stagger animation for child elements
+  > * {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: blogCardEnter 0.6s ease-out forwards;
+
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.1}s;
+      }
+    }
+  }
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: space(10);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: space(12);
+  }
 }
 
 // Enhanced blog card styles
-.blog-card {
+.blog-index .blog-card,
+.blog-post .blog-card {
   position: relative;
   height: 100%;
   border-radius: $radius-xl;
@@ -206,7 +251,8 @@
   }
 }
 
-.blog-card__link {
+.blog-index .blog-card__link,
+.blog-post .blog-card__link {
   display: block;
   height: 100%;
   position: relative;
@@ -226,18 +272,21 @@
   }
 }
 
-.blog-card__inner {
+.blog-index .blog-card__inner,
+.blog-post .blog-card__inner {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.blog-card__content {
+.blog-index .blog-card__content,
+.blog-post .blog-card__content {
   flex: 1;
 }
 
-.blog-card__meta {
+.blog-index .blog-card__meta,
+.blog-post .blog-card__meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -246,18 +295,21 @@
   gap: space(2);
 }
 
-.blog-card__date {
+.blog-index .blog-card__date,
+.blog-post .blog-card__date {
   color: $gray-6;
   @include caption-small;
 }
 
-.blog-card__tags {
+.blog-index .blog-card__tags,
+.blog-post .blog-card__tags {
   display: flex;
   gap: space(1);
   flex-wrap: wrap;
 }
 
-.blog-card__tag {
+.blog-index .blog-card__tag,
+.blog-post .blog-card__tag {
   @include caption-small;
   color: $alternative-2;
   background: rgba($alternative-2, 0.1);
@@ -268,7 +320,8 @@
   line-height: 1.2;
 }
 
-.blog-card__title {
+.blog-index .blog-card__title,
+.blog-post .blog-card__title {
   @include text-gradient-1;
   margin-bottom: space(3);
   transition: all 300ms ease;
@@ -280,7 +333,8 @@
   }
 }
 
-.blog-card__excerpt {
+.blog-index .blog-card__excerpt,
+.blog-post .blog-card__excerpt {
   color: $gray-6;
   line-height: 1.6;
   margin-bottom: space(6);
@@ -291,13 +345,15 @@
   @include paragraph-small;
 }
 
-.blog-card__arrow {
+.blog-index .blog-card__arrow,
+.blog-post .blog-card__arrow {
   display: flex;
   justify-content: flex-end;
   margin-top: space(4);
 }
 
-.arrow-circle {
+.blog-index .arrow-circle,
+.blog-post .arrow-circle {
   width: $size-circle-btn;
   height: $size-circle-btn;
   border-radius: 50%;
@@ -315,7 +371,8 @@
   }
 }
 
-.arrow-icon {
+.blog-index .arrow-icon,
+.blog-post .arrow-icon {
   width: 20px;
   height: 20px;
   color: $gray-6;
@@ -328,7 +385,9 @@
 
 // Performance hints for GSAP ScrollSmoother on the blog index ambient elements
 .blog-index [data-speed],
-.blog-index [data-lag] {
+.blog-index [data-lag],
+.blog-post [data-speed],
+.blog-post [data-lag] {
   transition-property: transform;
   will-change: transform;
   backface-visibility: hidden;
@@ -336,7 +395,8 @@
 }
 
 // Enhanced blog meta styles
-.blog-meta {
+.blog-index .blog-meta,
+.blog-post .blog-meta {
   display: flex;
   align-items: center;
   gap: space(3);
@@ -344,7 +404,8 @@
   margin-top: space(4);
 }
 
-.blog-meta__item {
+.blog-index .blog-meta__item,
+.blog-post .blog-meta__item {
   @include caption;
   color: $gray-4;
   display: flex;
@@ -352,13 +413,15 @@
   gap: space(2);
 }
 
-.blog-meta__icon {
+.blog-index .blog-meta__icon,
+.blog-post .blog-meta__icon {
   width: 14px;
   height: 14px;
   color: $gray-5;
 }
 
-.blog-meta__dot {
+.blog-index .blog-meta__dot,
+.blog-post .blog-meta__dot {
   width: 4px;
   height: 4px;
   border-radius: 50%;
@@ -366,13 +429,15 @@
   opacity: 0.6;
 }
 
-.blog-tags {
+.blog-index .blog-tags,
+.blog-post .blog-tags {
   display: inline-flex;
   gap: space(2);
   flex-wrap: wrap;
 }
 
-.blog-tag {
+.blog-index .blog-tag,
+.blog-post .blog-tag {
   @include caption-small;
   color: $alternative-2;
   background: rgba($alternative-2, 0.1);
@@ -425,7 +490,8 @@
 }
 
 // Button enhancements for blog context
-.btn-blog-primary {
+.blog-index .btn-blog-primary,
+.blog-post .btn-blog-primary {
   display: inline-flex;
   align-items: center;
   gap: space(3);
@@ -445,7 +511,8 @@
   }
 }
 
-.btn-blog-secondary {
+.blog-index .btn-blog-secondary,
+.blog-post .btn-blog-secondary {
   display: inline-flex;
   align-items: center;
   gap: space(3);
@@ -467,14 +534,16 @@
 }
 
 // Content helpers
-.btn-content {
+.blog-index .btn-content,
+.blog-post .btn-content {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: space(2);
 }
 
-.btn-wide {
+.blog-index .btn-wide,
+.blog-post .btn-wide {
   min-width: calc(#{$size-button-min-width} + 2.5rem);
   padding-left: space(6);
   padding-right: space(6);
@@ -482,15 +551,18 @@
 
 // Responsive enhancements
 @media (max-width: #{$tablet - 1px}) {
-  .blog-grid {
+  .blog-index .blog-grid,
+  .blog-post .blog-grid {
     gap: space(6);
   }
 
-  .blog-card__link {
+  .blog-index .blog-card__link,
+  .blog-post .blog-card__link {
     padding: space(6);
   }
 
-  .blog-card__meta {
+  .blog-index .blog-card__meta,
+  .blog-post .blog-card__meta {
     flex-direction: column;
     align-items: flex-start;
     gap: space(2);
@@ -499,12 +571,18 @@
 
 // Accessibility enhancements
 @media (prefers-reduced-motion: reduce) {
-  .blog-grid > *,
-  .blog-card,
-  .blog-card::before,
-  .blog-card::after,
-  .arrow-circle,
-  .arrow-icon {
+  .blog-index .blog-grid > *,
+  .blog-index .blog-card,
+  .blog-index .blog-card::before,
+  .blog-index .blog-card::after,
+  .blog-index .arrow-circle,
+  .blog-index .arrow-icon,
+  .blog-post .blog-grid > *,
+  .blog-post .blog-card,
+  .blog-post .blog-card::before,
+  .blog-post .blog-card::after,
+  .blog-post .arrow-circle,
+  .blog-post .arrow-icon {
     animation: none;
     transition: none;
   }
@@ -512,7 +590,8 @@
 
 // High contrast mode support
 @media (prefers-contrast: high) {
-  .blog-card {
+  .blog-index .blog-card,
+  .blog-post .blog-card {
     &::before {
       border-width: 2px;
       border-color: rgba($white, 0.8);
@@ -523,7 +602,8 @@
     }
   }
 
-  .blog-card__title {
+  .blog-index .blog-card__title,
+  .blog-post .blog-card__title {
     color: $white;
 
     .blog-card:hover & {
