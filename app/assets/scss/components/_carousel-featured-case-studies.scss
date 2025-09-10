@@ -12,11 +12,10 @@
   position: relative;
   z-index: 0;
   display: grid;
-  @include padding;
-  grid-column-gap: space(14);
-
-  padding-bottom: space(20);
   grid-template-areas: "title" "inner" "navigation";
+  grid-column-gap: space(14);
+  padding-bottom: space(20);
+  @include padding;
 
   @include tablet {
     --contentWidth: 36.75rem;
