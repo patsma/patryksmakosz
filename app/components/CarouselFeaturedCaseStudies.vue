@@ -70,22 +70,25 @@
       >
         <div class="text-wrapper">
           <div class="text-top">
-            <div class="text-top-tags">
+            <div class="text-top-tags" ref="tagRefs">
               <div class="text-top-tag">Case-study</div>
             </div>
-            <div class="text-top-title">
+            <div class="text-top-title" ref="titleRefs">
               {{ item.post_title }}
             </div>
-            <div class="text-top-paragraph">{{ item.post_excerpt }}...</div>
+            <div class="text-top-paragraph" ref="excerptRefs">
+              {{ item.post_excerpt }}...
+            </div>
           </div>
           <div class="text-bottom">
             <div
               class="text-bottom-paragraph"
               :class="{ 'text-bottom-paragraph--incident': alternativeColors }"
+              ref="quoteRefs"
             >
               “{{ item.testimonial_content }}“
             </div>
-            <div class="text-bottom-captions">
+            <div class="text-bottom-captions" ref="captionsRefs">
               <div class="text-bottom-caption">
                 {{ item.testimonial_name }},
               </div>
@@ -102,6 +105,7 @@
             :to="item.permalink"
             class="btn-standard"
             :class="{ 'btn-standard--incident': alternativeColors }"
+            ref="buttonRefs"
           >
             <span>Explore case</span>
           </NuxtLink>
@@ -136,6 +140,8 @@ const { $gsap } = useNuxtApp();
 
 // We'll register ScrollTrigger on client only
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+// SplitText provided by @hypernym/nuxt-gsap (club plugin)
+const { $SplitText } = useNuxtApp();
 
 /**
  * @typedef {Object} CaseStudy
@@ -188,6 +194,13 @@ const imageItemRefs = ref([]);
 const parallaxContainerRefs = ref([]);
 const navigationDividerRefs = ref([]);
 const navigationDividerInnerRefs = ref([]);
+// Granular element refs for nicer per-part animations (left side)
+const tagRefs = ref([]);
+const titleRefs = ref([]);
+const excerptRefs = ref([]);
+const quoteRefs = ref([]);
+const buttonRefs = ref([]);
+const captionsRefs = ref([]);
 
 // Single refs
 const navigationPaginationRef = ref(null);
@@ -196,6 +209,8 @@ const navigationPaginationRef = ref(null);
 const paginationTl = ref(null);
 const scrollTriggerRef = ref(null);
 let parallaxCleanup = null;
+// SplitText instances for titles to revert on cleanup
+let splitTitleInstances = [];
 
 /**
  * Normalize incoming cases to expected shape and fill gaps if needed
@@ -254,6 +269,21 @@ onBeforeUpdate(() => {
   navigationDividerRefs.value = [];
   navigationDividerInnerRefs.value = [];
   parallaxContainerRefs.value = [];
+  tagRefs.value = [];
+  titleRefs.value = [];
+  excerptRefs.value = [];
+  quoteRefs.value = [];
+  buttonRefs.value = [];
+  captionsRefs.value = [];
+  // Revert SplitText instances to restore DOM
+  if (splitTitleInstances && splitTitleInstances.length) {
+    try {
+      splitTitleInstances.forEach(
+        (inst) => inst && inst.revert && inst.revert()
+      );
+    } catch (e) {}
+  }
+  splitTitleInstances = [];
 });
 
 /**
@@ -266,6 +296,12 @@ const initAnimation = () => {
   const navigationDividers = navigationDividerRefs.value;
   const navigationDividersInner = navigationDividerInnerRefs.value;
   const navigationPagination = navigationPaginationRef.value;
+  const tags = tagRefs.value;
+  const titles = titleRefs.value;
+  const excerpts = excerptRefs.value;
+  const quotes = quoteRefs.value;
+  const buttons = buttonRefs.value;
+  const captions = captionsRefs.value;
 
   if (images.length === 0 || texts.length === 0) {
     return;
@@ -276,20 +312,213 @@ const initAnimation = () => {
     $gsap.set(images[j], { zIndex: i });
   }
 
+  // Prepare SplitText instances for titles (mask by lines, animate chars)
+  if ($SplitText && titles.length) {
+    try {
+      splitTitleInstances = titles.map((el) =>
+        $SplitText.create(el, { type: "chars, lines", mask: "lines" })
+      );
+    } catch (e) {
+      splitTitleInstances = [];
+    }
+  }
+
+  // Helper: resolve Vue component refs to DOM elements
+  const toEl = (node) => (node && node.$el ? node.$el : node);
+  // Helper: normalize state at a given label (used for first-click navigation)
+  const normalizeAtIndex = (idx) => {
+    if (!texts[idx] || !images[idx]) return;
+    try {
+      texts.forEach((el) => $gsap.set(el, { autoAlpha: 0 }));
+      $gsap.set(texts[idx], { autoAlpha: 1 });
+      images.forEach((el) => $gsap.set(el, { autoAlpha: 0 }));
+      $gsap.set(images[idx], { autoAlpha: 1 });
+      // Ensure the next image preview is visible and relies on CSS transform (right, scaled)
+      const nextIdx = (idx + 1) % images.length;
+      if (images[nextIdx]) {
+        $gsap.set(images[nextIdx], { autoAlpha: 1, clearProps: "transform" });
+      }
+    } catch (e) {}
+  };
+
   if (images.length > 1) {
     const tl = $gsap.timeline({ paused: true, repeat: -1 });
 
     navigationDividersInner.forEach((_, index) => {
       tl.addLabel(`${index}`);
-      tl.from(texts[index], { autoAlpha: 0, yPercent: -10 });
-      tl.to(images[index], { scale: 1, x: 0 }, "<");
+      tl.add(() => normalizeAtIndex(index), `${index}`);
+      // Removed activeIndex tracking to avoid first-click errors and keep timeline stateless
+
+      // Animate OUT previous content and IN current in parallel
+      if (index !== 0) {
+        const prev = index - 1;
+
+        // OUT previous (fast)
+        if (tags[prev]) {
+          tl.to(toEl(tags[prev]), {
+            autoAlpha: 0,
+            y: -8,
+            duration: 0.18,
+            ease: "sine.in",
+          });
+        }
+        if (splitTitleInstances[prev] && splitTitleInstances[prev].chars) {
+          tl.to(
+            splitTitleInstances[prev].chars,
+            {
+              autoAlpha: 0,
+              yPercent: (i) => $gsap.utils.wrap([100, -100])(i),
+              stagger: 0.02,
+              duration: 0.25,
+              ease: "sine.in",
+            },
+            "<"
+          );
+        } else if (titles[prev]) {
+          tl.to(
+            toEl(titles[prev]),
+            { autoAlpha: 0, y: -8, duration: 0.2, ease: "sine.in" },
+            "<"
+          );
+        }
+        if (excerpts[prev]) {
+          tl.to(
+            toEl(excerpts[prev]),
+            { autoAlpha: 0, y: -8, duration: 0.18, ease: "sine.in" },
+            "<"
+          );
+        }
+        if (quotes[prev]) {
+          tl.to(
+            toEl(quotes[prev]),
+            { autoAlpha: 0, y: -8, duration: 0.18, ease: "sine.in" },
+            "<"
+          );
+        }
+        if (captions[prev]) {
+          const childrenPrev =
+            toEl(captions[prev]) && toEl(captions[prev]).children
+              ? Array.from(toEl(captions[prev]).children).filter(
+                  (n) => n && n.nodeType === 1
+                )
+              : [];
+          if (childrenPrev.length) {
+            tl.to(
+              childrenPrev,
+              {
+                autoAlpha: 0,
+                y: -6,
+                duration: 0.16,
+                stagger: 0.04,
+                ease: "sine.in",
+              },
+              "<"
+            );
+          }
+        }
+        if (buttons[prev]) {
+          tl.to(
+            toEl(buttons[prev]),
+            { autoAlpha: 0, y: -8, duration: 0.16, ease: "sine.in" },
+            "<"
+          );
+        }
+        // Previous image OUT (unchanged) in parallel
+        tl.to(
+          images[prev],
+          {
+            autoAlpha: 0,
+            xPercent: -20,
+            scale: 0.9,
+            duration: 0.3,
+            ease: "sine.in",
+          },
+          "<"
+        );
+        tl.to(navigationDividers[prev], { width: "0" }, "<");
+        tl.set(texts[prev], { autoAlpha: 0 });
+      }
+
+      // IN current (starts with previous OUT, via "<")
+      tl.set(texts[index], { autoAlpha: 1 }, "<");
+      if (splitTitleInstances[index] && splitTitleInstances[index].chars) {
+        tl.from(
+          splitTitleInstances[index].chars,
+          {
+            yPercent: (i) => $gsap.utils.wrap([-100, 100])(i),
+            autoAlpha: 0,
+            stagger: 0.04,
+            duration: 0.5,
+            ease: "sine.out",
+          },
+          "<"
+        );
+      } else if (titles[index]) {
+        tl.from(
+          toEl(titles[index]),
+          { autoAlpha: 0, y: 12, duration: 0.4, ease: "sine.out" },
+          "<"
+        );
+      }
+      if (tags[index]) {
+        tl.fromTo(
+          toEl(tags[index]),
+          { autoAlpha: 0, y: 8 },
+          { autoAlpha: 1, y: 0, duration: 0.22, ease: "sine.out" },
+          "<0.05"
+        );
+      }
+      if (excerpts[index]) {
+        tl.fromTo(
+          toEl(excerpts[index]),
+          { autoAlpha: 0, y: 10 },
+          { autoAlpha: 1, y: 0, duration: 0.35, ease: "sine.out" },
+          "<0.05"
+        );
+      }
+      if (quotes[index]) {
+        tl.fromTo(
+          toEl(quotes[index]),
+          { autoAlpha: 0, y: 10 },
+          { autoAlpha: 1, y: 0, duration: 0.35, ease: "sine.out" },
+          "<0.05"
+        );
+      }
+      if (captions[index]) {
+        const childrenCur =
+          toEl(captions[index]) && toEl(captions[index]).children
+            ? Array.from(toEl(captions[index]).children).filter(
+                (n) => n && n.nodeType === 1
+              )
+            : [];
+        if (childrenCur.length) {
+          tl.fromTo(
+            childrenCur,
+            { autoAlpha: 0, y: 6 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.28,
+              stagger: 0.05,
+              ease: "sine.out",
+            },
+            "<0.05"
+          );
+        }
+      }
+      if (buttons[index]) {
+        tl.fromTo(
+          toEl(buttons[index]),
+          { autoAlpha: 0, y: 8 },
+          { autoAlpha: 1, y: 0, duration: 0.3, ease: "sine.out" },
+          "<"
+        );
+      }
+
+      // Images (right side) remain unchanged
+      tl.to(images[index], { autoAlpha: 1, scale: 1, x: 0 }, "<");
       tl.to(navigationDividers[index], { width: "48px" });
       tl.to(navigationDividersInner[index], { duration: 6, width: "100%" });
-      if (index !== 0) {
-        tl.to(navigationDividers[index - 1], { width: "0" }, "<-=1");
-        tl.to(texts[index - 1], { autoAlpha: 0, yPercent: 10 }, "<");
-        tl.to(images[index - 1], { autoAlpha: 0, yPercent: -10 }, "<");
-      }
     });
 
     paginationTl.value = tl;
@@ -347,6 +576,13 @@ onUnmounted(() => {
   }
   if (scrollTriggerRef.value) {
     scrollTriggerRef.value.kill();
+  }
+  if (splitTitleInstances && splitTitleInstances.length) {
+    try {
+      splitTitleInstances.forEach(
+        (inst) => inst && inst.revert && inst.revert()
+      );
+    } catch (e) {}
   }
   // ScrollSmoother cleans up automatically
 });
