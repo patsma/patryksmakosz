@@ -103,6 +103,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+// Smart font scaling for ultra-wide screens
+html {
+  font-size: 16px; // Base size up to FullHD
+  
+  // Scale smoothly from 1920px to 4K (3840px)
+  @media (min-width: 1920px) {
+    font-size: calc(16px + (100vw - 1920px) * 0.0104); // Scales from 16px to ~36px at 4K
+  }
+  
+  // Cap at reasonable size for anything beyond 4K
+  @media (min-width: 3840px) {
+    font-size: 36px;
+  }
+}
+
 body {
   // Prevent history swipe on horizontal overscroll
   overscroll-behavior-x: none;
