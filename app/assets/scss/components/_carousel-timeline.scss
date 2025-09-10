@@ -7,8 +7,7 @@
   display: grid;
   gap: 4rem;
   @extend .min-h-vh-minus-header;
-  padding: 1.5rem;
-  @extend .pt-header;
+  @include padding;
   position: relative;
   isolation: isolate;
   z-index: 5;
