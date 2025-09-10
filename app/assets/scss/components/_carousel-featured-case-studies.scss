@@ -13,7 +13,8 @@
   z-index: 0;
   display: grid;
   @include padding;
-  
+  grid-column-gap: space(14);
+
   padding-bottom: space(20);
   grid-template-areas: "title" "inner" "navigation";
 
@@ -30,9 +31,10 @@
     --contentHeight: 43.75rem;
     --maxWidth: 32rem;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 1rem;
+    grid-column-gap: space(36);
     @include desktop {
       --maxWidth: 36rem;
+      grid-column-gap: space(46);
       // --contentWidth: 42.5rem;
       // --contentHeight: 56.25rem;
     }
