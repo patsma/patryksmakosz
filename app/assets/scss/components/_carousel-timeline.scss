@@ -6,11 +6,11 @@
   $root: &;
   display: grid;
   gap: 4rem;
-  @extend .min-h-vh-minus-header;
-  @include padding;
   position: relative;
   isolation: isolate;
   z-index: 5;
+  @extend .min-h-vh-minus-header;
+  @include padding;
 
   @include laptop {
     padding: 5rem;
