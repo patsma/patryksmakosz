@@ -63,7 +63,7 @@
               data-path-point
               data-path-order="2"
               data-control-x="0.25"
-              data-control-y="-300"
+              data-control-y="-210"
               data-offset-x="-5"
               data-offset-y="0"
             ></div>
@@ -100,7 +100,7 @@
                 data-path-point
                 data-path-order="5"
                 data-control-x="0.25"
-                data-control-y="-300"
+                data-control-y="-210"
                 data-offset-x="2"
               ></div>
               <span>Nuxt.js</span>
@@ -157,7 +157,7 @@
                 data-path-point
                 data-path-order="6"
                 data-control-x="0.25"
-                data-control-y="-600"
+                data-control-y="-290"
                 data-offset-x="2"
               ></div>
               <span>GSAP Animation</span>
@@ -220,7 +220,7 @@
                 data-path-point
                 data-path-order="7"
                 data-control-x="0.15"
-                data-control-y="-1800"
+                data-control-y="-300"
                 data-offset-x="0"
                 data-offset-y="0"
               ></div>
@@ -271,7 +271,7 @@
                 data-path-point
                 data-path-order="8"
                 data-control-x="0.3"
-                data-control-y="-1800"
+                data-control-y="-300"
               ></div>
             </div>
             <div
@@ -292,7 +292,7 @@
                 data-path-point
                 data-path-order="8.2"
                 data-control-x="0.25"
-                data-control-y="-900"
+                data-control-y="-440"
               ></div>
             </div>
             <div
@@ -318,7 +318,7 @@
                 data-path-point
                 data-path-order="8.4"
                 data-control-x="0.3"
-                data-control-y="-1200"
+                data-control-y="-280"
               ></div>
               <h4>Founded TastySites</h4>
               <p>CEO & Creative Lead</p>
@@ -327,7 +327,7 @@
                 data-path-point
                 data-path-order="8.5"
                 data-control-x="0.2"
-                data-control-y="-800"
+                data-control-y="-390"
               ></div>
             </div>
           </div>
@@ -342,7 +342,7 @@
                 data-path-point
                 data-path-order="9"
                 data-control-x="0.4"
-                data-control-y="-300"
+                data-control-y="-210"
               ></div>
             </div>
             <div
@@ -384,7 +384,7 @@
                 data-path-point
                 data-path-order="10"
                 data-control-x="0.5"
-                data-control-y="-150"
+                data-control-y="-450"
               ></div>
               <Icon name="tabler:mail" class="w-6 h-6 text-black" />
               <a
@@ -408,13 +408,15 @@
             </div>
 
             <!-- Facebook -->
-            <div class="project-path-animation__contact-item contact-item relative">
+            <div
+              class="project-path-animation__contact-item contact-item relative"
+            >
               <div
                 class="dummy-point !absolute !top-0 !left-[70%]"
                 data-path-point
                 data-path-order="11"
                 data-control-x="0.35"
-                data-control-y="-150"
+                data-control-y="-450"
               ></div>
               <Icon name="tabler:brand-facebook" class="w-6 h-6 text-black" />
               <a
@@ -517,7 +519,7 @@
                   data-path-point
                   data-path-order="13"
                   data-control-x="0.25"
-                  data-control-y="-600"
+                  data-control-y="-800"
                   data-center-on="#target-center"
                 ></div>
               </div>
@@ -1060,7 +1062,7 @@ const initializePathAnimation = () => {
     .timeline({
       scrollTrigger: {
         trigger: root,
-        start: "top center-=15%",
+        start: "top center-=35%",
         end: "bottom bottom",
 
         scrub: true,
@@ -1071,7 +1073,7 @@ const initializePathAnimation = () => {
       },
     })
     .to(ball, {
-      duration: 5,
+      duration: 6,
       ease: "none",
       motionPath: {
         path: pathEl,

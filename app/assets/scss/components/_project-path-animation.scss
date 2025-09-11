@@ -137,33 +137,33 @@
           text-align: center;
           min-height: space(10);
           width: 100%;
-          
+
           // Mobile-friendly sizing
           @include tablet {
             padding: space(4) space(5);
             min-height: space(12);
           }
-          
+
           @include laptop {
             padding: space(4) space(6);
             min-height: space(12);
-            
+
             // Add subtle variations for more organic feel on larger screens
-            &:nth-child(3n+1) {
+            &:nth-child(3n + 1) {
               border-radius: space(5) space(8) space(5) space(8);
               background: rgba(255, 255, 255, 0.08);
             }
-            
-            &:nth-child(3n+2) {
+
+            &:nth-child(3n + 2) {
               border-radius: space(8) space(5) space(8) space(5);
               background: rgba(255, 255, 255, 0.15);
             }
-            
-            &:nth-child(4n+1) {
+
+            &:nth-child(4n + 1) {
               transform: rotate(-1deg);
             }
-            
-            &:nth-child(4n+3) {
+
+            &:nth-child(4n + 3) {
               transform: rotate(1deg);
             }
           }
@@ -171,20 +171,20 @@
           &:hover {
             background: rgba(255, 255, 255, 0.22);
             transform: translateY(-2px) scale(1.02);
-            box-shadow: 
+            box-shadow:
               0 4px 15px rgba(0, 0, 0, 0.1),
               0 0 15px rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.4);
-            
+
             @include laptop {
               transform: translateY(-4px) scale(1.02);
-              box-shadow: 
+              box-shadow:
                 0 8px 25px rgba(0, 0, 0, 0.15),
                 0 0 20px rgba(255, 255, 255, 0.1);
-              
+
               // Reset rotation on hover for clean interaction
-              &:nth-child(4n+1),
-              &:nth-child(4n+3) {
+              &:nth-child(4n + 1),
+              &:nth-child(4n + 3) {
                 transform: translateY(-4px) scale(1.02) rotate(0deg);
               }
             }
@@ -197,11 +197,11 @@
             white-space: normal;
             margin-inline: auto;
             line-height: 1.2;
-            
+
             @include tablet {
               font-size: space(3.6);
             }
-            
+
             @include laptop {
               font-size: space(3.8);
             }
