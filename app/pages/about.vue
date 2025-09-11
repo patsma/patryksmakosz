@@ -1,7 +1,7 @@
 <template>
   <div class="pt-header">
     <h1 class="sr-only">About</h1>
-    <OrbitalCarousel class="-mt-[30vh]" />
+    <OrbitalCarousel class="-mt-[10vh] 2xl:-mt-[30vh]" />
     <CarouselFeaturedCaseStudies
       headline="Featured case studies"
       :alternative-colors="false"

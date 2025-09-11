@@ -62,13 +62,36 @@ export const defaultBreakpointConfig = [
   {
     minWidth: 1200,
     orbitXFactor: 0.35,
-    orbitYFactor: 0.16,
+    orbitYFactor: 0.1,
     minOrbitX: 640,
     minOrbitY: 200,
     frontMargin: 1.4,
     backMargin: 0.9,
+    verticalOffsetFactor: 0.1,
+    itemScale: 1.05,
+  },
+  {
+    minWidth: 2500,
+    orbitXFactor: 0.8,
+    orbitYFactor: 0.2,
+    minOrbitX: 640,
+    minOrbitY: 200,
+    frontMargin: 1,
+    backMargin: 0.9,
     verticalOffsetFactor: 0.12,
-    itemScale: 1,
+    itemScale: 1.4,
+  },
+
+  {
+    minWidth: 3800,
+    orbitXFactor: 0.7,
+    orbitYFactor: 0.2,
+    minOrbitX: 640,
+    minOrbitY: 200,
+    frontMargin: 1,
+    backMargin: 0.9,
+    verticalOffsetFactor: 0.12,
+    itemScale: 2,
   },
 ];
 
