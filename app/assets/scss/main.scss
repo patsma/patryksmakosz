@@ -25,6 +25,7 @@
 @use "./components/blog-post";
 @use "./components/projects-page";
 @use "./components/error-page";
+@use "./components/hero-video";
 
 :root {
   // Expose key SCSS colors as CSS custom properties for JS/GSAP usage

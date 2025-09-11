@@ -6,14 +6,11 @@
     - Smooth fade-in prevents black flashes during loading
     - User-friendly messaging for autoplay blocks and fullscreen capability
   -->
-  <section
-    class="relative w-full h-vh-minus-header min-h-vh-minus-header overflow-hidden cursor-pointer bg-black"
-    :aria-label="ariaLabel || 'Hero video'"
-  >
+  <section class="hero-video" :aria-label="ariaLabel || 'Hero video'">
     <!-- Video element with smooth opacity transition -->
     <video
       ref="videoEl"
-      class="absolute inset-0 h-full w-full transition-opacity duration-700 ease-out"
+      class="hero-video__video"
       :class="[videoObjectClass, videoOpacityClass]"
       :src="src"
       :poster="poster || undefined"
@@ -38,14 +35,12 @@
     <!-- Loading state overlay -->
     <div
       v-if="isLoading && showLoadingSpinner"
-      class="absolute inset-0 bg-black flex items-center justify-center transition-opacity duration-500"
-      :class="{ 'opacity-0 pointer-events-none': !isLoading }"
+      class="hero-video__loading"
+      :class="{ 'hero-video__loading--hidden': !isLoading }"
     >
-      <div class="text-white/60 text-center">
-        <div
-          class="w-8 h-8 mx-auto mb-3 border-2 border-white/30 border-t-white/80 rounded-full animate-spin"
-        ></div>
-        <p class="text-sm">Loading video...</p>
+      <div class="hero-video__loading-content">
+        <div class="hero-video__loading-spinner"></div>
+        <p class="hero-video__loading-text">Loading video...</p>
       </div>
     </div>
 
@@ -53,22 +48,20 @@
     <button
       v-if="showPlayOverlay"
       type="button"
-      class="absolute inset-0 bg-black/40 backdrop-blur-sm flex flex-col items-center justify-center text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 transition-all duration-300"
+      class="hero-video__play-overlay"
       aria-label="Play video"
       @click="handleUserPlay"
       @keydown.enter.prevent="handleUserPlay"
     >
       <!-- Play icon -->
-      <div
-        class="w-16 h-16 mb-4 rounded-full bg-white/20 backdrop-blur flex items-center justify-center border border-white/30"
-      >
-        <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
+      <div class="hero-video__play-overlay-icon">
+        <svg fill="currentColor" viewBox="0 0 24 24">
           <path d="M8 5v14l11-7z" />
         </svg>
       </div>
       <!-- Message -->
-      <p class="text-lg font-medium mb-2">Tap to play</p>
-      <p class="text-sm text-white/80 max-w-xs text-center">
+      <p class="hero-video__play-overlay-title">Tap to play</p>
+      <p class="hero-video__play-overlay-subtitle">
         Your browser requires user interaction to autoplay videos
       </p>
     </button>
@@ -82,13 +75,10 @@
       leave-from-class="opacity-100 translate-y-0 scale-100"
       leave-to-class="opacity-0 translate-y-2 scale-95"
     >
-      <div
-        v-if="shouldShowHint"
-        class="absolute bottom-8 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white/80 text-xs max-w-xs pointer-events-none"
-      >
-        <div class="flex items-center gap-2">
+      <div v-if="shouldShowHint" class="hero-video__hint">
+        <div class="hero-video__hint-content">
           <svg
-            class="w-4 h-4 flex-shrink-0"
+            class="hero-video__hint-icon"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -161,14 +151,18 @@ const isLoading = ref(true);
 const videoReady = ref(false);
 const showFullscreenHintState = ref(false);
 
-// Compute object-fit Tailwind class based on `fit` prop
+// Compute object-fit BEM class based on `fit` prop
 const videoObjectClass = computed(() => {
-  return props.fit === "contain" ? "object-contain" : "object-cover";
+  return props.fit === "contain"
+    ? "hero-video__video--contain"
+    : "hero-video__video--cover";
 });
 
 // Compute video opacity class for smooth fade-in
 const videoOpacityClass = computed(() => {
-  return videoReady.value && !isLoading.value ? "opacity-100" : "opacity-0";
+  return videoReady.value && !isLoading.value
+    ? "hero-video__video--visible"
+    : "hero-video__video--hidden";
 });
 
 // Compute hint visibility for clean transitions

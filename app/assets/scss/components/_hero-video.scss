@@ -1,0 +1,167 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// =============================================================================
+// Hero Video Component Styles
+// =============================================================================
+
+.hero-video {
+  $root: &;
+  position: relative;
+  width: 100%;
+  height: calc(100vh - var(--header-height));
+  min-height: calc(100vh - var(--header-height));
+  overflow: hidden;
+  cursor: pointer;
+  background: $black;
+
+  &__video {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    transition: opacity 700ms ease-out;
+
+    &--cover {
+      object-fit: cover;
+    }
+
+    &--contain {
+      object-fit: contain;
+    }
+
+    &--visible {
+      opacity: 1;
+    }
+
+    &--hidden {
+      opacity: 0;
+    }
+  }
+
+  // Loading state overlay
+  &__loading {
+    position: absolute;
+    inset: 0;
+    background: $black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 500ms ease;
+
+    &--hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &-content {
+      color: rgba($white, 0.6);
+      text-align: center;
+    }
+
+    &-spinner {
+      width: space(8); // 2rem
+      height: space(8);
+      margin: 0 auto space(3);
+      border: space(0.5) solid rgba($white, 0.3); // 2px
+      border-top-color: rgba($white, 0.8);
+      border-radius: $radius-full;
+      animation: spin 1s linear infinite;
+    }
+
+    &-text {
+      @include button-text-small;
+      color: rgba($white, 0.8);
+    }
+  }
+
+  // Tap-to-play overlay
+  &__play-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba($black, 0.4);
+    backdrop-filter: blur(space(1)); // 4px
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    transition: all 300ms ease;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      box-shadow: inset 0 0 0 space(0.5) rgba($white, 0.7);
+    }
+
+    &-icon {
+      width: space(16); // 4rem
+      height: space(16);
+      margin-bottom: space(4);
+      border-radius: $radius-full;
+      background: rgba($white, 0.2);
+      backdrop-filter: blur(space(1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: $border-1 solid rgba($white, 0.3);
+
+      svg {
+        width: space(6); // 1.5rem
+        height: space(6);
+        margin-left: space(0.25); // slight offset for visual balance
+      }
+    }
+
+    &-title {
+      @include paragraph;
+      font-weight: 500;
+      margin-bottom: space(2);
+    }
+
+    &-subtitle {
+      @include button-text-small;
+      color: rgba($white, 0.8);
+      max-width: space(75); // ~18.75rem
+      text-align: center;
+    }
+  }
+
+  // Fullscreen hint
+  &__hint {
+    position: absolute;
+    bottom: space(8);
+    right: space(4);
+    background: rgba($black, 0.5);
+    backdrop-filter: blur(space(1));
+    border-radius: $radius-lg;
+    padding: space(3);
+    color: rgba($white, 0.8);
+    font-size: space(3); // 0.75rem
+    max-width: space(75);
+    pointer-events: none;
+
+    &-content {
+      display: flex;
+      align-items: center;
+      gap: space(2);
+    }
+
+    &-icon {
+      width: space(4);
+      height: space(4);
+      flex-shrink: 0;
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
