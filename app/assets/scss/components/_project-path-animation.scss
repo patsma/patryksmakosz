@@ -354,40 +354,320 @@
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          width: space(24);
-          height: space(24);
-          margin: space(8) auto;
+          width: space(28);
+          height: space(28);
+          margin: space(12) auto;
+          cursor: pointer;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
+          @include tablet {
+            width: space(32);
+            height: space(32);
+            margin: space(16) auto;
+          }
+
+          @include laptop {
+            width: space(36);
+            height: space(36);
+            margin: space(20) auto;
+          }
+
+          // Remove outer glow - not needed
+
+          // Clean animated ring
           .project-path-animation__target-ring,
           .target-ring {
             position: absolute;
             inset: 0;
-            border: $border-2 solid var(--color-primary-1);
             border-radius: 50%;
-            opacity: 0.5;
-            animation: pulse-ring 2s ease-in-out infinite;
+            border: $border-2 solid var(--color-primary-1);
+            opacity: 0.4;
+            animation: pulse-ring-clean 3s ease-in-out infinite;
+
+            // Remove old gradient border approach - was causing conflicts
+
+            // Secondary subtle ring
+            &::after {
+              content: "";
+              position: absolute;
+              inset: space(1.5);
+              border: 1px solid var(--color-alternative-1);
+              border-radius: 50%;
+              opacity: 0.6;
+              animation: pulse-ring-inner 2.2s ease-in-out infinite;
+            }
           }
 
           .project-path-animation__target-center,
           .target-center {
-            font-size: space(8);
-            background: var(--color-primary-2);
+            position: relative;
+            background: linear-gradient(
+              135deg,
+              var(--color-primary-2) 0%,
+              var(--color-alternative-2) 100%
+            );
             border-radius: 50%;
-            width: space(16);
-            height: space(16);
+            width: space(18);
+            height: space(18);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--color-white);
+            box-shadow:
+              0 4px 15px rgba(0, 137, 208, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+            animation: target-breathe 3s ease-in-out infinite;
+
+            @include tablet {
+              width: space(22);
+              height: space(22);
+            }
+
+            @include laptop {
+              width: space(26);
+              height: space(26);
+            }
+
+            // Inner highlight
+            &::before {
+              content: "";
+              position: absolute;
+              top: space(1);
+              left: space(1);
+              right: space(1);
+              height: space(4);
+              background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.4) 0%,
+                transparent 100%
+              );
+              border-radius: 50% 50% 0 0;
+              opacity: 0.8;
+            }
+
+            // Center dot/icon
+            &::after {
+              content: "";
+              position: absolute;
+              width: space(3);
+              height: space(3);
+              background: var(--color-white);
+              border-radius: 50%;
+              box-shadow: 0 0 space(2) rgba(255, 255, 255, 0.8);
+              animation: pulse-center 2s ease-in-out infinite;
+
+              @include tablet {
+                width: space(4);
+                height: space(4);
+              }
+            }
           }
         }
 
         .project-path-animation__cta-text,
         .cta-text {
-          max-width: 60ch;
+          max-width: 70ch;
           margin: 0 auto;
+          text-align: center;
+          position: relative;
+          display: grid;
+          gap: space(6);
+
+          // Modern typography scaling
           @include paragraph;
-          opacity: 0.8;
+          font-weight: 400;
+          font-size: space(4.5); // 18px base
+          line-height: 1.6;
+          letter-spacing: 0.01em;
+          color: var(--color-black); // Ensure readability on white bg
+
+          @include tablet {
+            font-size: space(5); // 20px
+            line-height: 1.65;
+            max-width: 75ch;
+            gap: space(8);
+          }
+
+          @include laptop {
+            font-size: space(5.5); // 22px
+            line-height: 1.7;
+            max-width: 80ch;
+            gap: space(10);
+          }
+
+          @include desktop {
+            font-size: space(6); // 24px
+            line-height: 1.75;
+            max-width: 85ch;
+            gap: space(12);
+          }
+
+          // Typography styling for special elements
+          .text-primary {
+            color: var(--color-primary-2);
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 137, 208, 0.2);
+          }
+
+          .text-alternative {
+            color: var(--color-alternative-2);
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 122, 178, 0.2);
+          }
+
+          .text-italic-accent {
+            color: var(--color-gray-6);
+            font-style: italic;
+            font-weight: 500;
+            position: relative;
+
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: -2px;
+              left: 0;
+              right: 0;
+              height: 1px;
+              background: linear-gradient(
+                90deg,
+                transparent,
+                var(--color-alternative-1),
+                transparent
+              );
+              opacity: 0.6;
+            }
+          }
+
+          .text-highlight {
+            background: linear-gradient(
+              120deg,
+              var(--color-primary-1),
+              var(--color-primary-2)
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            position: relative;
+          }
+
+          .text-gradient-emphasis {
+            color: var(--color-primary-2);
+            font-weight: 800;
+            font-size: 1.05em;
+            letter-spacing: 0.02em;
+            text-shadow: 0 1px 3px rgba(0, 137, 208, 0.3);
+            position: relative;
+
+            // Add a subtle background highlight instead of gradient text
+            &::before {
+              content: "";
+              position: absolute;
+              inset: -2px -4px;
+              background: linear-gradient(
+                135deg,
+                rgba(0, 137, 208, 0.1),
+                rgba(94, 237, 230, 0.08)
+              );
+              border-radius: space(1);
+              z-index: -1;
+              opacity: 0.8;
+            }
+          }
+
+          // Second paragraph styling
+          .cta-contact {
+            font-size: space(4.8);
+            font-weight: 500;
+            margin-top: space(4);
+
+            @include tablet {
+              font-size: space(5.2);
+            }
+
+            @include laptop {
+              font-size: space(5.6);
+            }
+
+            .email-link {
+              color: var(--color-primary-2);
+              font-weight: 700;
+              text-decoration: none;
+              position: relative;
+              transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              padding: space(1) space(3);
+              border-radius: space(2);
+              background: linear-gradient(
+                135deg,
+                rgba(0, 137, 208, 0.1),
+                rgba(94, 237, 230, 0.1)
+              );
+
+              &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: space(2);
+                background: linear-gradient(
+                  135deg,
+                  var(--color-primary-2),
+                  var(--color-alternative-1)
+                );
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                z-index: -1;
+              }
+
+              &::after {
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background: var(--color-primary-2);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                transform: translateX(-50%);
+              }
+
+              &:hover {
+                color: var(--color-white);
+                transform: translateY(-1px) scale(1.02);
+                box-shadow: 0 4px 15px rgba(0, 137, 208, 0.3);
+
+                &::before {
+                  opacity: 1;
+                }
+
+                &::after {
+                  width: 100%;
+                  opacity: 0;
+                }
+              }
+
+              &:active {
+                transform: translateY(0) scale(1);
+              }
+            }
+          }
+
+          // Add subtle glow effect on the container
+          &::before {
+            content: "";
+            position: absolute;
+            inset: -#{space(4)};
+            background: radial-gradient(
+              ellipse at center,
+              rgba(0, 137, 208, 0.03) 0%,
+              rgba(94, 237, 230, 0.02) 50%,
+              transparent 70%
+            );
+            border-radius: space(8);
+            z-index: -1;
+            opacity: 0.8;
+          }
         }
       }
     }
@@ -502,5 +782,71 @@
   50% {
     transform: scale(1.1);
     opacity: 0.3;
+  }
+}
+
+// Clean target animations
+@keyframes pulse-ring-clean {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.15;
+  }
+}
+
+@keyframes pulse-ring-inner {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.3;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.4;
+  }
+}
+
+@keyframes pulse-center {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+// Gentle breathing animation for target center
+@keyframes target-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 4px 15px rgba(0, 137, 208, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow:
+      0 6px 20px rgba(0, 137, 208, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 }

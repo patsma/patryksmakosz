@@ -508,9 +508,6 @@
               id="final-target"
             >
               <div
-                class="project-path-animation__target-ring target-ring"
-              ></div>
-              <div
                 class="project-path-animation__target-center target-center"
                 id="target-center"
               >
@@ -524,14 +521,31 @@
                 ></div>
               </div>
             </div>
-            <p
+            <div
               class="project-path-animation__cta-text cta-text"
               ref="ctaTextRef"
             >
-              Whether you need GSAP animations, Nuxt.js apps, or bespoke
-              WordPress development - I'm here to transform your ideas into
-              exceptional digital experiences.
-            </p>
+              <p>
+                Whether you need
+                <strong class="text-primary">GSAP animations</strong>,
+                <strong class="text-alternative">Nuxt.js apps</strong>, or
+                <em class="text-italic-accent"
+                  >bespoke WordPress development</em
+                >
+                - <span class="text-highlight">I'm here to transform</span> your
+                ideas into
+                <strong class="text-gradient-emphasis"
+                  >exceptional digital experiences</strong
+                >.
+              </p>
+              <p class="cta-contact">
+                Ready to start?
+                <a href="mailto:patryksmakosz1@gmail.com" class="email-link">
+                  Let's connect
+                </a>
+                and bring your vision to life.
+              </p>
+            </div>
           </div>
         </div>
       </div>
