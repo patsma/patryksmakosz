@@ -16,6 +16,203 @@
     min-height: 100vh;
   }
 
+  // Parallax Background Elements
+  &__parallax-bg,
+  .parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 300vh;
+    overflow: visible;
+    z-index: 1; // Above section backgrounds but below content
+    pointer-events: none;
+  }
+
+  &__parallax-element,
+  .parallax-element {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform;
+    transition-property: transform;
+    backface-visibility: hidden;
+
+    // Section 1 elements (Blue background) - Subtle white elements
+    &--1 {
+      top: 10vh;
+      left: 10vw;
+      width: space(60); // 15rem
+      height: space(60);
+      background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 70%
+      );
+      opacity: 0.6;
+      
+      @include tablet {
+        width: space(80);
+        height: space(80);
+      }
+      
+      @include laptop {
+        width: space(100);
+        height: space(100);
+      }
+    }
+
+    &--2 {
+      top: 40vh;
+      right: 15vw;
+      width: space(45); // 11.25rem
+      height: space(45);
+      background: radial-gradient(
+        circle at 60% 40%,
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0.06) 50%,
+        transparent 65%
+      );
+      opacity: 0.6;
+      
+      @include tablet {
+        width: space(65);
+        height: space(65);
+      }
+      
+      @include laptop {
+        width: space(85);
+        height: space(85);
+      }
+    }
+
+    // Section 2 & 3 elements (White background) - Very subtle blue-ish colors
+    &--3 {
+      top: 120vh;
+      left: 15vw;
+      width: space(50); // 12.5rem
+      height: space(50);
+      background: radial-gradient(
+        circle at 40% 60%,
+        rgba(0, 137, 208, 0.06) 0%,
+        rgba(94, 237, 230, 0.03) 50%,
+        transparent 70%
+      );
+      opacity: 0.3;
+      
+      @include tablet {
+        width: space(70);
+        height: space(70);
+      }
+      
+      @include laptop {
+        width: space(90);
+        height: space(90);
+      }
+    }
+
+    &--4 {
+      top: 160vh;
+      right: 12vw;
+      width: space(70); // 17.5rem
+      height: space(70);
+      background: radial-gradient(
+        circle at 20% 80%,
+        rgba(0, 32, 91, 0.04) 0%,
+        rgba(0, 137, 208, 0.02) 50%,
+        transparent 65%
+      );
+      opacity: 0.3;
+      
+      @include tablet {
+        width: space(90);
+        height: space(90);
+      }
+      
+      @include laptop {
+        width: space(110);
+        height: space(110);
+      }
+    }
+
+    &--5 {
+      top: 200vh;
+      left: 25vw;
+      width: space(55); // 13.75rem
+      height: space(55);
+      background: radial-gradient(
+        circle at 70% 30%,
+        rgba(0, 122, 178, 0.05) 0%,
+        rgba(94, 237, 230, 0.02) 50%,
+        transparent 70%
+      );
+      opacity: 0.3;
+      
+      @include tablet {
+        width: space(75);
+        height: space(75);
+      }
+      
+      @include laptop {
+        width: space(95);
+        height: space(95);
+      }
+    }
+
+    &--6 {
+      top: 250vh;
+      right: 20vw;
+      width: space(40); // 10rem
+      height: space(40);
+      background: radial-gradient(
+        circle at 50% 50%,
+        rgba(0, 137, 208, 0.04) 0%,
+        rgba(0, 32, 91, 0.02) 50%,
+        transparent 65%
+      );
+      opacity: 0.3;
+      
+      @include tablet {
+        width: space(60);
+        height: space(60);
+      }
+      
+      @include laptop {
+        width: space(80);
+        height: space(80);
+      }
+    }
+
+    &--7 {
+      top: 280vh;
+      left: 15vw;
+      width: space(45); // 11.25rem
+      height: space(45);
+      background: radial-gradient(
+        circle at 40% 70%,
+        rgba(94, 237, 230, 0.08) 0%,
+        rgba(0, 137, 208, 0.04) 50%,
+        rgba(0, 122, 178, 0.02) 75%,
+        transparent 85%
+      );
+      opacity: 0.4;
+      
+      @include tablet {
+        width: space(60);
+        height: space(60);
+        left: 12vw;
+      }
+      
+      @include laptop {
+        width: space(75);
+        height: space(75);
+        left: 10vw;
+      }
+    }
+  }
+
   // Section wrapper
   &__section,
   .section {
@@ -31,7 +228,7 @@
     & > .content {
       max-width: 80rem;
       width: 100%;
-      z-index: 1;
+      z-index: 2; // Above parallax elements
       position: relative;
       display: grid;
       gap: space(10);
@@ -357,8 +554,6 @@
           width: space(28);
           height: space(28);
           margin: space(12) auto;
-          cursor: pointer;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
           @include tablet {
             width: space(32);
@@ -374,29 +569,6 @@
 
           // Remove outer glow - not needed
 
-          // Clean animated ring
-          .project-path-animation__target-ring,
-          .target-ring {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            border: $border-2 solid var(--color-primary-1);
-            opacity: 0.4;
-            animation: pulse-ring-clean 3s ease-in-out infinite;
-
-            // Remove old gradient border approach - was causing conflicts
-
-            // Secondary subtle ring
-            &::after {
-              content: "";
-              position: absolute;
-              inset: space(1.5);
-              border: 1px solid var(--color-alternative-1);
-              border-radius: 50%;
-              opacity: 0.6;
-              animation: pulse-ring-inner 2.2s ease-in-out infinite;
-            }
-          }
 
           .project-path-animation__target-center,
           .target-center {
@@ -682,7 +854,7 @@
     border-radius: $radius-full;
     background: var(--color-primary-1);
     box-shadow: var(--shadow-elevation-1);
-    z-index: 3;
+    z-index: 10; // Above everything
     pointer-events: none;
     opacity: 0; // hidden until positioned on mount
   }
@@ -785,42 +957,6 @@
   }
 }
 
-// Clean target animations
-@keyframes pulse-ring-clean {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.15;
-  }
-}
-
-@keyframes pulse-ring-inner {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.08);
-    opacity: 0.3;
-  }
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.12);
-    opacity: 0.4;
-  }
-}
 
 @keyframes pulse-center {
   0%,
@@ -848,5 +984,24 @@
     box-shadow:
       0 6px 20px rgba(0, 137, 208, 0.4),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+// ScrollSmoother performance optimizations
+.project-path-animation {
+  // Performance hints for GSAP ScrollSmoother elements
+  [data-speed],
+  [data-lag] {
+    will-change: transform;
+    transition-property: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0); // Force hardware acceleration
+  }
+
+  // Specific optimizations for parallax elements
+  .parallax-element,
+  &__parallax-element {
+    contain: layout style paint; // Optimize rendering
+    isolation: isolate; // Create stacking context
   }
 }

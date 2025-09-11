@@ -4,6 +4,48 @@
     class="project-path-animation"
     aria-label="Path animation"
   >
+    <!-- Parallax Background Elements -->
+    <div class="project-path-animation__parallax-bg parallax-bg">
+      <!-- Section 1 (Blue background) - White-ish elements with varied parallax speeds -->
+      <div
+        class="project-path-animation__parallax-element parallax-element parallax-element--1"
+        data-speed="0.8"
+        data-lag="0.1"
+      ></div>
+      <div
+        class="project-path-animation__parallax-element parallax-element parallax-element--2"
+        data-speed="0.6"
+        data-lag="0.05"
+      ></div>
+      
+      <!-- Section 2 & 3 (White background) - Blue-ish elements with different speeds -->
+      <div
+        class="project-path-animation__parallax-element parallax-element parallax-element--3"
+        data-speed="1.2"
+        data-lag="0.08"
+      ></div>
+      <div
+        class="project-path-animation__parallax-element parallax-element parallax-element--4"
+        data-speed="0.4"
+        data-lag="0.12"
+      ></div>
+      <div
+        class="project-path-animation__parallax-element parallax-element parallax-element--5"
+        data-speed="0.9"
+        data-lag="0.06"
+      ></div>
+      <div
+        class="project-path-animation__parallax-element parallax-element parallax-element--6"
+        data-speed="0.7"
+        data-lag="0.04"
+      ></div>
+      <div
+        class="project-path-animation__parallax-element parallax-element parallax-element--7"
+        data-speed="0.5"
+        data-lag="0.08"
+      ></div>
+    </div>
+
     <!-- Ball that moves along the motion path -->
     <div
       ref="ballRef"
