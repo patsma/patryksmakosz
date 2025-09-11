@@ -39,7 +39,7 @@
       class="project-path-animation__section project-path-animation__section--intro section section-1"
     >
       <div class="project-path-animation__content content">
-        <div class="project-path-animation__intro intro-header">
+        <div class="project-path-animation__intro intro-header" ref="introHeaderRef">
           <SentenceHiSVG ref="sentenceHiRef" class="w-40 h-40" />
           <div
             class="dummy-point"
@@ -83,7 +83,7 @@
 
         <div class="project-path-animation__skills skills-constellation">
           <h3>Skills & Technologies</h3>
-          <div class="project-path-animation__skills-grid skills-grid">
+          <div class="project-path-animation__skills-grid skills-grid" ref="skillsGridRef">
             <!-- Text-only skill bullets; preserve dummy points on Nuxt & GSAP -->
             <div
               class="project-path-animation__skill skill-bubble"
@@ -233,12 +233,12 @@
       class="project-path-animation__section project-path-animation__section--timeline section section-2"
     >
       <div class="project-path-animation__content content">
-        <div class="project-path-animation__timeline-header timeline-header">
+        <div class="project-path-animation__timeline-header timeline-header" ref="timelineHeaderRef">
           <h2>Professional Journey</h2>
           <p>A decade of crafting digital experiences</p>
         </div>
 
-        <div class="project-path-animation__timeline timeline-milestones">
+        <div class="project-path-animation__timeline timeline-milestones" ref="milestonesRef">
           <!-- Career milestones with ordered dummy points -->
           <div
             class="project-path-animation__milestone milestone"
@@ -327,13 +327,13 @@
       class="project-path-animation__section project-path-animation__section--contact section section-3"
     >
       <div class="project-path-animation__content content">
-        <div class="project-path-animation__contact-header contact-header">
+        <div class="project-path-animation__contact-header contact-header" ref="contactHeaderRef">
           <h2>Let's Connect!</h2>
           <p>Ready to bring your vision to life</p>
         </div>
 
         <div class="project-path-animation__contact contact-info">
-          <div class="project-path-animation__contact-grid contact-grid">
+          <div class="project-path-animation__contact-grid contact-grid" ref="contactGridRef">
             <!-- Contact items with dummy points -->
             <div
               class="project-path-animation__contact-item contact-item relative"
@@ -399,7 +399,7 @@
                 ></div>
               </div>
             </div>
-            <p class="project-path-animation__cta-text cta-text">
+            <p class="project-path-animation__cta-text cta-text" ref="ctaTextRef">
               Whether you need GSAP animations, Nuxt.js apps, or bespoke
               WordPress development - I'm here to transform your ideas into
               exceptional digital experiences.
@@ -415,6 +415,7 @@
 // Nuxt/GSAP injection via @hypernym/nuxt-gsap
 // We rely on nuxt.config.ts for plugin registration
 const { $gsap } = useNuxtApp();
+const { $SplitText } = useNuxtApp();
 
 // Refs
 const rootRef = ref(null);
@@ -426,6 +427,19 @@ const isClient = ref(false);
 let resizeObserver = null;
 let resizeTimer = null;
 
+// Animation refs for stagger animations
+const introHeaderRef = ref(null);
+const skillsGridRef = ref(null);
+const timelineHeaderRef = ref(null);
+const milestonesRef = ref(null);
+const contactHeaderRef = ref(null);
+const contactGridRef = ref(null);
+const ctaTextRef = ref(null);
+
+// Storage for section animation timelines
+const sectionTimelines = ref([]);
+let splitTextInstance = null;
+
 onMounted(() => {
   isClient.value = true;
   // Wait for hydration to complete and DOM to be ready
@@ -433,6 +447,8 @@ onMounted(() => {
     // Additional delay to ensure GSAP and all components are fully initialized
     setTimeout(() => {
       initializePathAnimation();
+      initializeSectionAnimations();
+      initializeCTATextAnimation();
     }, 100);
   });
 });
@@ -450,6 +466,22 @@ onUnmounted(() => {
     }
   } catch (_) {}
 
+  // Clean up section animation timelines
+  sectionTimelines.value.forEach((timeline) => {
+    try {
+      timeline.kill();
+    } catch (_) {}
+  });
+  sectionTimelines.value = [];
+
+  // Clean up split text instance
+  if (splitTextInstance) {
+    try {
+      splitTextInstance.revert();
+    } catch (_) {}
+    splitTextInstance = null;
+  }
+
   if (resizeObserver) {
     try {
       resizeObserver.disconnect();
@@ -459,6 +491,256 @@ onUnmounted(() => {
     clearTimeout(resizeTimer);
   }
 });
+
+/**
+ * Initialize stagger animations for section elements
+ * Creates smooth fade-in animations with stagger for various sections
+ */
+const initializeSectionAnimations = () => {
+  // Guard against server-side execution
+  if (!process.client || !isClient.value) return;
+
+  const root = rootRef.value;
+  if (!root || !$gsap) return;
+
+  // Clear any existing section timelines
+  sectionTimelines.value.forEach((timeline) => {
+    try {
+      timeline.kill();
+    } catch (_) {}
+  });
+  sectionTimelines.value = [];
+
+  // Section 1: Intro Header Animation
+  if (introHeaderRef.value) {
+    const introElements = [
+      introHeaderRef.value.querySelector('h1'),
+      introHeaderRef.value.querySelector('.intro-tagline'),
+      introHeaderRef.value.querySelector('.intro-description')
+    ].filter(Boolean);
+
+    if (introElements.length > 0) {
+      // Set initial state - only opacity, no transforms
+      $gsap.set(introElements, { autoAlpha: 0 });
+      
+      const introTimeline = $gsap.timeline({
+        scrollTrigger: {
+          trigger: introHeaderRef.value,
+          start: "top bottom-=10%",
+          end: "bottom center",
+          toggleActions: "play none none reverse"
+        }
+      });
+      
+      introTimeline.to(introElements, {
+        autoAlpha: 1,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "power2.out"
+      });
+      
+      sectionTimelines.value.push(introTimeline);
+    }
+  }
+
+  // Skills Grid Animation
+  if (skillsGridRef.value) {
+    const skillBubbles = skillsGridRef.value.querySelectorAll('.skill-bubble');
+    
+    if (skillBubbles.length > 0) {
+      // Set initial state - only opacity, no transforms
+      $gsap.set(skillBubbles, { autoAlpha: 0 });
+      
+      const skillsTimeline = $gsap.timeline({
+        scrollTrigger: {
+          trigger: skillsGridRef.value,
+          start: "top bottom-=5%",
+          end: "bottom center",
+          toggleActions: "play none none reverse"
+        }
+      });
+      
+      skillsTimeline.to(skillBubbles, {
+        autoAlpha: 1,
+        duration: 0.5,
+        stagger: {
+          amount: 1.0,
+          from: "random"
+        },
+        ease: "power2.out"
+      });
+      
+      sectionTimelines.value.push(skillsTimeline);
+    }
+  }
+
+  // Timeline Header Animation
+  if (timelineHeaderRef.value) {
+    const timelineHeaderElements = [
+      timelineHeaderRef.value.querySelector('h2'),
+      timelineHeaderRef.value.querySelector('p')
+    ].filter(Boolean);
+
+    if (timelineHeaderElements.length > 0) {
+      // Set initial state - only opacity, no transforms
+      $gsap.set(timelineHeaderElements, { autoAlpha: 0 });
+      
+      const timelineHeaderTimeline = $gsap.timeline({
+        scrollTrigger: {
+          trigger: timelineHeaderRef.value,
+          start: "top bottom-=10%",
+          end: "bottom center",
+          toggleActions: "play none none reverse"
+        }
+      });
+      
+      timelineHeaderTimeline.to(timelineHeaderElements, {
+        autoAlpha: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out"
+      });
+      
+      sectionTimelines.value.push(timelineHeaderTimeline);
+    }
+  }
+
+  // Timeline Milestones Animation
+  if (milestonesRef.value) {
+    const milestones = milestonesRef.value.querySelectorAll('.milestone');
+    
+    if (milestones.length > 0) {
+      // Set initial state - only opacity, no transforms
+      $gsap.set(milestones, { autoAlpha: 0 });
+      
+      const milestonesTimeline = $gsap.timeline({
+        scrollTrigger: {
+          trigger: milestonesRef.value,
+          start: "top bottom-=5%",
+          end: "bottom center",
+          toggleActions: "play none none reverse"
+        }
+      });
+      
+      milestonesTimeline.to(milestones, {
+        autoAlpha: 1,
+        duration: 0.6,
+        stagger: 0.2,
+        ease: "power2.out"
+      });
+      
+      sectionTimelines.value.push(milestonesTimeline);
+    }
+  }
+
+  // Contact Header Animation
+  if (contactHeaderRef.value) {
+    const contactHeaderElements = [
+      contactHeaderRef.value.querySelector('h2'),
+      contactHeaderRef.value.querySelector('p')
+    ].filter(Boolean);
+
+    if (contactHeaderElements.length > 0) {
+      // Set initial state - only opacity, no transforms
+      $gsap.set(contactHeaderElements, { autoAlpha: 0 });
+      
+      const contactHeaderTimeline = $gsap.timeline({
+        scrollTrigger: {
+          trigger: contactHeaderRef.value,
+          start: "top bottom-=10%",
+          end: "bottom center",
+          toggleActions: "play none none reverse"
+        }
+      });
+      
+      contactHeaderTimeline.to(contactHeaderElements, {
+        autoAlpha: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out"
+      });
+      
+      sectionTimelines.value.push(contactHeaderTimeline);
+    }
+  }
+
+  // Contact Grid Animation
+  if (contactGridRef.value) {
+    const contactItems = contactGridRef.value.querySelectorAll('.contact-item');
+    
+    if (contactItems.length > 0) {
+      // Set initial state - only opacity, no transforms
+      $gsap.set(contactItems, { autoAlpha: 0 });
+      
+      const contactGridTimeline = $gsap.timeline({
+        scrollTrigger: {
+          trigger: contactGridRef.value,
+          start: "top bottom-=5%",
+          end: "bottom center",
+          toggleActions: "play none none reverse"
+        }
+      });
+      
+      contactGridTimeline.to(contactItems, {
+        autoAlpha: 1,
+        duration: 0.5,
+        stagger: 0.15,
+        ease: "power2.out"
+      });
+      
+      sectionTimelines.value.push(contactGridTimeline);
+    }
+  }
+};
+
+/**
+ * Initialize split text animation for CTA text
+ * Creates character-by-character reveal animation
+ */
+const initializeCTATextAnimation = () => {
+  // Guard against server-side execution
+  if (!process.client || !isClient.value) return;
+  
+  const ctaText = ctaTextRef.value;
+  if (!ctaText || !$SplitText) return;
+
+  // Clean up any existing split text instance
+  if (splitTextInstance) {
+    try {
+      splitTextInstance.revert();
+    } catch (_) {}
+  }
+
+  // Create SplitText instance with masking like ProjectHeroSplitText
+  splitTextInstance = $SplitText.create(ctaText, {
+    type: "chars, lines",
+    mask: "lines"
+  });
+
+  if (!splitTextInstance.chars || splitTextInstance.chars.length === 0) {
+    return;
+  }
+
+  // Create timeline for split text animation
+  const ctaTimeline = $gsap.timeline({
+    scrollTrigger: {
+      trigger: ctaText,
+      start: "top bottom-=5%",
+      end: "bottom center",
+      toggleActions: "play none none reverse"
+    }
+  });
+
+  // Animate characters from bottom with yPercent using wrap
+  ctaTimeline.from(splitTextInstance.chars, {
+    yPercent: (i) => $gsap.utils.wrap([-100, 100])(i),
+    stagger: 0.02,
+    duration: 0.6,
+    ease: "sine.out"
+  });
+
+  sectionTimelines.value.push(ctaTimeline);
+};
 
 // Enhanced system: get positions from ordered DOM elements with [data-path-point]
 const getPathPointPositions = (rootEl) => {
