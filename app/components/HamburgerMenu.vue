@@ -49,8 +49,8 @@ const props = defineProps({
 
 // Helper to determine if a link is active
 const isActiveLink = (path) => {
-  if (path === '/') {
-    return route.path === '/';
+  if (path === "/") {
+    return route.path === "/";
   }
   return route.path.startsWith(path);
 };
@@ -207,13 +207,16 @@ onUnmounted(() => {
       aria-label="Main navigation"
       @click.stop
     >
-      <!-- <NuxtLink :ref="setMenuLinkRef" to="/blog" class="menu-overlay__link"
+      <NuxtLink :ref="setMenuLinkRef" to="/blog" class="menu-overlay__link"
         >Blog</NuxtLink
-      > -->
-      <NuxtLink 
-        :ref="setMenuLinkRef" 
-        to="/" 
-        :class="['menu-overlay__link', { 'menu-overlay__link--active': isActiveLink('/') }]"
+      >
+      <NuxtLink
+        :ref="setMenuLinkRef"
+        to="/"
+        :class="[
+          'menu-overlay__link',
+          { 'menu-overlay__link--active': isActiveLink('/') },
+        ]"
         ><span class="menu-overlay__link-text">Home</span></NuxtLink
       >
 
@@ -225,22 +228,31 @@ onUnmounted(() => {
         class="menu-overlay__link"
         >About</a
       > -->
-      <NuxtLink 
-        :ref="setMenuLinkRef" 
-        to="/about" 
-        :class="['menu-overlay__link', { 'menu-overlay__link--active': isActiveLink('/about') }]"
+      <NuxtLink
+        :ref="setMenuLinkRef"
+        to="/about"
+        :class="[
+          'menu-overlay__link',
+          { 'menu-overlay__link--active': isActiveLink('/about') },
+        ]"
         ><span class="menu-overlay__link-text">About</span></NuxtLink
       >
-      <NuxtLink 
-        :ref="setMenuLinkRef" 
-        to="/projects" 
-        :class="['menu-overlay__link', { 'menu-overlay__link--active': isActiveLink('/projects') }]"
+      <NuxtLink
+        :ref="setMenuLinkRef"
+        to="/projects"
+        :class="[
+          'menu-overlay__link',
+          { 'menu-overlay__link--active': isActiveLink('/projects') },
+        ]"
         ><span class="menu-overlay__link-text">Projects</span></NuxtLink
       >
-      <NuxtLink 
-        :ref="setMenuLinkRef" 
-        to="/portfolio" 
-        :class="['menu-overlay__link', { 'menu-overlay__link--active': isActiveLink('/portfolio') }]"
+      <NuxtLink
+        :ref="setMenuLinkRef"
+        to="/portfolio"
+        :class="[
+          'menu-overlay__link',
+          { 'menu-overlay__link--active': isActiveLink('/portfolio') },
+        ]"
         ><span class="menu-overlay__link-text">Portfolio</span></NuxtLink
       >
 
