@@ -91,7 +91,10 @@
       .project-path-animation__skills-grid,
       .skills-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(space(50), 1fr));
+        // Mobile-first: 2 equal columns to avoid overly wide single-column items
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        // Compact layout to reduce gaps when items wrap to multiple lines
+        grid-auto-flow: row dense;
         gap: space(6);
         max-width: space(200);
         margin: 0 auto;
@@ -99,8 +102,14 @@
         justify-items: center; // center items within their grid cells
 
         @include tablet {
-          grid-template-columns: repeat(auto-fit, minmax(space(56), 1fr));
+          // At tablet and above, let the grid auto-fill available space
+          grid-template-columns: repeat(auto-fill, minmax(space(48), 1fr));
           gap: space(8);
+        }
+
+        @include laptop {
+          // Slightly larger minimums on laptop for nicer rhythm
+          grid-template-columns: repeat(auto-fill, minmax(space(56), 1fr));
         }
 
         .project-path-animation__skill,
@@ -130,7 +139,8 @@
             font-family: $font-main;
             font-weight: 600;
             font-size: space(3.8);
-            white-space: nowrap;
+            // Allow labels to wrap on small screens to prevent overflow
+            white-space: normal;
             margin-inline: auto; // visual centering for single-line labels
           }
         }
