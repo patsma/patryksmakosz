@@ -39,7 +39,10 @@
       class="project-path-animation__section project-path-animation__section--intro section section-1"
     >
       <div class="project-path-animation__content content">
-        <div class="project-path-animation__intro intro-header" ref="introHeaderRef">
+        <div
+          class="project-path-animation__intro intro-header"
+          ref="introHeaderRef"
+        >
           <SentenceHiSVG ref="sentenceHiRef" class="w-40 h-40" />
           <div
             class="dummy-point"
@@ -83,7 +86,10 @@
 
         <div class="project-path-animation__skills skills-constellation">
           <h3>Skills & Technologies</h3>
-          <div class="project-path-animation__skills-grid skills-grid" ref="skillsGridRef">
+          <div
+            class="project-path-animation__skills-grid skills-grid"
+            ref="skillsGridRef"
+          >
             <!-- Text-only skill bullets; preserve dummy points on Nuxt & GSAP -->
             <div
               class="project-path-animation__skill skill-bubble"
@@ -209,6 +215,15 @@
               class="project-path-animation__skill skill-bubble"
               data-skill="parallax"
             >
+              <div
+                class="dummy-point !absolute !top-0 !left-1/2 !right-auto !bottom-auto"
+                data-path-point
+                data-path-order="7"
+                data-control-x="0.15"
+                data-control-y="-1800"
+                data-offset-x="0"
+                data-offset-y="0"
+              ></div>
               <span>Parallax & Transitions</span>
             </div>
             <div
@@ -233,12 +248,18 @@
       class="project-path-animation__section project-path-animation__section--timeline section section-2"
     >
       <div class="project-path-animation__content content">
-        <div class="project-path-animation__timeline-header timeline-header" ref="timelineHeaderRef">
+        <div
+          class="project-path-animation__timeline-header timeline-header"
+          ref="timelineHeaderRef"
+        >
           <h2>Professional Journey</h2>
           <p>A decade of crafting digital experiences</p>
         </div>
 
-        <div class="project-path-animation__timeline timeline-milestones" ref="milestonesRef">
+        <div
+          class="project-path-animation__timeline timeline-milestones"
+          ref="milestonesRef"
+        >
           <!-- Career milestones with ordered dummy points -->
           <div
             class="project-path-animation__milestone milestone"
@@ -249,8 +270,8 @@
                 class="dummy-point"
                 data-path-point
                 data-path-order="8"
-                data-control-x="0.25"
-                data-control-y="-800"
+                data-control-x="0.3"
+                data-control-y="-1800"
               ></div>
             </div>
             <div
@@ -265,9 +286,15 @@
             class="project-path-animation__milestone milestone"
             data-year="2022-2023"
           >
-            <div
-              class="project-path-animation__milestone-dot milestone-dot"
-            ></div>
+            <div class="project-path-animation__milestone-dot milestone-dot">
+              <div
+                class="dummy-point"
+                data-path-point
+                data-path-order="8.2"
+                data-control-x="0.25"
+                data-control-y="-900"
+              ></div>
+            </div>
             <div
               class="project-path-animation__milestone-content milestone-content"
             >
@@ -286,13 +313,20 @@
             <div
               class="project-path-animation__milestone-content milestone-content relative"
             >
+              <div
+                class="dummy-point !absolute !top-1/2 !left-1/2 !right-auto !bottom-auto"
+                data-path-point
+                data-path-order="8.4"
+                data-control-x="0.3"
+                data-control-y="-1200"
+              ></div>
               <h4>Founded TastySites</h4>
               <p>CEO & Creative Lead</p>
               <div
                 class="dummy-point !absolute !top-auto !left-auto !right-0 !bottom-0"
                 data-path-point
-                data-path-order="8"
-                data-control-x="0.25"
+                data-path-order="8.5"
+                data-control-x="0.2"
                 data-control-y="-800"
               ></div>
             </div>
@@ -307,13 +341,22 @@
                 class="dummy-point"
                 data-path-point
                 data-path-order="9"
-                data-control-x="0.25"
-                data-control-y="-700"
+                data-control-x="0.4"
+                data-control-y="-300"
               ></div>
             </div>
             <div
-              class="project-path-animation__milestone-content milestone-content"
+              class="project-path-animation__milestone-content milestone-content relative"
             >
+              <div
+                class="dummy-point !absolute !top-1/2 !left-[90%] !right-auto !bottom-auto"
+                data-path-point
+                data-path-order="9.5"
+                data-control-x="0.3"
+                data-control-y="-1200"
+                data-offset-x="5"
+                data-offset-y="2"
+              ></div>
               <h4>Creative Coder @ UpWork</h4>
               <p>Interactive web content & SVG banners</p>
             </div>
@@ -327,13 +370,19 @@
       class="project-path-animation__section project-path-animation__section--contact section section-3"
     >
       <div class="project-path-animation__content content">
-        <div class="project-path-animation__contact-header contact-header" ref="contactHeaderRef">
+        <div
+          class="project-path-animation__contact-header contact-header"
+          ref="contactHeaderRef"
+        >
           <h2>Let's Connect!</h2>
           <p>Ready to bring your vision to life</p>
         </div>
 
         <div class="project-path-animation__contact contact-info">
-          <div class="project-path-animation__contact-grid contact-grid" ref="contactGridRef">
+          <div
+            class="project-path-animation__contact-grid contact-grid"
+            ref="contactGridRef"
+          >
             <!-- Contact items with dummy points -->
             <!-- Email -->
             <div
@@ -343,11 +392,14 @@
                 class="dummy-point !absolute !top-0 !left-0"
                 data-path-point
                 data-path-order="10"
-                data-control-x="0.25"
-                data-control-y="-400"
+                data-control-x="0.5"
+                data-control-y="-150"
               ></div>
               <Icon name="tabler:mail" class="w-6 h-6 text-black" />
-              <a href="mailto:patryksmakosz1@gmail.com" class="hover:text-primary-1 transition-colors">
+              <a
+                href="mailto:patryksmakosz1@gmail.com"
+                class="hover:text-primary-1 transition-colors"
+              >
                 patryksmakosz1@gmail.com
               </a>
             </div>
@@ -360,8 +412,8 @@
                 class="dummy-point !absolute !top-0 !left-[70%]"
                 data-path-point
                 data-path-order="11"
-                data-control-x="0.25"
-                data-control-y="-300"
+                data-control-x="0.35"
+                data-control-y="-250"
               ></div>
               <Icon name="tabler:brand-linkedin" class="w-6 h-6 text-black" />
               <a
@@ -386,7 +438,9 @@
             </div>
 
             <!-- Dribbble -->
-            <div class="project-path-animation__contact-item contact-item relative">
+            <div
+              class="project-path-animation__contact-item contact-item relative"
+            >
               <div
                 class="dummy-point !absolute !top-0 !left-[25%]"
                 data-path-point
@@ -453,7 +507,9 @@
             </div>
 
             <!-- GitHub -->
-            <div class="project-path-animation__contact-item contact-item relative">
+            <div
+              class="project-path-animation__contact-item contact-item relative"
+            >
               <div
                 class="dummy-point !absolute !top-0 !left-[80%]"
                 data-path-point
@@ -495,7 +551,10 @@
                 ></div>
               </div>
             </div>
-            <p class="project-path-animation__cta-text cta-text" ref="ctaTextRef">
+            <p
+              class="project-path-animation__cta-text cta-text"
+              ref="ctaTextRef"
+            >
               Whether you need GSAP animations, Nuxt.js apps, or bespoke
               WordPress development - I'm here to transform your ideas into
               exceptional digital experiences.
@@ -610,62 +669,62 @@ const initializeSectionAnimations = () => {
   // Section 1: Intro Header Animation
   if (introHeaderRef.value) {
     const introElements = [
-      introHeaderRef.value.querySelector('h1'),
-      introHeaderRef.value.querySelector('.intro-tagline'),
-      introHeaderRef.value.querySelector('.intro-description')
+      introHeaderRef.value.querySelector("h1"),
+      introHeaderRef.value.querySelector(".intro-tagline"),
+      introHeaderRef.value.querySelector(".intro-description"),
     ].filter(Boolean);
 
     if (introElements.length > 0) {
       // Set initial state - only opacity, no transforms
       $gsap.set(introElements, { autoAlpha: 0 });
-      
+
       const introTimeline = $gsap.timeline({
         scrollTrigger: {
           trigger: introHeaderRef.value,
           start: "top bottom-=10%",
           end: "bottom top+=20%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       });
-      
+
       introTimeline.to(introElements, {
         autoAlpha: 1,
         duration: 0.4,
         stagger: 0.1,
-        ease: "power2.out"
+        ease: "power2.out",
       });
-      
+
       sectionTimelines.value.push(introTimeline);
     }
   }
 
   // Skills Grid Animation
   if (skillsGridRef.value) {
-    const skillBubbles = skillsGridRef.value.querySelectorAll('.skill-bubble');
-    
+    const skillBubbles = skillsGridRef.value.querySelectorAll(".skill-bubble");
+
     if (skillBubbles.length > 0) {
       // Set initial state - only opacity, no transforms
       $gsap.set(skillBubbles, { autoAlpha: 0 });
-      
+
       const skillsTimeline = $gsap.timeline({
         scrollTrigger: {
           trigger: skillsGridRef.value,
           start: "top bottom-=5%",
           end: "bottom top+=20%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       });
-      
+
       skillsTimeline.to(skillBubbles, {
         autoAlpha: 1,
         duration: 0.3,
         stagger: {
           amount: 0.6,
-          from: "random"
+          from: "random",
         },
-        ease: "power2.out"
+        ease: "power2.out",
       });
-      
+
       sectionTimelines.value.push(skillsTimeline);
     }
   }
@@ -673,58 +732,58 @@ const initializeSectionAnimations = () => {
   // Timeline Header Animation
   if (timelineHeaderRef.value) {
     const timelineHeaderElements = [
-      timelineHeaderRef.value.querySelector('h2'),
-      timelineHeaderRef.value.querySelector('p')
+      timelineHeaderRef.value.querySelector("h2"),
+      timelineHeaderRef.value.querySelector("p"),
     ].filter(Boolean);
 
     if (timelineHeaderElements.length > 0) {
       // Set initial state - only opacity, no transforms
       $gsap.set(timelineHeaderElements, { autoAlpha: 0 });
-      
+
       const timelineHeaderTimeline = $gsap.timeline({
         scrollTrigger: {
           trigger: timelineHeaderRef.value,
           start: "top bottom-=10%",
           end: "bottom top+=20%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       });
-      
+
       timelineHeaderTimeline.to(timelineHeaderElements, {
         autoAlpha: 1,
         duration: 0.4,
         stagger: 0.08,
-        ease: "power2.out"
+        ease: "power2.out",
       });
-      
+
       sectionTimelines.value.push(timelineHeaderTimeline);
     }
   }
 
   // Timeline Milestones Animation
   if (milestonesRef.value) {
-    const milestones = milestonesRef.value.querySelectorAll('.milestone');
-    
+    const milestones = milestonesRef.value.querySelectorAll(".milestone");
+
     if (milestones.length > 0) {
       // Set initial state - only opacity, no transforms
       $gsap.set(milestones, { autoAlpha: 0 });
-      
+
       const milestonesTimeline = $gsap.timeline({
         scrollTrigger: {
           trigger: milestonesRef.value,
           start: "top bottom-=5%",
           end: "bottom top+=20%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       });
-      
+
       milestonesTimeline.to(milestones, {
         autoAlpha: 1,
         duration: 0.4,
         stagger: 0.15,
-        ease: "power2.out"
+        ease: "power2.out",
       });
-      
+
       sectionTimelines.value.push(milestonesTimeline);
     }
   }
@@ -732,58 +791,58 @@ const initializeSectionAnimations = () => {
   // Contact Header Animation
   if (contactHeaderRef.value) {
     const contactHeaderElements = [
-      contactHeaderRef.value.querySelector('h2'),
-      contactHeaderRef.value.querySelector('p')
+      contactHeaderRef.value.querySelector("h2"),
+      contactHeaderRef.value.querySelector("p"),
     ].filter(Boolean);
 
     if (contactHeaderElements.length > 0) {
       // Set initial state - only opacity, no transforms
       $gsap.set(contactHeaderElements, { autoAlpha: 0 });
-      
+
       const contactHeaderTimeline = $gsap.timeline({
         scrollTrigger: {
           trigger: contactHeaderRef.value,
           start: "top bottom-=10%",
           end: "bottom top+=20%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       });
-      
+
       contactHeaderTimeline.to(contactHeaderElements, {
         autoAlpha: 1,
         duration: 0.4,
         stagger: 0.08,
-        ease: "power2.out"
+        ease: "power2.out",
       });
-      
+
       sectionTimelines.value.push(contactHeaderTimeline);
     }
   }
 
   // Contact Grid Animation
   if (contactGridRef.value) {
-    const contactItems = contactGridRef.value.querySelectorAll('.contact-item');
-    
+    const contactItems = contactGridRef.value.querySelectorAll(".contact-item");
+
     if (contactItems.length > 0) {
       // Set initial state - only opacity, no transforms
       $gsap.set(contactItems, { autoAlpha: 0 });
-      
+
       const contactGridTimeline = $gsap.timeline({
         scrollTrigger: {
           trigger: contactGridRef.value,
           start: "top bottom-=5%",
           end: "bottom top+=20%",
-          toggleActions: "play none none reverse"
-        }
+          toggleActions: "play none none reverse",
+        },
       });
-      
+
       contactGridTimeline.to(contactItems, {
         autoAlpha: 1,
         duration: 0.3,
         stagger: 0.1,
-        ease: "power2.out"
+        ease: "power2.out",
       });
-      
+
       sectionTimelines.value.push(contactGridTimeline);
     }
   }
@@ -796,7 +855,7 @@ const initializeSectionAnimations = () => {
 const initializeCTATextAnimation = () => {
   // Guard against server-side execution
   if (!process.client || !isClient.value) return;
-  
+
   const ctaText = ctaTextRef.value;
   if (!ctaText || !$SplitText) return;
 
@@ -810,7 +869,7 @@ const initializeCTATextAnimation = () => {
   // Create SplitText instance with masking for line-by-line reveal
   splitTextInstance = $SplitText.create(ctaText, {
     type: "lines",
-    mask: "lines"
+    mask: "lines",
   });
 
   if (!splitTextInstance.lines || splitTextInstance.lines.length === 0) {
@@ -824,8 +883,8 @@ const initializeCTATextAnimation = () => {
       start: "top bottom-=20%",
       end: "bottom top+=20%",
       toggleActions: "play none none reverse",
-      refreshPriority: -1 // Lower priority for better performance
-    }
+      refreshPriority: -1, // Lower priority for better performance
+    },
   });
 
   // Animate lines from bottom with smooth masking
@@ -834,9 +893,9 @@ const initializeCTATextAnimation = () => {
     duration: 1.0,
     stagger: {
       amount: 0.4,
-      from: "start"
+      from: "start",
     },
-    ease: "power2.out"
+    ease: "power2.out",
   });
 
   sectionTimelines.value.push(ctaTimeline);
