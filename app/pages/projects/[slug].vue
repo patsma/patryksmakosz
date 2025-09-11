@@ -66,6 +66,26 @@ const nextProject = computed(() => {
     : null;
 });
 
+// Custom path to go after the last project (fallback for "next")
+/** @type {string} */
+const NEXT_FALLBACK_PATH = "/about";
+
+/**
+ * Whether the current project is the last in the ordered list.
+ * We use this to decide if we should route to the fallback path.
+ */
+const isLastProject = computed(() => {
+  const list = navList.value || [];
+  if (!list.length || navIndex.value < 0) return false;
+  return navIndex.value === list.length - 1;
+});
+
+/**
+ * Resolved path for the next navigation action.
+ * If there is no next project, falls back to NEXT_FALLBACK_PATH.
+ */
+const nextPath = computed(() => nextProject.value?.path || NEXT_FALLBACK_PATH);
+
 // Keyboard navigation: ArrowLeft / ArrowRight to move between projects
 const router = useRouter();
 
@@ -94,8 +114,9 @@ const handleKeydown = (event) => {
 
   if (event.key === "ArrowLeft" && prevProject.value?.path) {
     router.push(prevProject.value.path);
-  } else if (event.key === "ArrowRight" && nextProject.value?.path) {
-    router.push(nextProject.value.path);
+  } else if (event.key === "ArrowRight") {
+    // If there is a next project go there, otherwise use the fallback
+    router.push(nextProject.value?.path || NEXT_FALLBACK_PATH);
   }
 };
 
@@ -106,7 +127,8 @@ const { start: startSwipe, stop: stopSwipe } = useSwipe({
   element: pageRef,
   // Swipe Left: go to next project (content moves left)
   onLeft: () => {
-    if (nextProject.value?.path) router.push(nextProject.value.path);
+    // If there is a next project go there, otherwise use the fallback
+    router.push(nextProject.value?.path || NEXT_FALLBACK_PATH);
   },
   // Swipe Right: go to previous project
   onRight: () => {
@@ -226,9 +248,7 @@ const debugInfo = computed(() => ({
               class="btn-standard-outlined"
               aria-label="Open live project in new tab"
             >
-              <span class="project-page__live-link-button">
-                Live Link
-              </span>
+              <span class="project-page__live-link-button"> Live Link </span>
             </NuxtLink>
           </div>
         </div>
@@ -243,7 +263,10 @@ const debugInfo = computed(() => ({
               aria-label="Previous project"
             >
               <span class="project-page__navigation-button">
-                <Icon name="tabler:arrow-left" class="project-page__navigation-button-icon" />
+                <Icon
+                  name="tabler:arrow-left"
+                  class="project-page__navigation-button-icon"
+                />
                 <!-- {{ prevProject.title || "Previous" }}  -->
               </span>
             </NuxtLink>
@@ -251,14 +274,16 @@ const debugInfo = computed(() => ({
             <div class="project-page__navigation-spacer" />
 
             <NuxtLink
-              v-if="nextProject"
-              :to="nextProject.path"
+              :to="nextPath"
               class="btn-standard-outlined"
-              aria-label="Next project"
+              :aria-label="isLastProject ? 'About page' : 'Next project'"
             >
               <span class="project-page__navigation-button">
                 <!-- {{ nextProject.title || "Next" }} -->
-                <Icon name="tabler:arrow-right" class="project-page__navigation-button-icon" />
+                <Icon
+                  name="tabler:arrow-right"
+                  class="project-page__navigation-button-icon"
+                />
               </span>
             </NuxtLink>
           </div>
@@ -322,4 +347,3 @@ const debugInfo = computed(() => ({
     </Transition>
   </section>
 </template>
-
