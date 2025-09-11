@@ -89,4 +89,29 @@
     color: #e5e5e5; // A bit lighter for hover/focus
     outline: none;
   }
+
+  &__link-text {
+    position: relative;
+    display: inline-block;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-white);
+      transition: width 0.3s ease;
+    }
+  }
+
+  &__link:hover &__link-text::after,
+  &__link:focus-visible &__link-text::after {
+    width: 100%;
+  }
+
+  &__link--active &__link-text::after {
+    width: 100%;
+  }
 }

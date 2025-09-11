@@ -3,6 +3,7 @@ import { useMenuStore } from "/stores/menu";
 
 const { $gsap } = useNuxtApp();
 const menuStore = useMenuStore();
+const route = useRoute();
 
 // Refs for DOM elements we animate
 const hamburgerRef = ref(null);
@@ -45,6 +46,14 @@ let introTl = null;
 const props = defineProps({
   showDelaySeconds: { type: Number, default: 3 },
 });
+
+// Helper to determine if a link is active
+const isActiveLink = (path) => {
+  if (path === '/') {
+    return route.path === '/';
+  }
+  return route.path.startsWith(path);
+};
 
 onMounted(() => {
   // Compute rem→px to keep project sizing convention while feeding GSAP numbers
@@ -201,8 +210,11 @@ onUnmounted(() => {
       <!-- <NuxtLink :ref="setMenuLinkRef" to="/blog" class="menu-overlay__link"
         >Blog</NuxtLink
       > -->
-      <NuxtLink :ref="setMenuLinkRef" to="/" class="menu-overlay__link"
-        >Home</NuxtLink
+      <NuxtLink 
+        :ref="setMenuLinkRef" 
+        to="/" 
+        :class="['menu-overlay__link', { 'menu-overlay__link--active': isActiveLink('/') }]"
+        ><span class="menu-overlay__link-text">Home</span></NuxtLink
       >
 
       <!-- <a
@@ -213,14 +225,23 @@ onUnmounted(() => {
         class="menu-overlay__link"
         >About</a
       > -->
-      <NuxtLink :ref="setMenuLinkRef" to="/about" class="menu-overlay__link"
-        >About</NuxtLink
+      <NuxtLink 
+        :ref="setMenuLinkRef" 
+        to="/about" 
+        :class="['menu-overlay__link', { 'menu-overlay__link--active': isActiveLink('/about') }]"
+        ><span class="menu-overlay__link-text">About</span></NuxtLink
       >
-      <NuxtLink :ref="setMenuLinkRef" to="/projects" class="menu-overlay__link"
-        >Projects</NuxtLink
+      <NuxtLink 
+        :ref="setMenuLinkRef" 
+        to="/projects" 
+        :class="['menu-overlay__link', { 'menu-overlay__link--active': isActiveLink('/projects') }]"
+        ><span class="menu-overlay__link-text">Projects</span></NuxtLink
       >
-      <NuxtLink :ref="setMenuLinkRef" to="/portfolio" class="menu-overlay__link"
-        >Portfolio</NuxtLink
+      <NuxtLink 
+        :ref="setMenuLinkRef" 
+        to="/portfolio" 
+        :class="['menu-overlay__link', { 'menu-overlay__link--active': isActiveLink('/portfolio') }]"
+        ><span class="menu-overlay__link-text">Portfolio</span></NuxtLink
       >
 
       <a
@@ -228,8 +249,8 @@ onUnmounted(() => {
         href="mailto:patryksmakosz1@gmail.com"
         class="menu-overlay__link inline-flex items-center gap-2"
       >
-        <span>Contact</span>
-        <Icon name="tabler:mail" size="20" />
+        <span class="menu-overlay__link-text">Contact</span>
+        <Icon name="tabler:mail" class="w-5 h-5" />
       </a>
 
       <div class="mt-8 flex flex-wrap items-center gap-4 text-white/80">
@@ -242,7 +263,7 @@ onUnmounted(() => {
           title="Discord"
           class="hover:text-white focus-visible:text-white transition-colors outline-none"
         >
-          <Icon name="tabler:brand-discord" size="24" />
+          <Icon name="tabler:brand-discord" class="w-6 h-6" />
           <span class="sr-only">Discord</span>
         </a>
         <a
@@ -254,7 +275,7 @@ onUnmounted(() => {
           title="Facebook"
           class="hover:text-white focus-visible:text-white transition-colors outline-none"
         >
-          <Icon name="tabler:brand-facebook" size="24" />
+          <Icon name="tabler:brand-facebook" class="w-6 h-6" />
           <span class="sr-only">Facebook</span>
         </a>
         <a
@@ -266,7 +287,7 @@ onUnmounted(() => {
           title="Dribbble"
           class="hover:text-white focus-visible:text-white transition-colors outline-none"
         >
-          <Icon name="tabler:brand-dribbble" size="24" />
+          <Icon name="tabler:brand-dribbble" class="w-6 h-6" />
           <span class="sr-only">Dribbble</span>
         </a>
         <a
@@ -278,7 +299,7 @@ onUnmounted(() => {
           title="Upwork"
           class="hover:text-white focus-visible:text-white transition-colors outline-none"
         >
-          <Icon name="simple-icons:upwork" size="24" />
+          <Icon name="simple-icons:upwork" class="w-6 h-6" />
           <span class="sr-only">Upwork</span>
         </a>
         <a
@@ -290,7 +311,7 @@ onUnmounted(() => {
           title="X (Twitter)"
           class="hover:text-white focus-visible:text-white transition-colors outline-none"
         >
-          <Icon name="tabler:brand-x" size="24" />
+          <Icon name="tabler:brand-x" class="w-6 h-6" />
           <span class="sr-only">X (Twitter)</span>
         </a>
         <a
@@ -302,7 +323,7 @@ onUnmounted(() => {
           title="Bluesky"
           class="hover:text-white focus-visible:text-white transition-colors outline-none"
         >
-          <Icon name="simple-icons:bluesky" size="24" />
+          <Icon name="simple-icons:bluesky" class="w-6 h-6" />
           <span class="sr-only">Bluesky</span>
         </a>
         <!-- <a
@@ -314,7 +335,7 @@ onUnmounted(() => {
           title="CodePen"
           class="hover:text-white focus-visible:text-white transition-colors outline-none"
         >
-          <Icon name="tabler:brand-codepen" size="24" />
+          <Icon name="tabler:brand-codepen" class="w-6 h-6" />
           <span class="sr-only">CodePen</span>
         </a> -->
         <a
@@ -326,7 +347,7 @@ onUnmounted(() => {
           title="YouTube"
           class="hover:text-white focus-visible:text-white transition-colors outline-none"
         >
-          <Icon name="tabler:brand-youtube" size="24" />
+          <Icon name="tabler:brand-youtube" class="w-6 h-6" />
           <span class="sr-only">YouTube</span>
         </a>
         <a
@@ -338,7 +359,7 @@ onUnmounted(() => {
           title="GitHub"
           class="hover:text-white focus-visible:text-white transition-colors outline-none"
         >
-          <Icon name="tabler:brand-github" size="24" />
+          <Icon name="tabler:brand-github" class="w-6 h-6" />
           <span class="sr-only">GitHub</span>
         </a>
       </div>
