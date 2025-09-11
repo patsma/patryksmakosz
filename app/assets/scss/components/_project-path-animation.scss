@@ -91,25 +91,34 @@
       .project-path-animation__skills-grid,
       .skills-grid {
         display: grid;
-        // Mobile-first: 2 equal columns to avoid overly wide single-column items
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        // Compact layout to reduce gaps when items wrap to multiple lines
-        grid-auto-flow: row dense;
-        gap: space(6);
-        max-width: space(200);
+        // Mobile-first: simple 2-column layout that works
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-flow: row dense; // Allow items to fill gaps for scattered effect
+        gap: space(4); // Consistent gap for mobile
+        max-width: 100%; // Use full available width
         margin: 0 auto;
-        justify-content: center; // center tracks when fewer columns per row
-        justify-items: center; // center items within their grid cells
+        justify-content: center;
+        justify-items: center;
 
         @include tablet {
-          // At tablet and above, let the grid auto-fill available space
-          grid-template-columns: repeat(auto-fill, minmax(space(48), 1fr));
-          gap: space(8);
+          // Tablet: 3-4 columns with better spacing
+          grid-template-columns: repeat(auto-fit, minmax(space(36), 1fr));
+          gap: space(5) space(6);
+          max-width: space(160);
         }
 
         @include laptop {
-          // Slightly larger minimums on laptop for nicer rhythm
-          grid-template-columns: repeat(auto-fill, minmax(space(56), 1fr));
+          // Desktop: scattered layout with auto-fit for responsiveness
+          grid-template-columns: repeat(auto-fit, minmax(space(44), 1fr));
+          gap: space(6) space(8);
+          max-width: space(200);
+        }
+
+        @include desktop {
+          // Large screens: more scattered with wider grid
+          grid-template-columns: repeat(auto-fit, minmax(space(48), 1fr));
+          gap: space(6) space(10);
+          max-width: space(240);
         }
 
         .project-path-animation__skill,
@@ -119,29 +128,83 @@
           align-items: center;
           justify-content: center;
           gap: space(2);
-          padding: space(4) space(6);
-          background: rgba(255, 255, 255, 0.1);
+          padding: space(3) space(4);
+          background: rgba(255, 255, 255, 0.12);
           border-radius: $radius-xl;
-          border: $border-1 solid rgba(255, 255, 255, 0.2);
-          transition: $transition;
-          backdrop-filter: blur(10px);
+          border: $border-1 solid rgba(255, 255, 255, 0.25);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          backdrop-filter: blur(15px);
           text-align: center;
-          min-height: space(12);
-          width: 100%; // consistent cell fill for alignment on small screens
+          min-height: space(10);
+          width: 100%;
+          
+          // Mobile-friendly sizing
+          @include tablet {
+            padding: space(4) space(5);
+            min-height: space(12);
+          }
+          
+          @include laptop {
+            padding: space(4) space(6);
+            min-height: space(12);
+            
+            // Add subtle variations for more organic feel on larger screens
+            &:nth-child(3n+1) {
+              border-radius: space(5) space(8) space(5) space(8);
+              background: rgba(255, 255, 255, 0.08);
+            }
+            
+            &:nth-child(3n+2) {
+              border-radius: space(8) space(5) space(8) space(5);
+              background: rgba(255, 255, 255, 0.15);
+            }
+            
+            &:nth-child(4n+1) {
+              transform: rotate(-1deg);
+            }
+            
+            &:nth-child(4n+3) {
+              transform: rotate(1deg);
+            }
+          }
 
           &:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-elevation-1);
+            background: rgba(255, 255, 255, 0.22);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 
+              0 4px 15px rgba(0, 0, 0, 0.1),
+              0 0 15px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+            
+            @include laptop {
+              transform: translateY(-4px) scale(1.02);
+              box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.15),
+                0 0 20px rgba(255, 255, 255, 0.1);
+              
+              // Reset rotation on hover for clean interaction
+              &:nth-child(4n+1),
+              &:nth-child(4n+3) {
+                transform: translateY(-4px) scale(1.02) rotate(0deg);
+              }
+            }
           }
 
           span {
             font-family: $font-main;
             font-weight: 600;
-            font-size: space(3.8);
-            // Allow labels to wrap on small screens to prevent overflow
+            font-size: space(3.2);
             white-space: normal;
-            margin-inline: auto; // visual centering for single-line labels
+            margin-inline: auto;
+            line-height: 1.2;
+            
+            @include tablet {
+              font-size: space(3.6);
+            }
+            
+            @include laptop {
+              font-size: space(3.8);
+            }
           }
         }
       }
