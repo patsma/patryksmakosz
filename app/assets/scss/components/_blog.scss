@@ -7,8 +7,36 @@
 // Shared styles for blog index and post pages that create a cohesive,
 // visually engaging experience with smooth animations and modern aesthetics.
 
-// Global blog container styles
-.blog-index,
+// Blog Index Layout
+.blog-index {
+  min-height: 100vh;
+  background: $white;
+  position: relative;
+
+  // Add subtle ambient lighting effect
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(
+        ellipse at 20% 80%,
+        rgba($alternative-1, 0.03) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at 80% 20%,
+        rgba($alternative-1, 0.02) 0%,
+        transparent 50%
+      );
+    z-index: -1;
+    pointer-events: none;
+  }
+}
+
 .blog-post {
   position: relative;
   z-index: 0;
@@ -34,6 +62,228 @@
       );
     z-index: -1;
     pointer-events: none;
+  }
+}
+
+// Blog Container
+.blog-container {
+  position: relative;
+  z-index: 10;
+  @include padding;
+}
+
+// Parallax Background Elements
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.parallax-element {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.4;
+
+  &--1 {
+    top: 10%;
+    left: 10%;
+    width: space(50); // 12.5rem
+    height: space(50);
+    background: linear-gradient(
+      135deg,
+      rgba($alternative-1, 0.15) 0%,
+      rgba($alternative-2, 0.1) 100%
+    );
+  }
+
+  &--2 {
+    top: 60%;
+    right: 15%;
+    width: space(37.5); // 9.375rem
+    height: space(37.5);
+    background: linear-gradient(
+      135deg,
+      rgba($alternative-2, 0.12) 0%,
+      rgba($primary-2, 0.08) 100%
+    );
+  }
+
+  &--3 {
+    bottom: 20%;
+    left: 20%;
+    width: space(30); // 7.5rem
+    height: space(30);
+    background: linear-gradient(
+      135deg,
+      rgba($primary-2, 0.1) 0%,
+      rgba($alternative-1, 0.08) 100%
+    );
+  }
+}
+
+// Hero Section
+.blog-hero {
+  text-align: center;
+  padding: space(16) 0 space(20);
+  position: relative;
+
+  @include tablet {
+    padding: space(20) 0 space(24);
+  }
+}
+
+.blog-hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.blog-hero__title {
+  margin-bottom: space(6);
+}
+
+.blog-hero__title-main {
+  @include mobile-h1;
+  color: $black;
+  display: block;
+
+  @include tablet {
+    @include h1;
+  }
+
+  @include desktop {
+    @include desktop-h1-extralight;
+  }
+}
+
+.blog-hero__title-sub {
+  @include mobile-h2-extralight;
+  display: block;
+  margin-top: space(2);
+
+  @include tablet {
+    @include h2-extralight;
+  }
+}
+
+.gradient-text {
+  @include text-gradient-1;
+}
+
+.blog-hero__description {
+  @include paragraph;
+  color: $gray-6;
+  max-width: space(150); // 37.5rem
+  margin: 0 auto space(8);
+
+  @include tablet {
+    @include paragraph-large;
+  }
+}
+
+.blog-hero__stats {
+  display: flex;
+  justify-content: center;
+  gap: space(12);
+  margin-top: space(8);
+}
+
+.blog-stat {
+  text-align: center;
+}
+
+.blog-stat__number {
+  @include h3;
+  color: $alternative-1;
+  display: block;
+  line-height: 1;
+}
+
+.blog-stat__label {
+  @include caption-small;
+  color: $gray-6;
+  margin-top: space(2);
+}
+
+// Content Area
+.blog-content {
+  margin-top: space(8);
+}
+
+// Loading States
+.blog-loading {
+  text-align: center;
+  padding: space(16) 0;
+
+  p {
+    @include paragraph;
+    color: $gray-4;
+    margin-top: space(4);
+  }
+}
+
+.loading-spinner {
+  width: space(10); // 2.5rem
+  height: space(10);
+  border: space(0.75) solid rgba($alternative-1, 0.1); // 0.1875rem
+  border-top: space(0.75) solid $alternative-1;
+  border-radius: 50%;
+  margin: 0 auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Error State
+.blog-error {
+  text-align: center;
+  padding: space(16) 0;
+}
+
+.blog-error__title {
+  @include h5;
+  color: $black;
+  margin-bottom: space(4);
+}
+
+.blog-error__message {
+  @include paragraph;
+  color: $gray-4;
+}
+
+// Grid Layout
+.blog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: space(8);
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: space(12);
+  }
+
+  @include laptop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: space(16);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: space(20);
+  }
+}
+
+@keyframes blogCardEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -67,568 +317,204 @@
   }
 }
 
-// Enhanced typography classes for blog content
-.blog-index .blog-display-title,
-.blog-post .blog-display-title {
-  @include text-gradient-1;
-
-  @include mobile-h1;
-
-  @include tablet {
-    @include h1;
-  }
-
-  @include desktop {
-    @include desktop-h1-extralight;
-  }
-}
-
-.blog-index .blog-subtitle,
-.blog-post .blog-subtitle {
-  @include text-gradient-1;
-  @include mobile-h2-extralight;
-
-  @include tablet {
-    @include h2-extralight;
-  }
-}
-
-.blog-index .blog-lead-text,
-.blog-post .blog-lead-text {
-  color: $gray-6;
-  @include paragraph;
-
-  @include tablet {
-    @include paragraph-large;
-  }
-}
-
-// Enhanced grid system for blog listings
-.blog-index .blog-grid,
-.blog-post .blog-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: space(8);
-
-  @include tablet {
-    grid-template-columns: repeat(2, 1fr);
-    gap: space(12);
-  }
-
-  @include laptop {
-    grid-template-columns: repeat(3, 1fr);
-    gap: space(16);
-  }
-
-  @include desktop {
-    grid-template-columns: repeat(3, 1fr);
-    gap: space(20);
-  }
-
-  // Stagger animation for child elements
-  > * {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: blogCardEnter 0.6s ease-out forwards;
-
-    @for $i from 1 through 12 {
-      &:nth-child(#{$i}) {
-        animation-delay: #{$i * 0.1}s;
-      }
-    }
-  }
-
-  @include tablet {
-    grid-template-columns: repeat(2, 1fr);
-    gap: space(12);
-  }
-
-  @include laptop {
-    grid-template-columns: repeat(3, 1fr);
-    gap: space(16);
-  }
-
-  @include desktop {
-    grid-template-columns: repeat(3, 1fr);
-    gap: space(20);
-  }
-}
-
-@keyframes blogCardEnter {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-// Legacy support for existing blog-list class
-// Map blog-list to the same rules as blog-grid without using @extend on a complex selector
-.blog-index .blog-grid,
-.blog-post .blog-grid,
-.blog-index .blog-list,
-.blog-post .blog-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: space(8);
-
-  @include tablet {
-    grid-template-columns: repeat(2, 1fr);
-    gap: space(12);
-  }
-
-  @include laptop {
-    grid-template-columns: repeat(3, 1fr);
-    gap: space(16);
-  }
-
-  @include desktop {
-    grid-template-columns: repeat(3, 1fr);
-    gap: space(20);
-  }
-
-  // Stagger animation for child elements
-  > * {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: blogCardEnter 0.6s ease-out forwards;
-
-    @for $i from 1 through 12 {
-      &:nth-child(#{$i}) {
-        animation-delay: #{$i * 0.1}s;
-      }
-    }
-  }
-
-  @include tablet {
-    grid-template-columns: repeat(2, 1fr);
-    gap: space(12);
-  }
-
-  @include laptop {
-    grid-template-columns: repeat(3, 1fr);
-    gap: space(16);
-  }
-
-  @include desktop {
-    grid-template-columns: repeat(3, 1fr);
-    gap: space(20);
-  }
-}
-
-// Enhanced blog card styles
-.blog-index .blog-card,
-.blog-post .blog-card {
+// Blog Card Styles
+.blog-card {
   position: relative;
   height: 100%;
-  border-radius: $radius-xl;
-  overflow: hidden;
 
-  // Backdrop blur effect
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba($white, 0.02);
-    border: $border-1 solid rgba($white, 0.06);
-    border-radius: $radius-xl;
-    backdrop-filter: blur(10px);
-    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
+  // Staggered animation delays
+  &--0 {
+    animation-delay: 0ms;
   }
-
-  // Hover glow effect
-  &::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    right: -50%;
-    bottom: -50%;
-    background: radial-gradient(
-      circle at center,
-      rgba($alternative-1, 0.1) 0%,
-      transparent 70%
-    );
-    opacity: 0;
-    transition: opacity 400ms ease;
-    z-index: 0;
-    pointer-events: none;
+  &--1 {
+    animation-delay: 100ms;
   }
-
-  &:hover {
-    &::before {
-      border-color: rgba($alternative-1, 0.3);
-      background: rgba($white, 0.05);
-      transform: translateY(-4px);
-    }
-
-    &::after {
-      opacity: 1;
-    }
+  &--2 {
+    animation-delay: 200ms;
   }
 }
 
-.blog-index .blog-card__link,
-.blog-post .blog-card__link {
+.blog-card__link {
   display: block;
   height: 100%;
   position: relative;
-  z-index: 2;
   text-decoration: none;
-  padding: space(8);
-  transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: $radius-xl;
+  overflow: hidden;
+  background: $white;
+  border: $border-1 solid rgba($gray-3, 0.3);
+  box-shadow: 0 4px 20px rgba($black, 0.08);
+  transition: all 300ms ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    border-color: rgba($alternative-1, 0.4);
+    box-shadow: 0 12px 40px rgba($black, 0.12);
+
+    .blog-card__glow {
+      opacity: 1;
+    }
+
+    .arrow-circle {
+      transform: scale(1.1) rotate(45deg);
+      background: $alternative-1;
+    }
+
+    .arrow-icon {
+      color: $white;
+    }
+
+    .blog-card__title {
+      color: $alternative-1;
+    }
+  }
 
   &:focus-visible {
     outline: 2px solid $alternative-1;
     outline-offset: 4px;
-    border-radius: $radius-xl;
-  }
-
-  .blog-card:hover & {
-    transform: translateY(-4px);
   }
 }
 
-.blog-index .blog-card__inner,
-.blog-post .blog-card__inner {
+.blog-card__inner {
+  padding: space(8);
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+  z-index: 2;
 }
 
-.blog-index .blog-card__content,
-.blog-post .blog-card__content {
+.blog-card__content {
   flex: 1;
 }
 
-.blog-index .blog-card__meta,
-.blog-post .blog-card__meta {
+.blog-card__meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: space(4);
-  flex-wrap: wrap;
-  gap: space(2);
-}
-
-.blog-index .blog-card__date,
-.blog-post .blog-card__date {
-  color: $gray-6;
-  @include caption-small;
-}
-
-.blog-index .blog-card__tags,
-.blog-post .blog-card__tags {
-  display: flex;
-  gap: space(1);
-  flex-wrap: wrap;
-}
-
-.blog-index .blog-card__tag,
-.blog-post .blog-card__tag {
-  @include caption-small;
-  color: $alternative-2;
-  background: rgba($alternative-2, 0.1);
-  padding: space(0.5) space(2);
-  border-radius: $radius-sm;
-  border: 1px solid rgba($alternative-2, 0.2);
-  font-size: 0.75rem;
-  line-height: 1.2;
-}
-
-.blog-index .blog-card__title,
-.blog-post .blog-card__title {
-  @include text-gradient-1;
-  margin-bottom: space(3);
-  transition: all 300ms ease;
-  line-height: 1.3;
-  @include h6;
-
-  @media (max-width: #{$tablet - 1px}) {
-    @include mobile-h6;
-  }
-}
-
-.blog-index .blog-card__excerpt,
-.blog-post .blog-card__excerpt {
-  color: $gray-6;
-  line-height: 1.6;
   margin-bottom: space(6);
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  @include paragraph-small;
+  flex-wrap: wrap;
+  gap: space(2);
 }
 
-.blog-index .blog-card__arrow,
-.blog-post .blog-card__arrow {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: space(4);
-}
-
-.blog-index .arrow-circle,
-.blog-post .arrow-circle {
-  width: $size-circle-btn;
-  height: $size-circle-btn;
-  border-radius: 50%;
-  background: rgba($white, 0.1);
-  border: $border-1 solid rgba($white, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  .blog-card:hover & {
-    background: $alternative-1;
-    border-color: $alternative-1;
-    transform: scale(1.1) rotate(45deg);
-  }
-}
-
-.blog-index .arrow-icon,
-.blog-post .arrow-icon {
-  width: 20px;
-  height: 20px;
+.blog-card__date {
+  @include caption-small;
   color: $gray-6;
-  transition: color 300ms ease;
-
-  .blog-card:hover & {
-    color: $white;
-  }
 }
 
-// Performance hints for GSAP ScrollSmoother on the blog index ambient elements
-.blog-index [data-speed],
-.blog-index [data-lag],
-.blog-post [data-speed],
-.blog-post [data-lag] {
-  transition-property: transform;
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-// Enhanced blog meta styles
-.blog-index .blog-meta,
-.blog-post .blog-meta {
+.blog-card__tags {
   display: flex;
-  align-items: center;
-  gap: space(3);
-  flex-wrap: wrap;
-  margin-top: space(4);
-}
-
-.blog-index .blog-meta__item,
-.blog-post .blog-meta__item {
-  @include caption;
-  color: $gray-4;
-  display: flex;
-  align-items: center;
-  gap: space(2);
-}
-
-.blog-index .blog-meta__icon,
-.blog-post .blog-meta__icon {
-  width: 14px;
-  height: 14px;
-  color: $gray-5;
-}
-
-.blog-index .blog-meta__dot,
-.blog-post .blog-meta__dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: $gray-5;
-  opacity: 0.6;
-}
-
-.blog-index .blog-tags,
-.blog-post .blog-tags {
-  display: inline-flex;
   gap: space(2);
   flex-wrap: wrap;
 }
 
-.blog-index .blog-tag,
-.blog-post .blog-tag {
+.blog-card__tag {
   @include caption-small;
   color: $alternative-2;
   background: rgba($alternative-2, 0.1);
   padding: space(1) space(2);
   border-radius: $radius-sm;
   border: 1px solid rgba($alternative-2, 0.2);
-  transition: all 200ms ease;
+}
 
-  &:hover {
-    background: rgba($alternative-2, 0.2);
-    border-color: rgba($alternative-2, 0.4);
-    transform: translateY(-1px);
+.blog-card__title {
+  @include h6;
+  color: $black;
+  margin-bottom: space(4);
+  transition: color 300ms ease;
+  line-height: 1.3;
+
+  @media (max-width: #{$tablet - 1px}) {
+    @include mobile-h6;
   }
 }
 
-// Loading and empty states
-.blog-loading,
-.blog-error {
-  text-align: center;
-  padding: space(16) 0;
-
-  .loading-indicator {
-    margin: 0 auto space(4);
-  }
-}
-
-.blog-empty-state {
-  text-align: center;
-  padding: space(20) 0;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.blog-empty-state__icon {
-  font-size: 4rem;
-  color: $gray-4;
+.blog-card__excerpt {
+  @include paragraph-small;
+  color: $gray-6;
+  line-height: 1.6;
   margin-bottom: space(6);
 }
 
-.blog-empty-state__title {
-  color: $black;
-  margin-bottom: space(4);
-  @include h5;
+.blog-card__arrow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: space(4);
 }
 
-.blog-empty-state__message {
-  color: $gray-6;
-  margin-bottom: space(8);
-  @include paragraph;
-}
-
-// Button enhancements for blog context
-.blog-index .btn-blog-primary,
-.blog-post .btn-blog-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: space(3);
-  padding: space(4) space(6);
-  background: linear-gradient(135deg, $alternative-1, $alternative-2);
-  border: none;
-  border-radius: $radius-lg;
-  color: $black;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  @include button;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba($alternative-1, 0.3);
-  }
-}
-
-.blog-index .btn-blog-secondary,
-.blog-post .btn-blog-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: space(3);
-  padding: space(4) space(6);
-  background: rgba($white, 0.05);
-  border: $border-1 solid rgba($white, 0.15);
-  border-radius: $radius-lg;
-  color: $white;
-  text-decoration: none;
-  transition: all 300ms ease;
-  @include button;
-
-  &:hover {
-    background: rgba($alternative-1, 0.1);
-    border-color: rgba($alternative-1, 0.3);
-    color: $alternative-1;
-    transform: translateY(-1px);
-  }
-}
-
-// Content helpers
-.blog-index .btn-content,
-.blog-post .btn-content {
-  display: inline-flex;
+.arrow-circle {
+  width: $size-circle-btn;
+  height: $size-circle-btn;
+  border-radius: 50%;
+  background: rgba($gray-2, 0.5);
+  border: $border-1 solid rgba($gray-3, 0.3);
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: space(2);
+  transition: all 300ms ease;
 }
 
-.blog-index .btn-wide,
-.blog-post .btn-wide {
-  min-width: calc(#{$size-button-min-width} + 2.5rem);
-  padding-left: space(6);
-  padding-right: space(6);
+.arrow-icon {
+  width: space(5); // 1.25rem
+  height: space(5);
+  color: $gray-6;
+  transition: color 300ms ease;
 }
 
-// Responsive enhancements
+.blog-card__glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba($alternative-1, 0.05) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  border-radius: $radius-xl;
+}
+
+// Performance hints for GSAP ScrollSmoother
+[data-speed],
+[data-lag] {
+  transition-property: transform;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+// Responsive adjustments
 @media (max-width: #{$tablet - 1px}) {
-  .blog-index .blog-grid,
-  .blog-post .blog-grid {
+  .blog-hero {
+    padding: space(12) 0 space(16);
+  }
+
+  .blog-hero__stats {
+    gap: space(8);
+  }
+
+  .blog-grid {
     gap: space(6);
   }
 
-  .blog-index .blog-card__link,
-  .blog-post .blog-card__link {
+  .blog-card__inner {
     padding: space(6);
-  }
-
-  .blog-index .blog-card__meta,
-  .blog-post .blog-card__meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: space(2);
   }
 }
 
 // Accessibility enhancements
 @media (prefers-reduced-motion: reduce) {
-  .blog-index .blog-grid > *,
-  .blog-index .blog-card,
-  .blog-index .blog-card::before,
-  .blog-index .blog-card::after,
-  .blog-index .arrow-circle,
-  .blog-index .arrow-icon,
-  .blog-post .blog-grid > *,
-  .blog-post .blog-card,
-  .blog-post .blog-card::before,
-  .blog-post .blog-card::after,
-  .blog-post .arrow-circle,
-  .blog-post .arrow-icon {
+  .blog-card,
+  .blog-card__link,
+  .arrow-circle,
+  .arrow-icon,
+  .loading-spinner {
     animation: none;
     transition: none;
-  }
-}
-
-// High contrast mode support
-@media (prefers-contrast: high) {
-  .blog-index .blog-card,
-  .blog-post .blog-card {
-    &::before {
-      border-width: 2px;
-      border-color: rgba($white, 0.8);
-    }
-
-    &:hover::before {
-      border-color: $white;
-    }
-  }
-
-  .blog-index .blog-card__title,
-  .blog-post .blog-card__title {
-    color: $white;
-
-    .blog-card:hover & {
-      color: $white;
-      text-shadow: 0 0 0 $alternative-1;
-    }
   }
 }
