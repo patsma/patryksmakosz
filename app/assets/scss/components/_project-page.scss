@@ -1,25 +1,32 @@
-// Project page layout and typography styles
-// - Full-bleed hero at top
-// - Markdown content constrained to container
-// - Allow specific components inside markdown to break out full-width
 @use "../variables" as *;
 @use "../mixins" as *;
 @use "../utilities/header-compensation" as *;
 
+// =============================================================================
+// Project Page Component Styles
+// =============================================================================
+
 .project-page {
+  $root: &;
   width: 100%;
   @extend .min-h-vh-minus-header;
-  display: flex;
-  flex-direction: column;
+
+  // Loading state
+  &__loading {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    @include paragraph;
+    color: $gray-5;
+  }
 
   &__content {
-    // Responsive container paddings from tokens
     padding: $container-pad-mobile;
-    // Constrain readable width while keeping layout centered
-    // Note: Declarations must appear before nested rules to avoid Sass mixed-decls deprecation
-    max-width: 64rem;
+    max-width: space(256); // 64rem
     margin-left: auto;
     margin-right: auto;
+    
     @include tablet {
       padding: $container-pad-tablet;
     }
@@ -28,34 +35,123 @@
     }
   }
 
-  // Title with brand gradient
   &__title {
     @include h2;
-    color: transparent; // ensure gradient shows
+    color: transparent;
     margin-bottom: space(6);
   }
 
-  // Nuxt Content markdown area customizations
   &__body {
     width: 100%;
 
-    // Make markdown headings use gradient like carousel titles
     h1,
     h2 {
       @include text-gradient-1;
     }
-    // Tweak paragraph color for contrast
+  }
+
+  // Live link container
+  &__live-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: space(8) 0;
+
+    &-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: space(2);
+    }
+  }
+
+  // Navigation container
+  &__navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: space(4);
+    padding: space(8) 0;
+
+    &-spacer {
+      flex: 1;
+    }
+
+    &-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: space(2);
+
+      &-icon {
+        width: space(5); // 1.25rem (w-5 h-5)
+        height: space(5);
+      }
+    }
+  }
+
+  // Hint overlays
+  &__hint {
+    position: fixed;
+    top: 70vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba($black, 0.5);
+    backdrop-filter: blur(space(2));
+    border-radius: $radius-lg;
+    padding: space(3);
+    color: rgba($white, 0.8);
+    font-size: space(3); // 0.75rem (text-xs)
+    max-width: space(75); // ~18.75rem (max-w-xs)
+    pointer-events: none;
+    z-index: 50;
+
+    &--desktop {
+      #{$root}__hint-keys {
+        display: flex;
+        align-items: center;
+        gap: space(3);
+
+        #{$root}__hint-key-group {
+          display: flex;
+          align-items: center;
+          gap: space(1);
+
+          kbd {
+            padding: space(2) space(2);
+            background: rgba($white, 0.2);
+            border-radius: space(1);
+            font-size: space(3);
+          }
+        }
+      }
+    }
+
+    &--mobile {
+      #{$root}__hint-swipe {
+        display: flex;
+        align-items: center;
+        gap: space(2);
+
+        #{$root}__hint-icon {
+          width: space(4);
+          height: space(4);
+          flex-shrink: 0;
+        }
+      }
+    }
   }
 
   // Reusable constrained container for text blocks inside markdown
   .project-container {
-    max-width: 64rem;
+    max-width: space(256); // 64rem
     margin-left: auto;
     margin-right: auto;
     padding-left: $container-pad-mobile;
     padding-right: $container-pad-mobile;
     padding-top: $container-pad-mobile;
     padding-bottom: $container-pad-mobile;
+    
     @include tablet {
       padding-left: $container-pad-tablet;
       padding-right: $container-pad-tablet;
@@ -64,5 +160,74 @@
       padding-left: $container-pad-laptop;
       padding-right: $container-pad-laptop;
     }
+  }
+}
+
+// Empty state component for project not found
+.empty-state {
+  $root: &;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+
+  &__wrapper {
+    display: grid;
+    justify-items: center;
+    gap: space(4);
+    padding: space(24) 0;
+    text-align: center;
+  }
+
+  &__icon {
+    width: space(18); // 4.5rem
+    height: space(18);
+    color: $primary-2;
+    background: rgba($primary-2, 0.08);
+    border: $border-1 solid rgba($primary-2, 0.2);
+    border-radius: $radius-full;
+    display: grid;
+    place-items: center;
+    animation: pulseGlow 2s ease-in-out infinite;
+
+    svg,
+    .iconify {
+      width: space(8); // 2rem
+      height: space(8);
+    }
+  }
+
+  &__title {
+    font-weight: 800;
+    font-size: space(6); // 1.5rem
+    color: $primary-1;
+  }
+
+  &__copy {
+    max-width: space(144); // 36rem
+    color: $gray-5;
+    font-size: space(4); // 1rem
+    line-height: 1.6;
+    margin-bottom: space(2);
+    padding: 0 space(6);
+  }
+
+  &__actions {
+    display: grid;
+    grid-auto-flow: column;
+    gap: space(4);
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba($primary-2, 0.25);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 space(3) rgba($primary-2, 0); // 12px
+    transform: scale(1.04);
   }
 }

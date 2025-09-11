@@ -189,11 +189,11 @@ const debugInfo = computed(() => ({
 
 <template>
   <section ref="pageRef" class="project-page pt-header">
-    <div v-if="status === 'pending'" class="project-page__content text-center">
+    <div v-if="status === 'pending'" class="project-page__loading">
       Loading…
     </div>
-    <div v-else-if="error || !project" class="project-page__content">
-      <div class="empty-state" role="status" aria-live="polite">
+    <div v-else-if="error || !project" class="empty-state">
+      <div class="empty-state__wrapper" role="status" aria-live="polite">
         <div class="empty-state__icon" aria-hidden="true">
           <Icon name="mdi:file-search-outline" />
         </div>
@@ -217,7 +217,7 @@ const debugInfo = computed(() => ({
         <ContentRenderer :value="project" />
 
         <div v-if="liveLink" class="project-container">
-          <div class="flex items-center justify-center py-8">
+          <div class="project-page__live-link">
             <NuxtLink
               :to="liveLink"
               external
@@ -226,7 +226,7 @@ const debugInfo = computed(() => ({
               class="btn-standard-outlined"
               aria-label="Open live project in new tab"
             >
-              <span class="inline-flex items-center justify-center gap-2">
+              <span class="project-page__live-link-button">
                 Live Link
               </span>
             </NuxtLink>
@@ -235,20 +235,20 @@ const debugInfo = computed(() => ({
 
         <!-- Bottom navigation: Previous / Next projects -->
         <div v-if="prevProject || nextProject" class="project-container">
-          <div class="flex items-center justify-between gap-4 py-8">
+          <div class="project-page__navigation">
             <NuxtLink
               v-if="prevProject"
               :to="prevProject.path"
               class="btn-standard-outlined"
               aria-label="Previous project"
             >
-              <span class="inline-flex items-center justify-center gap-2">
-                <Icon name="tabler:arrow-left" class="w-5 h-5" />
+              <span class="project-page__navigation-button">
+                <Icon name="tabler:arrow-left" class="project-page__navigation-button-icon" />
                 <!-- {{ prevProject.title || "Previous" }}  -->
               </span>
             </NuxtLink>
 
-            <div class="flex-1" />
+            <div class="project-page__navigation-spacer" />
 
             <NuxtLink
               v-if="nextProject"
@@ -256,9 +256,9 @@ const debugInfo = computed(() => ({
               class="btn-standard-outlined"
               aria-label="Next project"
             >
-              <span class="inline-flex items-center justify-center gap-2">
+              <span class="project-page__navigation-button">
                 <!-- {{ nextProject.title || "Next" }} -->
-                <Icon name="tabler:arrow-right" class="w-5 h-5" />
+                <Icon name="tabler:arrow-right" class="project-page__navigation-button-icon" />
               </span>
             </NuxtLink>
           </div>
@@ -277,12 +277,12 @@ const debugInfo = computed(() => ({
     >
       <div
         v-if="showDesktopHint"
-        class="fixed top-[70vh] left-1/2 transform -translate-x-1/2 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white/80 text-xs max-w-xs pointer-events-none z-50"
+        class="project-page__hint project-page__hint--desktop"
       >
-        <div class="flex items-center gap-3">
-          <div class="flex items-center gap-1">
-            <kbd class="px-2 py-1 bg-white/20 rounded text-xs">←</kbd>
-            <kbd class="px-2 py-1 bg-white/20 rounded text-xs">→</kbd>
+        <div class="project-page__hint-keys">
+          <div class="project-page__hint-key-group">
+            <kbd>←</kbd>
+            <kbd>→</kbd>
           </div>
           <span>Use arrow keys to navigate projects</span>
         </div>
@@ -300,11 +300,11 @@ const debugInfo = computed(() => ({
     >
       <div
         v-if="showMobileHint"
-        class="fixed top-[70vh] left-1/2 transform -translate-x-1/2 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white/80 text-xs max-w-xs pointer-events-none z-50"
+        class="project-page__hint project-page__hint--mobile"
       >
-        <div class="flex items-center gap-2">
+        <div class="project-page__hint-swipe">
           <svg
-            class="w-4 h-4 flex-shrink-0"
+            class="project-page__hint-icon"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -323,68 +323,3 @@ const debugInfo = computed(() => ({
   </section>
 </template>
 
-<style scoped lang="scss">
-@use "~/assets/scss/variables" as *;
-
-/* Empty state (aligned with design tokens) */
-.empty-state {
-  display: grid;
-  justify-items: center;
-  gap: space(4);
-  padding: space(24) 0;
-  text-align: center;
-
-  &__icon {
-    width: 4.5rem;
-    height: 4.5rem;
-    color: $primary-2;
-    background: rgba($primary-2, 0.08);
-    border: $border-1 solid rgba($primary-2, 0.2);
-    border-radius: $radius-full;
-    display: grid;
-    place-items: center;
-    animation: pulseGlow 2s ease-in-out infinite;
-
-    svg,
-    .iconify {
-      width: 2rem;
-      height: 2rem;
-    }
-  }
-
-  &__title {
-    font-weight: 800;
-    font-size: 1.5rem;
-    color: $primary-1;
-  }
-
-  &__copy {
-    max-width: 36rem;
-    color: $gray-5;
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: space(2);
-    padding: 0 space(6);
-  }
-
-  &__actions {
-    display: grid;
-    grid-auto-flow: column;
-    gap: space(4);
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-@keyframes pulseGlow {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba($primary-2, 0.25);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 0 12px rgba($primary-2, 0);
-    transform: scale(1.04);
-  }
-}
-</style>
