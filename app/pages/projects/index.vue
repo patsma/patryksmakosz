@@ -143,6 +143,7 @@ useHead({ title: "Projects" });
   }
 
   @include desktop {
+    @include desktop-h1-extralight;
   }
 }
 

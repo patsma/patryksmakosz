@@ -39,8 +39,8 @@
   &--post-1 {
     top: 20%;
     right: 10%;
-    width: 120px;
-    height: 120px;
+    width: space(30); // 7.5rem
+    height: space(30);
     background: linear-gradient(
       135deg,
       rgba($alternative-1, 0.1) 0%,
@@ -51,8 +51,8 @@
   &--post-2 {
     bottom: 30%;
     left: 8%;
-    width: 80px;
-    height: 80px;
+    width: space(20); // 5rem
+    height: space(20);
     background: linear-gradient(
       135deg,
       rgba($primary-2, 0.08) 0%,
@@ -62,8 +62,6 @@
 }
 
 .blog-post .blog-container {
-  max-width: 900px;
-  margin: 0 auto;
   position: relative;
   z-index: 10;
   @include padding;
@@ -82,10 +80,10 @@
 }
 
 .blog-post .loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba($alternative-1, 0.1);
-  border-top: 3px solid $alternative-1;
+  width: space(10); // 2.5rem
+  height: space(10);
+  border: space(0.75) solid rgba($alternative-1, 0.1); // 0.1875rem
+  border-top: space(0.75) solid $alternative-1;
   border-radius: 50%;
   margin: 0 auto;
   animation: spin 1s linear infinite;
@@ -122,7 +120,7 @@
   @include paragraph;
   color: $gray-4;
   margin-bottom: space(8);
-  max-width: 500px;
+  max-width: space(125); // 31.25rem
   margin-left: auto;
   margin-right: auto;
 }
@@ -151,8 +149,8 @@
 }
 
 .blog-post .btn-back__icon {
-  width: 18px;
-  height: 18px;
+  width: space(4.5); // 1.125rem
+  height: space(4.5);
   transition: transform 300ms ease;
 }
 
@@ -189,8 +187,8 @@
 }
 
 .blog-post .breadcrumb-icon {
-  width: 14px;
-  height: 14px;
+  width: space(3.5); // 0.875rem
+  height: space(3.5);
   transition: transform 300ms ease;
 }
 
@@ -243,7 +241,7 @@
   }
 
   @include desktop {
-    font-size: 3.5rem;
+    @include desktop-h1-extralight;
   }
 }
 
@@ -251,7 +249,7 @@
   @include paragraph-large;
   color: $gray-6;
   margin-bottom: space(8);
-  max-width: 700px;
+  max-width: space(175); // 43.75rem
   margin-left: auto;
   margin-right: auto;
   position: relative;
@@ -325,10 +323,10 @@
       left: 0;
       top: 50%;
       transform: translateY(-50%);
-      width: 4px;
+      width: space(1); // 0.25rem
       height: 60%;
       background: linear-gradient(135deg, $alternative-1, $alternative-2);
-      border-radius: 2px;
+      border-radius: space(0.5); // 0.125rem
     }
   }
 
@@ -382,7 +380,7 @@
   }
 
   blockquote {
-    border-left: 4px solid $alternative-1;
+    border-left: space(1) solid $alternative-1; // 0.25rem
     padding-left: space(6);
     margin: space(8) 0;
     background: rgba($alternative-1, 0.05);
@@ -567,8 +565,8 @@
 }
 
 .blog-post .blog-nav__icon {
-  width: 14px;
-  height: 14px;
+  width: space(3.5); // 0.875rem
+  height: space(3.5);
   color: $gray-6;
   transition: transform 300ms ease;
 }
@@ -622,8 +620,8 @@
 }
 
 .blog-post .back-to-top__icon {
-  width: 16px;
-  height: 16px;
+  width: space(4); // 1rem
+  height: space(4);
   transition: transform 300ms ease;
 }
 
