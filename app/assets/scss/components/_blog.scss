@@ -479,14 +479,6 @@
   border-radius: $radius-xl;
 }
 
-// Performance hints for GSAP ScrollSmoother
-[data-speed],
-[data-lag] {
-  transition-property: transform;
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
 
 // Responsive adjustments
 @media (max-width: #{$tablet - 1px}) {
