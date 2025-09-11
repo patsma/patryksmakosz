@@ -141,6 +141,9 @@ useHead({ title: "Projects" });
   @include tablet {
     @include h1;
   }
+
+  @include desktop {
+  }
 }
 
 /* Projects grid */
@@ -151,16 +154,17 @@ useHead({ title: "Projects" });
 
   @include tablet {
     grid-template-columns: repeat(2, 1fr);
-    gap: space(10);
+    gap: space(12);
   }
 
   @include laptop {
     grid-template-columns: repeat(3, 1fr);
-    gap: space(12);
+    gap: space(16);
   }
 
   @include desktop {
-    gap: space(14);
+    grid-template-columns: repeat(4, 1fr);
+    gap: space(20);
   }
 }
 

@@ -213,8 +213,8 @@ const formatDate = (iso) => {
   &--1 {
     top: 10%;
     left: 10%;
-    width: 200px;
-    height: 200px;
+    width: space(50); // 12.5rem
+    height: space(50);
     background: linear-gradient(
       135deg,
       rgba($alternative-1, 0.15) 0%,
@@ -225,8 +225,8 @@ const formatDate = (iso) => {
   &--2 {
     top: 60%;
     right: 15%;
-    width: 150px;
-    height: 150px;
+    width: space(37.5); // 9.375rem
+    height: space(37.5);
     background: linear-gradient(
       135deg,
       rgba($alternative-2, 0.12) 0%,
@@ -237,8 +237,8 @@ const formatDate = (iso) => {
   &--3 {
     bottom: 20%;
     left: 20%;
-    width: 120px;
-    height: 120px;
+    width: space(30); // 7.5rem
+    height: space(30);
     background: linear-gradient(
       135deg,
       rgba($primary-2, 0.1) 0%,
@@ -298,7 +298,7 @@ const formatDate = (iso) => {
 .blog-hero__description {
   @include paragraph;
   color: $gray-6;
-  max-width: 600px;
+  max-width: space(150); // 37.5rem
   margin: 0 auto space(8);
 
   @include tablet {
@@ -343,10 +343,10 @@ const formatDate = (iso) => {
 }
 
 .loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba($alternative-1, 0.1);
-  border-top: 3px solid $alternative-1;
+  width: space(10); // 2.5rem
+  height: space(10);
+  border: space(0.75) solid rgba($alternative-1, 0.1); // 0.1875rem
+  border-top: space(0.75) solid $alternative-1;
   border-radius: 50%;
   margin: 0 auto;
   animation: spin 1s linear infinite;
@@ -387,16 +387,17 @@ const formatDate = (iso) => {
 
   @include tablet {
     grid-template-columns: repeat(2, 1fr);
-    gap: space(10);
+    gap: space(12);
   }
 
   @include laptop {
     grid-template-columns: repeat(3, 1fr);
-    gap: space(12);
+    gap: space(16);
   }
 
   @include desktop {
-    gap: space(14);
+    grid-template-columns: repeat(4, 1fr);
+    gap: space(20);
   }
 }
 
@@ -539,8 +540,8 @@ const formatDate = (iso) => {
 }
 
 .arrow-icon {
-  width: 20px;
-  height: 20px;
+  width: space(5); // 1.25rem
+  height: space(5);
   color: $gray-6;
   transition: color 300ms ease;
 }
