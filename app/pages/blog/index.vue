@@ -189,8 +189,6 @@ const formatDate = (iso) => {
 }
 
 .blog-container {
-  max-width: 1400px;
-  margin: 0 auto;
   position: relative;
   z-index: 10;
   @include padding;
@@ -392,9 +390,13 @@ const formatDate = (iso) => {
     gap: space(10);
   }
 
-  @include desktop {
+  @include laptop {
     grid-template-columns: repeat(3, 1fr);
     gap: space(12);
+  }
+
+  @include desktop {
+    gap: space(14);
   }
 }
 

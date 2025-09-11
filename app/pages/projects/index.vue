@@ -26,12 +26,10 @@ useHead({ title: "Projects" });
 </script>
 
 <template>
-  <section class="min-h-screen w-full pt-12">
-    <div class="container mx-auto px-6 py-10">
+  <section class="min-h-screen w-full pt-header">
+    <div class="projects-container">
       <div class="mb-8">
-        <h1 class="text-4xl font-bold mb-8 text-center text-gray-900">
-          Projects
-        </h1>
+        <h1 class="projects-title">Projects</h1>
 
         <!-- Filter Navigation -->
         <div class="flex flex-wrap gap-4 justify-center mb-8">
@@ -83,11 +81,7 @@ useHead({ title: "Projects" });
         <p>No projects found.</p>
       </div>
 
-      <TransitionGroup
-        name="list"
-        tag="ul"
-        class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-      >
+      <TransitionGroup name="list" tag="ul" class="projects-grid">
         <li v-for="p in projects" :key="p.path || p.slug" class="project-card">
           <NuxtLink
             :to="p.path || `/projects/${p.slug}`"
@@ -130,6 +124,45 @@ useHead({ title: "Projects" });
 
 <style lang="scss" scoped>
 @use "~/assets/scss/variables" as *;
+@use "~/assets/scss/mixins" as *;
+
+/* Projects container */
+.projects-container {
+  @include padding;
+}
+
+/* Projects title */
+.projects-title {
+  @include mobile-h1;
+  @include text-gradient-1;
+  text-align: center;
+  margin-bottom: space(8);
+
+  @include tablet {
+    @include h1;
+  }
+}
+
+/* Projects grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: space(8);
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: space(10);
+  }
+
+  @include laptop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: space(12);
+  }
+
+  @include desktop {
+    gap: space(14);
+  }
+}
 
 /* Simple fade transitions */
 .list-enter-active,
