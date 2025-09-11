@@ -335,6 +335,7 @@
         <div class="project-path-animation__contact contact-info">
           <div class="project-path-animation__contact-grid contact-grid" ref="contactGridRef">
             <!-- Contact items with dummy points -->
+            <!-- Email -->
             <div
               class="project-path-animation__contact-item contact-item relative"
             >
@@ -345,11 +346,13 @@
                 data-control-x="0.25"
                 data-control-y="-400"
               ></div>
-              <Icon name="mdi:email" size="24" />
-              <a href="mailto:patryksmakosz1@gmail.com">
-                patryksmakosz1@gmail.com</a
-              >
+              <Icon name="tabler:mail" class="w-6 h-6 text-black" />
+              <a href="mailto:patryksmakosz1@gmail.com" class="hover:text-primary-1 transition-colors">
+                patryksmakosz1@gmail.com
+              </a>
             </div>
+
+            <!-- LinkedIn -->
             <div
               class="project-path-animation__contact-item contact-item relative"
             >
@@ -360,19 +363,112 @@
                 data-control-x="0.25"
                 data-control-y="-300"
               ></div>
-              <Icon name="mdi:linkedin" size="24" />
+              <Icon name="tabler:brand-linkedin" class="w-6 h-6 text-black" />
               <a
                 href="https://www.linkedin.com/in/patryksmakosz/"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="underline hover:text-primary-1 transition-colors"
-                >@patryksmakosz</a
+                class="hover:text-primary-1 transition-colors"
+                >LinkedIn</a
               >
             </div>
 
+            <!-- Facebook -->
             <div class="project-path-animation__contact-item contact-item">
-              <Icon name="mdi:map-marker" size="24" />
-              <span>Gdansk, Poland</span>
+              <Icon name="tabler:brand-facebook" class="w-6 h-6 text-black" />
+              <a
+                href="https://www.facebook.com/TastySites/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-primary-1 transition-colors"
+                >Facebook</a
+              >
+            </div>
+
+            <!-- Dribbble -->
+            <div class="project-path-animation__contact-item contact-item relative">
+              <div
+                class="dummy-point !absolute !top-0 !left-[25%]"
+                data-path-point
+                data-path-order="12"
+                data-control-x="0.25"
+                data-control-y="-200"
+              ></div>
+              <Icon name="tabler:brand-dribbble" class="w-6 h-6 text-black" />
+              <a
+                href="https://dribbble.com/tastysites"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-primary-1 transition-colors"
+                >Dribbble</a
+              >
+            </div>
+
+            <!-- Upwork -->
+            <div class="project-path-animation__contact-item contact-item">
+              <Icon name="simple-icons:upwork" class="w-6 h-6 text-black" />
+              <a
+                href="https://www.upwork.com/freelancers/~01085c23a2f6280a73"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-primary-1 transition-colors"
+                >Upwork</a
+              >
+            </div>
+
+            <!-- X (Twitter) -->
+            <div class="project-path-animation__contact-item contact-item">
+              <Icon name="tabler:brand-x" class="w-6 h-6 text-black" />
+              <a
+                href="https://x.com/TastySites"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-primary-1 transition-colors"
+                >X (Twitter)</a
+              >
+            </div>
+
+            <!-- Bluesky -->
+            <div class="project-path-animation__contact-item contact-item">
+              <Icon name="simple-icons:bluesky" class="w-6 h-6 text-black" />
+              <a
+                href="https://bsky.app/profile/tastysites.bsky.social"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-primary-1 transition-colors"
+                >Bluesky</a
+              >
+            </div>
+
+            <!-- YouTube -->
+            <div class="project-path-animation__contact-item contact-item">
+              <Icon name="tabler:brand-youtube" class="w-6 h-6 text-black" />
+              <a
+                href="https://www.youtube.com/channel/UCj7wr_x-BwJ0Yam8uw5lDsw"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-primary-1 transition-colors"
+                >YouTube</a
+              >
+            </div>
+
+            <!-- GitHub -->
+            <div class="project-path-animation__contact-item contact-item relative">
+              <div
+                class="dummy-point !absolute !top-0 !left-[80%]"
+                data-path-point
+                data-path-order="13"
+                data-control-x="0.25"
+                data-control-y="-150"
+              ></div>
+              <Icon name="tabler:brand-github" class="w-6 h-6 text-black" />
+              <a
+                href="https://github.com/patsma"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-primary-1 transition-colors"
+                >GitHub</a
+              >
             </div>
           </div>
 
@@ -392,7 +488,7 @@
                 <div
                   class="dummy-point"
                   data-path-point
-                  data-path-order="12"
+                  data-path-order="14"
                   data-control-x="0.25"
                   data-control-y="-600"
                   data-center-on="#target-center"
@@ -527,15 +623,15 @@ const initializeSectionAnimations = () => {
         scrollTrigger: {
           trigger: introHeaderRef.value,
           start: "top bottom-=10%",
-          end: "bottom center",
+          end: "bottom top+=20%",
           toggleActions: "play none none reverse"
         }
       });
       
       introTimeline.to(introElements, {
         autoAlpha: 1,
-        duration: 0.6,
-        stagger: 0.15,
+        duration: 0.4,
+        stagger: 0.1,
         ease: "power2.out"
       });
       
@@ -555,16 +651,16 @@ const initializeSectionAnimations = () => {
         scrollTrigger: {
           trigger: skillsGridRef.value,
           start: "top bottom-=5%",
-          end: "bottom center",
+          end: "bottom top+=20%",
           toggleActions: "play none none reverse"
         }
       });
       
       skillsTimeline.to(skillBubbles, {
         autoAlpha: 1,
-        duration: 0.5,
+        duration: 0.3,
         stagger: {
-          amount: 1.0,
+          amount: 0.6,
           from: "random"
         },
         ease: "power2.out"
@@ -589,15 +685,15 @@ const initializeSectionAnimations = () => {
         scrollTrigger: {
           trigger: timelineHeaderRef.value,
           start: "top bottom-=10%",
-          end: "bottom center",
+          end: "bottom top+=20%",
           toggleActions: "play none none reverse"
         }
       });
       
       timelineHeaderTimeline.to(timelineHeaderElements, {
         autoAlpha: 1,
-        duration: 0.6,
-        stagger: 0.1,
+        duration: 0.4,
+        stagger: 0.08,
         ease: "power2.out"
       });
       
@@ -617,15 +713,15 @@ const initializeSectionAnimations = () => {
         scrollTrigger: {
           trigger: milestonesRef.value,
           start: "top bottom-=5%",
-          end: "bottom center",
+          end: "bottom top+=20%",
           toggleActions: "play none none reverse"
         }
       });
       
       milestonesTimeline.to(milestones, {
         autoAlpha: 1,
-        duration: 0.6,
-        stagger: 0.2,
+        duration: 0.4,
+        stagger: 0.15,
         ease: "power2.out"
       });
       
@@ -648,15 +744,15 @@ const initializeSectionAnimations = () => {
         scrollTrigger: {
           trigger: contactHeaderRef.value,
           start: "top bottom-=10%",
-          end: "bottom center",
+          end: "bottom top+=20%",
           toggleActions: "play none none reverse"
         }
       });
       
       contactHeaderTimeline.to(contactHeaderElements, {
         autoAlpha: 1,
-        duration: 0.6,
-        stagger: 0.1,
+        duration: 0.4,
+        stagger: 0.08,
         ease: "power2.out"
       });
       
@@ -676,15 +772,15 @@ const initializeSectionAnimations = () => {
         scrollTrigger: {
           trigger: contactGridRef.value,
           start: "top bottom-=5%",
-          end: "bottom center",
+          end: "bottom top+=20%",
           toggleActions: "play none none reverse"
         }
       });
       
       contactGridTimeline.to(contactItems, {
         autoAlpha: 1,
-        duration: 0.5,
-        stagger: 0.15,
+        duration: 0.3,
+        stagger: 0.1,
         ease: "power2.out"
       });
       
@@ -711,32 +807,36 @@ const initializeCTATextAnimation = () => {
     } catch (_) {}
   }
 
-  // Create SplitText instance with masking like ProjectHeroSplitText
+  // Create SplitText instance with masking for line-by-line reveal
   splitTextInstance = $SplitText.create(ctaText, {
-    type: "chars, lines",
+    type: "lines",
     mask: "lines"
   });
 
-  if (!splitTextInstance.chars || splitTextInstance.chars.length === 0) {
+  if (!splitTextInstance.lines || splitTextInstance.lines.length === 0) {
     return;
   }
 
-  // Create timeline for split text animation
+  // Create timeline for fancy line-by-line reveal with mask
   const ctaTimeline = $gsap.timeline({
     scrollTrigger: {
       trigger: ctaText,
-      start: "top bottom-=5%",
-      end: "bottom center",
-      toggleActions: "play none none reverse"
+      start: "top bottom-=20%",
+      end: "bottom top+=20%",
+      toggleActions: "play none none reverse",
+      refreshPriority: -1 // Lower priority for better performance
     }
   });
 
-  // Animate characters from bottom with yPercent using wrap
-  ctaTimeline.from(splitTextInstance.chars, {
-    yPercent: (i) => $gsap.utils.wrap([-100, 100])(i),
-    stagger: 0.02,
-    duration: 0.6,
-    ease: "sine.out"
+  // Animate lines from bottom with smooth masking
+  ctaTimeline.from(splitTextInstance.lines, {
+    yPercent: 100,
+    duration: 1.0,
+    stagger: {
+      amount: 0.4,
+      from: "start"
+    },
+    ease: "power2.out"
   });
 
   sectionTimelines.value.push(ctaTimeline);

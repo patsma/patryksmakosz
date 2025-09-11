@@ -256,15 +256,15 @@ onUnmounted(() => {
       <div class="mt-8 flex flex-wrap items-center gap-4 text-white/80">
         <a
           :ref="setSocialLinkRef"
-          href="https://discordapp.com/users/442079043307962378"
+          href="https://www.linkedin.com/in/patryksmakosz/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Discord"
-          title="Discord"
+          aria-label="LinkedIn"
+          title="LinkedIn"
           class="hover:text-white focus-visible:text-white transition-colors outline-none"
         >
-          <Icon name="tabler:brand-discord" class="w-6 h-6" />
-          <span class="sr-only">Discord</span>
+          <Icon name="tabler:brand-linkedin" class="w-6 h-6" />
+          <span class="sr-only">LinkedIn</span>
         </a>
         <a
           :ref="setSocialLinkRef"
