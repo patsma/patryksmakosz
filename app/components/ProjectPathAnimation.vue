@@ -346,17 +346,8 @@
               ></div>
             </div>
             <div
-              class="project-path-animation__milestone-content milestone-content relative"
+              class="project-path-animation__milestone-content milestone-content"
             >
-              <div
-                class="dummy-point !absolute !top-1/2 !left-[90%] !right-auto !bottom-auto"
-                data-path-point
-                data-path-order="9.5"
-                data-control-x="0.3"
-                data-control-y="-1200"
-                data-offset-x="5"
-                data-offset-y="2"
-              ></div>
               <h4>Creative Coder @ UpWork</h4>
               <p>Interactive web content & SVG banners</p>
             </div>
@@ -405,16 +396,7 @@
             </div>
 
             <!-- LinkedIn -->
-            <div
-              class="project-path-animation__contact-item contact-item relative"
-            >
-              <div
-                class="dummy-point !absolute !top-0 !left-[70%]"
-                data-path-point
-                data-path-order="11"
-                data-control-x="0.35"
-                data-control-y="-250"
-              ></div>
+            <div class="project-path-animation__contact-item contact-item">
               <Icon name="tabler:brand-linkedin" class="w-6 h-6 text-black" />
               <a
                 href="https://www.linkedin.com/in/patryksmakosz/"
@@ -426,7 +408,14 @@
             </div>
 
             <!-- Facebook -->
-            <div class="project-path-animation__contact-item contact-item">
+            <div class="project-path-animation__contact-item contact-item relative">
+              <div
+                class="dummy-point !absolute !top-0 !left-[70%]"
+                data-path-point
+                data-path-order="11"
+                data-control-x="0.35"
+                data-control-y="-150"
+              ></div>
               <Icon name="tabler:brand-facebook" class="w-6 h-6 text-black" />
               <a
                 href="https://www.facebook.com/TastySites/"
@@ -438,16 +427,7 @@
             </div>
 
             <!-- Dribbble -->
-            <div
-              class="project-path-animation__contact-item contact-item relative"
-            >
-              <div
-                class="dummy-point !absolute !top-0 !left-[25%]"
-                data-path-point
-                data-path-order="12"
-                data-control-x="0.25"
-                data-control-y="-200"
-              ></div>
+            <div class="project-path-animation__contact-item contact-item">
               <Icon name="tabler:brand-dribbble" class="w-6 h-6 text-black" />
               <a
                 href="https://dribbble.com/tastysites"
@@ -507,16 +487,7 @@
             </div>
 
             <!-- GitHub -->
-            <div
-              class="project-path-animation__contact-item contact-item relative"
-            >
-              <div
-                class="dummy-point !absolute !top-0 !left-[80%]"
-                data-path-point
-                data-path-order="13"
-                data-control-x="0.25"
-                data-control-y="-150"
-              ></div>
+            <div class="project-path-animation__contact-item contact-item">
               <Icon name="tabler:brand-github" class="w-6 h-6 text-black" />
               <a
                 href="https://github.com/patsma"
@@ -544,7 +515,7 @@
                 <div
                   class="dummy-point"
                   data-path-point
-                  data-path-order="14"
+                  data-path-order="13"
                   data-control-x="0.25"
                   data-control-y="-600"
                   data-center-on="#target-center"
