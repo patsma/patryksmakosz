@@ -114,7 +114,7 @@
     }
 
     h1 {
-      @include mobile-h1-extralight;
+      @include h5;
       color: var(--split-text-fg, var(--color-black));
       margin: 0;
       padding: 0;
@@ -122,11 +122,10 @@
       text-transform: uppercase;
       text-align: center;
       max-width: 90vw;
-      
+
       @include tablet {
-        @include h1-extralight;
       }
-      
+
       @include desktop {
         @include desktop-h1-extralight;
       }
