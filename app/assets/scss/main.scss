@@ -23,6 +23,7 @@
 @use "./components/site-header";
 @use "./components/blog";
 @use "./components/blog-post";
+@use "./components/projects-page";
 
 :root {
   // Expose key SCSS colors as CSS custom properties for JS/GSAP usage
