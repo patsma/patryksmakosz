@@ -2,11 +2,13 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://patryksmakosz.com",
     },
   },
+
   // Global transitions for pages and layouts
   app: {
     pageTransition: { name: "page", mode: "out-in" },
@@ -81,14 +83,16 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
   },
+
   components: [
     { path: "~/components", pathPrefix: false },
     { path: "~/components/SVG", pathPrefix: false },
   ],
+
   // Simple global SCSS entry point (Nuxt standard assets dir)
   css: ["~/assets/scss/main.scss"],
 
-  modules: ["@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@nuxt/eslint", "@nuxtjs/tailwindcss", "@hypernym/nuxt-gsap", "@pinia/nuxt", "@nuxt/content", "@maz-ui/nuxt", "@tresjs/nuxt"],
+  modules: ["@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@nuxt/eslint", "@nuxtjs/tailwindcss", "@hypernym/nuxt-gsap", "@pinia/nuxt", "@nuxt/content", "@maz-ui/nuxt", "@tresjs/nuxt", "@sentry/nuxt/module"],
 
   gsap: {
     composables: true,
@@ -110,5 +114,18 @@ export default defineNuxtConfig({
     extraEases: {
       custom: true,
     },
+  },
+
+  sentry: {
+    sourceMapsUploadOptions: {
+      org: "tasty-0a",
+      project: "javascript-nuxt",
+    },
+
+    autoInjectServerSentry: "top-level-import",
+  },
+
+  sourcemap: {
+    client: "hidden",
   },
 });
