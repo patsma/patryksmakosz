@@ -235,6 +235,8 @@ const initScroll = () => {
     end: "bottom bottom",
     pin: containerEl,
     pinSpacing: true,
+    // Workaround for iOS Safari inside transformed scroller
+    anticipatePin: 1,
   });
   triggers.push(pinTrigger);
 

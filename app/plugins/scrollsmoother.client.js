@@ -45,7 +45,8 @@ export default defineNuxtPlugin((nuxtApp) => {
             height: window.innerHeight,
           };
         },
-        pinType: content.style.transform ? "transform" : "fixed",
+        // Force transform pinning to avoid iOS Safari fixed-position glitches
+        pinType: "transform",
       });
       ScrollTrigger.defaults({ scroller: content });
     } catch (e) {}

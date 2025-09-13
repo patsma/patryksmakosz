@@ -97,6 +97,7 @@ const init = () => {
     end: "bottom bottom",
     pin: containerEl,
     pinSpacing: true,
+    anticipatePin: 1,
   });
   triggers.push(pinTrigger);
 
