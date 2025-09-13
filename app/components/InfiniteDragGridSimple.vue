@@ -153,7 +153,6 @@ onMounted(() => {
         v-for="duplicateIndex in 3"
         :key="`duplicate-${duplicateIndex}`"
         class="infinite-drag-grid__content"
-        aria-hidden="true"
       >
         <NuxtLink
           v-for="(project, index) in gridProjects"

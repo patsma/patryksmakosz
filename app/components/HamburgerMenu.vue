@@ -252,7 +252,7 @@ onUnmounted(() => {
         ]"
         ><span class="menu-overlay__link-text">Projects</span></NuxtLink
       >
-      <NuxtLink
+      <!-- <NuxtLink
         :ref="setMenuLinkRef"
         to="/portfolio"
         :class="[
@@ -260,7 +260,7 @@ onUnmounted(() => {
           { 'menu-overlay__link--active': isActiveLink('/portfolio') },
         ]"
         ><span class="menu-overlay__link-text">Portfolio</span></NuxtLink
-      >
+      > -->
 
       <a
         :ref="setMenuLinkRef"

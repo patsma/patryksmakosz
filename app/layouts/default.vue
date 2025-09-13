@@ -31,7 +31,7 @@
       </div>
     </header>
 
-    <div id="smooth-content">
+    <div id="smooth-content" :key="route.fullPath">
       <!-- Use landmark roles and a main heading region -->
 
       <main id="main-content" role="main" tabindex="-1">
@@ -45,4 +45,6 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const route = useRoute();
+</script>

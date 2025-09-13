@@ -584,9 +584,20 @@ onMounted(() => {
     // In case plugin is already registered, ignore
   }
 
-  // Small nextTick to ensure refs arrays are populated
-  nextTick(() => {
+  // Wait for fonts to be ready to avoid SplitText measurement issues
+  nextTick(async () => {
+    try {
+      if (document && document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+    } catch (e) {}
+
     initAnimation();
+
+    // Ensure ScrollTrigger measures correctly after setup
+    try {
+      ScrollTrigger.refresh();
+    } catch (e) {}
   });
 
   // ScrollSmoother handles data-speed="auto" automatically - no composable needed
