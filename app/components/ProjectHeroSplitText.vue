@@ -165,7 +165,14 @@ const createAnimation = () => {
 
 // Lifecycle
 onMounted(() => {
-  nextTick(() => {
+  nextTick(async () => {
+    // Ensure fonts are ready before SplitText for correct measurements
+    try {
+      if (document && document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+    } catch (e) {}
+
     gsapCtx = $gsap.context(() => {
       const tl = createAnimation();
       // ScrollTrigger visibility-controlled animation; fallback to autoPlay
