@@ -5,7 +5,7 @@ category: "website"
 cover: "/assets/medias/lbc-thumb.svg"
 video: "/movies/web-optimized/life-balance-prototype.mp4"
 liveLink: "https://life-balance-prototype.netlify.app/" 
-summary: "Hero video prototype for Life Balance Congress. Autoplaying loop test across devices."
+summary: "Scroll animated Nuxt 3 Landing Page with seamless transitions between sections. Mixing various GSAP animation techniques to create a smooth and engaging experience. Mostly on desktop.Autoplaying loop test across devices."
 tags: ["video", "autoplay", "nuxt", "gsap"]
 date: 2025-01-15
 ---
@@ -52,7 +52,7 @@ meta:
 ---
 theme: light
 pinHeightVh: 420
-paragraph: Scroll animated Nuxt 3 App with seamless transitions between sections. Mixing various GSAP animation techniques to create a smooth and engaging experience. Mostly on desktop.
+paragraph: Scroll animated Nuxt 3 Landing Page with seamless transitions between sections. Mixing various GSAP animation techniques to create a smooth and engaging experience. Mostly on desktop.
 ---
 ::
 

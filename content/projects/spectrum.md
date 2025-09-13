@@ -26,7 +26,7 @@ items:
   - Email Signature GIF
 separatorIcon: uil:bolt
 uppercase: true
-theme: light
+theme: dark
 repeatBlocks: 2
 pinHeightVh: 160
 fontSizeVw: 8
@@ -45,7 +45,7 @@ meta:
 
 ::SimultaneousWords
 ---
-theme: dark
+theme: light
 pinHeightVh: 420
 paragraph: SVG logo animation representing a sound wave, animated with GSAP DrawSVG and smooth color transitions. Later adapted as a footer email signature GIF.
 ---

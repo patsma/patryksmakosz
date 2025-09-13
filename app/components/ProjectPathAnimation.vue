@@ -418,8 +418,9 @@
           >
             <!-- Contact items with dummy points -->
             <!-- Email -->
-            <div
-              class="project-path-animation__contact-item contact-item relative"
+            <a
+              href="mailto:patryksmakosz1@gmail.com"
+              class="project-path-animation__contact-item contact-item relative hover:text-primary-1 transition-colors"
             >
               <div
                 class="dummy-point !absolute !top-0 !left-0"
@@ -429,29 +430,26 @@
                 data-control-y="-450"
               ></div>
               <Icon name="tabler:mail" class="w-6 h-6 text-black" />
-              <a
-                href="mailto:patryksmakosz1@gmail.com"
-                class="hover:text-primary-1 transition-colors"
-              >
-                patryksmakosz1@gmail.com
-              </a>
-            </div>
+              <span>patryksmakosz1@gmail.com</span>
+            </a>
 
             <!-- LinkedIn -->
-            <div class="project-path-animation__contact-item contact-item">
+            <a
+              href="https://www.linkedin.com/in/patryksmakosz/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-path-animation__contact-item contact-item hover:text-primary-1 transition-colors"
+            >
               <Icon name="tabler:brand-linkedin" class="w-6 h-6 text-black" />
-              <a
-                href="https://www.linkedin.com/in/patryksmakosz/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary-1 transition-colors"
-                >LinkedIn</a
-              >
-            </div>
+              <span>LinkedIn</span>
+            </a>
 
             <!-- Facebook -->
-            <div
-              class="project-path-animation__contact-item contact-item relative"
+            <a
+              href="https://www.facebook.com/TastySites/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-path-animation__contact-item contact-item relative hover:text-primary-1 transition-colors"
             >
               <div
                 class="dummy-point !absolute !top-0 !left-[70%]"
@@ -461,86 +459,74 @@
                 data-control-y="-450"
               ></div>
               <Icon name="tabler:brand-facebook" class="w-6 h-6 text-black" />
-              <a
-                href="https://www.facebook.com/TastySites/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary-1 transition-colors"
-                >Facebook</a
-              >
-            </div>
+              <span>Facebook</span>
+            </a>
 
             <!-- Dribbble -->
-            <div class="project-path-animation__contact-item contact-item">
+            <a
+              href="https://dribbble.com/tastysites"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-path-animation__contact-item contact-item hover:text-primary-1 transition-colors"
+            >
               <Icon name="tabler:brand-dribbble" class="w-6 h-6 text-black" />
-              <a
-                href="https://dribbble.com/tastysites"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary-1 transition-colors"
-                >Dribbble</a
-              >
-            </div>
+              <span>Dribbble</span>
+            </a>
 
             <!-- Upwork -->
-            <div class="project-path-animation__contact-item contact-item">
+            <a
+              href="https://www.upwork.com/freelancers/~01085c23a2f6280a73"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-path-animation__contact-item contact-item hover:text-primary-1 transition-colors"
+            >
               <Icon name="simple-icons:upwork" class="w-6 h-6 text-black" />
-              <a
-                href="https://www.upwork.com/freelancers/~01085c23a2f6280a73"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary-1 transition-colors"
-                >Upwork</a
-              >
-            </div>
+              <span>Upwork</span>
+            </a>
 
             <!-- X (Twitter) -->
-            <div class="project-path-animation__contact-item contact-item">
+            <a
+              href="https://x.com/TastySites"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-path-animation__contact-item contact-item hover:text-primary-1 transition-colors"
+            >
               <Icon name="tabler:brand-x" class="w-6 h-6 text-black" />
-              <a
-                href="https://x.com/TastySites"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary-1 transition-colors"
-                >X (Twitter)</a
-              >
-            </div>
+              <span>X (Twitter)</span>
+            </a>
 
             <!-- Bluesky -->
-            <div class="project-path-animation__contact-item contact-item">
+            <a
+              href="https://bsky.app/profile/tastysites.bsky.social"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-path-animation__contact-item contact-item hover:text-primary-1 transition-colors"
+            >
               <Icon name="simple-icons:bluesky" class="w-6 h-6 text-black" />
-              <a
-                href="https://bsky.app/profile/tastysites.bsky.social"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary-1 transition-colors"
-                >Bluesky</a
-              >
-            </div>
+              <span>Bluesky</span>
+            </a>
 
             <!-- YouTube -->
-            <div class="project-path-animation__contact-item contact-item">
+            <a
+              href="https://www.youtube.com/channel/UCj7wr_x-BwJ0Yam8uw5lDsw"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-path-animation__contact-item contact-item hover:text-primary-1 transition-colors"
+            >
               <Icon name="tabler:brand-youtube" class="w-6 h-6 text-black" />
-              <a
-                href="https://www.youtube.com/channel/UCj7wr_x-BwJ0Yam8uw5lDsw"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary-1 transition-colors"
-                >YouTube</a
-              >
-            </div>
+              <span>YouTube</span>
+            </a>
 
             <!-- GitHub -->
-            <div class="project-path-animation__contact-item contact-item">
+            <a
+              href="https://github.com/patsma"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-path-animation__contact-item contact-item hover:text-primary-1 transition-colors"
+            >
               <Icon name="tabler:brand-github" class="w-6 h-6 text-black" />
-              <a
-                href="https://github.com/patsma"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-primary-1 transition-colors"
-                >GitHub</a
-              >
-            </div>
+              <span>GitHub</span>
+            </a>
           </div>
 
           <div class="project-path-animation__cta cta-section">
@@ -582,9 +568,11 @@
               </p>
               <p class="cta-contact">
                 Ready to start?
-                <a href="mailto:patryksmakosz1@gmail.com" class="email-link">
-                  Let's connect
-                </a>
+              </p>
+              <a href="mailto:patryksmakosz1@gmail.com" class="email-link cta-contact">
+                Let's connect
+              </a>
+              <p class="cta-contact">
                 and bring your vision to life.
               </p>
             </div>

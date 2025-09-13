@@ -528,10 +528,12 @@
           border-radius: space(3);
           box-shadow: var(--shadow-elevation-1);
           transition: $transition;
+          text-decoration: none;
+          color: inherit;
 
           &:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-elevation-1);
+            box-shadow: var(--shadow-elevation-2);
           }
 
           span {
@@ -769,13 +771,16 @@
               text-decoration: none;
               position: relative;
               transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-              padding: space(1) space(3);
+              padding: space(4) space(8);
               border-radius: space(2);
               background: linear-gradient(
                 135deg,
                 rgba(0, 137, 208, 0.1),
                 rgba(94, 237, 230, 0.1)
               );
+              display: block;
+              text-align: center;
+              margin: space(4) auto;
 
               &::before {
                 content: "";

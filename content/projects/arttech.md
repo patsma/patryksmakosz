@@ -50,7 +50,7 @@ meta:
 
 ::SimultaneousWords
 ---
-theme: dark
+theme: light
 pinHeightVh: 420
 paragraph: ArtTech is a cyberpunk-inspired SVG logo animation featuring dynamic path motion, glitch distortions, and layered GSAP timelines. It was delivered for a cryptocurrency company and embedded on a Next.js landing page.
 ---

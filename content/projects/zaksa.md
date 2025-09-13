@@ -4,7 +4,7 @@ slug: "zaksa"
 category: "logo-animation"
 cover: "/assets/medias/zaksa-thumb.svg"
 video: "/movies/web-optimized/zaksa.mp4"
-summary: "Zaksa logo animation demo."
+summary: "Dynamic logo animation for a Polish Volleyball Champion, lightweight web ready version, built so it can be used anywhere on the team website, potentially as main website header logo; built with GSAP."
 tags: ["animation", "gsap"]
 date: 2024-08-01
 ---
@@ -43,7 +43,8 @@ meta:
 ---
 theme: light
 pinHeightVh: 420
-paragraph: Logo animation for a polish volleyball club website. Built with GSAP and SVG.
+paragraph: Dynamic logo animation for a Polish Volleyball Champion, lightweight web ready version, built so it can be used anywhere on the team website, potentially as main website header logo; built with GSAP.
+
 ---
 ::
 <!-- <div class="project-container">

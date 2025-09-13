@@ -26,7 +26,7 @@ items:
   - Email Signature GIF
 separatorIcon: uil:bolt
 uppercase: true
-theme: light
+theme: dark
 repeatBlocks: 2
 pinHeightVh: 160
 fontSizeVw: 8
