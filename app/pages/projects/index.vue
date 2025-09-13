@@ -32,7 +32,7 @@ useHead({ title: "Projects" });
         <h1 class="projects-title">Projects</h1>
 
         <!-- Filter Navigation -->
-        <div class="flex flex-wrap gap-4 justify-center mb-8">
+        <div class="flex flex-wrap gap-4 justify-center mb-20">
           <NuxtLink
             class="filter-button group"
             to="/projects"
@@ -121,4 +121,3 @@ useHead({ title: "Projects" });
     </div>
   </section>
 </template>
-
