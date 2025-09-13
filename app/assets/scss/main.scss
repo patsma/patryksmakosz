@@ -93,25 +93,30 @@ html {
 }
 
 // Nuxt page/layout transitions
+// Page/layout transitions friendly with ScrollSmoother
 .page-enter-active,
-.page-leave-active,
-.layout-enter-active,
-.layout-leave-active {
-  transition:
-    opacity 300ms ease,
-    transform 300ms ease;
+.layout-enter-active {
+  transition: opacity 280ms ease;
 }
-
+.page-leave-active,
+.layout-leave-active {
+  transition: opacity 200ms ease;
+}
 .page-enter-from,
 .layout-enter-from {
-  opacity: 0.01;
-  transform: translateY(1rem);
+  opacity: 0.001;
 }
-
 .page-leave-to,
 .layout-leave-to {
-  opacity: 0.01;
-  transform: translateY(-1rem);
+  opacity: 0.001;
+}
+
+// When route is changing, keep content faded to avoid flicker during smoother re-init
+html.route-changing #smooth-content {
+  opacity: 0.001;
+}
+html #smooth-content {
+  transition: opacity 220ms ease;
 }
 
 * {

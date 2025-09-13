@@ -11,8 +11,8 @@ export default defineNuxtConfig({
 
   // Global transitions for pages and layouts
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
-    layoutTransition: { name: "layout", mode: "out-in" },
+    pageTransition: { name: "page", mode: "out-in", appear: true },
+    layoutTransition: { name: "layout", mode: "out-in", appear: true },
 
     head: {
       title:
@@ -92,7 +92,19 @@ export default defineNuxtConfig({
   // Simple global SCSS entry point (Nuxt standard assets dir)
   css: ["~/assets/scss/main.scss"],
 
-  modules: ["@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@nuxt/eslint", "@nuxtjs/tailwindcss", "@hypernym/nuxt-gsap", "@pinia/nuxt", "@nuxt/content", "@maz-ui/nuxt", "@tresjs/nuxt", "@sentry/nuxt/module"],
+  modules: [
+    "@nuxt/fonts",
+    "@nuxt/icon",
+    "@nuxt/image",
+    "@nuxt/eslint",
+    "@nuxtjs/tailwindcss",
+    "@hypernym/nuxt-gsap",
+    "@pinia/nuxt",
+    "@nuxt/content",
+    "@maz-ui/nuxt",
+    "@tresjs/nuxt",
+    "@sentry/nuxt/module",
+  ],
 
   gsap: {
     composables: true,

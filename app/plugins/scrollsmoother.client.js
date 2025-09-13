@@ -17,6 +17,15 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   let instance = null;
 
+  const setRouteChanging = (isChanging) => {
+    try {
+      const el = document.documentElement;
+      if (!el) return;
+      if (isChanging) el.classList.add("route-changing");
+      else el.classList.remove("route-changing");
+    } catch (e) {}
+  };
+
   const setScrollerDefaultsEarly = () => {
     try {
       const content = document.getElementById("smooth-content");
@@ -122,6 +131,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Hooks: kill before navigation, init after
   nuxtApp.hook("page:start", () => {
+    setRouteChanging(true);
     kill();
   });
 
@@ -129,6 +139,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     setScrollerDefaultsEarly();
     requestAnimationFrame(() => {
       init();
+      // Clear transition flag on next frame after init so CSS fades in
+      requestAnimationFrame(() => setRouteChanging(false));
     });
   });
 
