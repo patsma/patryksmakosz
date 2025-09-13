@@ -111,7 +111,7 @@
         },
         {
           title: 'Proven Track Record',
-          text: 'I transform complex ideas into captivating digital products that drive results. My work has delivered engaging, high-performing solutions for top-tier clients including Disney, Mazda, and Novo Nordisk.',
+          text: 'I have transformed complex ideas into captivating digital products that drive results. My work has delivered engaging, high-performing solutions for top-tier clients and agencies.',
         },
       ]"
       :alternative-colors="false"

@@ -17,7 +17,7 @@
         data-speed="0.6"
         data-lag="0.05"
       ></div>
-      
+
       <!-- Section 2 & 3 (White background) - Blue-ish elements with different speeds -->
       <div
         class="project-path-animation__parallax-element parallax-element parallax-element--3"
@@ -532,6 +532,7 @@
           <div class="project-path-animation__cta cta-section">
             <!-- Final target with ordered dummy point -->
             <div
+              ref="targetCircleRef"
               class="project-path-animation__target connection-target"
               id="final-target"
             >
@@ -568,11 +569,9 @@
               </p>
               <p class="cta-contact">
                 Ready to start?
-              </p>
-              <a href="mailto:patryksmakosz1@gmail.com" class="email-link cta-contact">
-                Let's connect
-              </a>
-              <p class="cta-contact">
+                <a href="mailto:patryksmakosz1@gmail.com" class="email-link">
+                  Let's connect
+                </a>
                 and bring your vision to life.
               </p>
             </div>
@@ -607,6 +606,7 @@ const milestonesRef = ref(null);
 const contactHeaderRef = ref(null);
 const contactGridRef = ref(null);
 const ctaTextRef = ref(null);
+const targetCircleRef = ref(null);
 
 // Storage for section animation timelines
 const sectionTimelines = ref([]);
@@ -862,6 +862,30 @@ const initializeSectionAnimations = () => {
 
       sectionTimelines.value.push(contactGridTimeline);
     }
+  }
+
+  // Target Circle Animation
+  if (targetCircleRef.value) {
+    // Set initial state - only opacity, no transforms
+    $gsap.set(targetCircleRef.value, { autoAlpha: 0 });
+
+    const targetCircleTimeline = $gsap.timeline({
+      scrollTrigger: {
+        trigger: targetCircleRef.value,
+        start: "top bottom-=50%",
+        // markers: true,
+        end: "bottom top+=20%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    targetCircleTimeline.to(targetCircleRef.value, {
+      autoAlpha: 1,
+      duration: 0.6,
+      ease: "power2.out",
+    });
+
+    sectionTimelines.value.push(targetCircleTimeline);
   }
 };
 
