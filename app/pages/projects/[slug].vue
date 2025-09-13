@@ -89,6 +89,20 @@ const nextPath = computed(() => nextProject.value?.path || NEXT_FALLBACK_PATH);
 // Keyboard navigation: ArrowLeft / ArrowRight to move between projects
 const router = useRouter();
 
+// Prevent rapid double navigations causing smoother crashes
+const isNavigating = ref(false);
+const navigateToPath = (path) => {
+  if (!path || isNavigating.value) return;
+  isNavigating.value = true;
+  // Push, then release the guard after route completes
+  router.push(path).finally(() => {
+    // small delay to let new page mount and plugin reinit
+    setTimeout(() => {
+      isNavigating.value = false;
+    }, 300);
+  });
+};
+
 /**
  * Check if the event target is an editable element.
  * We skip keyboard navigation when user is typing or interacting with inputs.
@@ -113,10 +127,10 @@ const handleKeydown = (event) => {
   if (isEditableTarget(event.target)) return;
 
   if (event.key === "ArrowLeft" && prevProject.value?.path) {
-    router.push(prevProject.value.path);
+    navigateToPath(prevProject.value.path);
   } else if (event.key === "ArrowRight") {
     // If there is a next project go there, otherwise use the fallback
-    router.push(nextProject.value?.path || NEXT_FALLBACK_PATH);
+    navigateToPath(nextProject.value?.path || NEXT_FALLBACK_PATH);
   }
 };
 
@@ -128,11 +142,11 @@ const { start: startSwipe, stop: stopSwipe } = useSwipe({
   // Swipe Left: go to next project (content moves left)
   onLeft: () => {
     // If there is a next project go there, otherwise use the fallback
-    router.push(nextProject.value?.path || NEXT_FALLBACK_PATH);
+    navigateToPath(nextProject.value?.path || NEXT_FALLBACK_PATH);
   },
   // Swipe Right: go to previous project
   onRight: () => {
-    if (prevProject.value?.path) router.push(prevProject.value.path);
+    if (prevProject.value?.path) navigateToPath(prevProject.value.path);
   },
   threshold: 56,
 });
