@@ -53,11 +53,11 @@ Here’s a taste of that journey:
 My last name, Smakosz, translates roughly to “the Taster.” That’s the origin of Tasty Sites:
 
 - Websites → creative, handcrafted digital experiences
-- Tasty sites of life → adventures, drone clips, and moments I share on my [YouTube channel](https://www.youtube.com/)
+- Tasty sites of life → adventures, drone clips, and moments I share on my [YouTube channel](https://www.youtube.com/channel/UCj7wr_x-BwJ0Yam8uw5lDsw)
 
 **Beyond the Nerdy Stuff**
 
-Despite the tech-heavy CV, I’m a social creature at heart. People, friendships, and connections are what keep me grounded. I love forest walks, riding bikes, gaming nights with friends, and discovering new stories in every form — books, games, films, or conversations.
+Despite the mostly tech CV, I’m a social creature at heart. People, friendships, and connections are what keep me grounded. I love forest walks, riding bikes, gaming nights with friends, and discovering new stories in every form — books, games, films, or conversations.
 
 And speaking of stories, that leads us to the next part: Why.
 
