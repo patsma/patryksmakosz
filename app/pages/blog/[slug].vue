@@ -28,11 +28,12 @@ const normalizePath = (p) => String(p || "").replace(/\/+$/, "");
 const currentPath = computed(() => normalizePath(`/blog/${slug.value}`));
 const navList = computed(() => {
   const list = (allPosts.value || []).slice();
+  // Sort chronologically ASC (oldest -> newest) so "Next" moves forward in time
   list.sort((a, b) => {
     const timeA = new Date(a?.date || 0).getTime();
     const timeB = new Date(b?.date || 0).getTime();
     return (
-      (Number.isNaN(timeB) ? 0 : timeB) - (Number.isNaN(timeA) ? 0 : timeA)
+      (Number.isNaN(timeA) ? 0 : timeA) - (Number.isNaN(timeB) ? 0 : timeB)
     );
   });
   return list
@@ -234,4 +235,3 @@ const scrollToTop = () => {
     </section>
   </div>
 </template>
-

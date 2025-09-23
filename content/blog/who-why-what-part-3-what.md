@@ -44,10 +44,11 @@ My projects span industries and formats — some highlights include:
 - 📢 Large HTML5 banner suites and Google Ads campaigns
 - 🎶 Creative media — music videos, animated logos, and glitch art pieces
 - 📊 Data visualization tools and interactive dashboards
-- 🛠 Specialized apps — from blockchain experiments to mindfulness and finance platforms
+- 🛠 Specialized apps — from blockchain experiments to p2p local-first apps
 
 Whether it’s a simple animated icon or a fully custom-built web platform, the goal is always the same: create something that feels alive, engaging, and meaningful.
 
-This portfolio is just a couple things I stitched together - some serious works awaits - I do have a nice design (not like here where I mostly just went with what components I wanted to present and the design here was just like minimal - just so it’s clear :D
+This portfolio is just a couple things I stitched together - some serious work awaits - I do have a nice design (not like here where I mostly just went with couple components I wanted to present and the design here was just like minimal - just so it’s clear :D
 
+But that's a start, and let's see what's next ;)
 
