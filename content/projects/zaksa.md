@@ -23,10 +23,10 @@ items:
   - GSAP Club Plugins
 separatorIcon: uil:bolt
 uppercase: true
-theme: light
+theme: dark
 repeatBlocks: 2
 pinHeightVh: 160
-fontSizeVw: 8
+fontSizeVw: 12
 iconSizeVw: 3.5
 wordGapVw: 3
 iconGapVw: 3

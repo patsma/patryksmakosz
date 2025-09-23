@@ -62,7 +62,7 @@ const formatDate = (iso) => {
 </script>
 
 <template>
-  <div class="pt-header">
+  <div class="pt-header relative z-0">
     <section class="blog-index">
       <!-- Background Parallax Elements -->
       <div class="parallax-bg">
@@ -177,4 +177,3 @@ const formatDate = (iso) => {
     </section>
   </div>
 </template>
-
