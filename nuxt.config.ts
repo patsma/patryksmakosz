@@ -103,7 +103,6 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@maz-ui/nuxt",
     "@tresjs/nuxt",
-    "@sentry/nuxt/module",
   ],
 
   gsap: {
@@ -126,15 +125,6 @@ export default defineNuxtConfig({
     extraEases: {
       custom: true,
     },
-  },
-
-  sentry: {
-    sourceMapsUploadOptions: {
-      org: "tasty-0a",
-      project: "javascript-nuxt",
-    },
-
-    autoInjectServerSentry: "top-level-import",
   },
 
   sourcemap: {
