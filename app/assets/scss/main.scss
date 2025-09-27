@@ -8,24 +8,16 @@
 @use "./utilities/header-compensation";
 
 // Components
-@use "./components/carousel-featured-case-studies";
 @use "./components/button";
 @use "./components/carousel-timeline";
 @use "./components/image-steppers";
-@use "./components/orbital-carousel";
-@use "./components/project-path-animation";
 @use "./components/hamburger-menu";
-@use "./components/animation-components";
 @use "./components/project-page";
-@use "./components/opposite-direction-marquees";
-@use "./components/simultaneous-words";
-@use "./components/infinite-drag-grid";
 @use "./components/site-header";
 @use "./components/blog";
 @use "./components/blog-post";
 @use "./components/projects-page";
 @use "./components/error-page";
-@use "./components/hero-video";
 
 html,
 body {
