@@ -17,9 +17,6 @@
     >
       Skip to main content
     </a>
-    <MorphingLogo
-      class="fixed z-10 pointer-events-none left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-auto"
-    />
 
     <!-- Visible, semantic site header (fixed outside #smooth-content for GSAP) -->
     <header class="site-header" role="banner" aria-label="Site header">

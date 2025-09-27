@@ -1,96 +1,6 @@
 <template>
   <div class="pt-header">
     <h1 class="sr-only">About</h1>
-    <OrbitalCarousel class="-mt-[10vh] 2xl:-mt-[30vh]" />
-    <CarouselTimeline
-      headline="Your Project Journey With Me"
-      text-under-headline="My collaborative process ensures your vision transforms into an engaging and high-performing digital experience, from initial concept to successful launch."
-      :steps="[
-        {
-          title: 'Discover & Define',
-          content:
-            'My initial approach emphasizes understanding your needs and project goals through detailed consultation. This foundation-setting step defines requirements and ensures we\'re aligned on your vision from the start.',
-          read_more_link: '#',
-        },
-        {
-          title: 'Design & Prototype',
-          content:
-            'Building on discovery, I translate your ideas into modern interfaces and interactive prototypes. This phase focuses on user experience (UX) and visual design, creating engaging concepts that align with your brand.',
-          read_more_link: '#',
-        },
-        {
-          title: 'Develop & Animate',
-          content:
-            'This is where core technical and creative skills come to the forefront. Your vision comes to life with clean code and captivating web animations using GSAP, SVG, Canvas, WordPress, and Nuxt.js.',
-          read_more_link: '#',
-        },
-        {
-          title: 'Optimize & Refine',
-          content:
-            'Demonstrating commitment to quality through rigorous testing for functionality, responsiveness, and page speed. This ensures a secure, flawless user experience while staying responsive to your feedback.',
-          read_more_link: '#',
-        },
-        {
-          title: 'Launch & Support',
-          content:
-            'The final step covers deployment and ongoing support, reinforcing dedication to long-term success. Your project launches ready to engage audiences with continued support for client relationships.',
-          read_more_link: '#',
-        },
-      ]"
-    />
-    <CarouselFeaturedCaseStudies
-      headline="Featured case studies"
-      :alternative-colors="false"
-      :gradient-title="true"
-      view-all-href="/projects"
-      :cases="[
-        {
-          post_title: 'Life Balance Congress (LBC)',
-          post_excerpt:
-            'Interactive web experience rich in scroll transitions, SVG animations, and GSAP effects built in Nuxt',
-          testimonial_content:
-            'Outstanding work on our interactive platform. The scroll animations and user experience exceeded our expectations.',
-          testimonial_name: 'Sarah Johnson',
-          testimonial_position: 'Creative Director',
-          permalink: '/projects/life-balance-congress',
-          thumbnail_url: '/assets/case/caseLbc.svg',
-        },
-        {
-          post_title: 'ArtTech Logo Animation',
-          post_excerpt:
-            'Cyberpunk-inspired SVG logo animation featuring dynamic path motion, glitch distortions, and layered GSAP timelines',
-          testimonial_content:
-            'The logo animation perfectly captured our brand identity. Professional execution and creative vision.',
-          testimonial_name: 'Michael Chen',
-          testimonial_position: 'CEO',
-          permalink: '/projects/arttech',
-          thumbnail_url: '/assets/case/caseArtTech.svg',
-        },
-        {
-          post_title: 'Riverscape',
-          post_excerpt:
-            'Nuxt 2 website powered by headless WordPress backend with Locomotive Scroll and GSAP animation layer',
-          testimonial_content:
-            'Seamless integration and beautiful animations. The smooth scrolling experience is exactly what we wanted.',
-          testimonial_name: 'Emma Rodriguez',
-          testimonial_position: 'Marketing Manager',
-          permalink: '/projects/riverscape',
-          thumbnail_url: '/assets/case/caseRiverscape.svg',
-        },
-        {
-          post_title: 'Pushups Tracker',
-          post_excerpt:
-            'Local-first Nuxt 3 application using TypeScript, RxDB, Dexie.js and WebRTC for peer-to-peer sync',
-          testimonial_content:
-            'Impressive technical implementation. The offline-first approach and real-time sync work flawlessly.',
-          testimonial_name: 'David Kim',
-          testimonial_position: 'Product Manager',
-          permalink: '/projects/pushups-tracker',
-          thumbnail_url: '/assets/case/casePushups.svg',
-        },
-      ]"
-      id-attr="featured-cases-1"
-    />
 
     <ImageSteppers
       title="My Approach to Digital Craftsmanship"
@@ -126,8 +36,7 @@
         },
       ]"
     />
-    <ProjectPathAnimation />
-    <div class="spacer h-24"></div>
+
     <!-- <ProjectPathAnimation /> -->
   </div>
 </template>
