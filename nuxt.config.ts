@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
@@ -89,21 +90,30 @@ export default defineNuxtConfig({
     { path: "~/components/SVG", pathPrefix: false },
   ],
 
-  // Simple global SCSS entry point (Nuxt standard assets dir)
-  css: ["~/assets/scss/main.scss"],
+  // Simple global CSS entry orchestrating Tailwind v4
+  css: ["~/assets/css/main.css"],
 
   modules: [
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/image",
     "@nuxt/eslint",
-    "@nuxtjs/tailwindcss",
     "@hypernym/nuxt-gsap",
     "@pinia/nuxt",
     "@nuxt/content",
     "@maz-ui/nuxt",
     "@tresjs/nuxt",
   ],
+
+  // Tailwind v4 integration through Vite and PostCSS
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  postcss: {
+    plugins: {
+      "@tailwindcss/postcss": {},
+    },
+  },
 
   gsap: {
     composables: true,
