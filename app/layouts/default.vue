@@ -20,13 +20,13 @@
 
     <!-- Visible, semantic site header (fixed outside #smooth-content for GSAP) -->
     <header role="banner" aria-label="Site header">
-      <SimpleHeader />
+      <HeaderGrid />
     </header>
 
     <div id="smooth-content" :key="route.fullPath">
       <!-- Use landmark roles and a main heading region -->
 
-      <main id="main-content" role="main" tabindex="-1">
+      <main id="main-content" class="header-safe-top" role="main" tabindex="-1">
         <slot />
       </main>
 
