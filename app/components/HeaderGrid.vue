@@ -100,74 +100,94 @@
   </header>
 </template>
 
-<script setup lang="ts">
+<script setup lang="js">
 // Import the provided SVG-based hamburger icon for mobile
 import HamburgerSVG from "./SVG/HamburgerSVG.vue";
+
 // Nuxt GSAP services (provided by GSAP Nuxt module/plugin)
 const { $gsap, $DrawSVGPlugin } = useNuxtApp();
 
-// Shared menu state for consistent header behavior
-const isOpen = useState<boolean>("headerMenuOpen", () => false);
+/**
+ * Shared menu state for consistent header behavior
+ * @type {import('vue').Ref<boolean>}
+ */
+const isOpen = useState("headerMenuOpen", () => false);
 
 // Refs to animate
-const containerRef = ref<HTMLElement | null>(null);
-const hamburgerBtn = ref<HTMLElement | null>(null);
-const overlayRef = ref<HTMLElement | null>(null);
+/** @type {import('vue').Ref<HTMLElement|null>} */
+const containerRef = ref(null);
+/** @type {import('vue').Ref<HTMLElement|null>} */
+const hamburgerBtn = ref(null);
+/** @type {import('vue').Ref<HTMLElement|null>} */
+const overlayRef = ref(null);
+
 // Reference to child SVG component to access its root SVG via exposed ref
-type MaybeRefSvg = SVGSVGElement | null | { value: SVGSVGElement | null };
-type HamburgerSVGExposed = { svgRootRef?: MaybeRefSvg; svgRef?: MaybeRefSvg };
-const hamburgerSvgComponent = ref<HamburgerSVGExposed | null>(null);
+/**
+ * @typedef {SVGSVGElement | null | { value: SVGSVGElement | null }} MaybeRefSvg
+ * @typedef {{ svgRootRef?: MaybeRefSvg, svgRef?: MaybeRefSvg }} HamburgerSVGExposed
+ */
+/** @type {import('vue').Ref<HamburgerSVGExposed|null>} */
+const hamburgerSvgComponent = ref(null);
 
-// Minimal timeline/context interfaces to keep types strict without gsap types
-type TimelineControls = { play: () => void; reverse: () => void };
-type GsapContextLike = { revert?: () => void };
-
-let hamburgerTl: TimelineControls | null = null;
-let overlayTl: TimelineControls | null = null;
-let gsapCtx: GsapContextLike | null = null;
+// Internal handles
+/** @type {any} */
+let hamburgerTl = null;
+/** @type {any} */
+let overlayTl = null;
+/** @type {{ revert?: () => void } | null} */
+let gsapCtx = null;
 
 // Navigation items — mirrors existing site structure
-type NavItem = { label: string; href: string };
-const items: NavItem[] = [
+/** @typedef {{ label: string, href: string }} NavItem */
+/** @type {NavItem[]} */
+const items = [
   { label: "home", href: "/" },
   { label: "about", href: "/about" },
 ];
 
 // Active route highlighting
 const route = useRoute();
-function isActive(href: string) {
+/**
+ * @param {string} href
+ * @returns {boolean}
+ */
+function isActive(href) {
   return route.path === href;
 }
 
 onMounted(() => {
   if (!$gsap) return;
-  const scopeEl = (containerRef.value as unknown as Element) || undefined;
+  const scopeEl = containerRef.value || undefined;
   nextTick(() => {
     gsapCtx = $gsap.context(() => {
-      // Helper to unwrap child-exposed refs safely
-      const getExposedSvgEl = (
-        exp: HamburgerSVGExposed | null
-      ): SVGSVGElement | null => {
+      /**
+       * Helper to unwrap child-exposed refs safely
+       * @param {HamburgerSVGExposed | null} exp
+       * @returns {SVGSVGElement | null}
+       */
+      const getExposedSvgEl = (exp) => {
         if (!exp) return null;
-        const candidate: MaybeRefSvg | undefined = exp.svgRootRef ?? exp.svgRef;
+        const candidate = exp.svgRootRef ?? exp.svgRef;
         if (candidate == null) return null;
-        return (candidate as { value?: SVGSVGElement | null }).value !==
-          undefined
-          ? (candidate as { value: SVGSVGElement | null }).value
-          : (candidate as SVGSVGElement | null);
+        return Object.prototype.hasOwnProperty.call(candidate, "value")
+          ? /** @type {{ value: SVGSVGElement | null }} */ (candidate).value
+          : /** @type {SVGSVGElement | null} */ (candidate);
       };
 
       // Prefer animating via child component's exposed svgRootRef for reliability
-      const svgRoot: SVGSVGElement | null =
+      /** @type {SVGSVGElement | null} */
+      const svgRoot =
         getExposedSvgEl(hamburgerSvgComponent.value) ||
-        (hamburgerBtn.value?.querySelector("svg") as SVGSVGElement | null);
+        /** @type {SVGSVGElement | null} */ (
+          hamburgerBtn.value?.querySelector("svg") || null
+        );
 
       if (!svgRoot) {
         console.warn("HeaderGrid: hamburger SVG root not found");
         return;
       }
 
-      // New approach: cross-draw between #closed and #opened path sets using DrawSVG
+      // Cross-draw between #closed and #opened path sets using DrawSVG
       const closedPaths = svgRoot.querySelectorAll("#closed path");
       const openedPaths = svgRoot.querySelectorAll("#opened path");
 
@@ -202,7 +222,7 @@ onMounted(() => {
           "<+0.05"
         );
       }
-      hamburgerTl = tl as unknown as TimelineControls;
+      hamburgerTl = tl;
 
       // Animate overlay open/close using clip-path reveal + staggered links
       if (overlayRef.value) {
@@ -256,7 +276,7 @@ onMounted(() => {
           }
         });
 
-        overlayTl = tl2 as unknown as TimelineControls;
+        overlayTl = tl2;
       }
     }, scopeEl);
   });
@@ -283,7 +303,9 @@ function close() {
 }
 
 onUnmounted(() => {
-  gsapCtx?.revert?.();
+  if (gsapCtx && typeof gsapCtx.revert === "function") {
+    gsapCtx.revert();
+  }
 });
 </script>
 
