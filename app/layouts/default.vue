@@ -19,13 +19,8 @@
     </a>
 
     <!-- Visible, semantic site header (fixed outside #smooth-content for GSAP) -->
-    <header class="site-header" role="banner" aria-label="Site header">
-      <div class="site-header__inner">
-        <div class="site-header__logo">
-          <LogoHorizontalSmall />
-        </div>
-        <HamburgerMenu />
-      </div>
+    <header role="banner" aria-label="Site header">
+      <SimpleHeader />
     </header>
 
     <div id="smooth-content" :key="route.fullPath">
