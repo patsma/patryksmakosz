@@ -5,19 +5,8 @@
 @use "./mixins" as *;
 
 // Utilities (must come before components that @extend them)
-@use "./utilities/header-compensation";
 
 // Components
-@use "./components/button";
-@use "./components/carousel-timeline";
-@use "./components/image-steppers";
-@use "./components/hamburger-menu";
-@use "./components/project-page";
-@use "./components/site-header";
-@use "./components/blog";
-@use "./components/blog-post";
-@use "./components/projects-page";
-@use "./components/error-page";
 
 html,
 body {
