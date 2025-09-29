@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
@@ -89,21 +90,25 @@ export default defineNuxtConfig({
     { path: "~/components/SVG", pathPrefix: false },
   ],
 
-  // Simple global SCSS entry point (Nuxt standard assets dir)
-  css: ["~/assets/scss/main.scss"],
+  // Tailwind v4 + global SCSS. Order matters: Tailwind first, then custom SCSS.
+  css: ["./app/assets/css/main.css"],
 
   modules: [
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/image",
     "@nuxt/eslint",
-    "@nuxtjs/tailwindcss",
     "@hypernym/nuxt-gsap",
     "@pinia/nuxt",
     "@nuxt/content",
     "@maz-ui/nuxt",
     "@tresjs/nuxt",
   ],
+
+  // Enable TailwindCSS v4 via Vite plugin
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   gsap: {
     composables: true,

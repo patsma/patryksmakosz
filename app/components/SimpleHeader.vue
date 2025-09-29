@@ -1,7 +1,7 @@
 <template>
   <!-- Minimal Tailwind-only header navigation -->
   <div
-    class="bg-white/80 supports-[backdrop-filter]:bg-white/60 backdrop-blur border-b border-gray-200"
+    class="bg-white/80 supports-[backdrop-filter]:bg-white/60 backdrop-blur border-b relative z-50 border-gray-200"
   >
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <nav class="flex items-center justify-between h-14" aria-label="Primary">
