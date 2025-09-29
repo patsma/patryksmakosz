@@ -1,25 +1,27 @@
 <template>
-  <!-- Minimal Tailwind-only header navigation -->
+  <!-- Token-driven header using content-grid and spacing variables -->
   <div
     class="bg-white/80 supports-[backdrop-filter]:bg-white/60 backdrop-blur border-b relative z-50 border-gray-200"
   >
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <nav class="flex items-center justify-between h-14" aria-label="Primary">
-        <div class="flex items-center gap-6">
-          <NuxtLink
-            to="/"
-            class="text-sm font-medium text-gray-900 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-          >
-            Home
-          </NuxtLink>
-          <NuxtLink
-            to="/about"
-            class="text-sm font-medium text-gray-700 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-          >
-            About
-          </NuxtLink>
-        </div>
-      </nav>
+    <div class="content-grid">
+      <div class="content py-[calc(var(--space-s))]">
+        <nav class="flex items-center justify-between" aria-label="Primary">
+          <div class="flex items-center gap-[var(--space-s)]">
+            <NuxtLink
+              to="/"
+              class="font-agrandir text-step-0 text-[var(--color-ink)] hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/80 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              Home
+            </NuxtLink>
+            <NuxtLink
+              to="/about"
+              class="font-agrandir text-step-0 text-[var(--color-ink)]/80 hover:text-[var(--color-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/80 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            >
+              About
+            </NuxtLink>
+          </div>
+        </nav>
+      </div>
     </div>
   </div>
 </template>
