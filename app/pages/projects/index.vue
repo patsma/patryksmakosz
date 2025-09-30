@@ -22,6 +22,24 @@ const projects = computed(() => {
   return allProjects.value;
 });
 
+/**
+ * Dynamic counts for filters
+ * Creates simple counters for all items and each category.
+ * Uses defensive defaults so template can render during initial load.
+ * @type {import('vue').ComputedRef<{ all: number, 'logo-animation': number, website: number, 'custom-animation': number }>}
+ */
+const counts = computed(() => {
+  const items = allProjects.value || [];
+  return {
+    all: items.length,
+    "logo-animation": items.filter((i) => i.category === "logo-animation")
+      .length,
+    website: items.filter((i) => i.category === "website").length,
+    "custom-animation": items.filter((i) => i.category === "custom-animation")
+      .length,
+  };
+});
+
 useHead({ title: "Projects" });
 </script>
 
@@ -40,7 +58,7 @@ useHead({ title: "Projects" });
           >
             <Icon name="mdi:view-grid" class="w-5 h-5" />
             <span>All</span>
-            <span class="filter-count">(15)</span>
+            <span class="filter-count">({{ counts.all }})</span>
           </NuxtLink>
 
           <NuxtLink
@@ -50,7 +68,7 @@ useHead({ title: "Projects" });
           >
             <Icon name="mdi:animation" class="w-5 h-5" />
             <span>Logo Animations</span>
-            <span class="filter-count">(7)</span>
+            <span class="filter-count">({{ counts["logo-animation"] }})</span>
           </NuxtLink>
 
           <NuxtLink
@@ -60,7 +78,7 @@ useHead({ title: "Projects" });
           >
             <Icon name="mdi:web" class="w-5 h-5" />
             <span>Websites</span>
-            <span class="filter-count">(6)</span>
+            <span class="filter-count">({{ counts.website }})</span>
           </NuxtLink>
 
           <NuxtLink
@@ -72,7 +90,7 @@ useHead({ title: "Projects" });
           >
             <Icon name="mdi:palette" class="w-5 h-5" />
             <span>Custom Animations</span>
-            <span class="filter-count">(3)</span>
+            <span class="filter-count">({{ counts["custom-animation"] }})</span>
           </NuxtLink>
         </div>
       </div>
