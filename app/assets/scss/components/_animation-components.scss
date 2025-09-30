@@ -96,7 +96,10 @@
   &--player-prototype {
     overflow: hidden;
   }
-  &--page404 {
+
+  &--envelope {
+    overflow: hidden;
+    background-color: $beige-3;
   }
 
   &--split-text {

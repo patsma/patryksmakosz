@@ -50,6 +50,10 @@ $system-orange-3: #db8b12;
 $system-red-1: #ffc0c0;
 $system-red-2: #d50e2a;
 $system-red-3: #cc2929;
+// Beige color palette
+$beige-1: #f5f5dc; // Light beige
+$beige-2: #e6d5b8; // Medium beige
+$beige-3: #fde2be83; // Dark beige
 
 $transition: 0.3s all ease-in-out;
 
@@ -105,7 +109,7 @@ $shadow-elevation-1: var(--shadow-elevation-1);
 // -----------------------------------------------------------------------------
 // Calculate total header height for layout compensation
 $header-padding-mobile: space(1); // 0.75rem (top + bottom = 1.5rem)
-$header-padding-tablet: space(1); // 1rem (top + bottom = 2rem)  
+$header-padding-tablet: space(1); // 1rem (top + bottom = 2rem)
 $header-content-height: $size-button-height; // 3rem
 $header-height-mobile: $header-content-height + ($header-padding-mobile * 2); // 4.5rem
 $header-height-tablet: $header-content-height + ($header-padding-tablet * 2); // 5rem

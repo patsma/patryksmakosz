@@ -192,6 +192,16 @@ const createTimelines = () => {
     .from(els.paperMaskFull, { autoAlpha: 0, duration: 0.01 }, "-=1")
     .from(els.shadowsInner, { autoAlpha: 0, y: "+=2" }, 0.1);
 
+  // Configure auto-yoyo behavior: forward then wait 2s then reverse back
+  openTl.repeat(1).yoyo(true).repeatDelay(2);
+  // When the full forward+reverse cycle completes, return to waiting state
+  openTl.eventCallback("onComplete", () => {
+    isOpen.value = false;
+    // Keep text visible and resume arrow loop without replaying the intro
+    introPlayed.value = true;
+    arrowLoopTl?.play();
+  });
+
   // Apply requested playback speed
   introTl.timeScale(props.timeScale);
   arrowLoopTl.timeScale(props.timeScale);
@@ -245,15 +255,10 @@ function handleToggle() {
   if (!isOpen.value) {
     // Opening: stop intro loop and play open
     stopIntroLoop();
-    openTl.play(0);
+    openTl.restart(true, false);
     isOpen.value = true;
   } else {
-    // Closing: reverse and resume arrow loop when done
-    openTl.reverse();
-    openTl.eventCallback("onReverseComplete", () => {
-      isOpen.value = false;
-      startIntro();
-    });
+    // If already opening/open, ignore extra clicks while cycle runs
   }
 }
 
@@ -345,7 +350,7 @@ defineExpose({
   playIntro: () => startIntro(),
   playOpen: () => {
     stopIntroLoop();
-    openTl?.play(0);
+    openTl?.restart(true, false);
     isOpen.value = true;
   },
   toggle: () => handleToggle(),

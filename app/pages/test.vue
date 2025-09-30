@@ -1,5 +1,5 @@
 <template>
-  <section key="test-page" aria-labelledby="test-heading">
+  <section key="test-page" class="pt-header" aria-labelledby="test-heading">
     <h1 id="test-heading" class="sr-only">Test</h1>
     <ProjectEnvelope
       :autoPlay="true"
