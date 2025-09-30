@@ -1,11 +1,13 @@
 ---
 title: "Envelope"
 slug: "envelope"
-category: "svg-animation"
+category: "custom-animation"
 cover: "/projects-to-import/envelope/public/envelope.svg"
 summary: "Interactive envelope-opening prototype for virtual wish cards and invitations. Built with SVG, GSAP, Illustrator masks, and Vite."
 tags: ["animation", "gsap", "svg"]
 date: 2019-12-01
+liveLink: "https://youtu.be/g96uz4zWBzg?si=ZMVvXuSJx0rRiR3I"
+liveLinkLabel: "Learn more"
 ---
 
 :::ProjectEnvelope
@@ -44,6 +46,6 @@ meta:
 ---
 theme: light
 pinHeightVh: 320
-paragraph: Interactive envelope-opening prototype for virtual wish cards and invitations. Built with SVG, GSAP, Illustrator masks, and Vite.
+paragraph: Interactive envelope-opening prototype for virtual wish cards and invitations. Built with SVG, GSAP, Illustrator masks, and Vite. The plan was to use the blank card at the end and put a canvas based design on top of it
 ---
 :::

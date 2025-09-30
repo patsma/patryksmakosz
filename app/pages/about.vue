@@ -122,7 +122,7 @@
         {
           type: 'filled',
           link: 'mailto:patryksmakosz1@gmail.com',
-          text: 'Let\'s chat 😁',
+          text: 'About me',
         },
       ]"
     />

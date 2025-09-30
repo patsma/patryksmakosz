@@ -72,7 +72,7 @@ useHead({ title: "Projects" });
           >
             <Icon name="mdi:palette" class="w-5 h-5" />
             <span>Custom Animations</span>
-            <span class="filter-count">(2)</span>
+            <span class="filter-count">(3)</span>
           </NuxtLink>
         </div>
       </div>

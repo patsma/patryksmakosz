@@ -19,6 +19,8 @@ export default defineContentConfig({
         cover: z.string().optional(),
         video: z.string().optional(),
         liveLink: z.string().optional(),
+        liveLinkLabel: z.string().optional(),
+        ctaLabel: z.string().optional(),
         components: z.array(z.string()).optional(),
         summary: z.string().optional(),
       }),

@@ -179,7 +179,7 @@ const createTimelines = () => {
         scaleY: 0,
         ease: "linear",
       },
-      "-=1"
+      "-=1.2"
     )
     .from(
       els.paper,

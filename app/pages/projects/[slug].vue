@@ -23,6 +23,10 @@ const pageTitle = computed(() => project.value?.title || slug.value);
 
 // Extract optional live link from frontmatter if present
 const liveLink = computed(() => project.value?.liveLink || "");
+const liveLinkLabel = computed(() => {
+  const p = project.value || {};
+  return p.liveLinkLabel || p.ctaLabel || "Live Link";
+});
 
 useHead({ title: `${pageTitle.value} • Projects` });
 
@@ -260,9 +264,11 @@ const debugInfo = computed(() => ({
               target="_blank"
               rel="noopener noreferrer"
               class="btn-standard-outlined"
-              aria-label="Open live project in new tab"
+              :aria-label="liveLinkLabel"
             >
-              <span class="project-page__live-link-button"> Live Link </span>
+              <span class="project-page__live-link-button">
+                {{ liveLinkLabel }}
+              </span>
             </NuxtLink>
           </div>
         </div>
