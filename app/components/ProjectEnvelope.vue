@@ -10,9 +10,10 @@
 <script setup>
 /**
  * ProjectEnvelope animation component
- * - Follows the same API and lifecycle patterns as ProjectArtTech/ProjectZaksa
- * - Uses refs scoped to the inline SVG root for reliable querying
- * - Ports the GSAP timeline from the legacy /public/projects-to-import/envelope/src/main.js
+ * - Two-phase interaction:
+ *   1) Intro: reveals text and loops arrow bounce until user clicks the button/arrow
+ *   2) Open: plays the envelope opening sequence; clicking again toggles to close
+ * - Uses refs scoped to the inline SVG root and scoped <defs> id prefixing
  */
 
 // Nuxt/GSAP plugins available via Nuxt app injection
@@ -26,63 +27,49 @@ import { scopeSvgDefsIds, remapIdSelectors } from "/utils/scopeSvgIds";
 // Core refs and state
 const containerRef = ref(null);
 const svgComponentRef = ref(null);
-const timeline = ref(null);
+const timeline = ref(null); // exposed as the "open" timeline
 let gsapCtx = null;
 let scrollTriggerInstance = null;
 
+// Internal timelines
+let introTl = null; // one-shot: just reveal text
+let arrowLoopTl = null; // loops arrow bounce until click
+let openTl = null; // main open/close sequence
+
+// Elements cache
+let els = null;
+
+// Simple state
+const isOpen = ref(false);
+const introPlayed = ref(false);
+
 // Props for consistency with other project components
 const props = defineProps({
-  /**
-   * @type {boolean}
-   * Show GSDevTools (minimal) for debugging
-   */
+  /** @type {boolean} Show GSDevTools (minimal) for debugging */
   showDevTools: { type: Boolean, default: false },
-  /**
-   * @type {string}
-   * Unique id for GSDevTools instance
-   */
+  /** @type {string} Unique id for GSDevTools instance */
   devToolsId: {
     type: String,
     default: () => `envelope-${Math.random().toString(36).slice(2, 9)}`,
   },
-  /**
-   * @type {boolean}
-   * Autoplay when ScrollTrigger is disabled
-   */
+  /** @type {boolean} Autoplay intro when ScrollTrigger is disabled */
   autoPlay: { type: Boolean, default: true },
-  /**
-   * @type {boolean}
-   * Use ScrollTrigger to play/pause based on visibility
-   */
+  /** @type {boolean} Use ScrollTrigger to play/pause based on visibility */
   useScrollTrigger: { type: Boolean, default: true },
-  /**
-   * @type {string}
-   * ScrollTrigger start position
-   */
+  /** @type {string} ScrollTrigger start position */
   stStart: { type: String, default: "top center" },
-  /**
-   * @type {string}
-   * ScrollTrigger end position
-   */
+  /** @type {string} ScrollTrigger end position */
   stEnd: { type: String, default: "bottom center" },
-  /**
-   * @type {boolean}
-   * Loop the animation (restarts from the beginning)
-   */
-  loop: { type: Boolean, default: true },
-  /**
-   * @type {number}
-   * Playback speed multiplier
-   */
+  /** @type {number} Playback speed multiplier applied to all timelines */
   timeScale: { type: Number, default: 1 },
 });
 
 /**
- * Build the GSAP timeline using the Envelope SVG structure.
- * This mirrors the original sequence from the legacy project while scoping <defs> ids.
- * @returns {GSAPTimeline|null}
+ * Build timelines using the Envelope SVG structure.
+ * - Scopes <defs> ids to avoid collisions and remaps selectors
+ * - Creates: introTl (reveal), arrowLoopTl (indefinite), openTl (open/close)
  */
-const createAnimation = () => {
+const createTimelines = () => {
   const svgRoot = svgComponentRef.value?.svgRootRef;
   if (!svgRoot) {
     console.warn("ProjectEnvelope: SVG root not found");
@@ -110,69 +97,74 @@ const createAnimation = () => {
   const qa = (sel) =>
     Array.from(svgRoot.querySelectorAll(remapIdSelectors(sel, idMap)));
 
+  // Cache elements we need
+  els = {
+    textItems: qa("#text > *"),
+    arrow: q("#arrow"),
+    button: q("#button"),
+    closed: q("#closed"),
+    patternTop: q("#pattern-top"),
+    paper: q("#paper"),
+    paperMask: q("#paper-mask"),
+    paperMaskFull: q("#paper-mask-full"),
+    shadowsInner: q("#shadows-inner"),
+    patternBottom: q("#pattern-bottom"),
+    accents: q("#accents"),
+    body: q("#body"),
+    bottomShadow: q("#bottom-shadow"), // optional
+  };
+
   // Initial visibility for container
   $gsap.set(containerRef.value, { autoAlpha: 1 });
 
-  // Create main timeline (looping optional)
-  const tl = $gsap.timeline({
+  // Default starting states for intro
+  if (els.textItems.length) $gsap.set(els.textItems, { autoAlpha: 0 });
+  if (els.arrow) $gsap.set(els.arrow, { autoAlpha: 0, y: 0 });
+
+  // INTRO: reveal text; then hand off to arrow loop
+  introTl = $gsap.timeline({
     paused: true,
-    repeat: props.loop ? -1 : 0,
     defaults: { ease: "power2.inOut" },
-    onComplete: () => {
-      // Keep API consistent; no-op when repeating
-    },
   });
+  introTl
+    .to(els.textItems, { autoAlpha: 1, stagger: 0.1 })
+    .to(els.arrow, { autoAlpha: 1 }, "<");
 
-  // Elements used in the sequence
-  const textItems = qa("#text > *");
-  const arrow = q("#arrow");
-  const button = q("#button");
-  const closed = q("#closed");
-  const patternTop = q("#pattern-top");
-  const paper = q("#paper");
-  const paperMask = q("#paper-mask");
-  const paperMaskFull = q("#paper-mask-full");
-  const shadowsInner = q("#shadows-inner");
-  const patternBottom = q("#pattern-bottom");
-  const accents = q("#accents");
-  const body = q("#body");
-  const bottomShadow = q("#bottom-shadow"); // Present in original list; optional in inline SVG
+  // ARROW LOOP: bounce until click
+  arrowLoopTl = $gsap.timeline({ paused: true });
+  if (els.arrow) {
+    arrowLoopTl.to(els.arrow, {
+      y: "+=10",
+      duration: 0.6,
+      ease: "power1.inOut",
+      yoyo: true,
+      repeat: -1,
+    });
+  }
 
-  // Guard against missing optional element
+  // OPEN: envelope opening sequence, adapted from legacy main.js
   const movingGroup = [
-    patternTop,
-    closed,
-    shadowsInner,
-    patternBottom,
-    accents,
-    body,
+    els.patternTop,
+    els.closed,
+    els.shadowsInner,
+    els.patternBottom,
+    els.accents,
+    els.body,
   ].filter(Boolean);
-  if (bottomShadow) movingGroup.push(bottomShadow);
+  if (els.bottomShadow) movingGroup.push(els.bottomShadow);
 
-  // Default starting states
-  if (textItems.length) $gsap.set(textItems, { autoAlpha: 0 });
-  if (arrow) $gsap.set(arrow, { autoAlpha: 0 });
-
-  // Sequence (ported from legacy main.js with minimal changes)
-  tl.to(textItems, { autoAlpha: 1, stagger: 0.1 })
-    .fromTo(
-      arrow,
-      { y: "+=10", autoAlpha: 0 },
-      { y: 0, repeat: 2, yoyo: true, autoAlpha: 1 },
-      "<"
-    )
-    .to(arrow, { autoAlpha: 0 })
+  openTl = $gsap.timeline({ paused: true, defaults: { ease: "power2.inOut" } });
+  openTl
+    // hide arrow + button + text
+    .to(els.arrow, { autoAlpha: 0 })
     .to(
-      button,
-      {
-        autoAlpha: 0,
-        scale: 0,
-        transformOrigin: "center center",
-      },
+      els.button,
+      { autoAlpha: 0, scale: 0, transformOrigin: "center center" },
       "<"
     )
-    .to(textItems, { autoAlpha: 0, stagger: 0.1 }, "<")
-    .to(closed, {
+    .to(els.textItems, { autoAlpha: 0, stagger: 0.05 }, "<")
+    // flip top (closed) and reveal pattern/paper
+    .to(els.closed, {
       duration: 2,
       transformOrigin: "center top",
       fill: "#f5f5f5",
@@ -180,7 +172,7 @@ const createAnimation = () => {
       ease: "linear",
     })
     .from(
-      patternTop,
+      els.patternTop,
       {
         duration: 1.5,
         transformOrigin: "center bottom",
@@ -190,71 +182,136 @@ const createAnimation = () => {
       "-=1"
     )
     .from(
-      paper,
-      {
-        duration: 2,
-        scaleY: 0,
-        transformOrigin: "center bottom",
-      },
+      els.paper,
+      { duration: 2, scaleY: 0, transformOrigin: "center bottom" },
       "-=2.5"
     )
-    .to(paperMask, { y: "+=500", duration: 2.5 })
-    .to(
-      movingGroup,
-      {
-        y: "+=500",
-        duration: 2.6,
-      },
-      "<"
-    )
-    .from(paperMaskFull, { autoAlpha: 0, duration: 0.01 }, "-=1")
-    .from(shadowsInner, { autoAlpha: 0, y: "+=2" }, 0.1);
+    // slide paper and move envelope down
+    .to(els.paperMask, { y: "+=500", duration: 2.5 })
+    .to(movingGroup, { y: "+=500", duration: 2.6 }, "<")
+    .from(els.paperMaskFull, { autoAlpha: 0, duration: 0.01 }, "-=1")
+    .from(els.shadowsInner, { autoAlpha: 0, y: "+=2" }, 0.1);
 
   // Apply requested playback speed
-  tl.timeScale(props.timeScale);
+  introTl.timeScale(props.timeScale);
+  arrowLoopTl.timeScale(props.timeScale);
+  openTl.timeScale(props.timeScale);
 
-  // DevTools integration
+  // DevTools integration (focus on the open timeline)
   if (props.showDevTools) {
     nextTick(() => {
       try {
         $GSDevTools.create({
-          animation: tl,
+          animation: openTl,
           container: containerRef.value,
           minimal: true,
           id: props.devToolsId,
           globalSync: false,
         });
-        tl.timeScale(props.timeScale);
+        openTl.timeScale(props.timeScale);
       } catch (e) {}
     });
   }
 
-  timeline.value = tl;
-  return tl;
+  timeline.value = openTl;
+  return { introTl, arrowLoopTl, openTl };
 };
 
-// Lifecycle: mount, build animation, wire ScrollTrigger
+/**
+ * Start intro (once) and loop arrow
+ */
+function startIntro() {
+  if (!introPlayed.value) {
+    introPlayed.value = true;
+    introTl?.play(0).eventCallback("onComplete", () => {
+      arrowLoopTl?.play();
+    });
+  } else {
+    arrowLoopTl?.play();
+  }
+}
+
+/** Stop arrow loop and reset arrow position */
+function stopIntroLoop() {
+  if (arrowLoopTl) {
+    arrowLoopTl.pause(0);
+    if (els?.arrow) $gsap.set(els.arrow, { y: 0 });
+  }
+}
+
+/** Toggle open/close on click */
+function handleToggle() {
+  if (!openTl) return;
+  if (!isOpen.value) {
+    // Opening: stop intro loop and play open
+    stopIntroLoop();
+    openTl.play(0);
+    isOpen.value = true;
+  } else {
+    // Closing: reverse and resume arrow loop when done
+    openTl.reverse();
+    openTl.eventCallback("onReverseComplete", () => {
+      isOpen.value = false;
+      startIntro();
+    });
+  }
+}
+
+// Lifecycle: mount, build timelines, wire ScrollTrigger + clicks
 onMounted(() => {
   nextTick(() => {
     gsapCtx = $gsap.context(() => {
-      const tl = createAnimation();
-      if (!tl) return;
+      const tls = createTimelines();
+      if (!tls) return;
 
+      // Click handlers on the obvious interactive targets
+      const clickTargets = [els?.button, els?.arrow].filter(Boolean);
+      clickTargets.forEach((el) => {
+        el.style.cursor = "pointer";
+        el.addEventListener("click", handleToggle);
+      });
+
+      // ScrollTrigger visibility-controlled intro/open; fallback to autoPlay
       if (props.useScrollTrigger && $ScrollTrigger) {
         scrollTriggerInstance = $ScrollTrigger.create({
           trigger: containerRef.value,
           start: props.stStart,
           end: props.stEnd,
-          onEnter: () => tl.play(),
-          onEnterBack: () => tl.play(),
-          onLeave: () => tl.pause(0).progress(0),
-          onLeaveBack: () => tl.pause(0).progress(0),
+          onEnter: () => {
+            // If already open, leave as is; else (re)start intro loop
+            if (!isOpen.value) startIntro();
+          },
+          onEnterBack: () => {
+            if (!isOpen.value) startIntro();
+          },
+          onLeave: () => {
+            // Pause and reset when leaving view
+            stopIntroLoop();
+            if (!isOpen.value) {
+              // Reset intro to beginning for a clean re-entry
+              introTl?.pause(0);
+              if (els?.textItems?.length)
+                $gsap.set(els.textItems, { autoAlpha: 0 });
+              if (els?.arrow) $gsap.set(els.arrow, { autoAlpha: 0, y: 0 });
+              introPlayed.value = false;
+            }
+          },
+          onLeaveBack: () => {
+            stopIntroLoop();
+            if (!isOpen.value) {
+              introTl?.pause(0);
+              if (els?.textItems?.length)
+                $gsap.set(els.textItems, { autoAlpha: 0 });
+              if (els?.arrow) $gsap.set(els.arrow, { autoAlpha: 0, y: 0 });
+              introPlayed.value = false;
+            }
+          },
         });
         $ScrollTrigger.refresh();
       } else if (props.autoPlay) {
-        tl.play();
+        startIntro();
       } else if (props.showDevTools) {
-        tl.play();
+        startIntro();
       }
     }, containerRef.value);
   });
@@ -274,12 +331,24 @@ onUnmounted(() => {
       $GSDevTools.getById?.(props.devToolsId)?.kill();
     } catch (e) {}
   }
+  // Remove listeners if still present
+  try {
+    if (els?.button) els.button.removeEventListener("click", handleToggle);
+    if (els?.arrow) els.arrow.removeEventListener("click", handleToggle);
+  } catch (e) {}
 });
 
 // Public API
 defineExpose({
   containerRef,
-  timeline,
+  timeline, // open timeline
+  playIntro: () => startIntro(),
+  playOpen: () => {
+    stopIntroLoop();
+    openTl?.play(0);
+    isOpen.value = true;
+  },
+  toggle: () => handleToggle(),
   play: () => timeline.value?.play(),
   pause: () => timeline.value?.pause(),
   restart: () => timeline.value?.restart(),
