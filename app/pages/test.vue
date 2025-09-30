@@ -1,6 +1,11 @@
 <template>
   <section key="test-page" aria-labelledby="test-heading">
     <h1 id="test-heading" class="sr-only">Test</h1>
+    <ProjectEnvelope
+      :autoPlay="true"
+      :useScrollTrigger="false"
+      :timeScale="1"
+    />
     <CarouselFeaturedCaseStudies
       headline="Featured case studies"
       :alternative-colors="false"

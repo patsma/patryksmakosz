@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base, animation;
+
+@layer base {
+  body {
+    //background: rebeccapurple;
+  }
+}
+
+@layer animation {
+  body {
+    //background: green;
+  }
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+html {
+  background-color: beige;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  min-height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+body svg {
+  height: 95vh;
+  width: 100vw;
+  pointer-events: none;
+}
