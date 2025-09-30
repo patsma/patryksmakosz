@@ -33,7 +33,7 @@ const projectMetaByImage = {
   "molkidesign-thumb.svg": { slug: "molkidesign", title: "Molki Design" },
   "pushups-thumb.svg": { slug: "pushups-tracker", title: "Pushups Tracker" },
   "riverscape-thumb.svg": { slug: "riverscape", title: "Riverscape" },
-  "sliwka-thumb.svg": { slug: "sliwka-w-kompot", title: "Sliwka w Kompot" },
+  "envelope-thumb.svg": { slug: "envelope", title: "Envelope Animation" },
   "vibeuu-thumb.svg": { slug: "vibeuu", title: "Vibeuu" },
   "page404-thumb.svg": { slug: "page-404", title: "Page 404" },
   "fort-privacy-thumb.svg": { slug: "fort-privacy", title: "Fort Privacy" },
