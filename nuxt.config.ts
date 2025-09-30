@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const disableSentry = process.env.DISABLE_SENTRY === "1";
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
@@ -103,7 +105,7 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@maz-ui/nuxt",
     "@tresjs/nuxt",
-    "@sentry/nuxt/module",
+    ...(disableSentry ? [] : ["@sentry/nuxt/module"]),
   ],
 
   gsap: {
@@ -128,14 +130,17 @@ export default defineNuxtConfig({
     },
   },
 
-  sentry: {
-    sourceMapsUploadOptions: {
-      org: "tasty-0a",
-      project: "javascript-nuxt",
-    },
-
-    autoInjectServerSentry: "top-level-import",
-  },
+  ...(disableSentry
+    ? {}
+    : {
+        sentry: {
+          sourceMapsUploadOptions: {
+            org: "tasty-0a",
+            project: "javascript-nuxt",
+          },
+          autoInjectServerSentry: "top-level-import",
+        },
+      }),
 
   sourcemap: {
     client: "hidden",
