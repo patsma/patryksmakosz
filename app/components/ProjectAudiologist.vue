@@ -124,10 +124,10 @@ const props = defineProps({
   backgrounds: {
     type: Array,
     default: () => [
-      "/projects/animation-wave/photo1.jpg",
-      "/projects/animation-wave/photo2.jpg",
-      "/projects/animation-wave/photo3.jpg",
-      "/projects/animation-wave/photo4.jpg",
+      "/projects/audiologist/photo1.jpg",
+      "/projects/audiologist/photo2.jpg",
+      "/projects/audiologist/photo3.jpg",
+      "/projects/audiologist/photo4.jpg",
     ],
   },
 });

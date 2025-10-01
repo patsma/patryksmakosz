@@ -46,7 +46,7 @@
 
   @include desktop {
     grid-template-columns: repeat(4, 1fr);
-    gap: space(20);
+    gap: space(10);
   }
 }
 

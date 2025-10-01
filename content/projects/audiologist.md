@@ -1,5 +1,5 @@
 ---
-title: "The Hearing Club"
+title: "Audiologist"
 slug: "animation-wave"
 category: "custom-animation"
 cover: "/assets/medias/animation-wave-thumb.jpg"
@@ -9,7 +9,7 @@ tags: ["animation", "gsap", "svg", "drawsvg", "slider"]
 date: 2018-01-01
 ---
 
-::ProjectAnimationWave
+::ProjectAudiologist
 ---
 autoPlay: true
 ---
