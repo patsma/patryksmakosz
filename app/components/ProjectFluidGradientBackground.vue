@@ -10,6 +10,7 @@
       (Zaksa, ArtTech) so it can be dropped into grids with the same controls.
     -->
     <TresCanvas
+      v-if="isMounted"
       class="w-full h-full opacity-40"
       clearColor="#0b0b10"
       :antialias="true"
@@ -55,6 +56,7 @@ import { Color } from "three";
 // Core refs
 const containerRef = ref(null);
 const timeline = ref(null);
+const isMounted = ref(false);
 let gsapCtx = null;
 let scrollTriggerInstance = null;
 
@@ -193,45 +195,77 @@ const createAnimation = () => {
 
 // Lifecycle: init GSAP and wire ScrollTrigger control similar to other components
 onMounted(() => {
-  nextTick(() => {
-    gsapCtx = $gsap.context(() => {
-      const tl = createAnimation();
-      if (!tl) return;
+  // Set mounted flag first to allow TresCanvas to render
+  isMounted.value = true;
 
-      if (props.useScrollTrigger && $ScrollTrigger) {
-        scrollTriggerInstance = $ScrollTrigger.create({
-          trigger: containerRef.value,
-          start: props.stStart,
-          end: props.stEnd,
-          onEnter: () => tl.play(),
-          onEnterBack: () => tl.play(),
-          onLeave: () => tl.pause(0),
-          onLeaveBack: () => tl.pause(0),
-        });
-        $ScrollTrigger.refresh();
-      } else if (props.autoPlay) {
-        tl.play();
-      } else if (props.showDevTools) {
-        tl.play();
-      }
-    }, containerRef.value);
+  nextTick(() => {
+    // Small delay to ensure TresCanvas is fully initialized
+    setTimeout(() => {
+      if (!containerRef.value) return;
+
+      gsapCtx = $gsap.context(() => {
+        const tl = createAnimation();
+        if (!tl) return;
+
+        if (props.useScrollTrigger && $ScrollTrigger) {
+          scrollTriggerInstance = $ScrollTrigger.create({
+            trigger: containerRef.value,
+            start: props.stStart,
+            end: props.stEnd,
+            onEnter: () => tl.play(),
+            onEnterBack: () => tl.play(),
+            onLeave: () => tl.pause(0),
+            onLeaveBack: () => tl.pause(0),
+          });
+          $ScrollTrigger.refresh();
+        } else if (props.autoPlay) {
+          tl.play();
+        } else if (props.showDevTools) {
+          tl.play();
+        }
+      }, containerRef.value);
+    }, 100);
   });
 });
 
 // Cleanup
-onUnmounted(() => {
-  if (gsapCtx) gsapCtx.revert();
+onBeforeUnmount(() => {
+  // Pause timeline first to stop any ongoing animations
+  if (timeline.value) {
+    timeline.value.pause();
+    timeline.value.kill();
+    timeline.value = null;
+  }
+
+  // Clean up GSAP context
+  if (gsapCtx) {
+    gsapCtx.revert();
+    gsapCtx = null;
+  }
+
+  // Kill ScrollTrigger instance
   if (scrollTriggerInstance) {
     try {
       scrollTriggerInstance.kill();
-    } catch (e) {}
+    } catch (e) {
+      console.warn('Error killing ScrollTrigger:', e);
+    }
     scrollTriggerInstance = null;
   }
+
+  // Kill DevTools
   if (props.showDevTools) {
     try {
       $GSDevTools.getById?.(props.devToolsId)?.kill();
-    } catch (e) {}
+    } catch (e) {
+      console.warn('Error killing GSDevTools:', e);
+    }
   }
+});
+
+onUnmounted(() => {
+  // Final cleanup - ensure everything is cleared
+  isMounted.value = false;
 });
 
 // Public API for external control (keeps parity with other components)
