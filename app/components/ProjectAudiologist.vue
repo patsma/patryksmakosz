@@ -6,7 +6,7 @@
     <!-- Loading spinner (hidden when animation is ready) -->
     <div
       ref="loaderRef"
-      class="wave-loader absolute inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-slate-900 to-black"
+      class="wave-loader absolute inset-0 z-[100] flex items-center justify-center bg-white"
     >
       <div class="wave-spinner"></div>
     </div>
@@ -674,8 +674,8 @@ defineExpose({
 .wave-spinner {
   width: 60px;
   height: 60px;
-  border: 4px solid rgba(255, 255, 255, 0.2);
-  border-top-color: #fbbf24;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #000000;
   border-radius: 50%;
   animation: wave-spin 0.8s linear infinite;
 }
