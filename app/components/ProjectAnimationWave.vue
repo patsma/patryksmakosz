@@ -12,47 +12,56 @@
         class="h-full w-full object-cover"
       />
     </div>
-    <!-- Heading and CTA (kept minimal; no SplitText dependency) -->
+
+    <!-- Grainy overlay above background -->
     <div
-      ref="headingRef"
-      class="pointer-events-none absolute left-[10%] top-[30%] z-10 text-[#071e3e] select-none"
-    >
-      <h1 class="font-sans font-light leading-tight">
-        <span class="headingSpan01 block text-4xl">The</span>
-        <span class="headingSpan02 block text-7xl">Hearing</span>
-        <span class="headingSpan03 ml-3 inline-block text-6xl">Club</span>
-      </h1>
-      <p class="slider__subtitle mt-4 max-w-[40ch] text-base leading-6">
-        We help people hear better. Modern diagnostics and personalized care.
-      </p>
-      <div class="cta mt-6 flex items-center gap-4">
-        <p class="uppercase tracking-wide m-0">search this site</p>
-        <button
-          class="golden pointer-events-auto inline-grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-yellow-300 via-amber-300 to-amber-600 text-white text-xl"
-        >
-          >
-        </button>
-      </div>
-    </div>
+      class="absolute inset-0 z-[1] pointer-events-none bg-grain opacity-80"
+    ></div>
 
     <!-- Waves SVG (lines converted to paths before draw animations) -->
     <div
-      class="animation__waves relative z-[1] h-screen w-full translate-y-[8%]"
+      class="animation__waves relative z-[2] h-screen w-full translate-y-[8%] pointer-events-none"
     >
       <AnimateionWavesSVG ref="wavesSvgRef" />
     </div>
 
     <!-- Logo SVG (ear shape) -->
     <div
-      class="animation__logo absolute right-[23%] top-1/2 z-[2] h-screen w-screen translate-x-1/2 -translate-y-[44%] scale-[0.6]"
+      class="animation__logo absolute right-[23%] top-1/2 z-[3] h-screen w-screen translate-x-1/2 -translate-y-[44%] scale-[0.6] pointer-events-none"
     >
       <AnimationWavesLogoSVG ref="logoSvgRef" />
+    </div>
+
+    <!-- Heading and CTA (kept minimal; no SplitText dependency) -->
+    <div
+      ref="headingRef"
+      class="absolute left-[10%] top-[30%] z-[4] text-[#071e3e]"
+    >
+      <h1 class="font-sans font-light leading-tight select-text">
+        <span class="headingSpan01 block text-4xl">The</span>
+        <span class="headingSpan02 block text-7xl">Hearing</span>
+        <span class="headingSpan03 ml-3 inline-block text-6xl">Club</span>
+      </h1>
+      <p
+        class="slider__subtitle mt-4 max-w-[40ch] text-base leading-6 select-text"
+      >
+        We help people hear better. Modern diagnostics and personalized care.
+      </p>
+      <div class="cta mt-6 flex items-center gap-4">
+        <p class="uppercase tracking-wide m-0 select-text">search this site</p>
+        <NuxtLink
+          to="/blog"
+          class="golden inline-grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-yellow-300 via-amber-300 to-amber-600 text-white text-xl cursor-pointer"
+        >
+          >
+        </NuxtLink>
+      </div>
     </div>
 
     <!-- Slider progress bar -->
     <div
       ref="progressRef"
-      class="slider__progress absolute bottom-0 left-0 z-[5] h-1 w-0 bg-gradient-to-r from-yellow-300 via-amber-400 to-amber-700"
+      class="slider__progress absolute bottom-0 left-0 z-[5] h-1 w-0 bg-gradient-to-r from-yellow-300 via-amber-400 to-amber-700 pointer-events-none"
     ></div>
   </div>
 </template>
@@ -622,6 +631,14 @@ defineExpose({
   opacity: 0;
   visibility: hidden;
 }
+
+/* Grainy texture overlay */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
 /* Visual styling is largely handled via Tailwind utility classes.
    We only keep component-scope container visibility centralized here. */
 </style>
