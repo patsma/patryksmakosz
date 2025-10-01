@@ -3,6 +3,14 @@
     ref="containerRef"
     class="animation-component animation-component--waves relative w-full overflow-hidden"
   >
+    <!-- Loading spinner (hidden when animation is ready) -->
+    <div
+      ref="loaderRef"
+      class="wave-loader absolute inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-slate-900 to-black"
+    >
+      <div class="wave-spinner"></div>
+    </div>
+
     <!-- Background layer (plain img to avoid /1x auto params) -->
     <div ref="bgRef" class="absolute inset-0 z-0 opacity-0">
       <img
@@ -15,7 +23,7 @@
 
     <!-- Grainy overlay above background -->
     <div
-      class="absolute inset-0 z-[1] pointer-events-none bg-grain opacity-80"
+      class="absolute inset-0 z-[1] pointer-events-none bg-grain-dark opacity-90"
     ></div>
 
     <!-- Waves SVG (lines converted to paths before draw animations) -->
@@ -37,11 +45,11 @@
       ref="headingRef"
       class="absolute left-[10%] top-[30%] z-[4] text-[#071e3e]"
     >
-      <h1 class="font-sans font-light leading-tight select-text">
+      <div class="font-sans font-light leading-tight select-text">
         <span class="headingSpan01 block text-4xl">The</span>
         <span class="headingSpan02 block text-7xl">Hearing</span>
-        <span class="headingSpan03 ml-3 inline-block text-6xl">Club</span>
-      </h1>
+        <span class="headingSpan03 inline-block text-6xl">Club</span>
+      </div>
       <p
         class="slider__subtitle mt-4 max-w-[40ch] text-base leading-6 select-text"
       >
@@ -85,6 +93,7 @@ const wavesSvgRef = ref(null);
 const logoSvgRef = ref(null);
 const headingRef = ref(null);
 const bgRef = ref(null);
+const loaderRef = ref(null);
 const timeline = ref(null);
 let gsapCtx = null;
 let scrollTriggerInstance = null;
@@ -115,10 +124,10 @@ const props = defineProps({
   backgrounds: {
     type: Array,
     default: () => [
-      "projects/animation-wave/photo1.jpg",
-      "projects/animation-wave/photo2.jpg",
-      "projects/animation-wave/photo3.jpg",
-      "projects/animation-wave/photo4.jpg",
+      "/projects/animation-wave/photo1.jpg",
+      "/projects/animation-wave/photo2.jpg",
+      "/projects/animation-wave/photo3.jpg",
+      "/projects/animation-wave/photo4.jpg",
     ],
   },
 });
@@ -513,6 +522,20 @@ function createAnimation() {
   // Reveal container
   $gsap.set(containerRef.value, { autoAlpha: 1 });
 
+  // Hide loader with fade out animation
+  if (loaderRef.value) {
+    $gsap.to(loaderRef.value, {
+      autoAlpha: 0,
+      duration: 0.5,
+      ease: "power2.out",
+      onComplete: () => {
+        if (loaderRef.value) {
+          loaderRef.value.style.display = "none";
+        }
+      },
+    });
+  }
+
   // Set initial background
   if (props.backgrounds && props.backgrounds.length) {
     currentImage.value = props.backgrounds[0];
@@ -632,11 +655,35 @@ defineExpose({
   visibility: hidden;
 }
 
-/* Grainy texture overlay */
-.bg-grain {
+/* Grainy texture overlay - dark version */
+.bg-grain-dark {
+  background-color: rgba(0, 0, 0, 0.1);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-blend-mode: multiply;
   background-repeat: repeat;
   background-size: 200px 200px;
+}
+
+/* Loading spinner animation */
+.wave-loader {
+  transition:
+    opacity 0.5s ease-out,
+    visibility 0.5s ease-out;
+}
+
+.wave-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fbbf24;
+  border-radius: 50%;
+  animation: wave-spin 0.8s linear infinite;
+}
+
+@keyframes wave-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Visual styling is largely handled via Tailwind utility classes.
