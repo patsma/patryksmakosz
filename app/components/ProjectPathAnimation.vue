@@ -568,11 +568,10 @@
                 >.
               </p>
               <p class="cta-contact">
-                Ready to start?
-                <a href="mailto:patryksmakosz1@gmail.com" class="email-link">
-                  Let's connect
-                </a>
-                and bring your vision to life.
+                Want to know more?
+                <NuxtLink to="/blog/who-why-what-part-1-who" class="email-link">
+                  Read my blog
+                </NuxtLink>
               </p>
             </div>
           </div>
