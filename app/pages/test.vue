@@ -1,22 +1,38 @@
 <template>
-  <section key="test-page" class="pt-header" aria-labelledby="test-heading">
-    <h1 id="test-heading" class="sr-only">Test</h1>
-    <ProjectAnimationWave
+  <section key="test-page" aria-labelledby="test-heading">
+    <h1 id="test-heading" class="sr-only">Test - AeroFlux Animation</h1>
+    <ProjectAeroflux
       :autoPlay="true"
       :useScrollTrigger="false"
-      :slide-seconds="10"
+      :enableParticles="true"
+      :timeScale="1"
+      :showDevTools="false"
     />
   </section>
 </template>
+
 <script setup>
+definePageMeta({
+  layout: "plain",
+});
+
 useHead({
-  title: "Test",
+  title: "Test - AeroFlux Animation",
   meta: [
     {
       name: "description",
-      content:
-        "Explore TastySites’ interactive components, animations, and recent work on the test page.",
+      content: "Testing AeroFlux animation component with particles background.",
     },
   ],
 });
 </script>
+
+<style scoped>
+section {
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+</style>
