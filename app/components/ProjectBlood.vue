@@ -136,8 +136,9 @@ const createAnimation = () => {
   // Build main timeline with repeat
   const tl = $gsap.timeline({
     paused: true,
+    repeatRefresh: true,
     repeat: -1,
-    repeatDelay: 2,
+    repeatDelay: 0.5,
   });
 
   // PHASE 0: Initial delay + reveal container
@@ -158,7 +159,7 @@ const createAnimation = () => {
       },
       ease: "power2.out",
     },
-    "+=0.3"
+    "+=0.1"
   );
 
   // PHASE 2: Animate masks to random fill levels
@@ -171,7 +172,7 @@ const createAnimation = () => {
       tl.to(
         type.mask,
         {
-          yPercent: function() {
+          yPercent: function () {
             // This function is called each time the animation plays (including repeats)
             return -randomFillPercent(30, 100);
           },
@@ -184,7 +185,7 @@ const createAnimation = () => {
   });
 
   // PHASE 3: Hold the filled state
-  tl.to({}, { duration: 2 });
+  tl.to({}, { duration: 1 });
 
   // PHASE 4: Fade out drops with stagger (first to last)
   tl.to(
