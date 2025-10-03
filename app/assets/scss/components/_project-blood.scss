@@ -1,0 +1,59 @@
+// ProjectBlood component styles
+// Blood type visualization with animated fill levels
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.animation-component--blood {
+  // Wrapper containing all blood drops
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  // Individual blood drop sizing
+  .bloodDrop {
+    width: 100px;
+    height: auto;
+
+    @include tablet {
+      width: 110px;
+    }
+  }
+
+  // ClipPath rects that control the fill level
+  // These are animated by GSAP to reveal the red fill
+  #showPercent0plus rect,
+  #showPercent0minus rect,
+  #showPercentAplus rect,
+  #showPercentAminus rect,
+  #showPercentBplus rect,
+  #showPercentBminus rect,
+  #showPercentABplus rect,
+  #showPercentABminus rect {
+    width: 100%;
+    height: 100%;
+  }
+
+  // Blood drop fill colors
+  .bloodDropRed {
+    fill: #ff4338;
+  }
+
+  .bloodDropGrey {
+    fill: #cccccc;
+  }
+
+  // Blood type labels (O+, A-, etc.)
+  .bloodDropText {
+    font-size: 40px;
+    fill: #fff;
+    font-weight: 700;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+}

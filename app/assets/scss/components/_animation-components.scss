@@ -135,6 +135,15 @@
     }
   }
 
+  &--blood {
+    background-color: #f8f8f8;
+    padding: $container-pad-mobile;
+
+    @include laptop {
+      padding: $container-pad-tablet;
+    }
+  }
+
   // Standard GSDevTools embedding
   .gs-dev-tools {
     position: absolute !important;

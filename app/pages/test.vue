@@ -1,12 +1,11 @@
 <template>
   <section key="test-page" aria-labelledby="test-heading">
-    <h1 id="test-heading" class="sr-only">Test - AeroFlux Animation</h1>
-    <ProjectAeroflux
+    <h1 id="test-heading" class="sr-only">Test - Blood Animation</h1>
+    <ProjectBlood
       :autoPlay="true"
       :useScrollTrigger="false"
-      :enableParticles="true"
-      :timeScale="1"
-      :showDevTools="false"
+      :timeScale="1.5"
+      :showDevTools="true"
     />
   </section>
 </template>
@@ -17,11 +16,11 @@ definePageMeta({
 });
 
 useHead({
-  title: "Test - AeroFlux Animation",
+  title: "Test - Blood Animation",
   meta: [
     {
       name: "description",
-      content: "Testing AeroFlux animation component with particles background.",
+      content: "Testing Blood animation component with blood type drops.",
     },
   ],
 });
