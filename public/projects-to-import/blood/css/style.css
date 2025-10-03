@@ -1,0 +1,47 @@
+@font-face {
+  src: url(../fonts/DINBold.ttf);
+  font-family: DIN-Bold;
+}
+.bloodDrop{
+  width: 100px;
+}
+body{
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#showPercent0plus rect,
+#showPercent0minus rect,
+#showPercentAplus rect,
+#showPercentAminus rect,
+#showPercentBplus rect,
+#showPercentBminus rect,
+#showPercentABplus rect,
+#showPercentABminus rect
+{
+  width: 100%;
+  height: 100%;
+
+}
+
+.bloodDropRed {
+  fill: #ff4338;
+}
+
+.bloodDropGrey {
+  fill: #CCCCCC;
+}
+
+.bloodDropText{
+  font-size:40px;fill:#fff;
+  font-family:DIN-Bold, DIN;
+}
+
+.dropsWrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}

@@ -7,7 +7,7 @@
     >
       <defs>
         <clipPath id="showPercent0plus">
-          <rect />
+          <rect x="0" y="0" width="113.23" height="136.67" />
         </clipPath>
       </defs>
       <path
@@ -28,7 +28,7 @@
     >
       <defs>
         <clipPath id="showPercent0minus">
-          <rect />
+          <rect x="0" y="0" width="113.23" height="136.67" />
         </clipPath>
       </defs>
       <path
@@ -49,7 +49,7 @@
     >
       <defs>
         <clipPath id="showPercentAplus">
-          <rect />
+          <rect x="0" y="0" width="113.23" height="136.67" />
         </clipPath>
       </defs>
       <path
@@ -70,7 +70,7 @@
     >
       <defs>
         <clipPath id="showPercentAminus">
-          <rect />
+          <rect x="0" y="0" width="113.23" height="136.67" />
         </clipPath>
       </defs>
       <path
@@ -91,7 +91,7 @@
     >
       <defs>
         <clipPath id="showPercentBplus">
-          <rect />
+          <rect x="0" y="0" width="113.23" height="136.67" />
         </clipPath>
       </defs>
       <path
@@ -112,7 +112,7 @@
     >
       <defs>
         <clipPath id="showPercentBminus">
-          <rect />
+          <rect x="0" y="0" width="113.23" height="136.67" />
         </clipPath>
       </defs>
       <path
@@ -133,7 +133,7 @@
     >
       <defs>
         <clipPath id="showPercentABplus">
-          <rect />
+          <rect x="0" y="0" width="113.23" height="136.67" />
         </clipPath>
       </defs>
       <path
@@ -154,7 +154,7 @@
     >
       <defs>
         <clipPath id="showPercentABminus">
-          <rect />
+          <rect x="0" y="0" width="113.23" height="136.67" />
         </clipPath>
       </defs>
       <path

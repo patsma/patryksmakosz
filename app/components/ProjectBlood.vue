@@ -74,8 +74,19 @@ const props = defineProps({
 });
 
 /**
+ * Generate random fill percentage for blood drops
+ * @param {number} min - Minimum percentage (default 20)
+ * @param {number} max - Maximum percentage (default 100)
+ * @returns {number} Random fill percentage
+ */
+const randomFillPercent = (min = 20, max = 100) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+/**
  * Build the GSAP timeline for blood drop fill animations
- * Each blood type fills to a specific percentage via clipPath rect animation
+ * Each blood type fills to a random percentage via clipPath rect animation
+ * Sequence: fade in → fill with random values → fade out → repeat with NEW random values
  * @returns {GSAPTimeline|null}
  */
 const createAnimation = () => {
@@ -94,53 +105,81 @@ const createAnimation = () => {
   // Query elements by ID from within the SVG scope only
   const q = (sel) => svgRoot.querySelector(remapIdSelectors(sel, idMap));
 
-  // Get all clipPath rect elements that control the fill level
-  const maskPosition0plus = q("#showPercent0plus rect");
-  const maskPosition0minus = q("#showPercent0minus rect");
-  const maskPositionAplus = q("#showPercentAplus rect");
-  const maskPositionAminus = q("#showPercentAminus rect");
-  const maskPositionBplus = q("#showPercentBplus rect");
-  const maskPositionBminus = q("#showPercentBminus rect");
-  const maskPositionABplus = q("#showPercentABplus rect");
-  const maskPositionABminus = q("#showPercentABminus rect");
+  // Define blood type configurations (masks and drop elements)
+  const bloodTypes = [
+    { name: "O+", mask: q("#showPercent0plus rect"), drop: q(".drop0plus") },
+    { name: "O-", mask: q("#showPercent0minus rect"), drop: q(".drop0minus") },
+    { name: "A+", mask: q("#showPercentAplus rect"), drop: q(".dropAplus") },
+    { name: "A-", mask: q("#showPercentAminus rect"), drop: q(".dropAminus") },
+    { name: "B+", mask: q("#showPercentBplus rect"), drop: q(".dropBplus") },
+    { name: "B-", mask: q("#showPercentBminus rect"), drop: q(".dropBminus") },
+    { name: "AB+", mask: q("#showPercentABplus rect"), drop: q(".dropABplus") },
+    {
+      name: "AB-",
+      mask: q("#showPercentABminus rect"),
+      drop: q(".dropABminus"),
+    },
+  ];
 
-  // Set initial state - masks start at full height (100%)
-  // to completely cover the red fill (showing only grey)
-  $gsap.set(
-    [
-      maskPosition0plus,
-      maskPosition0minus,
-      maskPositionAplus,
-      maskPositionAminus,
-      maskPositionBplus,
-      maskPositionBminus,
-      maskPositionABplus,
-      maskPositionABminus,
-    ],
-    { yPercent: 0 }
-  );
+  // Get all mask elements and drop elements for batch operations
+  const allMasks = bloodTypes.map((t) => t.mask).filter(Boolean);
+  const allDrops = bloodTypes.map((t) => t.drop).filter(Boolean);
 
-  // Build main timeline - animates masks upward to reveal red fill
-  // Different yPercent values create different fill levels for each blood type
+  // Set initial state - masks at 0% (fully covering red) and drops hidden
+  $gsap.set(allMasks, { yPercent: 0 });
+  $gsap.set(allDrops, { opacity: 0, scale: 0.8 });
+
+  // Build main timeline with repeat
   const tl = $gsap.timeline({
     paused: true,
     repeat: -1,
     repeatDelay: 1.5,
+    // Use onRepeat to regenerate random values for each cycle
+    onRepeat: function () {
+      // Reset all masks to 0 before new cycle
+      $gsap.set(allMasks, { yPercent: 0 });
+    },
   });
 
-  // Add label for synchronized start
-  tl.add("fillDrops");
+  // PHASE 1: Fade in drops with stagger (first to last)
+  tl.to(allDrops, {
+    opacity: 1,
+    scale: 1,
+    duration: 0.5,
+    stagger: 0.08, // 80ms delay between each drop
+    ease: "back.out(1.2)",
+  });
 
-  // Animate each blood type to its target fill percentage
-  // Negative yPercent moves the mask upward, revealing more red fill
-  tl.to(maskPosition0plus, { duration: 2, yPercent: -60 }, "fillDrops")
-    .to(maskPosition0minus, { duration: 2, yPercent: -73 }, "fillDrops")
-    .to(maskPositionAplus, { duration: 2, yPercent: -100 }, "fillDrops") // Full fill
-    .to(maskPositionAminus, { duration: 2, yPercent: -42 }, "fillDrops")
-    .to(maskPositionBplus, { duration: 2, yPercent: -42 }, "fillDrops")
-    .to(maskPositionBminus, { duration: 2, yPercent: -42 }, "fillDrops")
-    .to(maskPositionABplus, { duration: 2, yPercent: -42 }, "fillDrops")
-    .to(maskPositionABminus, { duration: 2, yPercent: -42 }, "fillDrops");
+  // PHASE 2: Animate each mask to a random fill level with overlap
+  // Generate new random values on each iteration
+  tl.add(() => {
+    bloodTypes.forEach((type, index) => {
+      if (type.mask) {
+        const randomFill = -randomFillPercent(30, 100);
+        $gsap.to(type.mask, {
+          yPercent: randomFill,
+          duration: 1.2,
+          delay: index * 0.12, // Stagger the start of each fill animation
+          ease: "power2.out",
+        });
+      }
+    });
+  });
+
+  // Wait for all fill animations to complete
+  tl.to({}, { duration: 2 });
+
+  // PHASE 3: Hold the filled state
+  tl.to({}, { duration: 1.5 });
+
+  // PHASE 4: Fade out drops with stagger (first to last)
+  tl.to(allDrops, {
+    opacity: 0,
+    scale: 0.8,
+    duration: 0.5,
+    stagger: 0.08, // Same stagger pattern as fade in
+    ease: "power2.in",
+  });
 
   // Apply requested playback speed to the timeline
   tl.timeScale(props.timeScale);

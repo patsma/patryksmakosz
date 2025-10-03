@@ -4,25 +4,48 @@
 @use "../mixins" as *;
 
 .animation-component--blood {
-  // Wrapper containing all blood drops
+  // Wrapper containing all blood drops - modern CSS Grid layout
   .wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // 2 columns on mobile
+    gap: space(6); // 1.5rem consistent spacing
     width: 100%;
-    max-width: 900px;
+    max-width: 56.25rem; // 900px in rem
     margin: 0 auto;
+    padding: space(4);
+
+    // 4 columns on tablet and up for better visual balance
+    @include tablet {
+      grid-template-columns: repeat(4, 1fr);
+      gap: space(8); // 2rem on larger screens
+      padding: space(6);
+    }
+
+    @include laptop {
+      gap: space(10); // 2.5rem on desktop
+    }
   }
 
-  // Individual blood drop sizing
+  // Individual blood drop sizing with responsive scaling
   .bloodDrop {
-    width: 100px;
+    width: 100%;
     height: auto;
+    max-width: space(25); // 6.25rem on mobile (50% smaller)
+    margin: 0 auto;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+    // Hover effect for interactivity
+    &:hover {
+      transform: scale(1.05);
+    }
 
     @include tablet {
-      width: 110px;
+      max-width: space(54); // 13.5rem on tablet
+    }
+
+    @include laptop {
+      max-width: space(58); // 14.5rem on desktop
     }
   }
 
