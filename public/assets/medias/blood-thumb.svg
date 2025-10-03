@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 113.23 136.67">
+  <defs>
+    <clipPath id="thumbClip">
+      <rect x="0" y="0" width="113.23" height="68.34"/>
+    </clipPath>
+  </defs>
+  <path fill="#ff4338" d="M56.6 136.67h0A56.6 56.6 0 0 0 96.76 40.17L56.61 0h0L16.46 40.17l0 0A56.59 56.59 0 0 0 56.6 136.67"/>
+  <path fill="#CCCCCC" clip-path="url(#thumbClip)" d="M56.6 136.67h0A56.6 56.6 0 0 0 96.76 40.17L56.61 0h0L16.46 40.17l0 0A56.59 56.59 0 0 0 56.6 136.67"/>
+  <text fill="#fff" font-size="40" font-weight="700" font-family="system-ui, -apple-system, sans-serif" transform="translate(30.93 103.03)">O+</text>
+</svg>
