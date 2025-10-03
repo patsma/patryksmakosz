@@ -1,7 +1,7 @@
 <template>
   <div
     ref="containerRef"
-    class="animation-component animation-component--blood"
+    class="animation-component animation-component--blood blood-animation-hidden"
   >
     <!-- SVG component containing all blood drop elements -->
     <BloodSVG ref="svgComponentRef" />
@@ -70,7 +70,7 @@ const props = defineProps({
    * @type {number}
    * Global playback speed for the blood drop animation
    */
-  timeScale: { type: Number, default: 1.5 },
+  timeScale: { type: Number, default: 1.2 },
 });
 
 /**
@@ -125,61 +125,91 @@ const createAnimation = () => {
   const allMasks = bloodTypes.map((t) => t.mask).filter(Boolean);
   const allDrops = bloodTypes.map((t) => t.drop).filter(Boolean);
 
-  // Set initial state - masks at 0% (fully covering red) and drops hidden
+  // Set initial state with GSAP - this is critical for consistent starting point
+  // Container hidden initially
+  $gsap.set(containerRef.value, { autoAlpha: 0 });
+  // Masks at 0% (fully covering red - no fill showing)
   $gsap.set(allMasks, { yPercent: 0 });
-  $gsap.set(allDrops, { opacity: 0, scale: 0.8 });
+  // Drops completely hidden and scaled down
+  $gsap.set(allDrops, { autoAlpha: 0, scale: 0.8 });
 
   // Build main timeline with repeat
   const tl = $gsap.timeline({
     paused: true,
     repeat: -1,
-    repeatDelay: 1.5,
-    // Use onRepeat to regenerate random values for each cycle
-    onRepeat: function () {
-      // Reset all masks to 0 before new cycle
-      $gsap.set(allMasks, { yPercent: 0 });
-    },
+    repeatDelay: 2,
   });
+
+  // PHASE 0: Initial delay + reveal container
+  // tl.to({}, { duration: 0.5 }); // Small initial breathing room
+  tl.set(containerRef.value, { autoAlpha: 1 });
+  tl.to({}, { duration: 0.1 }); // Another small delay before drops animate
 
   // PHASE 1: Fade in drops with stagger (first to last)
-  tl.to(allDrops, {
-    opacity: 1,
-    scale: 1,
-    duration: 0.5,
-    stagger: 0.08, // 80ms delay between each drop
-    ease: "back.out(1.2)",
-  });
+  tl.to(
+    allDrops,
+    {
+      autoAlpha: 1,
+      scale: 1,
+      duration: 1,
+      stagger: {
+        each: 0.12,
+        ease: "none",
+      },
+      ease: "power2.out",
+    },
+    "+=0.3"
+  );
 
-  // PHASE 2: Animate each mask to a random fill level with overlap
-  // Generate new random values on each iteration
-  tl.add(() => {
-    bloodTypes.forEach((type, index) => {
-      if (type.mask) {
-        const randomFill = -randomFillPercent(30, 100);
-        $gsap.to(type.mask, {
-          yPercent: randomFill,
-          duration: 1.2,
-          delay: index * 0.12, // Stagger the start of each fill animation
+  // PHASE 2: Animate masks to random fill levels
+  // Use a label and add animations with stagger
+  tl.add("fillMasks", "+=0.2");
+
+  bloodTypes.forEach((type, index) => {
+    if (type.mask) {
+      // Generate a NEW random value each time this animation runs
+      tl.to(
+        type.mask,
+        {
+          yPercent: function() {
+            // This function is called each time the animation plays (including repeats)
+            return -randomFillPercent(30, 100);
+          },
+          duration: 1.5,
           ease: "power2.out",
-        });
-      }
-    });
+        },
+        `fillMasks+=${index * 0.15}` // Stagger by 0.15s each
+      );
+    }
   });
-
-  // Wait for all fill animations to complete
-  tl.to({}, { duration: 2 });
 
   // PHASE 3: Hold the filled state
-  tl.to({}, { duration: 1.5 });
+  tl.to({}, { duration: 2 });
 
   // PHASE 4: Fade out drops with stagger (first to last)
-  tl.to(allDrops, {
-    opacity: 0,
-    scale: 0.8,
-    duration: 0.5,
-    stagger: 0.08, // Same stagger pattern as fade in
-    ease: "power2.in",
-  });
+  tl.to(
+    allDrops,
+    {
+      autoAlpha: 0,
+      scale: 0.85,
+      duration: 1, // Slightly longer for smoother fade
+      stagger: {
+        each: 0.12, // Slightly slower stagger
+        ease: "none", // Linear stagger distribution
+      },
+      ease: "power1.out", // Gentler ease out
+    },
+    "+=0.3" // Longer delay before fade out
+  );
+
+  // PHASE 5: Small delay before hiding container
+  tl.to({}, { duration: 0.3 });
+
+  // Reset masks to 0 before hiding (prepare for next cycle)
+  tl.set(allMasks, { yPercent: 0 });
+
+  // Hide container at the very end before repeat
+  tl.set(containerRef.value, { autoAlpha: 0 });
 
   // Apply requested playback speed to the timeline
   tl.timeScale(props.timeScale);
@@ -210,29 +240,66 @@ const createAnimation = () => {
 // Lifecycle: mount, build animation, wire ScrollTrigger
 onMounted(() => {
   nextTick(() => {
-    gsapCtx = $gsap.context(() => {
-      const tl = createAnimation();
-      if (!tl) return;
+    // Add a small delay to ensure DOM is fully ready and prevent premature animation
+    setTimeout(() => {
+      gsapCtx = $gsap.context(() => {
+        const tl = createAnimation();
+        if (!tl) return;
 
-      // ScrollTrigger visibility-controlled loop; fallback to autoPlay
-      if (props.useScrollTrigger && $ScrollTrigger) {
-        scrollTriggerInstance = $ScrollTrigger.create({
-          trigger: containerRef.value,
-          start: props.stStart,
-          end: props.stEnd,
-          onEnter: () => tl.play(),
-          onEnterBack: () => tl.play(),
-          onLeave: () => tl.pause(0).progress(0),
-          onLeaveBack: () => tl.pause(0).progress(0),
-        });
-        $ScrollTrigger.refresh();
-      } else if (props.autoPlay) {
-        tl.play();
-      } else if (props.showDevTools) {
-        // When DevTools is shown and no ScrollTrigger/autoPlay, start playback for visibility
-        tl.play();
-      }
-    }, containerRef.value);
+        // Ensure timeline is fully paused and at progress 0 before any triggers
+        tl.pause(0).progress(0);
+
+        // ScrollTrigger visibility-controlled loop; fallback to autoPlay
+        if (props.useScrollTrigger && $ScrollTrigger) {
+          scrollTriggerInstance = $ScrollTrigger.create({
+            trigger: containerRef.value,
+            start: props.stStart,
+            end: props.stEnd,
+            onEnter: () => {
+              // Explicitly pause, reset to 0, then play from beginning
+              tl.pause();
+              tl.progress(0);
+              tl.play();
+            },
+            onEnterBack: () => {
+              // Explicitly pause, reset to 0, then play from beginning
+              tl.pause();
+              tl.progress(0);
+              tl.play();
+            },
+            onLeave: () => {
+              // Pause and reset to beginning
+              tl.pause();
+              tl.progress(0);
+              // Reset all elements to initial state
+              $gsap.set(containerRef.value, { autoAlpha: 0 });
+              $gsap.set(allDrops, { autoAlpha: 0, scale: 0.8 });
+              $gsap.set(allMasks, { yPercent: 0 });
+            },
+            onLeaveBack: () => {
+              // Pause and reset to beginning
+              tl.pause();
+              tl.progress(0);
+              // Reset all elements to initial state
+              $gsap.set(containerRef.value, { autoAlpha: 0 });
+              $gsap.set(allDrops, { autoAlpha: 0, scale: 0.8 });
+              $gsap.set(allMasks, { yPercent: 0 });
+            },
+          });
+          $ScrollTrigger.refresh();
+        } else if (props.autoPlay) {
+          // Small delay before autoplay to ensure everything is initialized
+          setTimeout(() => {
+            tl.restart();
+          }, 100);
+        } else if (props.showDevTools) {
+          // When DevTools is shown and no ScrollTrigger/autoPlay, start playback for visibility
+          setTimeout(() => {
+            tl.restart();
+          }, 100);
+        }
+      }, containerRef.value);
+    }, 200); // 200ms delay to ensure DOM is fully settled
   });
 });
 
@@ -265,5 +332,11 @@ defineExpose({
 </script>
 
 <style scoped>
+/* Initial hidden state - revealed by GSAP when animation is ready */
+.blood-animation-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
 /* Visual styles are centralized under app/assets/scss/components/_animation-components.scss */
 </style>

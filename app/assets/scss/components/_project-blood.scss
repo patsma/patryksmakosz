@@ -32,15 +32,8 @@
     height: auto;
     max-width: space(25); // 6.25rem on mobile (50% smaller)
     margin: 0 auto;
-    // cursor: pointer;
-    transition:
-      transform 0.3s ease,
-      opacity 0.3s ease;
-
-    // Hover effect for interactivity
-    &:hover {
-      transform: scale(1.05);
-    }
+    // No CSS transitions - GSAP handles all animation
+    // Hover effect disabled to avoid conflict with GSAP animations
 
     @include tablet {
       max-width: space(54); // 13.5rem on tablet
