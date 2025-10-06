@@ -1,10 +1,10 @@
 <template>
   <section key="test-page" aria-labelledby="test-heading">
-    <h1 id="test-heading" class="sr-only">Test - Blood Animation</h1>
-    <ProjectBlood
+    <h1 id="test-heading" class="sr-only">Test - Booking Engine Animation</h1>
+    <ProjectBookingEngine
       :autoPlay="true"
       :useScrollTrigger="false"
-      :timeScale="1.5"
+      :timeScale="1"
       :showDevTools="true"
     />
   </section>
@@ -16,11 +16,11 @@ definePageMeta({
 });
 
 useHead({
-  title: "Test - Blood Animation",
+  title: "Test - Booking Engine Animation",
   meta: [
     {
       name: "description",
-      content: "Testing Blood animation component with blood type drops.",
+      content: "Testing Booking Engine animation component with sequential path drawing.",
     },
   ],
 });

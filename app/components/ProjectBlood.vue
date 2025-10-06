@@ -257,34 +257,56 @@ onMounted(() => {
             start: props.stStart,
             end: props.stEnd,
             onEnter: () => {
-              // Explicitly pause, reset to 0, then play from beginning
+              // Fade in container, reset and play timeline
+              $gsap.to(containerRef.value, {
+                autoAlpha: 1,
+                duration: 0.5,
+                ease: "power2.out",
+              });
               tl.pause();
               tl.progress(0);
               tl.play();
             },
             onEnterBack: () => {
-              // Explicitly pause, reset to 0, then play from beginning
+              // Fade in container, reset and play timeline
+              $gsap.to(containerRef.value, {
+                autoAlpha: 1,
+                duration: 0.5,
+                ease: "power2.out",
+              });
               tl.pause();
               tl.progress(0);
               tl.play();
             },
             onLeave: () => {
-              // Pause and reset to beginning
-              tl.pause();
-              tl.progress(0);
-              // Reset all elements to initial state
-              $gsap.set(containerRef.value, { autoAlpha: 0 });
-              $gsap.set(allDrops, { autoAlpha: 0, scale: 0.8 });
-              $gsap.set(allMasks, { yPercent: 0 });
+              // Fade out container smoothly, then reset
+              $gsap.to(containerRef.value, {
+                autoAlpha: 0,
+                duration: 0.5,
+                ease: "power2.in",
+                onComplete: () => {
+                  tl.pause();
+                  tl.progress(0);
+                  // Reset all elements to initial state
+                  $gsap.set(allDrops, { autoAlpha: 0, scale: 0.8 });
+                  $gsap.set(allMasks, { yPercent: 0 });
+                },
+              });
             },
             onLeaveBack: () => {
-              // Pause and reset to beginning
-              tl.pause();
-              tl.progress(0);
-              // Reset all elements to initial state
-              $gsap.set(containerRef.value, { autoAlpha: 0 });
-              $gsap.set(allDrops, { autoAlpha: 0, scale: 0.8 });
-              $gsap.set(allMasks, { yPercent: 0 });
+              // Fade out container smoothly, then reset
+              $gsap.to(containerRef.value, {
+                autoAlpha: 0,
+                duration: 0.5,
+                ease: "power2.in",
+                onComplete: () => {
+                  tl.pause();
+                  tl.progress(0);
+                  // Reset all elements to initial state
+                  $gsap.set(allDrops, { autoAlpha: 0, scale: 0.8 });
+                  $gsap.set(allMasks, { yPercent: 0 });
+                },
+              });
             },
           });
           $ScrollTrigger.refresh();
