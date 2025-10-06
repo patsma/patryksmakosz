@@ -47,6 +47,22 @@
     background-color: $animation-arttech-bg;
   }
 
+  // Catalyst logo animation styles, ported from legacy style.css
+  &--catalyst {
+    background-color: var(--color-black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    svg {
+      width: 100%;
+      height: auto;
+      opacity: 0;
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+    }
+  }
+
   &--spectrum {
     background-color: var(--color-white);
     padding: $container-pad-mobile;

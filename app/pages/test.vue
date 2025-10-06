@@ -1,7 +1,7 @@
 <template>
   <section key="test-page" aria-labelledby="test-heading">
-    <h1 id="test-heading" class="sr-only">Test - Booking Engine Animation</h1>
-    <ProjectBookingEngine
+    <h1 id="test-heading" class="sr-only">Test - Catalyst Animation</h1>
+    <ProjectCatalyst
       :autoPlay="true"
       :useScrollTrigger="false"
       :timeScale="1"
@@ -16,11 +16,11 @@ definePageMeta({
 });
 
 useHead({
-  title: "Test - Booking Engine Animation",
+  title: "Test - Catalyst Animation",
   meta: [
     {
       name: "description",
-      content: "Testing Booking Engine animation component with sequential path drawing.",
+      content: "Testing Catalyst animation component with bouncing circles and text.",
     },
   ],
 });
