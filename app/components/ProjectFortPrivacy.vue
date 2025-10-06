@@ -594,10 +594,42 @@ onMounted(() => {
           trigger: containerRef.value,
           start: props.stStart,
           end: props.stEnd,
-          onEnter: () => tl.play(),
-          onEnterBack: () => tl.play(),
-          onLeave: () => tl.pause(0).progress(0),
-          onLeaveBack: () => tl.pause(0).progress(0),
+          onEnter: () => {
+            $gsap.to(containerRef.value, {
+              autoAlpha: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            });
+            tl.play();
+          },
+          onEnterBack: () => {
+            $gsap.to(containerRef.value, {
+              autoAlpha: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            });
+            tl.play();
+          },
+          onLeave: () => {
+            $gsap.to(containerRef.value, {
+              autoAlpha: 0,
+              duration: 0.5,
+              ease: "power2.in",
+              onComplete: () => {
+                tl.pause(0).progress(0);
+              },
+            });
+          },
+          onLeaveBack: () => {
+            $gsap.to(containerRef.value, {
+              autoAlpha: 0,
+              duration: 0.5,
+              ease: "power2.in",
+              onComplete: () => {
+                tl.pause(0).progress(0);
+              },
+            });
+          },
         });
         $ScrollTrigger.refresh();
       } else if (props.autoPlay || props.showDevTools) {
