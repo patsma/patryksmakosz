@@ -1,7 +1,7 @@
 ---
 title: "Booking Engine"
 slug: "bookingengine"
-category: "logo-animation"
+category: "custom-animation"
 cover: "/assets/medias/bookingengine-thumb.svg"
 video: "/movies/web-optimized/booking-engine.mp4"
 summary: "SVG path drawing animation visualizing a multi-step booking process. Sequential reveals with clip-path masks and GSAP DrawSVG plugin for smooth transitions."
