@@ -9,6 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "convert-videos": "node scripts/convert-videos.js",
+    "convert-gifs": "node scripts/convert-to-gifs.js",
     "fetch:icons": "node scripts/fetch-icons.js"
   },
   "dependencies": {
