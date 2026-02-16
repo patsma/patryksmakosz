@@ -25,7 +25,7 @@
     "@tresjs/nuxt": "^4.0.0",
     "better-sqlite3": "^12.2.0",
     "eslint": "^9.31.0",
-    "nuxt": "^4.1.1",
+    "nuxt": "^4.3.1",
     "pinia": "^3.0.3",
     "three": "^0.180.0",
     "vue": "^3.5.17",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@hypernym/nuxt-gsap": "^2.4.3",
+    "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/simple-icons": "^1.2.53",
     "@iconify-json/tabler": "^1.2.22",
     "@iconify-json/uil": "^1.2.3",
