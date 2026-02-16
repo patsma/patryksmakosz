@@ -8,10 +8,10 @@ export const cvData: CVData = {
     name: 'Patryk Smakosz',
     title: 'Creative Developer | Web Animation Expert | Front-End Developer',
     location: 'Gdansk, Poland',
-    email: 'patryk@tastysites.pl',
-    phone: '+48 730 519 090',
+    email: 'kontakt@tastysites.pl',
+    phone: '+48 502 590 747',
     website: 'tastysites.pl',
-    linkedin: 'linkedin.com/in/patryk-smakosz',
+    linkedin: 'linkedin.com/in/patryksmakosz',
   },
 
   summary: `Creative developer with 10+ years of experience specializing in interactive web experiences, advanced animations, and front-end architecture. Expert in GSAP, Vue/Nuxt ecosystems, and creating performant, visually stunning digital products. Passionate about pushing the boundaries of what's possible on the web while maintaining accessibility and performance standards.`,
@@ -129,22 +129,27 @@ export const cvData: CVData = {
     {
       name: 'We Push Buttons',
       description: 'Interactive portfolio with advanced GSAP animations and 3D elements',
+      url: 'https://wepushbuttons.nl',
     },
     {
       name: 'Zaksa Sports',
       description: 'Dynamic sports team website with real-time data integration',
+      url: 'https://zaksa.pl',
     },
     {
       name: 'Fort Privacy',
       description: 'Corporate website with sophisticated scroll-driven storytelling',
+      url: 'https://fortprivacy.com',
     },
     {
       name: 'Blueberry Studio',
       description: 'Creative agency website featuring SVG morphing and parallax effects',
+      url: 'https://blueberrystudio.pl',
     },
     {
       name: 'Spectrum Audio',
       description: 'E-commerce platform with immersive product showcases',
+      url: 'https://spectrumaudio.pl',
     },
   ],
 

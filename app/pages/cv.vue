@@ -123,7 +123,13 @@
           :key="project.name"
           class="cv-page__project"
         >
-          <div class="cv-page__project-name">{{ project.name }}</div>
+          <div class="cv-page__project-name">
+            <a v-if="project.url" :href="project.url" target="_blank">
+              {{ project.name }}
+              <Icon name="heroicons:arrow-top-right-on-square" class="icon" />
+            </a>
+            <template v-else>{{ project.name }}</template>
+          </div>
           <p class="cv-page__project-desc">{{ project.description }}</p>
         </div>
       </div>

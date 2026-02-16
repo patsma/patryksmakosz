@@ -283,6 +283,25 @@
     font-weight: 600;
     color: $primary-1;
     margin-bottom: 0.25rem;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: color 0.2s;
+
+      &:hover {
+        color: $primary-2;
+      }
+
+      .icon {
+        width: 0.875rem;
+        height: 0.875rem;
+        opacity: 0.6;
+      }
+    }
   }
 
   &__project-desc {
@@ -412,6 +431,22 @@
     // Links should show URL in print
     a[href]:after {
       content: none; // Remove default behavior, keep clean for CV
+    }
+
+    // Project links - hide icon, show URL
+    &__project-name {
+      a {
+        .icon {
+          display: none !important;
+        }
+
+        &::after {
+          content: " (" attr(href) ")";
+          font-size: 8pt;
+          font-weight: 400;
+          color: $gray-5;
+        }
+      }
     }
   }
 

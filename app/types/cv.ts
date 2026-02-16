@@ -36,6 +36,7 @@ export interface CVEducation {
 export interface CVProject {
   name: string
   description: string
+  url?: string
 }
 
 export interface CVData {
