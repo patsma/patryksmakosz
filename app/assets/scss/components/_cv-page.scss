@@ -1,0 +1,423 @@
+// CV Page Styles
+// Screen and print-optimized styles for the CV/resume page
+
+@use "../variables" as *;
+
+.cv-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  background: $white;
+  color: $black;
+
+  @media (min-width: $tablet) {
+    padding: 3rem 2rem 5rem;
+  }
+
+  // Print button - fixed position, hidden when printing
+  &__print-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: $primary-1;
+    color: $white;
+    border: none;
+    border-radius: $radius-md;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: $transition;
+
+    &:hover {
+      background: darken($primary-1, 8%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .icon {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+  }
+
+  // Header section
+  &__header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid $gray-2;
+  }
+
+  &__name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $primary-1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+
+    @media (min-width: $tablet) {
+      font-size: 2.5rem;
+    }
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    color: $primary-2;
+    font-weight: 500;
+    margin-bottom: 1rem;
+
+    @media (min-width: $tablet) {
+      font-size: 1.25rem;
+    }
+  }
+
+  &__contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    color: $gray-5;
+  }
+
+  &__contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      color: $primary-2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: $primary-2;
+      }
+    }
+  }
+
+  // Section styling
+  &__section {
+    margin-bottom: 2rem;
+  }
+
+  &__section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $primary-1;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $gray-2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  // Summary
+  &__summary {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: $gray-6;
+  }
+
+  // Skills
+  &__skills-grid {
+    display: grid;
+    gap: 1.25rem;
+
+    @media (min-width: $tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__skill-category {
+    h4 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: $primary-1;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+  }
+
+  &__skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  // Experience timeline
+  &__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__timeline-item {
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 2px solid $gray-2;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 0.25rem;
+      width: 8px;
+      height: 8px;
+      background: $primary-2;
+      border-radius: 50%;
+    }
+  }
+
+  &__timeline-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__company {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: $primary-1;
+  }
+
+  &__role {
+    font-size: 1rem;
+    color: $gray-5;
+  }
+
+  &__dates {
+    font-size: 0.875rem;
+    color: $gray-4;
+    margin-left: auto;
+  }
+
+  &__responsibilities {
+    list-style: disc;
+    padding-left: 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: $gray-6;
+
+    li {
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  // Education
+  &__education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__education-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    padding: 0.75rem 1rem;
+    background: $gray-1;
+    border-radius: $radius-sm;
+  }
+
+  &__institution {
+    font-weight: 600;
+    color: $primary-1;
+    width: 100%;
+
+    @media (min-width: $tablet) {
+      width: auto;
+    }
+  }
+
+  &__degree {
+    color: $gray-6;
+  }
+
+  &__edu-dates {
+    font-size: 0.875rem;
+    color: $gray-4;
+    margin-left: auto;
+  }
+
+  &__edu-description {
+    width: 100%;
+    font-size: 0.875rem;
+    color: $gray-5;
+    margin-top: 0.25rem;
+  }
+
+  // Projects
+  &__projects-grid {
+    display: grid;
+    gap: 1rem;
+
+    @media (min-width: $tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__project {
+    padding: 1rem;
+    background: $gray-1;
+    border-radius: $radius-sm;
+    border-left: 3px solid $primary-2;
+  }
+
+  &__project-name {
+    font-weight: 600;
+    color: $primary-1;
+    margin-bottom: 0.25rem;
+  }
+
+  &__project-desc {
+    font-size: 0.875rem;
+    color: $gray-5;
+    line-height: 1.5;
+  }
+
+  // Interests
+  &__interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+// Print Styles
+@media print {
+  // Hide non-essential elements
+  .hamburger-menu,
+  .site-header,
+  .cv-page__print-btn {
+    display: none !important;
+  }
+
+  // Page setup
+  @page {
+    size: A4;
+    margin: 15mm 12mm;
+  }
+
+  html,
+  body {
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    background: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cv-page {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+
+    // Page break control
+    &__section {
+      page-break-inside: avoid;
+    }
+
+    &__timeline-item {
+      page-break-inside: avoid;
+    }
+
+    &__education-item {
+      page-break-inside: avoid;
+    }
+
+    // Adjust typography for print
+    &__name {
+      font-size: 18pt !important;
+      color: $primary-1 !important;
+    }
+
+    &__title {
+      font-size: 11pt !important;
+      color: $primary-2 !important;
+    }
+
+    &__section-title {
+      font-size: 12pt !important;
+      color: $primary-1 !important;
+      border-bottom-color: $gray-3 !important;
+    }
+
+    &__contact {
+      font-size: 9pt !important;
+    }
+
+    &__summary {
+      font-size: 10pt !important;
+    }
+
+    &__company {
+      font-size: 11pt !important;
+    }
+
+    &__role {
+      font-size: 10pt !important;
+    }
+
+    &__responsibilities {
+      font-size: 9pt !important;
+    }
+
+    // Ensure colors print
+    &__timeline-item::before {
+      background: $primary-2 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    // Remove shadows and unnecessary styling
+    &__education-item,
+    &__project {
+      box-shadow: none;
+      background: #f5f5f5 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    // Reduce spacing for print
+    &__section {
+      margin-bottom: 1rem;
+    }
+
+    &__timeline {
+      gap: 0.75rem;
+      margin-left: 8px; // Prevent timeline line from getting cut off
+    }
+
+    &__timeline-item {
+      margin-left: 4px; // Extra breathing room for the dot
+    }
+
+    // Links should show URL in print
+    a[href]:after {
+      content: none; // Remove default behavior, keep clean for CV
+    }
+  }
+
+  // Force badge colors to print
+  .u-badge {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
