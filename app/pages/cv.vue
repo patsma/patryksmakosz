@@ -25,13 +25,15 @@
           <Icon name="heroicons:envelope" class="icon" />
           <a :href="`mailto:${cvData.personal.email}`">{{ cvData.personal.email }}</a>
         </span>
-        <span v-if="cvData.personal.website" class="cv-page__contact-item">
+        <span v-if="cvData.personal.website" class="cv-page__contact-item cv-page__contact-item--with-qr">
           <Icon name="heroicons:globe-alt" class="icon" />
           <a :href="`https://${cvData.personal.website}`" target="_blank">{{ cvData.personal.website }}</a>
+          <QrCode :url="`https://${cvData.personal.website}`" :size="56" />
         </span>
-        <span v-if="cvData.personal.linkedin" class="cv-page__contact-item">
+        <span v-if="cvData.personal.linkedin" class="cv-page__contact-item cv-page__contact-item--with-qr">
           <Icon name="mdi:linkedin" class="icon" />
           <a :href="`https://${cvData.personal.linkedin}`" target="_blank">LinkedIn</a>
+          <QrCode :url="`https://${cvData.personal.linkedin}`" :size="56" />
         </span>
         <span class="cv-page__contact-item">
           <Icon name="heroicons:map-pin" class="icon" />
@@ -122,12 +124,15 @@
           :key="project.name"
           class="cv-page__project"
         >
-          <div class="cv-page__project-name">
-            <a v-if="project.url" :href="project.url" target="_blank">
-              {{ project.name }}
-              <Icon name="heroicons:arrow-top-right-on-square" class="icon" />
-            </a>
-            <template v-else>{{ project.name }}</template>
+          <div class="cv-page__project-header">
+            <div class="cv-page__project-name">
+              <a v-if="project.url" :href="project.url" target="_blank">
+                {{ project.name }}
+                <Icon name="heroicons:arrow-top-right-on-square" class="icon" />
+              </a>
+              <template v-else>{{ project.name }}</template>
+            </div>
+            <QrCode v-if="project.url" :url="project.url" :size="56" />
           </div>
           <p class="cv-page__project-desc">{{ project.description }}</p>
         </div>
@@ -144,13 +149,16 @@
           class="cv-page__repo"
         >
           <div class="cv-page__repo-header">
-            <a :href="repo.url" target="_blank" class="cv-page__repo-name">
-              <Icon name="mdi:github" class="icon" />
-              {{ repo.name }}
-            </a>
-            <span v-if="repo.language" class="cv-page__badge cv-page__badge--neutral">
-              {{ repo.language }}
-            </span>
+            <div class="cv-page__repo-info">
+              <a :href="repo.url" target="_blank" class="cv-page__repo-name">
+                <Icon name="mdi:github" class="icon" />
+                {{ repo.name }}
+              </a>
+              <span v-if="repo.language" class="cv-page__badge cv-page__badge--neutral">
+                {{ repo.language }}
+              </span>
+            </div>
+            <QrCode v-if="repo.url" :url="repo.url" :size="56" />
           </div>
           <p class="cv-page__repo-desc">{{ repo.description }}</p>
         </div>
