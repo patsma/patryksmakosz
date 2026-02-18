@@ -1,16 +1,15 @@
 <template>
   <div class="cv-page">
     <!-- Print Button -->
-    <UButton
-      icon="i-heroicons-printer"
-      color="primary"
-      variant="solid"
-      size="lg"
+    <button
+      type="button"
       class="cv-page__print-btn"
+      aria-label="Print CV"
       @click="handlePrint"
     >
+      <Icon name="heroicons:printer" class="icon" />
       Print CV
-    </UButton>
+    </button>
 
     <!-- Header -->
     <header class="cv-page__header">
@@ -58,15 +57,13 @@
         >
           <h4>{{ category.category }}</h4>
           <div class="cv-page__skill-tags">
-            <UBadge
+            <span
               v-for="skill in category.skills"
               :key="skill"
-              color="primary"
-              variant="soft"
-              size="sm"
+              class="cv-page__badge cv-page__badge--soft"
             >
               {{ skill }}
-            </UBadge>
+            </span>
           </div>
         </div>
       </div>
@@ -151,9 +148,9 @@
               <Icon name="mdi:github" class="icon" />
               {{ repo.name }}
             </a>
-            <UBadge v-if="repo.language" color="neutral" variant="soft" size="xs">
+            <span v-if="repo.language" class="cv-page__badge cv-page__badge--neutral">
               {{ repo.language }}
-            </UBadge>
+            </span>
           </div>
           <p class="cv-page__repo-desc">{{ repo.description }}</p>
         </div>
@@ -164,15 +161,13 @@
     <section v-if="cvData.interests?.length" class="cv-page__section">
       <h2 class="cv-page__section-title">Interests</h2>
       <div class="cv-page__interests">
-        <UBadge
+        <span
           v-for="interest in cvData.interests"
           :key="interest"
-          color="neutral"
-          variant="outline"
-          size="sm"
+          class="cv-page__badge cv-page__badge--outline"
         >
           {{ interest }}
-        </UBadge>
+        </span>
       </div>
     </section>
   </div>

@@ -14,13 +14,62 @@
     padding: 3rem 2rem 5rem;
   }
 
-  // Print button - positioning only, UButton handles styling
+  // Print button - full custom styling (UButton not rendering properly)
   &__print-btn {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
     z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: $primary-1;
+    color: $white;
+    border: none;
+    border-radius: $radius-md;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: $transition;
+
+    &:hover {
+      background: darken($primary-1, 8%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .icon {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+  }
+
+  // Badge styling (replacing UBadge which isn't rendering properly)
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+
+    &--soft {
+      background: rgba($primary-2, 0.15);
+      color: $primary-1;
+    }
+
+    &--outline {
+      border: 1px solid $gray-3;
+      color: $gray-6;
+      background: transparent;
+    }
+
+    &--neutral {
+      background: rgba($gray-4, 0.15);
+      color: $gray-6;
+    }
   }
 
   // Header section
@@ -478,7 +527,7 @@
   }
 
   // Force badge colors to print
-  .u-badge {
+  .cv-page__badge {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
