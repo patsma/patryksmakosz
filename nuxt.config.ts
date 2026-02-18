@@ -91,15 +91,15 @@ export default defineNuxtConfig({
     { path: "~/components/SVG", pathPrefix: false },
   ],
 
-  // Simple global SCSS entry point (Nuxt standard assets dir)
-  css: ["~/assets/scss/main.scss"],
+  // Global CSS entry points
+  css: ["~/assets/css/tailwind.css", "~/assets/scss/main.scss"],
 
   modules: [
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/image",
     "@nuxt/eslint",
-    "@nuxtjs/tailwindcss",
+    "@nuxt/ui",
     "@hypernym/nuxt-gsap",
     "@pinia/nuxt",
     "@nuxt/content",
@@ -107,6 +107,11 @@ export default defineNuxtConfig({
     "@tresjs/nuxt",
     ...(disableSentry ? [] : ["@sentry/nuxt/module"]),
   ],
+
+  // Nuxt UI configuration
+  ui: {
+    fonts: false, // Already using @nuxt/fonts
+  },
 
   gsap: {
     composables: true,

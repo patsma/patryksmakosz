@@ -1,15 +1,16 @@
 <template>
   <div class="cv-page">
     <!-- Print Button -->
-    <button
+    <UButton
+      icon="i-heroicons-printer"
+      color="primary"
+      variant="solid"
+      size="lg"
       class="cv-page__print-btn"
-      type="button"
-      aria-label="Print CV"
       @click="handlePrint"
     >
-      <Icon name="heroicons:printer" class="icon" />
       Print CV
-    </button>
+    </UButton>
 
     <!-- Header -->
     <header class="cv-page__header">
@@ -60,6 +61,7 @@
             <UBadge
               v-for="skill in category.skills"
               :key="skill"
+              color="primary"
               variant="soft"
               size="sm"
             >
@@ -135,6 +137,29 @@
       </div>
     </section>
 
+    <!-- GitHub Repositories -->
+    <section v-if="cvData.githubRepos?.length" class="cv-page__section">
+      <h2 class="cv-page__section-title">Open Source & GitHub</h2>
+      <div class="cv-page__repos-grid">
+        <div
+          v-for="repo in cvData.githubRepos"
+          :key="repo.name"
+          class="cv-page__repo"
+        >
+          <div class="cv-page__repo-header">
+            <a :href="repo.url" target="_blank" class="cv-page__repo-name">
+              <Icon name="mdi:github" class="icon" />
+              {{ repo.name }}
+            </a>
+            <UBadge v-if="repo.language" color="neutral" variant="soft" size="xs">
+              {{ repo.language }}
+            </UBadge>
+          </div>
+          <p class="cv-page__repo-desc">{{ repo.description }}</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Interests -->
     <section v-if="cvData.interests?.length" class="cv-page__section">
       <h2 class="cv-page__section-title">Interests</h2>
@@ -142,6 +167,7 @@
         <UBadge
           v-for="interest in cvData.interests"
           :key="interest"
+          color="neutral"
           variant="outline"
           size="sm"
         >

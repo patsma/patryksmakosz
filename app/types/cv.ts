@@ -39,6 +39,13 @@ export interface CVProject {
   url?: string
 }
 
+export interface CVGitHubRepo {
+  name: string
+  description: string
+  url: string
+  language?: string
+}
+
 export interface CVData {
   personal: CVPersonalInfo
   summary: string
@@ -46,5 +53,6 @@ export interface CVData {
   experience: CVExperience[]
   education: CVEducation[]
   projects: CVProject[]
+  githubRepos?: CVGitHubRepo[]
   interests?: string[]
 }

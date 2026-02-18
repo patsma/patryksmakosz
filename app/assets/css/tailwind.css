@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* Override Nuxt UI primary color to match site branding */
+:root {
+  --ui-primary: var(--color-blue-500);
+}
+
+@theme {
+  --color-primary-50: #e5f9fe;
+  --color-primary-100: #ccf3fd;
+  --color-primary-200: #99e7fb;
+  --color-primary-300: #66dbf9;
+  --color-primary-400: #33cff7;
+  --color-primary-500: #0089d0;
+  --color-primary-600: #006da6;
+  --color-primary-700: #00527d;
+  --color-primary-800: #003653;
+  --color-primary-900: #00205b;
+  --color-primary-950: #001b3d;
+}
