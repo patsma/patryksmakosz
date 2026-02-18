@@ -1,5 +1,5 @@
 <template>
-  <div id="smooth-wrapper" class="min-h-screen">
+  <div id="smooth-wrapper" class="min-h-screen bg-white">
     <NuxtLoadingIndicator
       :height="6"
       color="#0089d0"
