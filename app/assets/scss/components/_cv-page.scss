@@ -403,10 +403,18 @@
     display: none !important;
   }
 
-  // Page setup
+  // Page setup - use 0 margins to remove browser headers/footers
   @page {
     size: A4;
-    margin: 15mm 12mm;
+    margin: 0;
+  }
+
+  @page :first {
+    margin-top: 0;
+  }
+
+  @page :last {
+    margin-bottom: 0;
   }
 
   html,
@@ -420,7 +428,7 @@
 
   .cv-page {
     max-width: none;
-    padding: 0;
+    padding: 12mm 12mm 15mm; // Internal padding since @page margin is 0
     margin: 0;
     box-shadow: none;
 
