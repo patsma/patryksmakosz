@@ -138,13 +138,13 @@
         >
           <div class="cv-page__project-header">
             <div class="cv-page__project-name">
-              <a v-if="project.url" :href="project.url" target="_blank">
+              <NuxtLink v-if="project.url" :to="project.url">
                 {{ project.name }}
                 <Icon name="heroicons:arrow-top-right-on-square" class="icon" />
-              </a>
+              </NuxtLink>
               <template v-else>{{ project.name }}</template>
             </div>
-            <QrCode v-if="project.url" :url="project.url" :size="56" />
+            <QrCode v-if="project.url" :url="absoluteUrl(project.url)" :size="56" />
           </div>
           <p class="cv-page__project-desc">{{ project.description }}</p>
         </div>
@@ -210,5 +210,12 @@ useSeoMeta({
 // Print handler
 function handlePrint() {
   window.print()
+}
+
+// Resolve relative paths to absolute URLs for QR code generation
+function absoluteUrl(url: string): string {
+  if (url.startsWith('http')) return url
+  if (import.meta.client) return `${window.location.origin}${url}`
+  return `https://patryksmakosz.com${url}`
 }
 </script>

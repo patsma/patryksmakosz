@@ -6,9 +6,9 @@ import type { CVData } from '~/types/cv'
 export const cvData: CVData = {
   personal: {
     name: 'Patryk Smakosz',
-    title: 'Creative Developer | Web Animation Expert | Front-End Developer',
+    title: 'Frontend / Interactive / Creative Developer - WordPress / Vue / Nuxt - GSAP, SVG & ThreeJS',
     location: 'Gdansk, Poland',
-    email: 'kontakt@tastysites.pl',
+    email: 'me@patryksmakosz.com',
     phone: '+48 502 590 747',
     personalSite: 'patryksmakosz.com',
     linkedin: 'linkedin.com/in/patryksmakosz',
@@ -19,11 +19,11 @@ export const cvData: CVData = {
   skills: [
     {
       category: 'Specializations',
-      skills: ['Web Animation', 'Vector Animation', 'Motion Graphics', 'User Experience', 'Print & Web Design', 'Photo & Video Editing'],
+      skills: ['Web Animation', 'Vector Animation', 'User Experience'],
     },
     {
       category: 'Front-End',
-      skills: ['Nuxt.js', 'Vue.js', 'Angular', 'TypeScript', 'TailwindCSS', 'SCSS', 'CSS Grid', 'JavaScript ES6+'],
+      skills: ['Nuxt.js', 'Vue.js', 'TypeScript', 'TailwindCSS', 'SCSS', 'CSS Grid', 'JavaScript ES6+'],
     },
     {
       category: 'Animation & Graphics',
@@ -39,11 +39,11 @@ export const cvData: CVData = {
     {
       company: 'TastySites',
       role: 'CEO & Creative Developer',
-      startDate: 'Dec 2018',
+      startDate: '2012',
       responsibilities: [
+        'Founded as a freelance operation in 2012, growing into a full-time creative studio from 2018',
         'Creating interactive content for Disney, Mazda, Paco Rabanne, AKA, WePushButtons, and many more',
-        'Building Nuxt/Vue/Angular/WordPress services and applications',
-        'Evolving presence on UpWork with international clientele',
+        'Building Nuxt/Vue/WordPress services and applications',
         'Architected and developed award-winning websites with advanced GSAP animations',
       ],
     },
@@ -59,14 +59,15 @@ export const cvData: CVData = {
       ],
     },
     {
-      company: 'Green Rubino',
-      role: 'Creative Coder',
+      company: 'UpWork Freelancing',
+      role: 'Freelance Creative Developer',
       startDate: 'Sept 2017',
       endDate: 'Oct 2018',
       responsibilities: [
-        'Developing SVG rich banners for major brands',
-        'Researching cutting edge interactive web content',
-        'Working with Art Director on interactive content',
+        'Worked with Art Directors and creative teams on interactive web content for major brands',
+        'Developed SVG-rich animated banners and web experiences',
+        'Researched and implemented cutting-edge interactive techniques',
+        'Built international client relationships across various industries',
       ],
     },
     {
@@ -130,35 +131,30 @@ export const cvData: CVData = {
     {
       name: 'Riverscape',
       description: 'Nuxt 2 + headless WordPress website with Locomotive Scroll, GSAP, and scroll-driven animations for a London-based real estate company.',
-      url: 'https://www.riverscape.co.uk/',
+      url: '/projects/riverscape',
     },
     {
       name: 'ArtistX',
       description: 'Custom ACF WordPress website with canvas animations, smooth scrolling, and scroll-driven effects.',
-      url: 'https://ax.tastysites.pl/',
+      url: '/projects/artistx',
     },
     {
       name: 'ArtTech',
       description: 'Cyberpunk-style SVG logo animation with dynamic movement, glitch effects, and GSAP timelines. Built for a cryptocurrency company in Next.js.',
+      url: '/projects/arttech',
     },
     {
       name: 'Life Balance Congress',
       description: 'Scroll animated Nuxt 3 Landing Page with seamless transitions between sections using various GSAP animation techniques.',
-      url: 'https://life-balance-prototype.netlify.app/',
+      url: '/projects/life-balance-congress',
     },
   ],
 
   githubRepos: [
     {
-      name: 'tastysites-2025',
-      description: 'Creative developer portfolio built with Nuxt 4, Vue 3, and GSAP premium animations. Features 26+ interactive case studies with smooth scroll, SVG morphing, and responsive design.',
-      url: 'https://github.com/patsma/tastysites-2025',
-      language: 'Vue',
-    },
-    {
-      name: 'morten-2025',
-      description: 'Personal portfolio built with Nuxt 4, featuring GSAP page transitions, ScrollSmoother, theme-aware animations, and WebGL fluid gradients.',
-      url: 'https://github.com/patsma/morten-2025',
+      name: 'patryksmakosz',
+      description: 'Creative developer portfolio built with Nuxt 4, Vue 3, and GSAP premium animations. Features 26+ interactive case studies.',
+      url: 'https://github.com/patsma/patryksmakosz',
       language: 'Vue',
     },
     {
@@ -169,20 +165,26 @@ export const cvData: CVData = {
     },
     {
       name: 'molki-design',
-      description: 'Professional website for Molki Design - a creative design company in Gdańsk. Built with Nuxt 3, GSAP premium animations, and Nuxt Studio CMS.',
+      description: 'Professional website for Molki Design - a creative design company in Gdańsk. Built with Nuxt 3, GSAP premium animations.',
       url: 'https://github.com/patsma/molki-design',
       language: 'Vue',
     },
     {
-      name: 'agatarybka',
-      description: 'Modern portfolio website for Agata Rybka showcasing administration, graphics & marketing work. Built with Nuxt 4, GSAP animations, and TailwindCSS.',
-      url: 'https://github.com/patsma/agatarybka',
+      name: 'nuxt-portfolio-gsap',
+      description: 'A high-performance portfolio template with GSAP animations, smooth scrolling, and WebGL backgrounds.',
+      url: 'https://github.com/patsma/nuxt-portfolio-gsap',
       language: 'Vue',
     },
     {
-      name: 'envelope-gsap-2025',
-      description: 'Elegant SVG envelope opening animation with GSAP morphing, Vite, and vanilla JavaScript.',
-      url: 'https://github.com/patsma/envelope-gsap-2025',
+      name: 'gsap-logo-animation-template',
+      description: 'Production-ready GSAP logo animation template with seamless video export using gsap-video-export.',
+      url: 'https://github.com/patsma/gsap-logo-animation-template',
+      language: 'JavaScript',
+    },
+    {
+      name: 'nuxt4page-transitions',
+      description: 'Page transition system for Nuxt 4 with GSAP & SplitText. Manual control via Vue directives with SSR compatibility.',
+      url: 'https://github.com/patsma/nuxt4page-transitions',
       language: 'JavaScript',
     },
   ],

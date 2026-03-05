@@ -94,13 +94,13 @@
   }
 
   &__title {
-    font-size: 1.125rem;
+    font-size: 0.9375rem;
     color: $primary-2;
     font-weight: 500;
     margin-bottom: 1rem;
 
     @media (min-width: $tablet) {
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
   }
 
@@ -472,7 +472,7 @@
     }
 
     &__title {
-      font-size: 11pt !important;
+      font-size: 10pt !important;
       color: $primary-2 !important;
     }
 
