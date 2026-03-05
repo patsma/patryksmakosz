@@ -2,6 +2,7 @@
 // Screen and print-optimized styles for the CV/resume page
 
 @use "../variables" as *;
+@use "sass:color";
 
 .cv-page {
   max-width: 900px;
@@ -35,7 +36,7 @@
     transition: $transition;
 
     &:hover {
-      background: darken($primary-1, 8%);
+      background: color.adjust($primary-1, $lightness: -8%);
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     }
@@ -430,6 +431,14 @@
   @page {
     size: A4;
     margin: 12mm 12mm 15mm;
+
+    // Override browser-injected headers/footers — keep only page number top-right
+    @top-left    { content: ""; }
+    @top-center  { content: ""; }
+    @top-right   { content: counter(page) " / " counter(pages); font-size: 9pt; color: #666; }
+    @bottom-left   { content: ""; }
+    @bottom-center { content: ""; }
+    @bottom-right  { content: ""; }
   }
 
   html,
