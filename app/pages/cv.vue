@@ -17,27 +17,39 @@
       <p class="cv-page__title">{{ cvData.personal.title }}</p>
 
       <div class="cv-page__contact">
-        <span v-if="cvData.personal.phone" class="cv-page__contact-item">
+        <!-- Phone — tel: link + QR -->
+        <span v-if="cvData.personal.phone" class="cv-page__contact-item cv-page__contact-item--with-qr">
           <Icon name="heroicons:phone" class="icon" />
-          {{ cvData.personal.phone }}
+          <a :href="`tel:${cvData.personal.phone.replace(/\s/g, '')}`">{{ cvData.personal.phone }}</a>
+          <QrCode :url="`tel:${cvData.personal.phone.replace(/\s/g, '')}`" :size="56" />
         </span>
-        <span class="cv-page__contact-item">
+
+        <!-- Email — mailto: link + QR -->
+        <span class="cv-page__contact-item cv-page__contact-item--with-qr">
           <Icon name="heroicons:envelope" class="icon" />
           <a :href="`mailto:${cvData.personal.email}`">{{ cvData.personal.email }}</a>
+          <QrCode :url="`mailto:${cvData.personal.email}`" :size="56" />
         </span>
-        <span v-if="cvData.personal.website" class="cv-page__contact-item cv-page__contact-item--with-qr">
-          <Icon name="heroicons:globe-alt" class="icon" />
-          <a :href="`https://${cvData.personal.website}`" target="_blank">{{ cvData.personal.website }}</a>
-          <QrCode :url="`https://${cvData.personal.website}`" :size="56" />
+
+        <!-- Personal site (patryksmakosz.com) -->
+        <span v-if="cvData.personal.personalSite" class="cv-page__contact-item cv-page__contact-item--with-qr">
+          <Icon name="heroicons:user-circle" class="icon" />
+          <a :href="`https://${cvData.personal.personalSite}`" target="_blank">{{ cvData.personal.personalSite }}</a>
+          <QrCode :url="`https://${cvData.personal.personalSite}`" :size="56" />
         </span>
+
+        <!-- LinkedIn -->
         <span v-if="cvData.personal.linkedin" class="cv-page__contact-item cv-page__contact-item--with-qr">
           <Icon name="mdi:linkedin" class="icon" />
           <a :href="`https://${cvData.personal.linkedin}`" target="_blank">LinkedIn</a>
           <QrCode :url="`https://${cvData.personal.linkedin}`" :size="56" />
         </span>
-        <span class="cv-page__contact-item">
+
+        <!-- Location — Google Maps link + QR -->
+        <span class="cv-page__contact-item cv-page__contact-item--with-qr">
           <Icon name="heroicons:map-pin" class="icon" />
-          {{ cvData.personal.location }}
+          <a :href="`https://maps.google.com/?q=${encodeURIComponent(cvData.personal.location)}`" target="_blank">{{ cvData.personal.location }}</a>
+          <QrCode :url="`https://maps.google.com/?q=${encodeURIComponent(cvData.personal.location)}`" :size="56" />
         </span>
       </div>
     </header>

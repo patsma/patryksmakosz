@@ -8,6 +8,7 @@ export interface CVPersonalInfo {
   email: string
   phone?: string
   website?: string
+  personalSite?: string
   linkedin?: string
 }
 

@@ -484,6 +484,10 @@
     }
 
     &__contact {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem 1rem;
+      justify-items: center;
       font-size: 9pt !important;
     }
 

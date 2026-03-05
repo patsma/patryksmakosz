@@ -10,7 +10,7 @@ export const cvData: CVData = {
     location: 'Gdansk, Poland',
     email: 'kontakt@tastysites.pl',
     phone: '+48 502 590 747',
-    website: 'tastysites.pl',
+    personalSite: 'patryksmakosz.com',
     linkedin: 'linkedin.com/in/patryksmakosz',
   },
 
