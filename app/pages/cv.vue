@@ -127,6 +127,25 @@
       </div>
     </section>
 
+    <!-- Professional Development -->
+    <section v-if="cvData.courses?.length" class="cv-page__section">
+      <h2 class="cv-page__section-title">Professional Development</h2>
+      <div class="cv-page__education-list">
+        <div
+          v-for="course in cvData.courses"
+          :key="`${course.institution}-${course.startDate}`"
+          class="cv-page__education-item"
+        >
+          <span class="cv-page__institution">{{ course.institution }}</span>
+          <span class="cv-page__degree">{{ course.degree }}</span>
+          <span class="cv-page__edu-dates">{{ course.startDate }} - {{ course.endDate }}</span>
+          <p v-if="course.description" class="cv-page__edu-description">
+            {{ course.description }}
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- Selected Projects -->
     <section class="cv-page__section">
       <h2 class="cv-page__section-title">Selected Projects</h2>

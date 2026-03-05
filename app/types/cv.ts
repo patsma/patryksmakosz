@@ -53,6 +53,7 @@ export interface CVData {
   skills: CVSkillCategory[]
   experience: CVExperience[]
   education: CVEducation[]
+  courses?: CVEducation[]
   projects: CVProject[]
   githubRepos?: CVGitHubRepo[]
   interests?: string[]

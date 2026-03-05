@@ -105,7 +105,7 @@ export const cvData: CVData = {
       description: 'jQuery & DOM, CSS Preprocessor, Structural Programming in JavaScript',
     },
     {
-      institution: 'Labor Office',
+      institution: 'Full-Stack Dev Bootcamp',
       degree: 'Front End / Back End Developer (250 hours)',
       startDate: '2013',
       endDate: '2013',
@@ -124,6 +124,65 @@ export const cvData: CVData = {
       startDate: '2006',
       endDate: '2010',
       description: 'CISCO exercises, LAN networks maintenance, 6 months practice as LAN technician',
+    },
+  ],
+
+  courses: [
+    {
+      institution: 'Certificates.dev × NuxtLabs',
+      degree: 'Official Nuxt Certification',
+      startDate: '2025',
+      endDate: 'Present',
+      description: 'In progress — Created with Nuxt.com and Sébastien Chopin (Nuxt creator). Validates proficiency in routing, SSR, middleware, state management, and deployment.',
+    },
+    {
+      institution: 'Three.js Journey',
+      degree: 'WebGL & 3D Web Development',
+      startDate: '2025',
+      endDate: 'Present',
+      description: 'Up next — Bruno Simon. 55+ hours covering WebGL, 3D geometry, shaders, post-processing, physics, and immersive web experiences.',
+    },
+    {
+      institution: 'Whimsical Animations',
+      degree: 'Advanced Web Animations',
+      startDate: '2025',
+      endDate: 'Present',
+      description: 'In progress — Josh Comeau (whimsy.joshwcomeau.com). Spring physics, SVG animations, and crafting delightful, polished motion for the web.',
+    },
+    {
+      institution: 'Mastering Pinia',
+      degree: 'Vue State Management',
+      startDate: '2023',
+      endDate: '2023',
+      description: 'Eduardo San Martin Morote (Pinia creator). Advanced state management patterns and architecture for Vue 3 applications.',
+    },
+    {
+      institution: 'Mastering Nuxt 3',
+      degree: 'Full-Stack Nuxt 3',
+      startDate: '2022',
+      endDate: '2022',
+      description: 'Michael Thiessen. Production-ready Nuxt 3 development — SSR, server routes, composables, and full-stack patterns.',
+    },
+    {
+      institution: 'Vue Mastery',
+      degree: 'Advanced Vue Curriculum',
+      startDate: '2020',
+      endDate: 'Present',
+      description: 'Comprehensive Vue ecosystem: Vue 3, Composition API, TypeScript, Pinia, Nuxt, animations, testing, and more (near-complete catalogue).',
+    },
+    {
+      institution: 'Mastering Nuxt 2',
+      degree: 'Nuxt 2 Production Apps',
+      startDate: '2020',
+      endDate: '2020',
+      description: 'Michael Thiessen. 97 video lessons — building scalable production Nuxt 2 applications, patterns, and migration strategies.',
+    },
+    {
+      institution: 'Wes Bos',
+      degree: 'JavaScript & CSS Courses',
+      startDate: '2017',
+      endDate: '2019',
+      description: 'JavaScript30, Beginner JavaScript, CSS Grid, What The Flexbox — covering fundamentals through practical application patterns.',
     },
   ],
 
@@ -191,9 +250,10 @@ export const cvData: CVData = {
 
   interests: [
     'Nature & Hiking',
-    'Science Fiction & Fantasy Literature',
+    'Bushcraft',
+    'Science Fiction, Fantasy & Personal Development',
     'Drone Photography',
     'GoPro Adventures',
-    'Open Source Contribution',
+    'LAN Party',
   ],
 }
