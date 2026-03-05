@@ -94,6 +94,10 @@
   }
 }
 
+.filter-nav {
+  margin-bottom: space(20); // 5rem — matches original mb-20 intent
+}
+
 .filter-count {
   opacity: 0.6;
   font-size: space(3); // 0.75rem

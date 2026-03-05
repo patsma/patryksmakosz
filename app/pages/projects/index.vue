@@ -50,7 +50,7 @@ useHead({ title: "Projects" });
         <h1 class="projects-title">Projects</h1>
 
         <!-- Filter Navigation -->
-        <div class="flex flex-wrap gap-4 justify-center mb-20">
+        <div class="filter-nav flex flex-wrap gap-4 justify-center">
           <NuxtLink
             class="filter-button group"
             to="/projects"
