@@ -113,6 +113,16 @@ export default defineNuxtConfig({
     fonts: false, // Already using @nuxt/fonts
   },
 
+  // Prefix all maz-ui composable auto-imports (e.g. useFormField → useMazFormField)
+  // to avoid name collision with @nuxt/ui's useFormField.
+  // Note: mazUi.composables.useFormField: false doesn't work — it's a bug in the maz-ui
+  // Nuxt module (line 226 of module.mjs filters by internal hardcoded map, not user config).
+  mazUi: {
+    general: {
+      autoImportPrefix: 'maz',
+    },
+  },
+
   gsap: {
     composables: true,
     clubPlugins: {
