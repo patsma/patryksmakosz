@@ -85,7 +85,7 @@
           class="project-path-animation__intro intro-header"
           ref="introHeaderRef"
         >
-          <SentenceHiSVG ref="sentenceHiRef" class="w-40 h-40" />
+          <SentenceHiSVG ref="sentenceHiRef" class="w-40! h-40!" />
           <div
             class="dummy-point"
             data-path-point
