@@ -11,7 +11,7 @@ if (process.client) {
    👨‍💻 Developer: Patryk Smakosz
    🌐 Website: https://patryksmakosz.com
    🏢 Brand: tastysites.pl
-   📧 Contact: patryksmakosz1@gmail.com
+   📧 Contact: me@patryksmakosz.com
 
    🚀 Built with:
    • Nuxt 4 (Vue 3) - Modern full-stack framework
@@ -46,7 +46,7 @@ if (process.client) {
     "font-size: 16px; color: #4ecdc4; font-weight: bold;"
   );
   console.log(
-    "%c📧 patryksmakosz1@gmail.com",
+    "%c📧 me@patryksmakosz.com",
     "font-size: 14px; color: #45b7d1; text-decoration: underline;"
   );
 }

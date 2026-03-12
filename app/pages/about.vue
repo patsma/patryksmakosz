@@ -121,8 +121,8 @@
       :buttons="[
         {
           type: 'filled',
-          link: 'mailto:patryksmakosz1@gmail.com',
-          text: 'About me',
+          link: 'https://www.upwork.com/freelancers/patryksmakosz',
+          text: 'Check Reviews',
         },
       ]"
     />

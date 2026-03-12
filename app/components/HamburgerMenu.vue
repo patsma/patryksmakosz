@@ -264,7 +264,7 @@ onUnmounted(() => {
 
       <a
         :ref="setMenuLinkRef"
-        href="mailto:patryksmakosz1@gmail.com"
+        href="mailto:me@patryksmakosz.com"
         class="menu-overlay__link inline-flex items-center gap-2"
       >
         <span class="menu-overlay__link-text">Contact</span>

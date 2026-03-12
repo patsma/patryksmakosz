@@ -419,7 +419,7 @@
             <!-- Contact items with dummy points -->
             <!-- Email -->
             <a
-              href="mailto:patryksmakosz1@gmail.com"
+              href="mailto:me@patryksmakosz.com"
               class="project-path-animation__contact-item contact-item relative hover:text-primary-1 transition-colors"
             >
               <div
@@ -430,7 +430,7 @@
                 data-control-y="-450"
               ></div>
               <Icon name="tabler:mail" class="w-6 h-6 text-black" />
-              <span>patryksmakosz1@gmail.com</span>
+              <span>me@patryksmakosz.com</span>
             </a>
 
             <!-- LinkedIn -->
