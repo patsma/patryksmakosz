@@ -51,10 +51,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 #### Key Architecture Patterns
 
-**Layout Structure**: 
-- Uses GSAP ScrollSmoother with `#smooth-wrapper` and `#smooth-content` containers
-- Fixed header outside smooth content to avoid position:fixed issues
+**Layout Structure**:
+- Two layouts available:
+  - `default.vue` — Full site with GSAP ScrollSmoother + MorphingLogo page transition. Uses `#smooth-wrapper` and `#smooth-content` containers. Fixed header outside smooth content to avoid position:fixed issues
+  - `plain.vue` — Simple layout with site header (logo + hamburger menu), no ScrollSmoother or MorphingLogo. Used by `/links` and `/test` pages. Has `bg-white` to counter the html.dark class
 - Accessibility features including skip links and ARIA roles
+
+**Links Page** (`app/pages/links.vue`):
+- Link-in-bio page at `/links` — permanent URL for TikTok, Instagram, Dribbble bio links
+- Uses `plain` layout (no ScrollSmoother needed for a utility page)
+- Featured/newest link uses `btn-standard` (gradient), remaining links use `btn-standard-outlined`
+- Social icons row at bottom (GitHub, LinkedIn, Dribbble, Bluesky)
+- To add new links: add to `featuredLink` (to promote) or prepend to `regularLinks` array, push older ones down
+- To add new social icons: add to `socials` array using `tabler:brand-*` or `simple-icons:*` icon names
+
+**Known Issue — Dark Background Bleed**:
+- The `<html>` element receives a `dark` class (likely from Nuxt UI color mode), causing dark background to show through wherever `bg-white` is not explicitly set
+- Current workaround: `bg-white` on plain layout wrapper and `.links-page`
+- Proper fix needed: disable dark mode globally or force light color mode preference
 
 **Animation System**:
 - GSAP with premium plugins configured in `nuxt.config.ts`
