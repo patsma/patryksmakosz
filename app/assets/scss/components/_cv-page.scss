@@ -267,7 +267,7 @@
     flex-wrap: wrap;
     gap: 0.25rem 1rem;
     padding: 0.75rem 1rem;
-    background: $gray-1;
+    background: $gray-light;
     border-radius: $radius-sm;
   }
 
@@ -310,7 +310,7 @@
 
   &__project {
     padding: 1rem;
-    background: $gray-1;
+    background: $gray-light;
     border-radius: $radius-sm;
     border-left: 3px solid $primary-2;
   }
@@ -365,7 +365,7 @@
 
   &__repo {
     padding: 1rem;
-    background: $gray-1;
+    background: $gray-light;
     border-radius: $radius-sm;
     border-left: 3px solid $primary-1;
   }
