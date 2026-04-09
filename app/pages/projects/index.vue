@@ -40,6 +40,39 @@ const counts = computed(() => {
   };
 });
 
+/**
+ * Resolve a card preview image for a project.
+ * Priority: explicit `preview` frontmatter → GIF derived from `video` path → `cover` thumbnail.
+ * Returns null when nothing is available so the template can render a placeholder.
+ * @param {{ preview?: string, video?: string, cover?: string }} p
+ * @returns {string | null}
+ */
+const previewFor = (p) => {
+  if (p?.preview) return p.preview;
+  if (p?.video) {
+    return p.video
+      .replace("/web-optimized/", "/web-optimized-gifs/")
+      .replace(/\.mp4$/, ".gif");
+  }
+  return p?.cover || null;
+};
+
+/**
+ * Graceful fallback when a derived GIF 404s: swap to `cover` if available,
+ * otherwise hide the image so the placeholder shows.
+ * @param {Event} event
+ * @param {{ cover?: string }} p
+ */
+const handlePreviewError = (event, p) => {
+  const img = event.target;
+  if (!img) return;
+  if (p?.cover && img.src && !img.src.endsWith(p.cover)) {
+    img.src = p.cover;
+    return;
+  }
+  img.style.display = "none";
+};
+
 useHead({ title: "Projects" });
 </script>
 
@@ -105,6 +138,30 @@ useHead({ title: "Projects" });
             :to="p.path || `/projects/${p.slug}`"
             class="project-card__link"
           >
+            <div class="project-card__preview">
+              <img
+                v-if="previewFor(p)"
+                :src="previewFor(p)"
+                :alt="p.title"
+                loading="lazy"
+                decoding="async"
+                class="project-card__preview-img"
+                @error="(e) => handlePreviewError(e, p)"
+              />
+              <div v-else class="project-card__preview-placeholder">
+                <Icon
+                  :name="
+                    p.category === 'logo-animation'
+                      ? 'mdi:animation'
+                      : p.category === 'website'
+                        ? 'mdi:web'
+                        : 'mdi:palette'
+                  "
+                  class="w-10 h-10"
+                />
+              </div>
+            </div>
+
             <div class="project-card__header">
               <span class="project-card__category">
                 <Icon

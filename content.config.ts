@@ -17,6 +17,7 @@ export default defineContentConfig({
         slug: z.string(),
         category: z.string().optional(),
         cover: z.string().optional(),
+        preview: z.string().optional(),
         video: z.string().optional(),
         liveLink: z.string().optional(),
         liveLinkLabel: z.string().optional(),
