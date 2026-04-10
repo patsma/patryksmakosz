@@ -2,8 +2,7 @@
 title: "Audiologist"
 slug: "animation-wave"
 category: "custom-animation"
-cover: "/assets/medias/animation-wave-thumb.jpg"
-video: "/movies/web-optimized/animation-wave.mp4"
+video: "/movies/web-optimized/audiologist.mp4"
 summary: "Interactive slider with smooth wave animations and non-linear motion graphics. Built for a hearing healthcare company featuring organic SVG morphing, synchronized DrawSVG effects, and elegant transitions."
 tags: ["animation", "gsap", "svg", "drawsvg", "slider"]
 date: 2018-01-01

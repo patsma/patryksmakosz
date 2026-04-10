@@ -6,7 +6,6 @@
 title: "AeroFlux"
 slug: "aeroflux"
 category: "logo-animation"
-cover: "/assets/medias/aeroflux-thumb.svg"
 video: "/movies/web-optimized/aeroflux.mp4"
 summary: "Dynamic drone marketing animation with DrawSVG progressive reveals, particle effects, and smooth GSAP timelines. Created for an innovative drone technology brand's landing page."
 tags: ["svg", "gsap", "drawsvg", "particles", "drone", "marketing"]

@@ -2,8 +2,7 @@
 title: "Fluid Gradient"
 slug: "fluid-gradient"
 category: "custom-animation"
-cover: "/assets/medias/fluid-gradient-thumb.svg"
-video: "/movies/web-optimized/fluid-gradient.mp4"
+video: "/movies/web-optimized/gradient.mp4"
 summary: "Immersive fluid gradient animation built with custom GLSL shaders and Three.js. Features real-time color morphing and smooth transitions, integrated with GSAP ScrollTrigger for scroll-driven animation control."
 tags: ["threejs", "shaders", "gsap", "webgl", "canvas"]
 date: 2023-01-01

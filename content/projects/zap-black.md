@@ -2,7 +2,6 @@
 title: "Zap Black"
 slug: "zap-black"
 category: "website"
-cover: "/assets/medias/zap-black-thumb.svg"
 video: "/movies/web-optimized/zap-black.mp4"
 liveLink: "https://zap-black.netlify.app"
 summary: "Landing page featuring barba.js page transitions, GSAP animations, and scroll pinning for a stress-free checkout solution designed to increase ROI."

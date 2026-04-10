@@ -1,5 +1,5 @@
 ---
-title: "apparelimpact.org"
+title: "Apparel Impact"
 slug: "apparelimpact"
 category: "website"
 video: "/movies/web-optimized/apparelimpact.mp4"
@@ -39,7 +39,7 @@ wordGapVw: 3
 iconGapVw: 3
 durationSec: 50
 showMeta: true
-projectName: apparelimpact.org
+projectName: Apparel Impact
 meta:
   - Non-profit
   - WordPress + Scrollytelling

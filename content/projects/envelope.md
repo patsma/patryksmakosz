@@ -2,7 +2,8 @@
 title: "Envelope"
 slug: "envelope"
 category: "custom-animation"
-cover: "/projects-to-import/envelope/public/envelope.svg"
+cover: "/assets/medias/envelope-thumb.svg"
+video: "/movies/web-optimized/envelope.mp4"
 summary: "Interactive envelope-opening prototype for virtual wish cards and invitations. Built with SVG, GSAP, Illustrator masks, and Vite."
 tags: ["animation", "gsap", "svg"]
 date: 2019-12-01

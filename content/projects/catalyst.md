@@ -6,7 +6,6 @@
 title: "Catalyst Consortium"
 slug: "catalyst"
 category: "logo-animation"
-cover: "/assets/medias/catalyst-thumb.svg"
 video: "/movies/web-optimized/catalyst.mp4"
 summary: "Bidirectional SVG logo animation with staggered bounce effects and smooth reveal mechanics. Built with GSAP CustomBounce for a marketing campaign focused on dynamic brand presence."
 tags: ["svg", "gsap", "logo", "custombounce", "marketing"]

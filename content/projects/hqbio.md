@@ -2,7 +2,6 @@
 title: "HQ Bio"
 slug: "hqbio"
 category: "website"
-cover: "/assets/medias/hqbio-thumb.svg"
 video: "/movies/web-optimized/hq-bio.mp4"
 liveLink: "https://hqbio-tasty-sites.netlify.app"
 summary: "Interactive SVG-driven storytelling website showcasing GMO yeast production innovation with GSAP animations and scroll-based narrative flow."

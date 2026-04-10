@@ -41,37 +41,58 @@ const counts = computed(() => {
 });
 
 /**
- * Resolve a card preview image for a project.
- * Priority: explicit `preview` frontmatter → GIF derived from `video` path → `cover` thumbnail.
- * Returns null when nothing is available so the template can render a placeholder.
- * @param {{ preview?: string, video?: string, cover?: string }} p
+ * Resolve a static thumbnail (used as poster for videos, or as the standalone
+ * preview image when a project has no video).
+ * @param {{ preview?: string, cover?: string }} p
  * @returns {string | null}
  */
-const previewFor = (p) => {
-  if (p?.preview) return p.preview;
-  if (p?.video) {
-    return p.video
-      .replace("/web-optimized/", "/web-optimized-gifs/")
-      .replace(/\.mp4$/, ".gif");
-  }
-  return p?.cover || null;
+const staticPreviewFor = (p) => p?.preview || p?.cover || null;
+
+// Lazy autoplay/pause videos via a single shared IntersectionObserver.
+const videoRefs = ref([]);
+const setVideoRef = (el) => {
+  if (el) videoRefs.value.push(el);
 };
 
-/**
- * Graceful fallback when a derived GIF 404s: swap to `cover` if available,
- * otherwise hide the image so the placeholder shows.
- * @param {Event} event
- * @param {{ cover?: string }} p
- */
-const handlePreviewError = (event, p) => {
-  const img = event.target;
-  if (!img) return;
-  if (p?.cover && img.src && !img.src.endsWith(p.cover)) {
-    img.src = p.cover;
-    return;
+let io = null;
+onMounted(() => {
+  if (typeof window === "undefined" || !("IntersectionObserver" in window)) return;
+  io = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        const v = entry.target;
+        if (entry.isIntersecting) {
+          const p = v.play?.();
+          if (p && typeof p.catch === "function") p.catch(() => {});
+        } else {
+          v.pause?.();
+        }
+      }
+    },
+    { rootMargin: "200px 0px", threshold: 0 }
+  );
+  for (const v of videoRefs.value) io.observe(v);
+});
+
+onBeforeUnmount(() => {
+  if (io) {
+    io.disconnect();
+    io = null;
   }
-  img.style.display = "none";
-};
+  videoRefs.value = [];
+});
+
+// Re-observe when the project list changes (filter switch).
+watch(
+  () => projects.value,
+  async () => {
+    if (!io) return;
+    io.disconnect();
+    videoRefs.value = [];
+    await nextTick();
+    for (const v of videoRefs.value) io.observe(v);
+  }
+);
 
 useHead({ title: "Projects" });
 </script>
@@ -139,14 +160,24 @@ useHead({ title: "Projects" });
             class="project-card__link"
           >
             <div class="project-card__preview">
+              <video
+                v-if="p.video"
+                :ref="setVideoRef"
+                :src="p.video"
+                :poster="staticPreviewFor(p) || ''"
+                preload="none"
+                muted
+                loop
+                playsinline
+                class="project-card__preview-video"
+              />
               <img
-                v-if="previewFor(p)"
-                :src="previewFor(p)"
+                v-else-if="staticPreviewFor(p)"
+                :src="staticPreviewFor(p)"
                 :alt="p.title"
                 loading="lazy"
                 decoding="async"
                 class="project-card__preview-img"
-                @error="(e) => handlePreviewError(e, p)"
               />
               <div v-else class="project-card__preview-placeholder">
                 <Icon

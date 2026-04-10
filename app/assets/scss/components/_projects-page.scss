@@ -124,7 +124,8 @@
         opacity: 1;
       }
 
-      .project-card__preview-img {
+      .project-card__preview-img,
+      .project-card__preview-video {
         transform: scale(1.03);
       }
     }
@@ -156,7 +157,8 @@
     background: rgba($gray-2, 0.6);
   }
 
-  &__preview-img {
+  &__preview-img,
+  &__preview-video {
     display: block;
     width: 100%;
     height: 100%;
