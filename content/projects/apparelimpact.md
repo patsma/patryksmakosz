@@ -59,6 +59,18 @@ fit: cover
 ---
 ::
 
+::HeroVideo
+---
+src: "/movies/web-optimized/apparelimpact-horizontal.mp4"
+poster: ""
+autoPlay: true
+loop: true
+muted: true
+preload: auto
+fit: cover
+---
+::
+
 ::SimultaneousWords
 ---
 theme: light
