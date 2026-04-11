@@ -68,6 +68,9 @@ export default defineNuxtPlugin((nuxtApp) => {
   };
 
   const init = () => {
+    // Skip ScrollSmoother on mobile - use native scroll + dvh units instead
+    if (isMobile()) return;
+
     // Defensive cleanup
     kill();
 
@@ -77,16 +80,13 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     setScrollerDefaultsEarly();
 
-    // On mobile: no smooth delay (feels native), no parallax, but keep
-    // normalizeScroll to lock the URL bar by moving scroll to the JS thread.
-    const mobile = isMobile();
     try {
       instance = ScrollSmoother.create({
         wrapper,
         content,
-        smooth: mobile ? 0 : 0.8,
-        effects: !mobile,
-        smoothTouch: false,
+        smooth: 0.8,
+        effects: true,
+        smoothTouch: 0.2,
         normalizeScroll: true,
         ignoreMobileResize: true,
       });
@@ -143,7 +143,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   });
 
   nuxtApp.hook("page:finish", () => {
-    setScrollerDefaultsEarly();
+    if (!isMobile()) setScrollerDefaultsEarly();
     requestAnimationFrame(() => {
       init();
       // Clear transition flag on next frame after init so CSS fades in
@@ -154,7 +154,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   // Initialize on app mount
   nuxtApp.hook("app:mounted", () => {
     requestAnimationFrame(() => {
-      setScrollerDefaultsEarly();
+      if (!isMobile()) setScrollerDefaultsEarly();
       init();
     });
   });

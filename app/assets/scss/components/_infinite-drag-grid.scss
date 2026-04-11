@@ -9,6 +9,19 @@
 // We intentionally keep the exact values used in the component to preserve the
 // current look and feel. Responsive rules are minimal and focused.
 
+// Lock viewport on mobile to prevent URL bar reflow and overscroll bounce
+// from breaking the drag grid and making the header jump.
+@media (max-width: 767px) {
+  html:has(.page-home),
+  .page-home {
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    overscroll-behavior: none;
+  }
+}
+
 .infinite-drag-grid {
   height: 102vh;
   cursor: grab;

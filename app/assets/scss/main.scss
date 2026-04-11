@@ -30,6 +30,14 @@
 @use "./components/cv-page";
 
 html,
+html.dark,
+body,
+#__nuxt,
+#smooth-wrapper {
+  background: white !important;
+}
+
+html,
 body {
   overflow-x: hidden;
 }
