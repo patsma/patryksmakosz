@@ -4,7 +4,7 @@ slug: "apparelimpact"
 category: "website"
 video: "/movies/web-optimized/apparelimpact.mp4"
 liveLink: "https://apparelimpact.org/"
-summary: "Pulling something old out of the archive - apparelimpact.org, a site I built for a non-profit going after clothing waste. Nice long scroll, gallery animation in there too ^^"
+summary: "I built the scrolling sections and interactive components for this non-profit fighting clothing waste. Nice long scroll, gallery animation in there too ^^"
 tags: ["webdesign", "wordpress", "scrollytelling", "non-profit", "frontend", "tastysites", "portfolio"]
 date: 2020-01-01
 ---
@@ -75,6 +75,6 @@ fit: cover
 ---
 theme: light
 pinHeightVh: 420
-paragraph: Pulling something old out of the archive - apparelimpact.org, a site I built for a non-profit going after clothing waste. Long scroll, with a gallery animation that reveals the story as you go.
+paragraph: I built the scrolling sections and interactive components for this non-profit fighting clothing waste. Nice long scroll, gallery animation in there too ^^
 ---
 ::
