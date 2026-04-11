@@ -3,6 +3,7 @@ title: "Blood Bank Status"
 slug: "blood"
 category: "custom-animation"
 cover: "/assets/medias/blood-thumb.svg"
+video: "/movies/web-optimized/blood.mp4"
 summary: "Real-time blood bank status visualization widget with animated SVG drops and clipPath masking. Built for a medical institution to display available blood inventory across hospitals."
 tags: ["wordpress", "gsap", "svg", "clippath", "widget"]
 date: 2018-06-01

@@ -15,6 +15,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   if (!ScrollTrigger || !ScrollSmoother) return;
 
+  const MOBILE_BREAKPOINT = 768;
+  const isMobile = () => window.innerWidth < MOBILE_BREAKPOINT;
+
   let instance = null;
 
   const setRouteChanging = (isChanging) => {
@@ -74,13 +77,16 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     setScrollerDefaultsEarly();
 
+    // On mobile: no smooth delay (feels native), no parallax, but keep
+    // normalizeScroll to lock the URL bar by moving scroll to the JS thread.
+    const mobile = isMobile();
     try {
       instance = ScrollSmoother.create({
         wrapper,
         content,
-        smooth: 0.8,
-        effects: true,
-        smoothTouch: 0.2,
+        smooth: mobile ? 0 : 0.8,
+        effects: !mobile,
+        smoothTouch: false,
         normalizeScroll: true,
         ignoreMobileResize: true,
       });

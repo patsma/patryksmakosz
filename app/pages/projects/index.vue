@@ -48,6 +48,10 @@ const counts = computed(() => {
  */
 const staticPreviewFor = (p) => p?.preview || p?.cover || null;
 
+// Track which videos have loaded for preloader visibility.
+const loadedVideos = reactive(new Set());
+const handleVideoLoaded = (src) => loadedVideos.add(src);
+
 // Lazy autoplay/pause videos via a single shared IntersectionObserver.
 const videoRefs = ref([]);
 const setVideoRef = (el) => {
@@ -170,7 +174,14 @@ useHead({ title: "Projects" });
                 loop
                 playsinline
                 class="project-card__preview-video"
+                @loadeddata="handleVideoLoaded(p.video)"
               />
+              <div
+                v-if="p.video && !loadedVideos.has(p.video)"
+                class="project-card__preview-loader"
+              >
+                <div class="project-card__preview-spinner" />
+              </div>
               <img
                 v-else-if="staticPreviewFor(p)"
                 :src="staticPreviewFor(p)"
