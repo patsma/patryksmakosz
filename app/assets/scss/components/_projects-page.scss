@@ -129,10 +129,6 @@
           opacity: 1;
         }
 
-        .project-card__preview-img,
-        .project-card__preview-video {
-          transform: scale(1.03);
-        }
       }
 
       &:hover::before {
@@ -160,7 +156,9 @@
     margin-bottom: space(5);
     border-radius: $radius-md;
     overflow: hidden;
-    background: rgba($gray-2, 0.6);
+    background: white;
+    // Hide sub-pixel gap artifact at rounded corners
+    box-shadow: inset 0 0 0 1px white;
   }
 
   &__preview-img,

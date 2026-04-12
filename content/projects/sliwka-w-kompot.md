@@ -3,7 +3,7 @@ title: "Śliwka w Kompot"
 slug: "sliwka-w-kompot"
 category: "logo-animation"
 cover: "/assets/medias/sliwka-thumb.svg"
-video: ""
+video: "/movies/web-optimized/sliwka-w-kompot.mp4"
 summary: "SVG logo animation for a restaurant using GSAP Morphing and smooth motion."
 tags: ["svg", "gsap", "logo", "morphsvg", "animation"]
 date: 2022-01-01
