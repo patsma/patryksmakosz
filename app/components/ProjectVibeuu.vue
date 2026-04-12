@@ -37,7 +37,7 @@ const props = defineProps({
   autoPlay: { type: Boolean, default: false },
   useScrollTrigger: { type: Boolean, default: true },
   stStart: { type: String, default: "top center" },
-  stEnd: { type: String, default: "bottom center" },
+  stEnd: { type: String, default: "bottom top" },
   // Global speed for this animation, mirrors legacy feel while staying configurable
   timeScale: { type: Number, default: 1 },
 });

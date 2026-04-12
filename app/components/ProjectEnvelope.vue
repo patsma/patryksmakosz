@@ -59,7 +59,7 @@ const props = defineProps({
   /** @type {string} ScrollTrigger start position */
   stStart: { type: String, default: "top center" },
   /** @type {string} ScrollTrigger end position */
-  stEnd: { type: String, default: "bottom center" },
+  stEnd: { type: String, default: "bottom top" },
   /** @type {number} Playback speed multiplier applied to all timelines */
   timeScale: { type: Number, default: 1 },
 });

@@ -79,7 +79,7 @@ const props = defineProps({
   // ScrollTrigger-controlled autoplay defaults to on
   useScrollTrigger: { type: Boolean, default: true },
   stStart: { type: String, default: "top center" },
-  stEnd: { type: String, default: "bottom center" },
+  stEnd: { type: String, default: "bottom top" },
 
   /**
    * @type {number}

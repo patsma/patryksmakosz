@@ -117,7 +117,7 @@ const props = defineProps({
   useScrollTrigger: { type: Boolean, default: true },
   /** ScrollTrigger start/end */
   stStart: { type: String, default: "top center" },
-  stEnd: { type: String, default: "bottom center" },
+  stEnd: { type: String, default: "bottom top" },
   /** Master timeScale */
   timeScale: { type: Number, default: 2 },
   /** Background images to cycle through for the slider */
