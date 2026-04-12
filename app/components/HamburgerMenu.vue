@@ -5,6 +5,13 @@ const { $gsap } = useNuxtApp();
 const menuStore = useMenuStore();
 const route = useRoute();
 
+// Close menu when any link inside the nav is clicked (event delegation)
+function handleNavClick(e) {
+  if (e.target.closest('a')) {
+    menuStore.close();
+  }
+}
+
 // Refs for DOM elements we animate
 const hamburgerRef = ref(null);
 const buttonRef = ref(null);
@@ -205,7 +212,7 @@ onUnmounted(() => {
       role="dialog"
       aria-modal="true"
       aria-label="Main navigation"
-      @click.stop
+      @click="handleNavClick"
     >
       <NuxtLink
         :ref="setMenuLinkRef"
