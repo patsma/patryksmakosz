@@ -160,6 +160,8 @@ html {
 }
 
 body {
+  min-height: 100.5vh;
+
   // Prevent history swipe on horizontal overscroll
   overscroll-behavior-x: none;
 }
