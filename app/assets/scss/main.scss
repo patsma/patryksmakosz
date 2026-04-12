@@ -43,8 +43,9 @@ body {
 }
 html {
   overflow-y: visible !important;
-  min-height: 102svh;
+  scrollbar-gutter: stable;
 }
+
 
 
 :root {
@@ -161,7 +162,6 @@ html {
 body {
   // Prevent history swipe on horizontal overscroll
   overscroll-behavior-x: none;
-  min-height: calc(101svh - var(--header-height));
 }
 
 // SVG elements should fill their containers by default
