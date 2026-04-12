@@ -377,6 +377,18 @@ onUnmounted(() => {
         </a>
         <a
           :ref="setSocialLinkRef"
+          href="https://www.tiktok.com/@tasty.sites"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="TikTok"
+          title="TikTok"
+          class="hover:text-white focus-visible:text-white transition-colors outline-none"
+        >
+          <Icon name="tabler:brand-tiktok" class="w-6 h-6" />
+          <span class="sr-only">TikTok</span>
+        </a>
+        <a
+          :ref="setSocialLinkRef"
           href="https://github.com/patsma"
           target="_blank"
           rel="noopener noreferrer"

@@ -104,6 +104,7 @@ const socials = [
   { icon: 'tabler:brand-linkedin', url: 'https://linkedin.com/in/patryksmakosz', label: 'LinkedIn' },
   { icon: 'tabler:brand-dribbble', url: 'https://dribbble.com/tastysites', label: 'Dribbble' },
   { icon: 'simple-icons:bluesky', url: 'https://bsky.app/profile/tastysites.bsky.social', label: 'Bluesky' },
+  { icon: 'tabler:brand-tiktok', url: 'https://www.tiktok.com/@tasty.sites', label: 'TikTok' },
 ]
 </script>
 

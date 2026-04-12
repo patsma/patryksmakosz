@@ -517,6 +517,17 @@
               <span>YouTube</span>
             </a>
 
+            <!-- TikTok -->
+            <a
+              href="https://www.tiktok.com/@tasty.sites"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-path-animation__contact-item contact-item hover:text-primary-1 transition-colors"
+            >
+              <Icon name="tabler:brand-tiktok" class="w-6 h-6 text-black" />
+              <span>TikTok</span>
+            </a>
+
             <!-- GitHub -->
             <a
               href="https://github.com/patsma"
