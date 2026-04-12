@@ -51,6 +51,9 @@ const staticPreviewFor = (p) => p?.preview || p?.cover || null;
 /** Resolve video path to CDN URL when configured */
 const videoSrc = (path) => useVideoUrl(path);
 
+// Track which videos have had their src assigned (lazy-load on scroll).
+const activatedVideos = reactive(new Set());
+
 // Track which videos have loaded for preloader visibility.
 const loadedVideos = reactive(new Set());
 const handleVideoLoaded = (src) => loadedVideos.add(src);
@@ -69,6 +72,16 @@ const safePlay = (v) => {
   if (p && typeof p.catch === "function") p.catch(() => {});
 };
 
+const activateAndPlay = (v) => {
+  const videoPath = v.dataset.videoSrc;
+  if (videoPath && !activatedVideos.has(videoPath)) {
+    activatedVideos.add(videoPath);
+    nextTick(() => safePlay(v));
+  } else {
+    safePlay(v);
+  }
+};
+
 const createVideoTriggers = () => {
   if (!$ScrollTrigger) return;
   for (const v of videoRefs.value) {
@@ -77,8 +90,8 @@ const createVideoTriggers = () => {
         trigger: v,
         start: "top bottom",
         end: "bottom top",
-        onEnter: () => safePlay(v),
-        onEnterBack: () => safePlay(v),
+        onEnter: () => activateAndPlay(v),
+        onEnterBack: () => activateAndPlay(v),
         onLeave: () => v.pause?.(),
         onLeaveBack: () => v.pause?.(),
       })
@@ -108,6 +121,7 @@ watch(
   async () => {
     killVideoTriggers();
     videoRefs.value = [];
+    activatedVideos.clear();
     await nextTick();
     createVideoTriggers();
   }
@@ -182,7 +196,8 @@ useHead({ title: "Projects" });
               <video
                 v-if="p.video"
                 :ref="setVideoRef"
-                :src="videoSrc(p.video)"
+                :src="activatedVideos.has(p.video) ? videoSrc(p.video) : undefined"
+                :data-video-src="p.video"
                 :poster="staticPreviewFor(p) || ''"
                 preload="none"
                 muted
