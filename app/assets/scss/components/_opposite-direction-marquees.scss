@@ -20,7 +20,9 @@
 
   &__container {
     position: relative;
-    height: 100vh;
+    // Pinned containers use lvh so they always fill the viewport
+    // regardless of URL bar state (svh would leave a gap when bar hides)
+    height: 100lvh;
     display: flex;
     flex-direction: column;
     justify-content: center;

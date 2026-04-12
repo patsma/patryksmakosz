@@ -277,9 +277,13 @@ onMounted(() => {
       ST && ST.refresh && ST.refresh();
     } catch (e) {}
 
-    // Recompute on resize (debounced)
+    // Recompute on resize (debounced), but only when width actually changes
+    // (mobile URL bar hide/show only changes height, not width)
     let t;
+    let lastWidth = window.innerWidth;
     resizeHandler = () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
       clearTimeout(t);
       t = setTimeout(() => {
         createMarqueeTweens();

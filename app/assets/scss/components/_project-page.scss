@@ -13,7 +13,7 @@
 
   // Loading state
   &__loading {
-    min-height: 100vh;
+    min-height: 100svh;
     display: grid;
     place-items: center;
     text-align: center;
@@ -166,7 +166,7 @@
 // Empty state component for project not found
 .empty-state {
   $root: &;
-  min-height: 100vh;
+  min-height: 100svh;
   display: grid;
   place-items: center;
 

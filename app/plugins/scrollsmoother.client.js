@@ -68,8 +68,12 @@ export default defineNuxtPlugin((nuxtApp) => {
   };
 
   const init = () => {
-    // Skip ScrollSmoother on mobile - use native scroll + dvh units instead
-    if (isMobile()) return;
+    // Skip ScrollSmoother on mobile - use native scroll + svh units instead.
+    // ignoreMobileResize prevents ScrollTrigger from recalculating on URL bar resize.
+    if (isMobile()) {
+      ScrollTrigger.config({ ignoreMobileResize: true });
+      return;
+    }
 
     // Defensive cleanup
     kill();

@@ -9,7 +9,7 @@
 
 // Blog Index Layout
 .blog-index {
-  min-height: 100vh;
+  min-height: 100svh;
   background: $white;
   position: relative;
 
@@ -78,7 +78,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   z-index: 1;
 }
