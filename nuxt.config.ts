@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://patryksmakosz.com",
+      videoBaseUrl: process.env.NUXT_PUBLIC_VIDEO_BASE_URL || "",
     },
   },
 
@@ -121,6 +122,7 @@ export default defineNuxtConfig({
     general: {
       autoImportPrefix: 'maz',
     },
+    injectCss: false,
   },
 
   gsap: {

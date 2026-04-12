@@ -12,7 +12,7 @@
       ref="videoEl"
       class="hero-video__video"
       :class="[videoObjectClass, videoOpacityClass]"
-      :src="src"
+      :src="resolvedSrc"
       :poster="poster || undefined"
       :preload="preload"
       :autoplay="autoPlay"
@@ -139,6 +139,9 @@ const props = defineProps({
   showFullscreenHint: { type: Boolean, default: true },
   showLoadingSpinner: { type: Boolean, default: true },
 });
+
+// Resolve local path to CDN URL when NUXT_PUBLIC_VIDEO_BASE_URL is set
+const resolvedSrc = computed(() => useVideoUrl(props.src))
 
 /** @type {import('vue').Ref<HTMLVideoElement|null>} */
 const videoEl = ref(null);

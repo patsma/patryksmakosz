@@ -97,6 +97,9 @@ Desktop.ini
 
 # Local Netlify folder
 .netlify
+
+# Wrangler local state
+.wrangler
 todos/tasks.todo
 public/oldportfolio/*
 # Sentry Config File

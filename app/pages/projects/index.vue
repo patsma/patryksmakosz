@@ -48,6 +48,9 @@ const counts = computed(() => {
  */
 const staticPreviewFor = (p) => p?.preview || p?.cover || null;
 
+/** Resolve video path to CDN URL when configured */
+const videoSrc = (path) => useVideoUrl(path);
+
 // Track which videos have loaded for preloader visibility.
 const loadedVideos = reactive(new Set());
 const handleVideoLoaded = (src) => loadedVideos.add(src);
@@ -179,7 +182,7 @@ useHead({ title: "Projects" });
               <video
                 v-if="p.video"
                 :ref="setVideoRef"
-                :src="p.video"
+                :src="videoSrc(p.video)"
                 :poster="staticPreviewFor(p) || ''"
                 preload="none"
                 muted
