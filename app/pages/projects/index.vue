@@ -52,49 +52,61 @@ const staticPreviewFor = (p) => p?.preview || p?.cover || null;
 const loadedVideos = reactive(new Set());
 const handleVideoLoaded = (src) => loadedVideos.add(src);
 
-// Lazy autoplay/pause videos via a single shared IntersectionObserver.
+// Lazy autoplay/pause videos via GSAP ScrollTrigger (works with ScrollSmoother).
+const { $ScrollTrigger } = useNuxtApp();
 const videoRefs = ref([]);
 const setVideoRef = (el) => {
   if (el) videoRefs.value.push(el);
 };
 
-let io = null;
-onMounted(() => {
-  if (typeof window === "undefined" || !("IntersectionObserver" in window)) return;
-  io = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        const v = entry.target;
-        if (entry.isIntersecting) {
-          const p = v.play?.();
-          if (p && typeof p.catch === "function") p.catch(() => {});
-        } else {
-          v.pause?.();
-        }
-      }
-    },
-    { rootMargin: "200px 0px", threshold: 0 }
-  );
-  for (const v of videoRefs.value) io.observe(v);
+let scrollTriggers = [];
+
+const safePlay = (v) => {
+  const p = v.play?.();
+  if (p && typeof p.catch === "function") p.catch(() => {});
+};
+
+const createVideoTriggers = () => {
+  if (!$ScrollTrigger) return;
+  for (const v of videoRefs.value) {
+    scrollTriggers.push(
+      $ScrollTrigger.create({
+        trigger: v,
+        start: "top bottom",
+        end: "bottom top",
+        onEnter: () => safePlay(v),
+        onEnterBack: () => safePlay(v),
+        onLeave: () => v.pause?.(),
+        onLeaveBack: () => v.pause?.(),
+      })
+    );
+  }
+  $ScrollTrigger.refresh();
+};
+
+const killVideoTriggers = () => {
+  for (const st of scrollTriggers) st.kill();
+  scrollTriggers = [];
+};
+
+onMounted(async () => {
+  await nextTick();
+  createVideoTriggers();
 });
 
 onBeforeUnmount(() => {
-  if (io) {
-    io.disconnect();
-    io = null;
-  }
+  killVideoTriggers();
   videoRefs.value = [];
 });
 
-// Re-observe when the project list changes (filter switch).
+// Re-create triggers when the project list changes (filter switch).
 watch(
   () => projects.value,
   async () => {
-    if (!io) return;
-    io.disconnect();
+    killVideoTriggers();
     videoRefs.value = [];
     await nextTick();
-    for (const v of videoRefs.value) io.observe(v);
+    createVideoTriggers();
   }
 );
 
