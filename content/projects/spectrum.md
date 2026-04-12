@@ -3,7 +3,7 @@ title: "Spectrum"
 slug: "spectrum"
 category: "logo-animation"
 cover: "/assets/medias/spectrum-thumb.svg"
-video: "/movies/web-optimized/spectrometer.mp4"
+video: "/movies/web-optimized/spectrum-way.mp4"
 summary: "SVG logo animation built as a multi-rectangle sound wave with GSAP DrawSVG and smooth color transitions. Later adapted as an email footer signature GIF."
 tags: ["svg", "gsap", "logo", "drawsvg", "animation"]
 date: 2024-01-01

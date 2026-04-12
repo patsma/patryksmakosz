@@ -5,6 +5,8 @@ Sentry.init({
   // dsn: useRuntimeConfig().public.sentry.dsn,
   dsn: "https://351d1b8ad966fda1586b6cf39b982dba@o4510003718914048.ingest.de.sentry.io/4510003720486992",
 
+  environment: import.meta.env.MODE,
+
   // We recommend adjusting this value in production, or using tracesSampler
   // for finer control
   tracesSampleRate: 1.0,
