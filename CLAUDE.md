@@ -15,6 +15,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `node scripts/convert-to-gifs.js` - Convert web-optimized videos to GIFs
 - `npm run fetch:icons` - Fetch and process icons
 
+### Uploading Videos to Cloudflare R2
+- Upload a single video: `npx wrangler r2 object put "tastysites-videos/movies/web-optimized/NAME.mp4" --file "public/movies/web-optimized/NAME.mp4" --content-type "video/mp4" --remote`
+- Upload a banner: `npx wrangler r2 object put "tastysites-videos/movies/banners-optimized/PROJECT/BANNER.mp4" --file "public/movies/banners-optimized/PROJECT/BANNER.mp4" --content-type "video/mp4" --remote`
+- Requires `npx wrangler login` first (one-time auth)
+
 ### Linting & Type Checking
 - The project uses ESLint via `@nuxt/eslint` module (configuration in `eslint.config.mjs`)
 - TypeScript configuration in `tsconfig.json` and Nuxt-generated `.nuxt/tsconfig.json`
@@ -45,7 +50,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `projects/` - Project case studies with structured metadata
 
 - `public/` - Static assets
-  - `movies/` - Video assets (original and web-optimized versions)
+  - `movies/` - Video assets (local copies; production serves from Cloudflare R2)
 
 - `scripts/` - Node.js utility scripts for media processing
 
@@ -108,7 +113,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Structured metadata validation through content.config.ts
 - Component references allow dynamic rendering of project-specific elements
 
+**Video Assets & CDN**:
+- Videos are hosted on **Cloudflare R2** in production, not served from `public/movies/`
+- R2 bucket: `tastysites-videos` (Eastern Europe region)
+- Public URL: `https://pub-c9bfd14ac21c42f2b7f26ea1ddaf0e7e.r2.dev`
+- `NUXT_PUBLIC_VIDEO_BASE_URL` env var controls where videos load from (empty = local, set = R2)
+- `useVideoUrl()` composable (`app/composables/useVideoUrl.js`) resolves video paths - prepends CDN base URL when configured
+- Used in `HeroVideo.vue` (resolves `src` prop internally) and `projects/index.vue` (wraps `p.video`)
+- Content frontmatter keeps local-style paths (`video: "/movies/web-optimized/file.mp4"`), composable handles the rest
+- Local dev works without the env var (falls back to `public/movies/`)
+- CORS configured for `patryksmakosz.com` and `localhost:3000`
+- **Adding a new video**: 1) Add MP4 to `public/movies/web-optimized/`, 2) Upload to R2 with wrangler (see "Uploading Videos" above), 3) Reference in content frontmatter as `video: "/movies/web-optimized/name.mp4"`
+
 ### Build & Deployment
 - Netlify deployment configured with `netlify.toml`
 - Static generation support via `nuxt generate`
 - Environment-specific configuration for site URLs and metadata
+- **Required Netlify env var**: `NUXT_PUBLIC_VIDEO_BASE_URL=https://pub-c9bfd14ac21c42f2b7f26ea1ddaf0e7e.r2.dev` (serves videos from R2 CDN)
