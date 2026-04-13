@@ -1,7 +1,14 @@
 <script setup>
 // Projects index with Vue CSS transitions
+import { useVideoOrchestrator } from '~/composables/useVideoOrchestrator'
+
 const route = useRoute();
 const category = computed(() => route.query.category || "");
+
+// Debug overlay – activate via ?videodebug=1 or localStorage.setItem('videodebug','1')
+const isDebugMode = computed(() =>
+  route.query.videodebug === '1' || (process.client && localStorage.getItem('videodebug') === '1')
+)
 
 // Get all projects
 const { data: allProjects } = await useAsyncData("all-projects", async () => {
@@ -58,29 +65,23 @@ const activatedVideos = reactive(new Set());
 const loadedVideos = reactive(new Set());
 const handleVideoLoaded = (src) => loadedVideos.add(src);
 
-// Lazy autoplay/pause videos via GSAP ScrollTrigger (works with ScrollSmoother).
+// ─── Video orchestration (smart lazy-load + concurrency limits) ───────────────
+// Mobile: max 1 video playing (most centered in viewport)
+// Desktop: max 2 videos playing (highest visibility score)
+// Memory: unloads src when video scrolls > 2× viewport height away
+
+const orchestrator = useVideoOrchestrator({ activatedVideos })
+
 const { $ScrollTrigger } = useNuxtApp();
 const videoRefs = ref([]);
 const setVideoRef = (el) => {
-  if (el) videoRefs.value.push(el);
+  if (el) {
+    videoRefs.value.push(el)
+    orchestrator.registerVideo(el)
+  }
 };
 
 let scrollTriggers = [];
-
-const safePlay = (v) => {
-  const p = v.play?.();
-  if (p && typeof p.catch === "function") p.catch(() => {});
-};
-
-const activateAndPlay = (v) => {
-  const videoPath = v.dataset.videoSrc;
-  if (videoPath && !activatedVideos.has(videoPath)) {
-    activatedVideos.add(videoPath);
-    nextTick(() => safePlay(v));
-  } else {
-    safePlay(v);
-  }
-};
 
 const createVideoTriggers = () => {
   if (!$ScrollTrigger) return;
@@ -90,10 +91,10 @@ const createVideoTriggers = () => {
         trigger: v,
         start: "top bottom",
         end: "bottom top",
-        onEnter: () => activateAndPlay(v),
-        onEnterBack: () => activateAndPlay(v),
-        onLeave: () => v.pause?.(),
-        onLeaveBack: () => v.pause?.(),
+        onEnter:      () => orchestrator.onIntersectChange(v, true),
+        onEnterBack:  () => orchestrator.onIntersectChange(v, true),
+        onLeave:      () => orchestrator.onIntersectChange(v, false),
+        onLeaveBack:  () => orchestrator.onIntersectChange(v, false),
       })
     );
   }
@@ -112,6 +113,7 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   killVideoTriggers();
+  orchestrator.destroy()
   videoRefs.value = [];
 });
 
@@ -120,6 +122,7 @@ watch(
   () => projects.value,
   async () => {
     killVideoTriggers();
+    orchestrator.reset()   // pause + unload all, clear registry
     videoRefs.value = [];
     activatedVideos.clear();
     await nextTick();
@@ -185,6 +188,18 @@ useHead({ title: "Projects" });
       <div v-if="!projects?.length" class="py-16 text-center">
         <p>No projects found.</p>
       </div>
+
+      <!-- Debug overlay: teleported to body to escape ScrollSmoother transform container -->
+      <!-- Activate via ?videodebug=1 or localStorage.setItem('videodebug','1') -->
+      <ClientOnly>
+        <Teleport to="body">
+          <VideoDebugOverlay
+            v-if="isDebugMode"
+            :registry="orchestrator.registry"
+            :debug-summary="orchestrator.debugSummary"
+          />
+        </Teleport>
+      </ClientOnly>
 
       <TransitionGroup name="list" tag="ul" class="projects-grid">
         <li v-for="p in projects" :key="p.path || p.slug" class="project-card">
