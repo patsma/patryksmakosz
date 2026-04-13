@@ -80,15 +80,41 @@ export function useVideoOrchestrator({ activatedVideos }) {
   }
 
   const activateVideo = (el, state) => {
+    // Cancel any previous pending canplay listener (rapid re-activation case)
+    state._ac?.abort()
+    const ac = new AbortController()
+    state._ac = ac
+
     activatedVideos.add(state.path)
     state.isActivated = true
     state.status = 'loading'
     logger.activate(extractFilename(state.path), 'entered-top-N')
-    // Wait for Vue to update :src binding before calling play
-    nextTick(() => safePlay(el, state))
+
+    nextTick(() => {
+      if (ac.signal.aborted) return // was unloaded before nextTick ran
+
+      // el.load() kicks off the network request. With preload="none", the
+      // browser does nothing after src is set - calling load() forces it to
+      // start fetching. Without this, readyState stays 0 and iOS Safari
+      // rejects play() instantly ("I have no data to play").
+      el.load()
+
+      // Wait for canplay (readyState >= HAVE_CURRENT_DATA) before calling play.
+      // Calling play() at readyState=0 is what caused the "BLOCKED" spam when
+      // scrolling fast - nextTick fires before the network has any bytes.
+      el.addEventListener('canplay', () => {
+        if (ac.signal.aborted) return
+        // Video is ready - mark as paused and let recalculate() decide if it
+        // should play (video might have scrolled off by the time canplay fires)
+        state.status = 'paused'
+        scheduleRecalculate()
+      }, { once: true, signal: ac.signal })
+    })
   }
 
   const unloadVideo = (el, state) => {
+    state._ac?.abort() // cancel pending canplay listener before el.load()
+    state._ac = null
     el.pause()
     el.removeAttribute('src')
     el.load() // resets network state to NETWORK_EMPTY, frees decoder memory
@@ -171,6 +197,7 @@ export function useVideoOrchestrator({ activatedVideos }) {
       isActivated: false,
       status: 'unloaded',
       score: 0,
+      _ac: null, // AbortController for pending canplay listener
     })
   }
 
@@ -190,7 +217,9 @@ export function useVideoOrchestrator({ activatedVideos }) {
   }
 
   const reset = () => {
-    for (const [el] of registry) {
+    for (const [el, state] of registry) {
+      state._ac?.abort()
+      state._ac = null
       el.pause()
       el.removeAttribute('src')
       el.load()
