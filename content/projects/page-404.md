@@ -4,6 +4,7 @@ slug: "page-404"
 category: "website"
 cover: "/assets/medias/page404-thumb.svg"
 video: "/movies/web-optimized/page404.mp4"
+liveLink: "https://tastysites.pl/oldportfolio/animations/page404/"
 summary: "Pixel-art custom 404 page with playful island theme: krakens, octopuses, and passing ships. Built with GSAP and SVG as part of a bespoke website."
 tags: ["svg", "gsap", "pixel-art", "custom-page", "animation"]
 date: 2019-01-01

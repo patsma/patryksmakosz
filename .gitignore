@@ -100,6 +100,9 @@ Desktop.ini
 
 # Wrangler local state
 .wrangler
+
+# Playwright
+.playwright-mcp/
 todos/tasks.todo
 public/oldportfolio/*
 # Sentry Config File
