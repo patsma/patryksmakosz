@@ -1,0 +1,202 @@
+// ProjectBartender component styles
+// Ported from original Bartender Free Edition project (Foundation + ScrollMagic)
+// Scroll-scrubbed 3-scene feature animation (pin + scrub pattern)
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// Bartender brand color
+$bartender-color: #008ebd;
+
+.project-bartender {
+  // Section height drives scroll room for the pin + scrub
+  height: var(--pb-pin-height, 500vh);
+  position: relative;
+  width: 100%;
+
+  // Pinned container - GSAP pins this while the section scrolls
+  // GSAP sets autoAlpha:0 initially, then fades in via entrance timeline
+  &__container {
+    visibility: hidden;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: $white;
+  }
+
+  // Inner wrapper - tighter than Foundation's 1200px for better proportions
+  &__inner {
+    width: 100%;
+    max-width: 62.5rem; // ~1000px
+    margin: 0 auto;
+    padding: 0 1rem;
+
+    @include tablet {
+      padding: 0 2rem;
+    }
+
+    @include laptop {
+      padding: 0 3rem;
+    }
+  }
+
+  // Header: title grid matching original .main-title-grid
+  // Original: grid-template-rows: auto auto 2px, padding 2.5vh 0
+  &__header {
+    display: grid;
+    grid-template-rows: auto auto 2px;
+    padding: 1.5vh 0;
+    margin-bottom: 2vh;
+
+    @include tablet {
+      padding: 2.5vh 0;
+      margin-bottom: 3vh;
+    }
+
+    p {
+      padding: 0;
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: $bartender-color;
+
+      @include tablet {
+        font-size: 2rem;
+      }
+
+      @include laptop {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  // Separator line matching original .main-title-separator
+  &__separator {
+    width: 100%;
+    background-color: $bartender-color;
+    height: 2px;
+    margin-top: 1.5vh;
+  }
+
+  // Two-column layout matching Foundation large-6 / large-6
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+
+    @include tablet {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 1.875rem; // Foundation grid-padding-x
+    }
+  }
+
+  // Left column - stacked text scenes
+  // Original: .texts-wrapper { position: relative }
+  &__texts {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 3vh;
+
+    @include tablet {
+      flex: 0 0 50%;
+      max-width: 50%;
+      margin-bottom: 0;
+    }
+  }
+
+  // Right column - SVG illustration
+  // Original: .animation-wrapper > .animation
+  &__animation {
+    flex: 1;
+    min-width: 0;
+    max-width: 75%;
+    margin: 0 auto;
+
+    @include tablet {
+      flex: 0 0 50%;
+      max-width: 50%;
+      margin: 0;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: hidden;
+    }
+
+    // Hide morph targets before GSAP loads
+    #scene02-rectangle-to-be-morphed,
+    #scene03-morph-to-message {
+      visibility: hidden;
+    }
+  }
+}
+
+// Individual text scene - matches original .scene-text
+.pb-scene-text {
+  // Scenes 2 & 3 sit on top of scene 1 (GSAP toggles visibility)
+  // Original: .scene02-text, .scene03-text { position: absolute; left: 0; top: 0 }
+  &--abs {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  // Number badge
+  &__number {
+    color: #fff;
+    background: $bartender-color;
+    display: flex;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 1.5vh;
+    flex-shrink: 0;
+
+    @include tablet {
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      margin-bottom: 2vh;
+    }
+
+    @include laptop {
+      width: 60px;
+      height: 60px;
+      font-size: 29px;
+      margin-bottom: 2.5vh;
+    }
+  }
+
+  // Heading text
+  &__heading {
+    p {
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+      color: $bartender-color;
+
+      @include tablet {
+        font-size: 24px;
+      }
+
+      @include laptop {
+        font-size: 29px;
+      }
+
+      span {
+        display: inline;
+      }
+    }
+  }
+}
