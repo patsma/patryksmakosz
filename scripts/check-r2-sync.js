@@ -5,7 +5,7 @@
  * If any are missing, automatically upload them via wrangler before the commit proceeds.
  */
 
-import { readdirSync } from "node:fs";
+import { readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import https from "node:https";
 import { execSync } from "node:child_process";
@@ -41,20 +41,21 @@ function collectMp4Files(dir) {
 }
 
 /**
- * Check if a file exists on R2 via HTTP HEAD request.
+ * Check if a file exists on R2 via HTTP HEAD request and return its size.
  * @param {string} key - The R2 object key (e.g., "movies/web-optimized/file.mp4")
- * @returns {Promise<boolean>}
+ * @returns {Promise<{ exists: boolean, size: number }>}
  */
 function checkR2Exists(key) {
   const url = `${R2_BASE_URL}/${key}`;
   return new Promise((resolve) => {
     const req = https.request(url, { method: "HEAD", timeout: 10000 }, (res) => {
-      resolve(res.statusCode === 200);
+      const size = parseInt(res.headers["content-length"] || "0", 10);
+      resolve({ exists: res.statusCode === 200, size });
     });
-    req.on("error", () => resolve(false));
+    req.on("error", () => resolve({ exists: false, size: 0 }));
     req.on("timeout", () => {
       req.destroy();
-      resolve(false);
+      resolve({ exists: false, size: 0 });
     });
     req.end();
   });
@@ -87,27 +88,33 @@ async function main() {
 
   console.log(`Checking ${localFiles.length} video files against R2...`);
 
-  // Check all files in parallel
+  // Check all files in parallel - detect missing AND changed files
   const checks = localFiles.map(async (filePath) => {
     const key = relative(PUBLIC_DIR, filePath);
-    const exists = await checkR2Exists(key);
-    return { filePath, key, exists };
+    const r2 = await checkR2Exists(key);
+    const localSize = statSync(filePath).size;
+    const needsUpload = !r2.exists || r2.size !== localSize;
+    const reason = !r2.exists ? "missing" : r2.size !== localSize ? "changed" : null;
+    return { filePath, key, needsUpload, reason };
   });
 
   const results = await Promise.all(checks);
-  const missing = results.filter((r) => !r.exists);
+  const toUpload = results.filter((r) => r.needsUpload);
 
-  if (missing.length === 0) {
+  if (toUpload.length === 0) {
     console.log("All video files are synced with R2.");
     process.exit(0);
   }
 
-  console.log(`\n${missing.length} file(s) missing from R2. Uploading...\n`);
+  const missingCount = toUpload.filter((r) => r.reason === "missing").length;
+  const changedCount = toUpload.filter((r) => r.reason === "changed").length;
+  const parts = [missingCount && `${missingCount} missing`, changedCount && `${changedCount} changed`].filter(Boolean).join(", ");
+  console.log(`\n${toUpload.length} file(s) need sync (${parts}). Uploading...\n`);
 
-  // Upload missing files sequentially (wrangler doesn't handle parallel well)
+  // Upload files sequentially (wrangler doesn't handle parallel well)
   let failed = 0;
-  for (const { filePath, key } of missing) {
-    console.log(`  Uploading ${key}...`);
+  for (const { filePath, key, reason } of toUpload) {
+    console.log(`  Uploading ${key} (${reason})...`);
     const ok = uploadToR2(filePath, key);
     if (!ok) failed++;
     else console.log(`  Done.`);
@@ -118,7 +125,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`\nAll ${missing.length} file(s) synced to R2. Commit proceeding.\n`);
+  console.log(`\nAll ${toUpload.length} file(s) synced to R2. Commit proceeding.\n`);
   process.exit(0);
 }
 

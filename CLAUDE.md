@@ -123,8 +123,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Content frontmatter keeps local-style paths (`video: "/movies/web-optimized/file.mp4"`), composable handles the rest
 - Local dev works without the env var (falls back to `public/movies/`)
 - CORS configured for `patryksmakosz.com` and `localhost:3000`
-- **Pre-commit auto-sync**: A git hook runs `scripts/check-r2-sync.js` before each commit - automatically uploads any local MP4s missing from R2 via wrangler. Also available as `npm run check:r2`
-- **Adding a new video**: 1) Add MP4 to `public/movies/web-optimized/`, 2) Upload to R2 with wrangler (see "Uploading Videos" above), 3) Reference in content frontmatter as `video: "/movies/web-optimized/name.mp4"`
+- **Pre-commit auto-sync**: A git hook runs `scripts/check-r2-sync.js` before each commit - automatically uploads any local MP4s that are missing from R2 OR have changed (detects size mismatch via Content-Length). Also available as `npm run check:r2`
+- **Replacing a video**: Just overwrite the local MP4 with the new file (same name) - the pre-commit hook compares file sizes and will auto-upload the replacement to R2
+- **Adding a new video**: 1) Add MP4 to `public/movies/web-optimized/`, 2) Commit - the pre-commit hook auto-uploads to R2, 3) Reference in content frontmatter as `video: "/movies/web-optimized/name.mp4"`
 
 ### Build & Deployment
 - Netlify deployment configured with `netlify.toml`
