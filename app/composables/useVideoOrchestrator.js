@@ -1,4 +1,4 @@
-import { reactive, computed, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { reactive, computed, nextTick, onMounted } from 'vue'
 import { createVideoLogger, extractFilename } from './useVideoLogger'
 
 /**
@@ -9,8 +9,12 @@ import { createVideoLogger, extractFilename } from './useVideoLogger'
  *  - Desktop (≥ 768px): the two most-centered videos play (max 2)
  *  - Memory: when a video scrolls > 2× viewport height away, its src is unloaded
  *
- * Usage (inside <script setup> of the projects page):
- *   const orchestrator = useVideoOrchestrator({ activatedVideos })
+ * Safari autoplay quirks handled:
+ *  - state.status is set to 'playing' SYNCHRONOUSLY before el.play() to prevent
+ *    recalculate() from retrying a blocked video every animation frame
+ *  - 'blocked' status: Safari rejected autoplay - don't retry until video re-enters view
+ *  - Resize handler uses 250ms debounce - mobile Safari fires resize every frame
+ *    as the URL bar slides in/out during scroll, which would spam recalculate()
  *
  * @param {{ activatedVideos: Set<string> }} options
  */
@@ -19,12 +23,12 @@ export function useVideoOrchestrator({ activatedVideos }) {
 
   /**
    * registry: Map<HTMLVideoElement, VideoState>
-   * VideoState shape:
-   *   path        – from el.dataset.videoSrc
-   *   isInView    – currently tracked as in-viewport by ScrollTrigger
-   *   isActivated – src has been assigned at least once
-   *   status      – 'unloaded' | 'loading' | 'paused' | 'playing'
-   *   score       – 0–1, how close el center is to viewport center
+   * VideoState.status values:
+   *   'unloaded'  – src never assigned
+   *   'loading'   – src assigned, waiting for nextTick + play()
+   *   'playing'   – play() called and optimistically accepted
+   *   'paused'    – explicitly paused (not in top-N)
+   *   'blocked'   – Safari rejected autoplay; won't retry until re-enters view
    */
   const registry = reactive(new Map())
 
@@ -40,11 +44,16 @@ export function useVideoOrchestrator({ activatedVideos }) {
     })
   }
 
-  // ─── Resize ──────────────────────────────────────────────────────────────────
+  // ─── Resize (debounced) ───────────────────────────────────────────────────────
+  // Mobile Safari fires resize every frame as the URL bar slides in/out.
+  // A plain rAF debounce isn't enough - we need a real timeout debounce.
 
-  const handleResize = () => scheduleRecalculate()
+  let resizeTimer = null
+  const handleResize = () => {
+    clearTimeout(resizeTimer)
+    resizeTimer = setTimeout(scheduleRecalculate, 250)
+  }
 
-  // Guard with onMounted – window is not available during SSR
   onMounted(() => {
     window.addEventListener('resize', handleResize, { passive: true })
   })
@@ -52,17 +61,21 @@ export function useVideoOrchestrator({ activatedVideos }) {
   // ─── Core helpers ─────────────────────────────────────────────────────────────
 
   const safePlay = (el, state) => {
+    // Set status synchronously BEFORE calling play().
+    // If we wait for the promise to resolve, recalculate() may fire again and
+    // call safePlay() a second time before Safari's rejection arrives — causing
+    // an infinite blocked → retry loop at 60fps.
+    state.status = 'playing'
+    logger.play(extractFilename(state.path), state.score, countPlaying())
+
     const p = el.play?.()
     if (p && typeof p.then === 'function') {
-      p.then(() => {
-        state.status = 'playing'
-      }).catch(() => {
-        // autoplay blocked – leave as paused
-        state.status = 'paused'
+      p.catch(() => {
+        // Safari blocked autoplay. Mark as 'blocked' so recalculate() skips it.
+        // Status resets to 'paused' when the video re-enters the viewport.
+        state.status = 'blocked'
         logger.blocked(extractFilename(state.path))
       })
-    } else {
-      state.status = 'playing'
     }
   }
 
@@ -86,6 +99,9 @@ export function useVideoOrchestrator({ activatedVideos }) {
     logger.unload(extractFilename(state.path))
   }
 
+  const countPlaying = () =>
+    [...registry.values()].filter((s) => s.status === 'playing').length
+
   // ─── recalculate() ────────────────────────────────────────────────────────────
 
   const recalculate = () => {
@@ -105,7 +121,7 @@ export function useVideoOrchestrator({ activatedVideos }) {
         state.score = Math.max(0, 1 - dist / vh)
         scored.push({ el, state })
       } else {
-        // Check if far enough away to unload
+        // Unload if scrolled far away
         if (state.isActivated) {
           const rect = el.getBoundingClientRect()
           const elCenter = rect.top + rect.height / 2
@@ -121,16 +137,17 @@ export function useVideoOrchestrator({ activatedVideos }) {
     scored.sort((a, b) => b.state.score - a.state.score)
     const winners = new Set(scored.slice(0, maxPlay).map(({ el }) => el))
 
-    let playingCount = 0
-
     for (const [el, state] of registry) {
       if (winners.has(el)) {
         if (!state.isActivated) {
           activateVideo(el, state)
-        } else if (state.status !== 'playing' && state.status !== 'loading') {
+        } else if (
+          state.status !== 'playing' &&
+          state.status !== 'loading' &&
+          state.status !== 'blocked'  // don't retry Safari-blocked videos
+        ) {
           safePlay(el, state)
         }
-        if (state.status === 'playing' || state.status === 'loading') playingCount++
       } else if (state.status === 'playing') {
         el.pause()
         state.status = 'paused'
@@ -138,13 +155,7 @@ export function useVideoOrchestrator({ activatedVideos }) {
       }
     }
 
-    // Log winners with their scores
-    for (const { el, state } of scored.slice(0, maxPlay)) {
-      if (state.status === 'playing' || state.status === 'loading') {
-        logger.play(extractFilename(state.path), state.score, playingCount)
-      }
-    }
-
+    const playingCount = countPlaying()
     logger.state(
       `${playingCount}/${maxPlay} playing | ${scored.length} in-view | ${registry.size} total | ${isMobile ? 'mobile' : 'desktop'}`
     )
@@ -152,10 +163,6 @@ export function useVideoOrchestrator({ activatedVideos }) {
 
   // ─── Public API ──────────────────────────────────────────────────────────────
 
-  /**
-   * Register a video element. Call from setVideoRef after el is added to DOM.
-   * @param {HTMLVideoElement} el
-   */
   const registerVideo = (el) => {
     if (!el || registry.has(el)) return
     registry.set(el, {
@@ -167,30 +174,21 @@ export function useVideoOrchestrator({ activatedVideos }) {
     })
   }
 
-  /**
-   * Unregister a video element. Called on unmount or filter reset.
-   * @param {HTMLVideoElement} el
-   */
   const unregisterVideo = (el) => {
     registry.delete(el)
   }
 
-  /**
-   * Called by ScrollTrigger onEnter/onLeave callbacks.
-   * @param {HTMLVideoElement} el
-   * @param {boolean} isInView
-   */
   const onIntersectChange = (el, isInView) => {
     const state = registry.get(el)
     if (!state) return
     state.isInView = isInView
+    // Reset blocked status when video re-enters view so Safari gets another chance
+    if (isInView && state.status === 'blocked') {
+      state.status = 'paused'
+    }
     scheduleRecalculate()
   }
 
-  /**
-   * Gracefully pause + unload all videos and clear registry.
-   * Call this when the project filter changes.
-   */
   const reset = () => {
     for (const [el] of registry) {
       el.pause()
@@ -202,14 +200,15 @@ export function useVideoOrchestrator({ activatedVideos }) {
       cancelAnimationFrame(rafId)
       rafId = null
     }
+    clearTimeout(resizeTimer)
   }
 
-  /**
-   * Full teardown. Call from onBeforeUnmount only.
-   */
   const destroy = () => {
     reset()
-    if (process.client) window.removeEventListener('resize', handleResize)
+    if (process.client) {
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(resizeTimer)
+    }
   }
 
   // ─── Debug summary ────────────────────────────────────────────────────────────
@@ -219,6 +218,7 @@ export function useVideoOrchestrator({ activatedVideos }) {
     return {
       deviceMode: (process.client && window.innerWidth < 768) ? 'mobile' : 'desktop',
       playingCount: states.filter((s) => s.status === 'playing').length,
+      blockedCount: states.filter((s) => s.status === 'blocked').length,
       inViewCount: states.filter((s) => s.isInView).length,
       totalCount: registry.size,
     }

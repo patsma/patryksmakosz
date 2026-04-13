@@ -37,6 +37,7 @@ const STATUS_DOT = {
   playing: 'bg-green-400',
   loading: 'bg-blue-400',
   paused: 'bg-yellow-400',
+  blocked: 'bg-red-500',
   unloaded: 'bg-gray-500',
 }
 
@@ -94,10 +95,11 @@ const handleCopy = async () => {
 
     <!-- Legend -->
     <hr class="border-white/20 mt-1 mb-1" />
-    <div class="flex gap-3 opacity-50">
+    <div class="flex flex-wrap gap-x-3 gap-y-0.5 opacity-50">
       <span><span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-0.5" />play</span>
       <span><span class="inline-block w-2 h-2 rounded-full bg-blue-400 mr-0.5" />load</span>
       <span><span class="inline-block w-2 h-2 rounded-full bg-yellow-400 mr-0.5" />pause</span>
+      <span><span class="inline-block w-2 h-2 rounded-full bg-red-500 mr-0.5" />blocked</span>
       <span><span class="inline-block w-2 h-2 rounded-full bg-gray-500 mr-0.5" />unload</span>
     </div>
   </div>
