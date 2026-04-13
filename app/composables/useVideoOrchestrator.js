@@ -232,5 +232,6 @@ export function useVideoOrchestrator({ activatedVideos }) {
     onIntersectChange,
     reset,
     destroy,
+    copyLogs: () => logger.copyLogs(),
   }
 }

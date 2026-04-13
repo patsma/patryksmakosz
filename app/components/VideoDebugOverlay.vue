@@ -1,22 +1,21 @@
 <script setup>
+import { ref } from 'vue'
 import { extractFilename } from '~/composables/useVideoLogger'
 
 /**
  * Debug overlay for video orchestration.
  *
  * Activate via URL param:  /projects?videodebug=1
- * Activate via localStorage (mobile console):
- *   localStorage.setItem('videodebug', '1')
+ * Activate via localStorage (mobile - paste in console or address bar trick):
+ *   javascript:localStorage.setItem('videodebug','1');location.reload()
  * Deactivate:
  *   localStorage.removeItem('videodebug')
  *
- * The panel shows:
- *  - Device mode (mobile / desktop)
- *  - Playing / in-view / total counts
- *  - Per-video status row with color dot and center score
+ * "Copy Logs" button copies the full in-memory log buffer to clipboard -
+ * useful on mobile Safari where DevTools isn't available.
  */
 
-defineProps({
+const props = defineProps({
   /** reactive Map<HTMLVideoElement, VideoState> from useVideoOrchestrator */
   registry: {
     type: Map,
@@ -25,6 +24,11 @@ defineProps({
   /** { deviceMode, playingCount, inViewCount, totalCount } */
   debugSummary: {
     type: Object,
+    required: true,
+  },
+  /** async () => boolean - copies log buffer to clipboard */
+  copyLogs: {
+    type: Function,
     required: true,
   },
 })
@@ -37,15 +41,32 @@ const STATUS_DOT = {
 }
 
 const dotClass = (status) => STATUS_DOT[status] ?? 'bg-gray-500'
+
+const copied = ref(false)
+
+const handleCopy = async () => {
+  await props.copyLogs()
+  copied.value = true
+  setTimeout(() => { copied.value = false }, 2000)
+}
 </script>
 
 <template>
   <div
-    class="fixed bottom-4 right-4 z-[9999] bg-black/90 text-white text-[10px] font-mono p-3 rounded-lg w-64 shadow-2xl pointer-events-none"
+    class="fixed bottom-4 right-4 z-[9999] bg-black/90 text-white text-[10px] font-mono p-3 rounded-lg w-64 shadow-2xl"
     aria-hidden="true"
   >
-    <!-- Header -->
-    <div class="font-bold mb-1 text-[11px]">📹 VIDEO DEBUG</div>
+    <!-- Header + Copy button -->
+    <div class="flex items-center justify-between mb-1">
+      <span class="font-bold text-[11px]">📹 VIDEO DEBUG</span>
+      <button
+        class="text-[9px] px-2 py-0.5 rounded border border-white/30 hover:bg-white/10 active:bg-white/20 transition-colors cursor-pointer"
+        :class="copied ? 'text-green-400 border-green-400/50' : 'text-white/60'"
+        @click="handleCopy"
+      >
+        {{ copied ? '✓ copied!' : 'copy logs' }}
+      </button>
+    </div>
 
     <!-- Summary row -->
     <div class="text-white/70 mb-1">
@@ -63,16 +84,8 @@ const dotClass = (status) => STATUS_DOT[status] ?? 'bg-gray-500'
       :key="state.path"
       class="flex items-center gap-1.5 py-0.5"
     >
-      <!-- Status dot -->
-      <span
-        class="w-2 h-2 rounded-full flex-shrink-0"
-        :class="dotClass(state.status)"
-      />
-
-      <!-- Filename (truncated) -->
+      <span class="w-2 h-2 rounded-full flex-shrink-0" :class="dotClass(state.status)" />
       <span class="truncate flex-1 leading-none">{{ extractFilename(state.path) }}</span>
-
-      <!-- Score -->
       <span class="opacity-50 flex-shrink-0 tabular-nums">{{ state.score.toFixed(2) }}</span>
     </div>
 

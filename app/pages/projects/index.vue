@@ -197,6 +197,7 @@ useHead({ title: "Projects" });
             v-if="isDebugMode"
             :registry="orchestrator.registry"
             :debug-summary="orchestrator.debugSummary"
+            :copy-logs="orchestrator.copyLogs"
           />
         </Teleport>
       </ClientOnly>
