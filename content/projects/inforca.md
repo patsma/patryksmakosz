@@ -6,7 +6,6 @@ cover: "/assets/medias/inforca-thumb.svg"
 video: "/movies/web-optimized/inforca.mp4"
 summary: "Morphing SVG orca logo animation with smooth swim-like motion using GSAP."
 tags: ["svg", "gsap", "logo", "morphsvg", "animation"]
-liveLink: "https://inforca.com/"
 date: 2021-01-01
 ---
 

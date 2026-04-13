@@ -7,8 +7,6 @@ video: "/movies/web-optimized/envelope.mp4"
 summary: "Interactive envelope-opening prototype for virtual wish cards and invitations. Built with SVG, GSAP, Illustrator masks, and Vite."
 tags: ["animation", "gsap", "svg"]
 date: 2019-12-01
-liveLink: "https://youtu.be/g96uz4zWBzg?si=ZMVvXuSJx0rRiR3I"
-liveLinkLabel: "Learn more"
 ---
 
 :::ProjectEnvelope
