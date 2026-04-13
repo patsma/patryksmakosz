@@ -1,6 +1,6 @@
 <script setup>
 // Projects index with Vue CSS transitions
-import { useVideoOrchestrator } from '~/composables/useVideoOrchestrator'
+import { createVideoLogger } from '~/composables/useVideoLogger'
 
 const route = useRoute();
 const category = computed(() => route.query.category || "");
@@ -55,46 +55,195 @@ const counts = computed(() => {
  */
 const staticPreviewFor = (p) => p?.preview || p?.cover || null;
 
-/** Resolve video path to CDN URL when configured */
-const videoSrc = (path) => useVideoUrl(path);
+// ─── Video playback ───────────────────────────────────────────────────────────
+// Two-zone approach:
+//
+// Pre-buffer zone (top 200%): start loading src as the video approaches viewport.
+//   Registers a canplay listener. By the time the video reaches the play zone,
+//   it has 1-2 seconds of buffering time behind it.
+//
+// Play zone (top 80% / bottom 20%): play when data is ready.
+//   If readyState ≥ 2 (canplay already fired during pre-buffer) → instant play.
+//   If still loading → canplay listener calls applyPlayback() when data arrives.
+//
+// Muted+playsinline videos do not require a user gesture on iOS Safari, so
+// calling play() from a canplay callback is safe.
+//
+// Mobile: max 1 video playing. Desktop: max 2.
 
-// Track which videos have had their src assigned (lazy-load on scroll).
+const { $gsap, $ScrollTrigger } = useNuxtApp();
+const logger = createVideoLogger();
+
+// Paths that have had their src set — drives the loader visibility.
 const activatedVideos = reactive(new Set());
-
-// Track which videos have loaded for preloader visibility.
+// Paths where loadeddata fired — drives loader removal.
 const loadedVideos = reactive(new Set());
-const handleVideoLoaded = (src) => loadedVideos.add(src);
+// Videos currently in the viewport zone (want to play when data is ready).
+const inZoneSet = new Set();
+// Currently playing video elements — concurrency limit enforcement.
+const playingSet = new Set();
+// path → 'loading' | 'playing' | 'paused' — drives the debug overlay.
+const videoStatuses = reactive(new Map());
 
-// ─── Video orchestration (smart lazy-load + concurrency limits) ───────────────
-// Mobile: max 1 video playing (most centered in viewport)
-// Desktop: max 2 videos playing (highest visibility score)
-// Memory: unloads src when video scrolls > 2× viewport height away
+const isMobile = () => process.client && window.innerWidth < 768;
 
-const orchestrator = useVideoOrchestrator({ activatedVideos })
+const debugSummary = computed(() => ({
+  deviceMode: isMobile() ? 'mobile' : 'desktop',
+  // playingSet is non-reactive; this computed re-runs whenever videoStatuses
+  // changes (every play/pause), keeping playingCount in sync.
+  playingCount: playingSet.size,
+  totalCount: videoStatuses.size,
+}));
 
-const { $ScrollTrigger } = useNuxtApp();
-const videoRefs = ref([]);
-const setVideoRef = (el) => {
-  if (el) {
-    videoRefs.value.push(el)
-    orchestrator.registerVideo(el)
+// Re-evaluate who should be playing based on current inZoneSet + concurrency limit.
+const applyPlayback = () => {
+  const maxPlay = isMobile() ? 1 : 2;
+
+  // Pause anyone playing who has since left the zone
+  for (const el of playingSet) {
+    if (!inZoneSet.has(el)) {
+      el.pause();
+      playingSet.delete(el);
+      videoStatuses.set(el.dataset.videoSrc, 'paused');
+    }
+  }
+
+  // Play inZone videos up to the limit (insertion order = first-in wins)
+  for (const el of inZoneSet) {
+    if (playingSet.size >= maxPlay) break;
+    if (!playingSet.has(el)) {
+      el.play().catch(() => {});
+      playingSet.add(el);
+      const path = el.dataset.videoSrc;
+      videoStatuses.set(path, 'playing');
+      logger.play(path.split('/').pop(), 0, playingSet.size);
+    }
   }
 };
 
+// Debounced wrapper — prevents rapid cycling during fast scroll or ScrollSmoother
+// inertia deceleration. Pauses are still immediate; only "start playing" is delayed.
+let _applyTimer = null;
+const scheduleApplyPlayback = () => {
+  clearTimeout(_applyTimer);
+  _applyTimer = setTimeout(applyPlayback, 250);
+};
+
+// Pre-buffer zone: set src and start fetching. Registers the canplay listener
+// that will trigger applyPlayback() once data arrives.
+const preloadVideo = (el) => {
+  if (el.getAttribute('src')) return; // already loading
+  const path = el.dataset.videoSrc;
+  if (!path) return;
+
+  el.src = useVideoUrl(path);
+  el.load(); // preload="none" won't auto-fetch — this kicks off the request
+  activatedVideos.add(path);
+  videoStatuses.set(path, 'loading');
+  logger.activate(path.split('/').pop(), 'pre-buffer');
+
+  el.addEventListener('canplay', () => {
+    // Data arrived — mark ready; play immediately if already in the play zone.
+    if (videoStatuses.get(path) !== 'playing') videoStatuses.set(path, 'paused');
+    if (inZoneSet.has(el)) scheduleApplyPlayback();
+  }, { once: true });
+};
+
+// Play zone entry: add to inZoneSet and play if data is ready.
+const enterPlayZone = (el) => {
+  inZoneSet.add(el);
+
+  if (!el.getAttribute('src')) {
+    // Scrolled very fast — skipped pre-buffer zone entirely. Load now.
+    preloadVideo(el);
+  } else if (el.readyState >= 2) {
+    // Pre-buffer fired and canplay already happened — instant play.
+    scheduleApplyPlayback();
+  }
+  // If src is set but readyState < 2: the canplay listener from preloadVideo()
+  // will call applyPlayback() when the data arrives.
+};
+
+// Play zone exit: remove from inZoneSet, pause if playing, fill gap from queue.
+const exitPlayZone = (el) => {
+  inZoneSet.delete(el);
+  if (playingSet.has(el)) {
+    el.pause();
+    playingSet.delete(el);
+    const path = el.dataset.videoSrc;
+    videoStatuses.set(path, 'paused');
+    logger.pause(path?.split('/').pop(), 'left-zone');
+  }
+  scheduleApplyPlayback();
+};
+
+// Fade out the loading spinner with GSAP, then let Vue remove it from the DOM.
+const handleVideoLoaded = (event) => {
+  const videoEl = event.target;
+  const src = videoEl?.dataset?.videoSrc;
+  if (!src) return;
+  const parent = videoEl?.parentElement;
+  const overlays = [
+    parent?.querySelector('.project-card__preview-loader'),
+    parent?.querySelector('.project-card__preview-poster'),
+  ].filter(Boolean);
+
+  // Fade overlays out (if present)
+  if (overlays.length) {
+    $gsap.to(overlays, { opacity: 0, duration: 0.5, ease: 'power2.out' });
+  }
+
+  // Fade video in — parallel with overlay fade-out. onComplete on the video tween
+  // since videoEl is always present (unlike overlays which may be absent).
+  $gsap.to(videoEl, {
+    opacity: 1,
+    duration: 0.5,
+    ease: 'power2.out',
+    onComplete: () => {
+      loadedVideos.add(src);
+      if (videoStatuses.get(src) === 'loading') videoStatuses.set(src, 'paused');
+    },
+  });
+};
+
+const videoRefs = ref([]);
 let scrollTriggers = [];
+
+const setVideoRef = (el) => {
+  if (el) {
+    const path = el.dataset.videoSrc;
+    // Start hidden for crossfade. Already-loaded videos (e.g. after a filter switch)
+    // stay at 1 — loadeddata won't fire again, so they must not get stuck invisible.
+    el.style.opacity = loadedVideos.has(path) ? '1' : '0';
+    videoRefs.value.push(el);
+  }
+};
 
 const createVideoTriggers = () => {
   if (!$ScrollTrigger) return;
-  for (const v of videoRefs.value) {
+  for (const el of videoRefs.value) {
+    // Zone 1: pre-buffer — start loading ~1 full viewport before play zone.
+    // $ScrollTrigger.refresh() fires onEnter immediately for already-past elements,
+    // so the first visible video starts loading on mount.
     scrollTriggers.push(
       $ScrollTrigger.create({
-        trigger: v,
-        start: "top bottom",
-        end: "bottom top",
-        onEnter:      () => orchestrator.onIntersectChange(v, true),
-        onEnterBack:  () => orchestrator.onIntersectChange(v, true),
-        onLeave:      () => orchestrator.onIntersectChange(v, false),
-        onLeaveBack:  () => orchestrator.onIntersectChange(v, false),
+        trigger: el,
+        start: 'top 200%',
+        end:   'bottom -100%',
+        onEnter:     () => preloadVideo(el),
+        onEnterBack: () => preloadVideo(el),
+      })
+    );
+    // Zone 2: play — play when video is substantially in view.
+    scrollTriggers.push(
+      $ScrollTrigger.create({
+        trigger: el,
+        start: 'top 80%',
+        end:   'bottom 20%',
+        onEnter:     () => enterPlayZone(el),
+        onEnterBack: () => enterPlayZone(el),
+        onLeave:     () => exitPlayZone(el),
+        onLeaveBack: () => exitPlayZone(el),
       })
     );
   }
@@ -102,8 +251,11 @@ const createVideoTriggers = () => {
 };
 
 const killVideoTriggers = () => {
+  clearTimeout(_applyTimer);
   for (const st of scrollTriggers) st.kill();
   scrollTriggers = [];
+  playingSet.clear();
+  inZoneSet.clear();
 };
 
 onMounted(async () => {
@@ -113,7 +265,6 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   killVideoTriggers();
-  orchestrator.destroy()
   videoRefs.value = [];
 });
 
@@ -122,7 +273,6 @@ watch(
   () => projects.value,
   async () => {
     killVideoTriggers();
-    orchestrator.reset()   // pause + unload all, clear registry
     videoRefs.value = [];
     activatedVideos.clear();
     await nextTick();
@@ -195,9 +345,9 @@ useHead({ title: "Projects" });
         <Teleport to="body">
           <VideoDebugOverlay
             v-if="isDebugMode"
-            :registry="orchestrator.registry"
-            :debug-summary="orchestrator.debugSummary"
-            :copy-logs="orchestrator.copyLogs"
+            :video-statuses="videoStatuses"
+            :debug-summary="debugSummary"
+            :copy-logs="() => logger.copyLogs()"
           />
         </Teleport>
       </ClientOnly>
@@ -212,29 +362,33 @@ useHead({ title: "Projects" });
               <video
                 v-if="p.video"
                 :ref="setVideoRef"
-                :src="activatedVideos.has(p.video) ? videoSrc(p.video) : undefined"
                 :data-video-src="p.video"
-                :poster="staticPreviewFor(p) || ''"
                 preload="none"
                 muted
                 loop
                 playsinline
                 class="project-card__preview-video"
-                @loadeddata="handleVideoLoaded(p.video)"
+                @loadeddata="handleVideoLoaded($event)"
+              />
+              <!-- Poster overlay: cover image sits on top of the video until loadeddata fires,
+                   then GSAP fades it out alongside the spinner for a smooth transition -->
+              <div
+                v-if="p.video && staticPreviewFor(p) && !loadedVideos.has(p.video)"
+                class="project-card__preview-poster"
+                :style="{ backgroundImage: `url('${staticPreviewFor(p)}')` }"
               />
               <div
-                v-if="p.video && !loadedVideos.has(p.video)"
+                v-if="p.video && activatedVideos.has(p.video) && !loadedVideos.has(p.video)"
                 class="project-card__preview-loader"
               >
                 <div class="project-card__preview-spinner" />
               </div>
-              <img
+              <div
                 v-else-if="staticPreviewFor(p)"
-                :src="staticPreviewFor(p)"
-                :alt="p.title"
-                loading="lazy"
-                decoding="async"
                 class="project-card__preview-img"
+                :style="{ backgroundImage: `url('${staticPreviewFor(p)}')` }"
+                role="img"
+                :aria-label="p.title"
               />
               <div v-else class="project-card__preview-placeholder">
                 <Icon

@@ -161,12 +161,24 @@
     box-shadow: inset 0 0 0 1px white;
   }
 
-  &__preview-img,
   &__preview-video {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 400ms ease;
+  }
+
+  // background-image approach for cover images (SVG and raster).
+  // Using background-size: cover avoids the browser ignoring object-fit: cover
+  // on SVGs that have their own preserveAspectRatio/viewBox intrinsic sizing.
+  &__preview-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     transition: transform 400ms ease;
   }
 
@@ -228,6 +240,16 @@
     opacity: 0.8;
   }
 
+  &__preview-poster {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 1;
+  }
+
   &__preview-loader {
     position: absolute;
     inset: 0;
@@ -235,7 +257,7 @@
     align-items: center;
     justify-content: center;
     background: rgba($gray-2, 0.6);
-    z-index: 1;
+    z-index: 2;
   }
 
   &__preview-spinner {

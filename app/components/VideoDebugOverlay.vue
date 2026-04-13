@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { extractFilename } from '~/composables/useVideoLogger'
 
 /**
- * Debug overlay for video orchestration.
+ * Debug overlay for video playback.
  *
  * Activate via URL param:  /projects?videodebug=1
  * Activate via localStorage (mobile - paste in console or address bar trick):
@@ -16,12 +16,12 @@ import { extractFilename } from '~/composables/useVideoLogger'
  */
 
 const props = defineProps({
-  /** reactive Map<HTMLVideoElement, VideoState> from useVideoOrchestrator */
-  registry: {
+  /** reactive Map<path, status> from projects/index.vue */
+  videoStatuses: {
     type: Map,
     required: true,
   },
-  /** { deviceMode, playingCount, inViewCount, totalCount } */
+  /** { deviceMode, playingCount, totalCount } */
   debugSummary: {
     type: Object,
     required: true,
@@ -36,8 +36,7 @@ const props = defineProps({
 const STATUS_DOT = {
   playing: 'bg-green-400',
   loading: 'bg-blue-400',
-  paused: 'bg-yellow-400',
-  blocked: 'bg-red-500',
+  paused:  'bg-yellow-400',
   unloaded: 'bg-gray-500',
 }
 
@@ -73,7 +72,6 @@ const handleCopy = async () => {
     <div class="text-white/70 mb-1">
       {{ debugSummary.deviceMode }} &nbsp;|&nbsp;
       <span class="text-green-400">{{ debugSummary.playingCount }} playing</span> /
-      {{ debugSummary.inViewCount }} in-view /
       {{ debugSummary.totalCount }} total
     </div>
 
@@ -81,17 +79,17 @@ const handleCopy = async () => {
 
     <!-- Per-video rows -->
     <div
-      v-for="[, state] in registry"
-      :key="state.path"
+      v-for="[path, status] in videoStatuses"
+      :key="path"
       class="flex items-center gap-1.5 py-0.5"
     >
-      <span class="w-2 h-2 rounded-full flex-shrink-0" :class="dotClass(state.status)" />
-      <span class="truncate flex-1 leading-none">{{ extractFilename(state.path) }}</span>
-      <span class="opacity-50 flex-shrink-0 tabular-nums">{{ state.score.toFixed(2) }}</span>
+      <span class="w-2 h-2 rounded-full flex-shrink-0" :class="dotClass(status)" />
+      <span class="truncate flex-1 leading-none">{{ extractFilename(path) }}</span>
+      <span class="opacity-50 flex-shrink-0 text-[9px]">{{ status }}</span>
     </div>
 
     <!-- Empty state -->
-    <div v-if="!registry.size" class="opacity-40">No videos registered</div>
+    <div v-if="!videoStatuses.size" class="opacity-40">No videos registered</div>
 
     <!-- Legend -->
     <hr class="border-white/20 mt-1 mb-1" />
@@ -99,7 +97,6 @@ const handleCopy = async () => {
       <span><span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-0.5" />play</span>
       <span><span class="inline-block w-2 h-2 rounded-full bg-blue-400 mr-0.5" />load</span>
       <span><span class="inline-block w-2 h-2 rounded-full bg-yellow-400 mr-0.5" />pause</span>
-      <span><span class="inline-block w-2 h-2 rounded-full bg-red-500 mr-0.5" />blocked</span>
       <span><span class="inline-block w-2 h-2 rounded-full bg-gray-500 mr-0.5" />unload</span>
     </div>
   </div>

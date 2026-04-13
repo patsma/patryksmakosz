@@ -113,6 +113,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Structured metadata validation through content.config.ts
 - Component references allow dynamic rendering of project-specific elements
 
+**Video Playback System** (`app/pages/projects/index.vue`):
+- All playback logic is inline in the page component (no external orchestrator composable)
+- **Two-zone ScrollTrigger per video**:
+  - Pre-buffer zone (`top 200%`): sets `el.src` + `el.load()` so video buffers before it's needed
+  - Play zone (`top 80% / bottom 20%`): plays when `readyState ≥ 2`, otherwise waits for `canplay`
+- **Concurrency**: max 1 playing on mobile, max 2 on desktop — enforced by `applyPlayback()`
+- **applyPlayback is debounced (250ms)**: prevents rapid play/pause cycling during fast scroll or ScrollSmoother inertia deceleration. Pauses are always immediate.
+- **Cover image crossfade**: video starts at `opacity: 0`; when `loadeddata` fires, GSAP fades the poster overlay out and the video in simultaneously (0.5s). Do NOT add a `poster` attribute to `<video>` — the `__preview-poster` div handles cover display with correct `background-size: cover`.
+- **Debug overlay**: activate via `?videodebug=1` query param or `localStorage.setItem('videodebug','1')`. Shows per-video status + "copy logs" button (useful on mobile where DevTools isn't available). Component: `app/components/VideoDebugOverlay.vue`. Logger: `app/composables/useVideoLogger.js`.
+
 **Video Assets & CDN**:
 - Videos are hosted on **Cloudflare R2** in production, not served from `public/movies/`
 - R2 bucket: `tastysites-videos` (Eastern Europe region)
