@@ -87,4 +87,17 @@
   &__project {
     font-weight: 700;
   }
+
+  &__credit {
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
 }

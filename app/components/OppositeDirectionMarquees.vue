@@ -54,7 +54,7 @@
           </div>
         </div>
         <div
-          v-if="showMeta && displayedMeta.length"
+          v-if="showMeta && (displayedMeta.length || credit)"
           class="opposite-direction-marquees__texts"
         >
           <p
@@ -63,6 +63,18 @@
             :class="{ 'opposite-direction-marquees__project': i === 0 }"
           >
             {{ text }}
+          </p>
+          <p v-if="credit" class="opposite-direction-marquees__credit">
+            Made with
+            <a
+              v-if="creditUrl"
+              :href="creditUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ credit }}
+            </a>
+            <span v-else>{{ credit }}</span>
           </p>
         </div>
       </div>
@@ -108,6 +120,8 @@ const props = defineProps({
   meta: { type: Array, default: () => [] },
   projectName: { type: String, default: "" },
   durationSec: { type: Number, default: 18 },
+  credit: { type: String, default: "" },
+  creditUrl: { type: String, default: "" },
 });
 
 // Build meta with projectName first and normalize values to strings

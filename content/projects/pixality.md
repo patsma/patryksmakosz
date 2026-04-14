@@ -40,11 +40,12 @@ wordGapVw: 3
 iconGapVw: 3
 durationSec: 50
 showMeta: true
-projectName: Pixality
 meta:
   - Year 2019
   - Design Portfolio Website
   - JavaScript + SVG
+credit: Website Style
+creditUrl: https://www.websitestyle.pl/
 ---
 ::
 

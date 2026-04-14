@@ -40,11 +40,12 @@ wordGapVw: 3
 iconGapVw: 3
 durationSec: 50
 showMeta: true
-projectName: Tabellae
 meta:
   - Year 2020
   - Enterprise Consulting Website
   - WordPress + WPML
+credit: Baernholdt
+creditUrl: https://baernholdt.com/
 ---
 ::
 

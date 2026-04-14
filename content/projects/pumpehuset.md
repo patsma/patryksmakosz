@@ -40,11 +40,12 @@ wordGapVw: 3
 iconGapVw: 3
 durationSec: 50
 showMeta: true
-projectName: Pumpehuset
 meta:
   - Year 2021
   - Concert Venue Website
   - Tailwind CSS + JavaScript
+credit: Baernholdt
+creditUrl: https://baernholdt.com/
 ---
 ::
 

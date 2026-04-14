@@ -40,11 +40,12 @@ wordGapVw: 3
 iconGapVw: 3
 durationSec: 50
 showMeta: true
-projectName: Do It For Jack
 meta:
   - Year 2022
   - Non-Profit Foundation Website
   - Responsive Web Design
+credit: DevPhase
+creditUrl: https://devphase.io/
 ---
 ::
 
