@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (34)
+## Already Imported (41)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -16,17 +16,23 @@
 | artistx | artistx.mp4 | - | video only |
 | arttech | art-tech.mp4 | https://art-tech-0103--tastysites-boilerplate.netlify.app/ | video only |
 | audiologist | audiologist.mp4 | https://tastysites.pl/oldportfolio/animations/audiologist/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/audiologist` |
+| bartender | bartender.mp4 | https://tastysites.pl/oldportfolio/animations/bartender/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/bartender` |
 | bat-out-of-hell | bat-out-of-hell.mp4 | https://bat-out-of-hell.netlify.app/ | video only |
 | berkan | berkan.mp4 | https://berkan-04.netlify.app/ | video only |
 | blood | blood.mp4 | https://tastysites.pl/oldportfolio/animations/blood/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/blood` |
 | bookingengine | booking-engine.mp4 | https://tastysites.pl/oldportfolio/animations/booking-engine/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/booking-engine` |
 | catalyst | catalyst.mp4 | https://tastysites.pl/oldportfolio/logo-animation/catalyst/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/catalyst` |
+| dobra-hipoteka | dobra-hipoteka.mp4 | https://tastysites.pl/oldportfolio/logo-animation/dobra-hipoteka/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/dobra-hipoteka` |
 | doitforjack | doitforjack.mp4 | https://www.doitforjack.org/ | video only |
 | envelope | envelope.mp4 | https://tastysites.pl/oldportfolio/animations/envelope/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/envelope` |
+| fidelis-elevate | fidelis-elevate.mp4 | https://tastysites.pl/oldportfolio/animations/fidelis-elevate/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/fidelis-elevate` |
 | fort-privacy | fort-privacy.mp4 | https://tastysites.pl/oldportfolio/animations/fort-privacy/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/fort-privacy` |
 | hqbio | hq-bio.mp4 | https://tastysites.pl/oldportfolio/websites/hq-bio/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/hq-bio` + `websites/hq-bio` |
 | inforca | inforca.mp4 | https://tastysites.pl/oldportfolio/logo-animation/inforca/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/inforca` |
+| lion | lion.mp4 | https://tastysites.pl/oldportfolio/logo-animation/lion/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/lion` |
 | life-balance-congress | life-balance-prototype.mp4 | https://life-balance-prototype.netlify.app/ | video only |
+| michael-arthur | michael-arthur.mp4 | https://tastysites.pl/oldportfolio/logo-animation/michael-arthur/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/michael-arthur` |
+| milk | milk.mp4 | https://tastysites.pl/oldportfolio/logo-animation/milk/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/milk` |
 | molki | molki.mp4 | https://molki.pl/ | video only |
 | molkidesign | molkidesign.mp4 | https://molkidesign.pl/ | video only |
 | nuxt-gsap-portfolio | - | https://nuxt-portfolio-gsap.netlify.app/ | video only |
@@ -40,6 +46,7 @@
 | sliwka-w-kompot | *(no video)* | - | video only |
 | spectrum | spectrum-way.mp4 | https://653f174dc1ae6e00070249f4--fastidious-custard-7939e2.netlify.app/ | video only |
 | tabellae | tabellae.mp4 | https://tabellae.com/ | video only |
+| trefl-sport | trefl-sport.mp4 | https://trefl-sport.netlify.app/ | video only |
 | vibeuu | vibeuu.mp4 | https://vibeuu-logo-animation.netlify.app/ | video only |
 | wepushbuttons | wepushbuttons.mp4 | https://tastysites.pl/oldportfolio/animations/wepushbuttons/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/wepushbuttons` |
 | wobi | wobi.mp4 | https://www.wobi.co.il/ | video only |
@@ -51,20 +58,13 @@
 
 ## 🎬 Logo Animations - Pending Import
 
-- [ ] dobra-hipoteka - video: `dobra-hipoteka.mp4` | live: https://tastysites.pl/oldportfolio/logo-animation/dobra-hipoteka/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/dobra-hipoteka`
 - [ ] farm-table - video: `farm-table.mp4` | live: https://tastysites.pl/oldportfolio/logo-animation/farm-table/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/farm-table`
-- [ ] lion - video: `lion.mp4` | live: https://tastysites.pl/oldportfolio/logo-animation/lion/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/lion`
-- [ ] michael-arthur - video: `michael-arthur.mp4` | live: https://tastysites.pl/oldportfolio/logo-animation/michael-arthur/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/michael-arthur`
-- [ ] milk - video: `milk.mp4` | live: https://tastysites.pl/oldportfolio/logo-animation/milk/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/milk`
 - [ ] yamahata - video: `yamahata.mp4` | live: https://tastysites.pl/oldportfolio/logo-animation/yamahata/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/yamahata`
 
 ---
 
 ## 🔵 Animations - Pending Import
 
-- [ ] bartender - video: `bartender.mp4` | live: https://tastysites.pl/oldportfolio/animations/bartender/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/bartender`
-- [ ] fidelis-elevate - video: `fidelis-elevate.mp4` | live: https://tastysites.pl/oldportfolio/animations/fidelis-elevate/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/fidelis-elevate`
-- [ ] graph - video: `graph.mp4` | live: https://tastysites.pl/oldportfolio/animations/graph/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/graph`
 - [ ] graph-slider - video: `graph-slider.mp4` | live: https://tastysites.pl/oldportfolio/animations/graph-slider/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/graph-slider`
 - [ ] icon-bars - video: `icon-bars.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-bars/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-bars`
 - [ ] icon-box - video: `icon-box.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-box/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-box`
@@ -78,8 +78,6 @@
 - [ ] laptop-isometric - video: `laptop-isometric.mp4` | live: https://tastysites.pl/oldportfolio/animations/laptop-isometric/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/laptop-isometric`
 - [ ] personal-computer - video: `personal-computer.mp4` | live: https://tastysites.pl/oldportfolio/animations/person-computer/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/person-computer`
 - [ ] spectrometer - video: `spectrometer.mp4` | live: https://tastysites.pl/oldportfolio/animations/spectrometer/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/spectrometer`
-- [ ] stairs - video: `stairs.mp4` | live: https://tastysites.pl/oldportfolio/animations/stairs/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/stairs`
-- [ ] usa-map - video: `usa-map.mp4` | live: https://tastysites.pl/oldportfolio/animations/usa-map/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/usa-map`
 - [ ] wordpress-widget - video: `wordpress-widget.mp4` | live: https://tastysites.pl/oldportfolio/animations/wordpress-widget/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/wordpress-widget`
 
 ---
@@ -88,7 +86,6 @@
 
 | Slug | Video | Live URL | Backup |
 |------|-------|----------|--------|
-| trefl-sport | trefl-sport.mp4 | https://trefl-sport.netlify.app/ | video only |
 
 ---
 
@@ -124,6 +121,9 @@ Videos in `public/movies/banners-optimized/`
 - cybersecurity - not worth showing
 - family - not worth showing
 - working-solutions - not worth showing
+- graph - not worth showing
+- stairs - not worth showing
+- usa-map - not worth showing
 - blueberry - not worth showing
 - fluid-gradient - old, not worth showing
 - ficlinic - old, not worth showing
