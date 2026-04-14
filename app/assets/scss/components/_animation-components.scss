@@ -257,6 +257,15 @@
     }
   }
 
+  &--iceberg-webdesign {
+    background-color: var(--color-white);
+
+    svg {
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+    }
+  }
+
   &--blood {
     padding: $container-pad-mobile;
 
