@@ -56,6 +56,17 @@
     }
   }
 
+  &--lion {
+    background-color: var(--color-white);
+
+    svg {
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+      max-height: 80%;
+      width: auto;
+    }
+  }
+
   // Catalyst logo animation styles, ported from legacy style.css
   &--catalyst {
     background-color: var(--color-black);
