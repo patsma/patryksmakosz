@@ -85,6 +85,15 @@
     }
   }
 
+  &--farm-table {
+    background-color: #ededed;
+
+    svg {
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+    }
+  }
+
   &--fidelis-elevate {
     background-color: var(--color-white);
 
