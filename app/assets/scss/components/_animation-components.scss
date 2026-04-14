@@ -85,6 +85,65 @@
     }
   }
 
+  &--fidelis-elevate {
+    background-color: var(--color-white);
+
+    .fidelis-svg-wrapper {
+      display: grid;
+      grid-auto-flow: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem;
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+    }
+
+    .fidelis-wheel svg,
+    .fidelis-text svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .fidelis-wheel svg {
+      min-width: 250px;
+    }
+
+    .fidelis-text svg {
+      min-width: 400px;
+    }
+
+    #blueIconCenter,
+    #redIconCenter,
+    #greenIconCenter {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    #blue__text,
+    #red__text,
+    #green__text,
+    [id^="text--"] {
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .fidelis-svg-wrapper {
+        grid-auto-flow: row;
+      }
+
+      .fidelis-wheel svg {
+        min-width: 200px;
+        height: 200px;
+      }
+
+      .fidelis-text svg {
+        min-width: 100%;
+      }
+    }
+  }
+
   // Catalyst logo animation styles, ported from legacy style.css
   &--catalyst {
     background-color: var(--color-black);
