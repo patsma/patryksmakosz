@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (41)
+## Already Imported (42)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -27,6 +27,7 @@
 | envelope | envelope.mp4 | https://tastysites.pl/oldportfolio/animations/envelope/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/envelope` |
 | fidelis-elevate | fidelis-elevate.mp4 | https://tastysites.pl/oldportfolio/animations/fidelis-elevate/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/fidelis-elevate` |
 | fort-privacy | fort-privacy.mp4 | https://tastysites.pl/oldportfolio/animations/fort-privacy/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/fort-privacy` |
+| iceberg-webdesign | iceberg-webdesign.mp4 | https://tastysites.pl/oldportfolio/logo-animation/icebergwebdesign/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/icebergwebdesign` |
 | hqbio | hq-bio.mp4 | https://tastysites.pl/oldportfolio/websites/hq-bio/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/hq-bio` + `websites/hq-bio` |
 | inforca | inforca.mp4 | https://tastysites.pl/oldportfolio/logo-animation/inforca/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/inforca` |
 | lion | lion.mp4 | https://tastysites.pl/oldportfolio/logo-animation/lion/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/lion` |
@@ -114,7 +115,6 @@ Videos in `public/movies/banners-optimized/`
 - chest-opening - not worth showing
 - fresh-sight - not worth showing
 - frontier - not worth showing
-- iceberg-webdesign - not worth showing
 - just-in-mind - not worth showing
 - brain - not worth showing
 - clouds - not worth showing
