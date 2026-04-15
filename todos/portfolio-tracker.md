@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (59)
+## Already Imported (60)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -32,6 +32,7 @@
 | frozen-elza | frozen-elza.mp4 | https://frozen-elza-banners.netlify.app/ | `public/movies/banners-optimized/frozen-elza` |
 | harry-potter-christmas | harry-potter-christmas.mp4 | https://harry-potter-christmas-banners.netlify.app/ | `public/movies/banners-optimized/harry-potter-christmas` |
 | harry-potter-the-cursed-child | harry-potter-the-cursed-child.mp4 | https://harry-potter-the-cursed-child-banners.netlify.app/ | `public/movies/banners-optimized/harry-potter-the-cursed-child` |
+| horridus-is-coming | horridus-is-coming.mp4 | https://horridus-is-coming-banners.netlify.app/ | `public/movies/banners-optimized/horridus-is-coming` |
 | iceberg-webdesign | iceberg-webdesign.mp4 | https://tastysites.pl/oldportfolio/logo-animation/icebergwebdesign/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/icebergwebdesign` |
 | graph-slider | graph-slider.mp4 | https://tastysites.pl/oldportfolio/animations/graph-slider/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/graph-slider` |
 | hqbio | hq-bio.mp4 | https://tastysites.pl/oldportfolio/websites/hq-bio/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/hq-bio` + `websites/hq-bio` |
@@ -94,7 +95,6 @@
 
 Videos in `public/movies/banners-optimized/`
 
-- [ ] horridus-is-coming - live: https://horridus-082021-v01.netlify.app/ | banner sets: 300x250, 300x600, 320x50, 728x90, 970x250
 - [ ] mca-australia-cornelia-parker - live: https://mca-cp-banners.netlify.app/ | banner sets: 160x600, 300x250, 300x600, 320x50, 728x90, 970x250
 - [ ] melbourne-museum-tyama - live: https://mus474.netlify.app/ | banner sets: 300x250, 300x600, 320x50, 728x90, 970x250
 - [ ] museums-victoria-stories - live: https://mus267-stories-of-us.netlify.app/ | banner sets: 300x250, 300x600, 320x50, 970x250
