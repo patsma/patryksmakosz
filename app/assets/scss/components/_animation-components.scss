@@ -661,6 +661,27 @@
     }
   }
 
+  &--icon-box {
+    background-color: #ffffff;
+
+    svg {
+      visibility: hidden;
+      opacity: 0;
+      max-height: 70%;
+      max-width: 70%;
+
+      @media (max-width: 768px) {
+        max-height: 55%;
+        max-width: 85%;
+      }
+    }
+
+    #lightMarks > path {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
   &--wordpress-widget {
     background-color: #ffffff;
 
