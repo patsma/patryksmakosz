@@ -720,6 +720,23 @@
     }
   }
 
+  &--icon-message {
+    background-color: #ffffff;
+
+    svg {
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+      max-height: 70%;
+      width: auto;
+    }
+
+    // Message icons start hidden - revealed by GSAP timeline
+    #smallMsg, #mediumMsg, #bigMsg {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
   &--wordpress-widget {
     background-color: #ffffff;
 
