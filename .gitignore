@@ -1,3 +1,6 @@
+# Banner source HTML files (staging for recording)
+public/movies/banner-sources/
+
 # Dependencies
 node_modules
 npm-debug.log*

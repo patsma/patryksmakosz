@@ -40,6 +40,7 @@
     "@iconify-json/simple-icons": "^1.2.53",
     "@iconify-json/tabler": "^1.2.22",
     "@iconify-json/uil": "^1.2.3",
+    "playwright": "^1.59.1",
     "sass": "^1.89.2"
   },
   "overrides": {
