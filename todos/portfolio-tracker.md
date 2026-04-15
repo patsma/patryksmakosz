@@ -64,7 +64,6 @@
 
 ## 🎬 Logo Animations - Pending Import
 
-- [ ] yamahata - video: `yamahata.mp4` | live: https://tastysites.pl/oldportfolio/logo-animation/yamahata/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/yamahata`
 
 ---
 
@@ -78,7 +77,6 @@
 - [ ] icon-message - video: `icon-message.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-message/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-message`
 - [ ] icon-monitor - video: `icon-monitor.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-monitor/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-monitor`
 - [ ] icon-phone - video: `icon-phone.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-phone/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-phone`
-- [ ] wordpress-widget - video: `wordpress-widget.mp4` | live: https://tastysites.pl/oldportfolio/animations/wordpress-widget/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/wordpress-widget`
 
 ---
 
