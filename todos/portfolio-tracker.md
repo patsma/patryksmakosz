@@ -77,7 +77,6 @@
 - [ ] icon-phone - video: `icon-phone.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-phone/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-phone`
 - [x] interview - video: `interview.mp4` | live: https://tastysites.pl/oldportfolio/animations/interview/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/interview`
 - [ ] laptop-isometric - video: `laptop-isometric.mp4` | live: https://tastysites.pl/oldportfolio/animations/laptop-isometric/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/laptop-isometric`
-- [ ] personal-computer - video: `personal-computer.mp4` | live: https://tastysites.pl/oldportfolio/animations/person-computer/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/person-computer`
 - [ ] spectrometer - video: `spectrometer.mp4` | live: https://tastysites.pl/oldportfolio/animations/spectrometer/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/spectrometer`
 - [ ] wordpress-widget - video: `wordpress-widget.mp4` | live: https://tastysites.pl/oldportfolio/animations/wordpress-widget/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/wordpress-widget`
 
