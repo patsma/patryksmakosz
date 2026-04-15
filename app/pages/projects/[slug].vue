@@ -59,36 +59,17 @@ const navIndex = computed(() =>
     (item) => normalizePath(item.path) === currentPath.value
   )
 );
+// Wrap-around navigation: last->first, first->last for infinite feel
 const prevProject = computed(() => {
   const list = navList.value || [];
-  return navIndex.value > 0 ? list[navIndex.value - 1] : null;
+  if (!list.length || navIndex.value < 0) return null;
+  return navIndex.value > 0 ? list[navIndex.value - 1] : list[list.length - 1];
 });
 const nextProject = computed(() => {
   const list = navList.value || [];
-  return navIndex.value >= 0 && navIndex.value < list.length - 1
-    ? list[navIndex.value + 1]
-    : null;
+  if (!list.length || navIndex.value < 0) return null;
+  return navIndex.value < list.length - 1 ? list[navIndex.value + 1] : list[0];
 });
-
-// Custom path to go after the last project (fallback for "next")
-/** @type {string} */
-const NEXT_FALLBACK_PATH = "/about";
-
-/**
- * Whether the current project is the last in the ordered list.
- * We use this to decide if we should route to the fallback path.
- */
-const isLastProject = computed(() => {
-  const list = navList.value || [];
-  if (!list.length || navIndex.value < 0) return false;
-  return navIndex.value === list.length - 1;
-});
-
-/**
- * Resolved path for the next navigation action.
- * If there is no next project, falls back to NEXT_FALLBACK_PATH.
- */
-const nextPath = computed(() => nextProject.value?.path || NEXT_FALLBACK_PATH);
 
 // Keyboard navigation: ArrowLeft / ArrowRight to move between projects
 const router = useRouter();
@@ -133,8 +114,7 @@ const handleKeydown = (event) => {
   if (event.key === "ArrowLeft" && prevProject.value?.path) {
     navigateToPath(prevProject.value.path);
   } else if (event.key === "ArrowRight") {
-    // If there is a next project go there, otherwise use the fallback
-    navigateToPath(nextProject.value?.path || NEXT_FALLBACK_PATH);
+    navigateToPath(nextProject.value?.path);
   }
 };
 
@@ -143,14 +123,11 @@ const handleKeydown = (event) => {
 const pageRef = ref(null);
 const { start: startSwipe, stop: stopSwipe } = useSwipe({
   element: pageRef,
-  // Swipe Left: go to next project (content moves left)
   onLeft: () => {
-    // If there is a next project go there, otherwise use the fallback
-    navigateToPath(nextProject.value?.path || NEXT_FALLBACK_PATH);
+    navigateToPath(nextProject.value?.path);
   },
-  // Swipe Right: go to previous project
   onRight: () => {
-    if (prevProject.value?.path) navigateToPath(prevProject.value.path);
+    navigateToPath(prevProject.value?.path);
   },
   threshold: 56,
 });
@@ -294,9 +271,10 @@ const debugInfo = computed(() => ({
             <div class="project-page__navigation-spacer" />
 
             <NuxtLink
-              :to="nextPath"
+              v-if="nextProject"
+              :to="nextProject.path"
               class="btn-standard-outlined"
-              :aria-label="isLastProject ? 'About page' : 'Next project'"
+              aria-label="Next project"
             >
               <span class="project-page__navigation-button">
                 <!-- {{ nextProject.title || "Next" }} -->
