@@ -636,4 +636,20 @@
       transform-origin: 50% 50%;
     }
   }
+
+  &--wordpress-widget {
+    background-color: #ffffff;
+
+    svg {
+      visibility: hidden;
+      opacity: 0;
+      max-height: 70%;
+      max-width: 85%;
+
+      @media (max-width: 768px) {
+        max-height: 60%;
+        max-width: 90%;
+      }
+    }
+  }
 }
