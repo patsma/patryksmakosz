@@ -646,6 +646,21 @@
     }
   }
 
+  &--icon-bars {
+    background-color: var(--color-white);
+
+    svg {
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+    }
+
+    // Morph target groups - hidden but needed in DOM for MorphSVG
+    #Yahoo90, #Bing75, #Organic35, #Google90 {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
   &--wordpress-widget {
     background-color: #ffffff;
 
