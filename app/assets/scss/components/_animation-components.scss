@@ -748,6 +748,23 @@
     }
   }
 
+  &--icon-phone {
+    background-color: var(--color-white);
+
+    svg {
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+      max-height: 70%;
+      width: auto;
+    }
+
+    // Cars and social icons start hidden - revealed by GSAP timeline
+    #social01, #social02, #social03, #car01, #car02, #car03 {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
   &--wordpress-widget {
     background-color: #ffffff;
 
