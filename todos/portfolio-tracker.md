@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (45)
+## Already Imported (48)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -32,6 +32,8 @@
 | graph-slider | graph-slider.mp4 | https://tastysites.pl/oldportfolio/animations/graph-slider/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/graph-slider` |
 | hqbio | hq-bio.mp4 | https://tastysites.pl/oldportfolio/websites/hq-bio/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/hq-bio` + `websites/hq-bio` |
 | inforca | inforca.mp4 | https://tastysites.pl/oldportfolio/logo-animation/inforca/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/inforca` |
+| interview | interview.mp4 | https://tastysites.pl/oldportfolio/animations/interview/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/interview` |
+| laptop-isometric | laptop-isometric.mp4 | https://tastysites.pl/oldportfolio/animations/laptop-isometric/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/laptop-isometric` |
 | lion | lion.mp4 | https://tastysites.pl/oldportfolio/logo-animation/lion/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/lion` |
 | life-balance-congress | life-balance-prototype.mp4 | https://life-balance-prototype.netlify.app/ | video only |
 | michael-arthur | michael-arthur.mp4 | https://tastysites.pl/oldportfolio/logo-animation/michael-arthur/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/michael-arthur` |
@@ -47,6 +49,7 @@
 | riverscape | riverscape.mp4 | https://www.riverscape.co.uk/ | video only |
 | site314 | site314.mp4 | https://314.pl/ | video only |
 | sliwka-w-kompot | *(no video)* | - | video only |
+| spectrometer | spectrometer.mp4 | https://tastysites.pl/oldportfolio/animations/spectrometer/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/spectrometer` |
 | spectrum | spectrum-way.mp4 | https://653f174dc1ae6e00070249f4--fastidious-custard-7939e2.netlify.app/ | video only |
 | tabellae | tabellae.mp4 | https://tabellae.com/ | video only |
 | trefl-sport | trefl-sport.mp4 | https://trefl-sport.netlify.app/ | video only |
@@ -75,9 +78,6 @@
 - [ ] icon-message - video: `icon-message.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-message/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-message`
 - [ ] icon-monitor - video: `icon-monitor.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-monitor/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-monitor`
 - [ ] icon-phone - video: `icon-phone.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-phone/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-phone`
-- [x] interview - video: `interview.mp4` | live: https://tastysites.pl/oldportfolio/animations/interview/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/interview`
-- [ ] laptop-isometric - video: `laptop-isometric.mp4` | live: https://tastysites.pl/oldportfolio/animations/laptop-isometric/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/laptop-isometric`
-- [ ] spectrometer - video: `spectrometer.mp4` | live: https://tastysites.pl/oldportfolio/animations/spectrometer/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/spectrometer`
 - [ ] wordpress-widget - video: `wordpress-widget.mp4` | live: https://tastysites.pl/oldportfolio/animations/wordpress-widget/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/wordpress-widget`
 
 ---
