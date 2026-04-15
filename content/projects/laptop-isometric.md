@@ -1,7 +1,7 @@
 ---
 title: "Laptop Isometric"
 slug: "laptop-isometric"
-category: "logo-animation"
+category: "custom-animation"
 cover: ""
 video: "/movies/web-optimized/laptop-isometric.mp4"
 summary: "Isometric laptop illustration with staggered reveal animation - stairs, AWS cloud, graph bars, and monitor elements animate in three cascading phases."
