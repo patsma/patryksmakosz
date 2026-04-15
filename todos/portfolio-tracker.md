@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (63)
+## Already Imported (64)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -64,6 +64,7 @@
 | sliwka-w-kompot | *(no video)* | - | video only |
 | spectrometer | spectrometer.mp4 | https://tastysites.pl/oldportfolio/animations/spectrometer/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/spectrometer` |
 | spectrum | spectrum-way.mp4 | https://653f174dc1ae6e00070249f4--fastidious-custard-7939e2.netlify.app/ | video only |
+| the-tina-turner-musical | the-tina-turner-musical.mp4 | https://the-tina-turner-musical-banners.netlify.app/ | `public/movies/banners-optimized/the-tina-turner-musical` |
 | tabellae | tabellae.mp4 | https://tabellae.com/ | video only |
 | trefl-sport | trefl-sport.mp4 | https://trefl-sport.netlify.app/ | video only |
 | vibeuu | vibeuu.mp4 | https://vibeuu-logo-animation.netlify.app/ | video only |
@@ -98,7 +99,6 @@
 
 Videos in `public/movies/banners-optimized/`
 
-- [ ] the-tina-turner-musical - live: https://tna018.netlify.app/ | banner sets: 160x600, 300x250, 300x600, 320x50, 728x90, 970x250
 
 ---
 
