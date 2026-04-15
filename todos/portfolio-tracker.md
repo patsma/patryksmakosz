@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (64)
+## Already Imported (66)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -60,8 +60,10 @@
 | pumpehuset | pumpehuset.mp4 | https://pumpehuset.dk/ | video only |
 | pushups-tracker | pushups-tracker.mp4 | - | video only |
 | riverscape | riverscape.mp4 | https://www.riverscape.co.uk/ | video only |
+| skcar | skcar.mp4 | - | `app/banners/skcar` |
 | site314 | site314.mp4 | https://314.pl/ | video only |
 | sliwka-w-kompot | *(no video)* | - | video only |
+| soundtransit-joy | soundtransit-joy.mp4 | - | `app/banners/soundtransit-joy` |
 | spectrometer | spectrometer.mp4 | https://tastysites.pl/oldportfolio/animations/spectrometer/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/spectrometer` |
 | spectrum | spectrum-way.mp4 | https://653f174dc1ae6e00070249f4--fastidious-custard-7939e2.netlify.app/ | video only |
 | the-tina-turner-musical | the-tina-turner-musical.mp4 | https://the-tina-turner-musical-banners.netlify.app/ | `public/movies/banners-optimized/the-tina-turner-musical` |
@@ -95,10 +97,33 @@
 
 ---
 
-## 🎪 Banners - Pending Import
+## 🎪 Banners - Pending Import (from backups)
 
-Videos in `public/movies/banners-optimized/`
+Source: `/Users/tasty/Documents/Backups/oldportfolio/dev/banners/`
+Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 
+- [ ] soundtransit-orcacard - source: SoundTransit_OrcaCard_* | sizes: 160x600, 300x250, 300x600, 728x90
+- [ ] soundtransit-punishing - source: SoundTransit_Punishing_* | sizes: 160x600, 300x250, 300x600, 728x90
+- [ ] greenrubino-phonesdown - source: greenrubino/PhonesDown* | sizes: 160x600, 300x250, 300x600, 728x90 | snowfall effects
+- [ ] greenrubino-swipe - source: greenrubino/Swipe* | sizes: 160x600, 300x250, 300x600, 728x90
+- [ ] ssrta - source: ssrta/* | sizes: 160x600, 300x250, 300x600, 320x50, 728x90 | pick best campaign (eat/explore/play)
+- [ ] cb-pcb - source: CB_PCB_* | sizes: 160x600, 300x250, 300x600, 728x90, 970x415 | pick production version
+- [ ] scca - source: SCCA_300x250, SCCA_300x600 | sizes: 300x250, 300x600 | complex motorsport animation
+- [ ] snocs - source: SNOCS_*_Tickets | sizes: 300x250, 300x600 | tourism
+- [ ] spthe - source: spthe/SPTHE13904_* | sizes: 160x600, 300x250, 300x600, 728x90 | medical/scientific
+- [ ] winterbreak - source: BANNER Settings WINTERBREAK * | sizes: 160x600, 300x250, 300x600, 728x90 | snowfall effects
+- [ ] pima - source: PIMA160x600, PIMA300X250, PIMA728X90 | sizes: 160x600, 300x250, 728x90 | education
+- [ ] proton-nu-beam - source: PROTON_NU_BEAM_300x250 | sizes: 300x250 | medical single size
+- [ ] hema - source: hema, hema02 | single size | check if worth it
+- [ ] lny - source: lny/* | sizes: 300x250, 300x600
+
+### Skip (backup banners)
+- olympia - Adobe Edge, not GSAP
+- schweitzer - only 728x90, incomplete
+- sOliver - no index.html
+- portfolio-not-filmed - metadata only
+- CB_CC - only 2 sizes, dev version
+- PIMA monthly variants (jan-nov 2018) - same template, redundant
 
 ---
 
