@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (48)
+## Already Imported (50)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -56,8 +56,10 @@
 | vibeuu | vibeuu.mp4 | https://vibeuu-logo-animation.netlify.app/ | video only |
 | wepushbuttons | wepushbuttons.mp4 | https://tastysites.pl/oldportfolio/animations/wepushbuttons/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/wepushbuttons` |
 | wobi | wobi.mp4 | https://www.wobi.co.il/ | video only |
+| wordpress-widget | wordpress-widget.mp4 | https://tastysites.pl/oldportfolio/animations/wordpress-widget/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/wordpress-widget` |
 | working-jobs-vyne | working-jobs-vyne.mp4 | https://tastysites.pl/oldportfolio/logo-animation/working-jobs-vyne/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/working-jobs-vyne` |
 | zaksa | zaksa.mp4 | https://tastysites.pl/oldportfolio/logo-animation/zaksa/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/zaksa` |
+| yamahata | yamahata.mp4 | https://tastysites.pl/oldportfolio/logo-animation/yamahata/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/yamahata` |
 | zap-black | zap-black.mp4 | https://zap-black.netlify.app/ | video only |
 
 ---
