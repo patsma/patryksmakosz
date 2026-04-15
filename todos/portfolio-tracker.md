@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (58)
+## Already Imported (55)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -32,8 +32,6 @@
 | graph-slider | graph-slider.mp4 | https://tastysites.pl/oldportfolio/animations/graph-slider/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/graph-slider` |
 | hqbio | hq-bio.mp4 | https://tastysites.pl/oldportfolio/websites/hq-bio/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/hq-bio` + `websites/hq-bio` |
 | icon-bars | icon-bars.mp4 | https://tastysites.pl/oldportfolio/animations/icon-bars/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-bars` |
-| icon-box | icon-box.mp4 | https://tastysites.pl/oldportfolio/animations/icon-box/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-box` |
-| icon-cloud | icon-cloud.mp4 | https://tastysites.pl/oldportfolio/animations/icon-cloud/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-cloud` |
 | icon-ladder | icon-ladder.mp4 | https://tastysites.pl/oldportfolio/animations/icon-ladder/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-ladder` |
 | icon-laptop | icon-laptop.mp4 | https://tastysites.pl/oldportfolio/animations/icon-laptop/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-laptop` |
 | icon-message | icon-message.mp4 | https://tastysites.pl/oldportfolio/animations/icon-message/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-message` |
@@ -41,7 +39,6 @@
 | icon-phone | icon-phone.mp4 | https://tastysites.pl/oldportfolio/animations/icon-phone/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-phone` |
 | inforca | inforca.mp4 | https://tastysites.pl/oldportfolio/logo-animation/inforca/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/inforca` |
 | interview | interview.mp4 | https://tastysites.pl/oldportfolio/animations/interview/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/interview` |
-| laptop-isometric | laptop-isometric.mp4 | https://tastysites.pl/oldportfolio/animations/laptop-isometric/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/laptop-isometric` |
 | lion | lion.mp4 | https://tastysites.pl/oldportfolio/logo-animation/lion/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/lion` |
 | life-balance-congress | life-balance-prototype.mp4 | https://life-balance-prototype.netlify.app/ | video only |
 | michael-arthur | michael-arthur.mp4 | https://tastysites.pl/oldportfolio/logo-animation/michael-arthur/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/michael-arthur` |
@@ -112,6 +109,9 @@ Videos in `public/movies/banners-optimized/`
 - asp - backup: `/Users/tasty/Documents/Backups/oldportfolio/websites/asp` - caused import errors, skipping
 - apparelimpact-gallery - same site as apparelimpact, skip
 - chest-opening - not worth showing
+- icon-box - not worth showing
+- icon-cloud - not worth showing
+- laptop-isometric - not worth showing
 - fresh-sight - not worth showing
 - frontier - not worth showing
 - just-in-mind - not worth showing
