@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (67)
+## Already Imported (68)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -65,6 +65,7 @@
 | sliwka-w-kompot | *(no video)* | - | video only |
 | soundtransit-joy | soundtransit-joy.mp4 | - | `app/banners/soundtransit-joy` |
 | soundtransit-orcacard | soundtransit-orcacard.mp4 | - | `app/banners/soundtransit-orcacard` |
+| soundtransit-punishing | soundtransit-punishing.mp4 | - | `app/banners/soundtransit-punishing` |
 | spectrometer | spectrometer.mp4 | https://tastysites.pl/oldportfolio/animations/spectrometer/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/spectrometer` |
 | spectrum | spectrum-way.mp4 | https://653f174dc1ae6e00070249f4--fastidious-custard-7939e2.netlify.app/ | video only |
 | the-tina-turner-musical | the-tina-turner-musical.mp4 | https://the-tina-turner-musical-banners.netlify.app/ | `public/movies/banners-optimized/the-tina-turner-musical` |
@@ -103,7 +104,6 @@
 Source: `/Users/tasty/Documents/Backups/oldportfolio/dev/banners/`
 Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 
-- [ ] soundtransit-punishing - source: SoundTransit_Punishing_* | sizes: 160x600, 300x250, 300x600, 728x90
 - [ ] greenrubino-phonesdown - source: greenrubino/PhonesDown* | sizes: 160x600, 300x250, 300x600, 728x90 | snowfall effects
 - [ ] greenrubino-swipe - source: greenrubino/Swipe* | sizes: 160x600, 300x250, 300x600, 728x90
 - [ ] ssrta - source: ssrta/* | sizes: 160x600, 300x250, 300x600, 320x50, 728x90 | pick best campaign (eat/explore/play)
