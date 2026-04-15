@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (42)
+## Already Imported (45)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -25,9 +25,11 @@
 | dobra-hipoteka | dobra-hipoteka.mp4 | https://tastysites.pl/oldportfolio/logo-animation/dobra-hipoteka/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/dobra-hipoteka` |
 | doitforjack | doitforjack.mp4 | https://www.doitforjack.org/ | video only |
 | envelope | envelope.mp4 | https://tastysites.pl/oldportfolio/animations/envelope/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/envelope` |
+| farm-table | farm-table.mp4 | https://tastysites.pl/oldportfolio/logo-animation/farm-table/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/farm-table` |
 | fidelis-elevate | fidelis-elevate.mp4 | https://tastysites.pl/oldportfolio/animations/fidelis-elevate/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/fidelis-elevate` |
 | fort-privacy | fort-privacy.mp4 | https://tastysites.pl/oldportfolio/animations/fort-privacy/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/fort-privacy` |
 | iceberg-webdesign | iceberg-webdesign.mp4 | https://tastysites.pl/oldportfolio/logo-animation/icebergwebdesign/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/icebergwebdesign` |
+| graph-slider | graph-slider.mp4 | https://tastysites.pl/oldportfolio/animations/graph-slider/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/graph-slider` |
 | hqbio | hq-bio.mp4 | https://tastysites.pl/oldportfolio/websites/hq-bio/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/hq-bio` + `websites/hq-bio` |
 | inforca | inforca.mp4 | https://tastysites.pl/oldportfolio/logo-animation/inforca/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/inforca` |
 | lion | lion.mp4 | https://tastysites.pl/oldportfolio/logo-animation/lion/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/lion` |
@@ -59,14 +61,12 @@
 
 ## 🎬 Logo Animations - Pending Import
 
-- [ ] farm-table - video: `farm-table.mp4` | live: https://tastysites.pl/oldportfolio/logo-animation/farm-table/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/farm-table`
 - [ ] yamahata - video: `yamahata.mp4` | live: https://tastysites.pl/oldportfolio/logo-animation/yamahata/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/yamahata`
 
 ---
 
 ## 🔵 Animations - Pending Import
 
-- [ ] graph-slider - video: `graph-slider.mp4` | live: https://tastysites.pl/oldportfolio/animations/graph-slider/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/graph-slider`
 - [ ] icon-bars - video: `icon-bars.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-bars/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-bars`
 - [ ] icon-box - video: `icon-box.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-box/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-box`
 - [ ] icon-cloud - video: `icon-cloud.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-cloud/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-cloud`
