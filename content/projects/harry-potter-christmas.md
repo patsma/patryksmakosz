@@ -5,7 +5,7 @@ category: "banner"
 cover: ""
 video: "/movies/web-optimized/harry-potter-christmas.mp4"
 liveLink: "https://harry-potter-christmas-banners.netlify.app/"
-summary: "Animated HTML5 banner set for Harry Potter and the Cursed Child holiday campaign - 6 sizes with snowfall and magical effects"
+summary: "Animated HTML5 banner set for Harry Potter and the Cursed Child holiday campaign - 6 sizes with smooth fade-in sequences"
 tags: ["html5", "gsap", "banners", "advertising"]
 date: 2021-01-01
 ---
@@ -39,6 +39,6 @@ meta:
 ::SimultaneousWords
 ---
 theme: light
-paragraph: Holiday campaign HTML5 banners for Harry Potter and the Cursed Child. Six banner sizes featuring snowfall particle effects, magical text reveals, and smooth GSAP timeline animations.
+paragraph: Holiday campaign HTML5 banners for Harry Potter and the Cursed Child. Six banner sizes featuring smooth fade-in sequences and carefully timed GSAP timeline animations.
 ---
 ::
