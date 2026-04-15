@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (50)
+## Already Imported (58)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -31,6 +31,14 @@
 | iceberg-webdesign | iceberg-webdesign.mp4 | https://tastysites.pl/oldportfolio/logo-animation/icebergwebdesign/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/icebergwebdesign` |
 | graph-slider | graph-slider.mp4 | https://tastysites.pl/oldportfolio/animations/graph-slider/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/graph-slider` |
 | hqbio | hq-bio.mp4 | https://tastysites.pl/oldportfolio/websites/hq-bio/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/hq-bio` + `websites/hq-bio` |
+| icon-bars | icon-bars.mp4 | https://tastysites.pl/oldportfolio/animations/icon-bars/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-bars` |
+| icon-box | icon-box.mp4 | https://tastysites.pl/oldportfolio/animations/icon-box/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-box` |
+| icon-cloud | icon-cloud.mp4 | https://tastysites.pl/oldportfolio/animations/icon-cloud/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-cloud` |
+| icon-ladder | icon-ladder.mp4 | https://tastysites.pl/oldportfolio/animations/icon-ladder/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-ladder` |
+| icon-laptop | icon-laptop.mp4 | https://tastysites.pl/oldportfolio/animations/icon-laptop/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-laptop` |
+| icon-message | icon-message.mp4 | https://tastysites.pl/oldportfolio/animations/icon-message/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-message` |
+| icon-monitor | icon-monitor.mp4 | https://tastysites.pl/oldportfolio/animations/icon-monitor/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-monitor` |
+| icon-phone | icon-phone.mp4 | https://tastysites.pl/oldportfolio/animations/icon-phone/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-phone` |
 | inforca | inforca.mp4 | https://tastysites.pl/oldportfolio/logo-animation/inforca/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/inforca` |
 | interview | interview.mp4 | https://tastysites.pl/oldportfolio/animations/interview/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/interview` |
 | laptop-isometric | laptop-isometric.mp4 | https://tastysites.pl/oldportfolio/animations/laptop-isometric/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/laptop-isometric` |
@@ -71,14 +79,6 @@
 
 ## 🔵 Animations - Pending Import
 
-- [ ] icon-bars - video: `icon-bars.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-bars/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-bars`
-- [x] icon-box - video: `icon-box.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-box/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-box`
-- [ ] icon-cloud - video: `icon-cloud.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-cloud/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-cloud`
-- [ ] icon-ladder - video: `icon-ladder.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-ladder/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-ladder`
-- [ ] icon-laptop - video: `icon-laptop.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-laptop/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-laptop`
-- [ ] icon-message - video: `icon-message.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-message/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-message`
-- [ ] icon-monitor - video: `icon-monitor.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-monitor/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-monitor`
-- [ ] icon-phone - video: `icon-phone.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-phone/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-phone`
 
 ---
 
