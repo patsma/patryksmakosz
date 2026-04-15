@@ -5,7 +5,7 @@ category: "banner"
 cover: ""
 video: "/movies/web-optimized/frozen-elza.mp4"
 liveLink: "https://frozen-elza-banners.netlify.app/"
-summary: "Animated HTML5 banner set for Disney's Frozen featuring Elza - 4 sizes with ice crystal and snowflake effects"
+summary: "Animated HTML5 banner set for Disney's Frozen featuring Elza - 4 sizes with smooth fade-in sequences"
 tags: ["html5", "gsap", "banners", "advertising"]
 date: 2022-01-01
 ---
@@ -39,6 +39,6 @@ meta:
 ::SimultaneousWords
 ---
 theme: light
-paragraph: Animated HTML5 banner campaign for Disney's Frozen featuring Elza. Four banner sizes with ice crystal particle effects and smooth GSAP timeline animations for the theatrical release.
+paragraph: Animated HTML5 banner campaign for Disney's Frozen featuring Elza. Four banner sizes with smooth fade-in sequences and GSAP timeline animations for the theatrical release.
 ---
 ::
