@@ -44,6 +44,7 @@ const counts = computed(() => {
     website: items.filter((i) => i.category === "website").length,
     "custom-animation": items.filter((i) => i.category === "custom-animation")
       .length,
+    banner: items.filter((i) => i.category === "banner").length,
   };
 });
 
@@ -332,6 +333,16 @@ useHead({ title: "Projects" });
             <span>Custom Animations</span>
             <span class="filter-count">({{ counts["custom-animation"] }})</span>
           </NuxtLink>
+
+          <NuxtLink
+            class="filter-button group"
+            :to="{ path: '/projects', query: { category: 'banner' } }"
+            :class="{ 'filter-button--active': category === 'banner' }"
+          >
+            <Icon name="mdi:monitor-cellphone" class="w-5 h-5" />
+            <span>Banners</span>
+            <span class="filter-count">({{ counts.banner }})</span>
+          </NuxtLink>
         </div>
       </div>
 
@@ -397,7 +408,9 @@ useHead({ title: "Projects" });
                       ? 'mdi:animation'
                       : p.category === 'website'
                         ? 'mdi:web'
-                        : 'mdi:palette'
+                        : p.category === 'banner'
+                          ? 'mdi:monitor-cellphone'
+                          : 'mdi:palette'
                   "
                   class="w-10 h-10"
                 />
@@ -412,7 +425,9 @@ useHead({ title: "Projects" });
                       ? 'mdi:animation'
                       : p.category === 'website'
                         ? 'mdi:web'
-                        : 'mdi:palette'
+                        : p.category === 'banner'
+                          ? 'mdi:monitor-cellphone'
+                          : 'mdi:palette'
                   "
                   class="w-4 h-4"
                 />

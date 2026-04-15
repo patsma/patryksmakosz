@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (55)
+## Already Imported (57)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -28,6 +28,8 @@
 | farm-table | farm-table.mp4 | https://tastysites.pl/oldportfolio/logo-animation/farm-table/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/farm-table` |
 | fidelis-elevate | fidelis-elevate.mp4 | https://tastysites.pl/oldportfolio/animations/fidelis-elevate/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/fidelis-elevate` |
 | fort-privacy | fort-privacy.mp4 | https://tastysites.pl/oldportfolio/animations/fort-privacy/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/fort-privacy` |
+| frozen-bris | frozen-bris.mp4 | https://frozen-bris-banners.netlify.app/ | `public/movies/banners-optimized/frozen-bris` |
+| frozen-elza | frozen-elza.mp4 | https://frozen-elza-banners.netlify.app/ | `public/movies/banners-optimized/frozen-elza` |
 | iceberg-webdesign | iceberg-webdesign.mp4 | https://tastysites.pl/oldportfolio/logo-animation/icebergwebdesign/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/icebergwebdesign` |
 | graph-slider | graph-slider.mp4 | https://tastysites.pl/oldportfolio/animations/graph-slider/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/graph-slider` |
 | hqbio | hq-bio.mp4 | https://tastysites.pl/oldportfolio/websites/hq-bio/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/hq-bio` + `websites/hq-bio` |
@@ -90,8 +92,6 @@
 
 Videos in `public/movies/banners-optimized/`
 
-- [ ] frozen-bris - live: https://frozen-bris.netlify.app/ | banner sets: 160x600, 300x250, 300x600, 320x50, 970x250
-- [ ] frozen-elza - live: https://frozen-elza-batch-v02.netlify.app/ | banner sets: 300x600, 320x50, 728x90, 970x250
 - [ ] harry-potter-christmas - live: https://hp-banners.netlify.app/ | banner sets: 160x600, 300x250, 300x600, 320x100, 728x90, 970x250
 - [ ] harry-potter-the-cursed-child - live: https://hpatcc01.netlify.app/ | banner sets: 160x600, 300x250, 300x600, 320x50, 728x90, 970x250
 - [ ] horridus-is-coming - live: https://horridus-082021-v01.netlify.app/ | banner sets: 300x250, 300x600, 320x50, 728x90, 970x250
