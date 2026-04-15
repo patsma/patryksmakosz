@@ -72,7 +72,7 @@
 ## 🔵 Animations - Pending Import
 
 - [ ] icon-bars - video: `icon-bars.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-bars/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-bars`
-- [ ] icon-box - video: `icon-box.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-box/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-box`
+- [x] icon-box - video: `icon-box.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-box/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-box`
 - [ ] icon-cloud - video: `icon-cloud.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-cloud/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-cloud`
 - [ ] icon-ladder - video: `icon-ladder.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-ladder/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-ladder`
 - [ ] icon-laptop - video: `icon-laptop.mp4` | live: https://tastysites.pl/oldportfolio/animations/icon-laptop/ | backup: `/Users/tasty/Documents/Backups/oldportfolio/animations/icon-laptop`
