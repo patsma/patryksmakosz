@@ -693,6 +693,17 @@
     }
   }
 
+  &--icon-ladder {
+    background-color: #ffffff;
+
+    svg {
+      visibility: hidden;
+      opacity: 0;
+      max-height: 70%;
+      width: auto;
+    }
+  }
+
   &--wordpress-widget {
     background-color: #ffffff;
 
