@@ -428,7 +428,7 @@ const createAnimation = () => {
       },
       "show-dot-41b+=0.1"
     )
-    .from(startBtn, {
+    .from([startBtn].filter(Boolean), {
       autoAlpha: 0, y: "+=20", duration: 1, ease: "sine.out",
     });
 
@@ -439,7 +439,7 @@ const createAnimation = () => {
     .add(initialTl)
     .addPause()
     // After "It all starts here" click, transition to interactive mode
-    .to(startBtn, {
+    .to([startBtn].filter(Boolean), {
       autoAlpha: 0, y: "-=20", display: "none", duration: 1, ease: "sine.out",
     })
     .add("hide-initial")
