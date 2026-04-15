@@ -266,6 +266,15 @@
     }
   }
 
+  &--interview {
+    background-color: #f0f0f0;
+
+    svg {
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+    }
+  }
+
   &--blood {
     padding: $container-pad-mobile;
 
