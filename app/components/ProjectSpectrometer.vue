@@ -633,7 +633,7 @@ const createAnimation = () => {
       "showPlusMinus4"
     )
     // Boom effect
-    .addLabel("boom", "-=2.48")
+    .addLabel("boom", "-=2.4")
     .fromTo(
       boomPaths,
       { autoAlpha: 0, scale: 0, transformOrigin: "50% 50%" },
@@ -643,7 +643,7 @@ const createAnimation = () => {
         transformOrigin: "50% 50%",
         ease: "back.inOut",
         duration: 0.1,
-        stagger: 0.05,
+        stagger: 0.025,
       },
       "boom+=0.4"
     )
@@ -656,7 +656,7 @@ const createAnimation = () => {
         transformOrigin: "50% 50%",
         ease: "back.inOut",
         duration: 0.1,
-        stagger: 0.05,
+        stagger: 0.025,
       },
       "boom+=0.35"
     )
@@ -667,9 +667,9 @@ const createAnimation = () => {
         scale: 0,
         ease: "back.inOut",
         duration: 0.1,
-        stagger: 0.05,
+        stagger: 0.025,
       },
-      "boom+=0.6"
+      "boom+=0.55"
     );
 
   // --- Phase 7: Statistics chart ---
@@ -891,11 +891,11 @@ const createAnimation = () => {
     .addLabel("finalTravel")
     .add(finalTravelTl.timeScale(0.5), "-=2")
     .add(magnetsTl, "-=6.2")
-    // Transition to statistics
-    .addLabel("phase2")
-    .to(svgRoot, { autoAlpha: 0, duration: 1 })
+    // Transition to statistics (overlap to cut dead time after boom)
+    .addLabel("phase2", "-=3")
+    .to(svgRoot, { autoAlpha: 0, duration: 1 }, "phase2")
     .set(svgRoot, { display: "none" })
-    .add(showStatisticsTl, "-=1")
+    .add(showStatisticsTl, "phase2+=0.5")
     .addLabel("phase3");
 
   // DevTools integration

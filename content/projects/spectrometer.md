@@ -13,7 +13,6 @@ date: 2018-01-01
 ::ProjectSpectrometer
 ---
 autoPlay: true
-showDevTools: true
 ---
 ::
 
