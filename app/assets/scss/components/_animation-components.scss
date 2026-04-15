@@ -553,4 +553,87 @@
       }
     }
   }
+
+  &--spectrometer {
+    background-color: #f7fafc;
+
+    svg {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .statistics-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    // Initial hidden states - GSAP reveals via autoAlpha
+    #moleculePreloaderYellow,
+    #moleculePreloaderGreen,
+    #moleculePreloaderRed,
+    #moleculePreloaderBlue,
+    #moleculePreloaderPurple,
+    #topCutCircles,
+    #bottomCutCircles,
+    #spectrometerBody,
+    #boomGroup path,
+    .cls-7,
+    #preloaderMoleculeGroup,
+    #bond-01,
+    #bond-02,
+    #bond-03,
+    #bond-04,
+    #particle-01-yellow,
+    #particle-02-blue,
+    #particle-03-red,
+    #particle-04-green,
+    #particle-05-purple,
+    #laserParticles path,
+    #laserParticles,
+    #purpleParticleAfterBreak,
+    #blueParticleAfterBreak,
+    #greenParticleAfterBreak,
+    #yellowParticleAfterBreak,
+    #redParticleAfterBreak,
+    .cls-35,
+    #finishedParticles path,
+    #preloaderDotsGroup,
+    #laserBezier,
+    #linesPathFinal,
+    #bezierLines,
+    #topPhrases,
+    #otherPhrasesGroup,
+    #bars,
+    #resultsText path,
+    #scaleBottomLines path,
+    #scaleLeftLines path,
+    #colour-01,
+    #colour-02,
+    #colour-03,
+    #colour-04,
+    #colour-05,
+    #statistics,
+    #moplecule-small-two,
+    #preloaderTwo {
+      visibility: hidden;
+    }
+
+    #laserBezier {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+
+    #moleculeLarge,
+    #boomGroup path {
+      transform-origin: 50% 50%;
+    }
+  }
 }
