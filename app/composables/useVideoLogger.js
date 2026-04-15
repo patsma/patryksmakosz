@@ -11,7 +11,7 @@
  *   logger.play('molki.mp4', 0.87, 1)
  *   logger.copyLogs()  // copies full buffer to clipboard
  */
-export function createVideoLogger() {
+export function createVideoLogger({ verbose = false } = {}) {
   const fmt = (icon, action) => `${icon} [VIDEO|${action}]`
 
   // In-memory buffer for mobile copy - max 500 entries to avoid memory creep
@@ -30,42 +30,42 @@ export function createVideoLogger() {
     activate(file, reason) {
       const line = `📹 [VIDEO|ACTIVATE] ${file} | ${reason}`
       push(line)
-      console.log(fmt('📹', 'ACTIVATE'), file, '|', reason)
+      if (verbose) console.log(fmt('📹', 'ACTIVATE'), file, '|', reason)
     },
 
     /** Video started playing */
     play(file, score, concurrentCount) {
       const line = `▶️ [VIDEO|PLAY] ${file} | score: ${score.toFixed(2)} | playing: ${concurrentCount}`
       push(line)
-      console.log(fmt('▶️', 'PLAY'), file, '| score:', score.toFixed(2), '| playing:', concurrentCount)
+      if (verbose) console.log(fmt('▶️', 'PLAY'), file, '| score:', score.toFixed(2), '| playing:', concurrentCount)
     },
 
     /** Video was paused */
     pause(file, reason) {
       const line = `⏸ [VIDEO|PAUSE] ${file} | ${reason}`
       push(line)
-      console.log(fmt('⏸', 'PAUSE'), file, '|', reason)
+      if (verbose) console.log(fmt('⏸', 'PAUSE'), file, '|', reason)
     },
 
     /** Video src removed and decoder freed */
     unload(file) {
       const line = `🗑 [VIDEO|UNLOAD] ${file}`
       push(line)
-      console.log(fmt('🗑', 'UNLOAD'), file)
+      if (verbose) console.log(fmt('🗑', 'UNLOAD'), file)
     },
 
     /** Global state snapshot - fires after every recalculate() */
     state(summary) {
       const line = `📊 [VIDEO|STATE] ${summary}`
       push(line)
-      console.log(fmt('📊', 'STATE'), summary)
+      if (verbose) console.log(fmt('📊', 'STATE'), summary)
     },
 
     /** Autoplay was blocked by browser */
     blocked(file) {
       const line = `🚫 [VIDEO|BLOCKED] ${file} | autoplay blocked`
       push(line)
-      console.warn(fmt('🚫', 'BLOCKED'), file, '| autoplay blocked')
+      if (verbose) console.warn(fmt('🚫', 'BLOCKED'), file, '| autoplay blocked')
     },
 
     /** Copy full log buffer to clipboard */

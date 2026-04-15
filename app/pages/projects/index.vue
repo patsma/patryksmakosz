@@ -72,7 +72,7 @@ const staticPreviewFor = (p) => p?.preview || p?.cover || null;
 // Mobile: max 1 video playing. Desktop: max 2.
 
 const { $gsap, $ScrollTrigger } = useNuxtApp();
-const logger = createVideoLogger();
+const logger = createVideoLogger({ verbose: isDebugMode.value });
 
 // Paths that have had their src set — drives the loader visibility.
 const activatedVideos = reactive(new Set());
