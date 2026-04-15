@@ -737,6 +737,17 @@
     }
   }
 
+  &--icon-monitor {
+    background-color: #ffffff;
+
+    svg {
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+      max-height: 70%;
+      width: auto;
+    }
+  }
+
   &--wordpress-widget {
     background-color: #ffffff;
 
