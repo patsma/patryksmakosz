@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (62)
+## Already Imported (63)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -46,6 +46,7 @@
 | interview | interview.mp4 | https://tastysites.pl/oldportfolio/animations/interview/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/interview` |
 | mca-australia-cornelia-parker | mca-australia-cornelia-parker.mp4 | https://mca-australia-cornelia-parker-banners.netlify.app/ | `public/movies/banners-optimized/mca-australia-cornelia-parker` |
 | melbourne-museum-tyama | melbourne-museum-tyama.mp4 | https://melbourne-museum-tyama-banners.netlify.app/ | `public/movies/banners-optimized/melbourne-museum-tyama` |
+| museums-victoria-stories | museums-victoria-stories.mp4 | https://museums-victoria-stories-banners.netlify.app/ | `public/movies/banners-optimized/museums-victoria-stories` |
 | lion | lion.mp4 | https://tastysites.pl/oldportfolio/logo-animation/lion/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/lion` |
 | life-balance-congress | life-balance-prototype.mp4 | https://life-balance-prototype.netlify.app/ | video only |
 | michael-arthur | michael-arthur.mp4 | https://tastysites.pl/oldportfolio/logo-animation/michael-arthur/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/michael-arthur` |
@@ -97,7 +98,6 @@
 
 Videos in `public/movies/banners-optimized/`
 
-- [ ] museums-victoria-stories - live: https://mus267-stories-of-us.netlify.app/ | banner sets: 300x250, 300x600, 320x50, 970x250
 - [ ] the-tina-turner-musical - live: https://tna018.netlify.app/ | banner sets: 160x600, 300x250, 300x600, 320x50, 728x90, 970x250
 
 ---
