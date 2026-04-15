@@ -1,7 +1,7 @@
 ---
 title: "KBS Graph Slider"
 slug: "graph-slider"
-category: "animation"
+category: "custom-animation"
 cover: ""
 video: "/movies/web-optimized/graph-slider.mp4"
 summary: "Interactive timeline visualization for KBS Real Estate - 28 years of transaction milestones with SVG morphing and DrawSVG animations"
