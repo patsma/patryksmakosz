@@ -94,6 +94,17 @@
     }
   }
 
+  &--icon-cloud {
+    background-color: var(--color-white);
+
+    svg {
+      visibility: hidden; // revealed by GSAP set(autoAlpha:1)
+      opacity: 0;
+      max-height: 70%;
+      width: auto;
+    }
+  }
+
   &--fidelis-elevate {
     background-color: var(--color-white);
 
