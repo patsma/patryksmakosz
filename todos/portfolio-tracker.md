@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (68)
+## Already Imported (67)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -63,7 +63,6 @@
 | skcar | skcar.mp4 | - | `app/banners/skcar` |
 | site314 | site314.mp4 | https://314.pl/ | video only |
 | sliwka-w-kompot | *(no video)* | - | video only |
-| soundtransit-joy | soundtransit-joy.mp4 | - | `app/banners/soundtransit-joy` |
 | soundtransit-orcacard | soundtransit-orcacard.mp4 | - | `app/banners/soundtransit-orcacard` |
 | soundtransit-punishing | soundtransit-punishing.mp4 | - | `app/banners/soundtransit-punishing` |
 | spectrometer | spectrometer.mp4 | https://tastysites.pl/oldportfolio/animations/spectrometer/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/spectrometer` |
