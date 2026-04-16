@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (74)
+## Already Imported (75)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -80,6 +80,7 @@
 | vibeuu | vibeuu.mp4 | https://vibeuu-logo-animation.netlify.app/ | video only |
 | wepushbuttons | wepushbuttons.mp4 | https://tastysites.pl/oldportfolio/animations/wepushbuttons/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/wepushbuttons` |
 | wobi | wobi.mp4 | https://www.wobi.co.il/ | video only |
+| winterbreak | winterbreak.mp4 | - | `app/banners/winterbreak` |
 | wordpress-widget | wordpress-widget.mp4 | https://tastysites.pl/oldportfolio/animations/wordpress-widget/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/wordpress-widget` |
 | working-jobs-vyne | working-jobs-vyne.mp4 | https://tastysites.pl/oldportfolio/logo-animation/working-jobs-vyne/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/working-jobs-vyne` |
 | zaksa | zaksa.mp4 | https://tastysites.pl/oldportfolio/logo-animation/zaksa/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/zaksa` |
@@ -110,7 +111,6 @@
 Source: `/Users/tasty/Documents/Backups/oldportfolio/dev/banners/`
 Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 
-- [ ] winterbreak - source: BANNER Settings WINTERBREAK * | sizes: 160x600, 300x250, 300x600, 728x90 | snowfall effects
 - [ ] pima - source: PIMA160x600, PIMA300X250, PIMA728X90 | sizes: 160x600, 300x250, 728x90 | education
 - [ ] proton-nu-beam - source: PROTON_NU_BEAM_300x250 | sizes: 300x250 | medical single size
 - [ ] hema - source: hema, hema02 | single size | check if worth it

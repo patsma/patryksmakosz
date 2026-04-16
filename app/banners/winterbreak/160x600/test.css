@@ -1,0 +1,85 @@
+#popmake-3259 {
+    min-width: 300px;
+    width: 600px;
+    top: 161px;
+    opacity: 1;
+    height: 600px;
+    padding: 0;
+    position: fixed;
+}
+
+#popmake-3259 > div > div > div {
+    margin-top: 370px;
+}
+
+#popmake-3259::after {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    content: "";
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    left: 0;
+    top: 0;
+
+}
+
+.pum-theme-2258 .pum-content, .pum-theme-default-theme .pum-content {
+    background: url(http://techcroud.com/wp-content/uploads/2016/10/popupfoto5.jpg) !important;
+    height: 600px;
+
+}
+
+.btn, .reply a {
+    background: #43a4d0 !important;
+}
+
+nav.nav.footer-nav ul li.current-menu-item a, nav.nav.footer-nav ul li a:hover {
+    color: #43a4d0;
+    text-decoration: none;
+}
+
+nav.nav.footer-nav ul li {
+    text-transform: uppercase;
+}
+
+#popmake-3259 > button, #popmake-3259 > div > div > div > div > form > p:nth-child(3) > span {
+    background: #43a4d0 !important;
+}
+
+.nav__primary .sf-menu > .menu-item.current-menu-item > a, .nav__primary .sf-menu > .menu-item.active-menu-item > a, .nav__primary .sf-menu > .menu-item.sfHover > a {
+    color: #43a4d0 !important;
+}
+.nav__primary .sf-menu > .menu-item > .sub-menu > .menu-item > a:hover, .nav__primary .sf-menu > .menu-item > .sub-menu > .menu-item > a:active, .nav__primary .sf-menu > .menu-item > .sub-menu > .menu-item > a:focus {
+    background: #43a4d0 !important;
+}
+
+#motopress-main > div.motopress-wrapper.content-holder.clearfix > div > div > div > div:nth-child(2) > div:nth-child(1) > div:nth-child(2), #post-203 > h1 > div > div > div {
+    display: none;
+}
+
+#post-203 > h1 {
+    margin-top: 20px;
+}
+
+[id*="categories"] ul li a:before, [id*="archives"] ul li a:before, .list.custom-list ul li a:before {
+    color: #43a4d0 !important;
+}
+
+[id*="categories"] ul li a:after, [id*="archives"] ul li a:after, .list.custom-list ul li a:after {
+    background: #43a4d0 !important;
+}
+
+#post-203 > div:nth-child(2) {
+    margin-top: 40px;
+}
+
+#post-203 > div:nth-child(2) > div.span12 {
+    display: none;
+}
+
+@media only screen and (max-width: 39em) {
+    .pum-theme-2258 .pum-content + .pum-close, .pum-theme-default-theme .pum-content + .pum-close {
+        margin-right: 160px;
+    }
+}

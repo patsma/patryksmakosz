@@ -1,0 +1,88 @@
+html,
+body {
+  width: 300px;
+  height: 250px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: block;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+          margin: 0;
+          padding: 0;
+}
+
+body {
+  background-color: #fff;
+  font-family: 'bebas', Asap, sans-serif;
+  color: white;
+  overflow: hidden;
+}
+
+.wrapper {
+  width: 300px;
+  height: 250px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: block;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+#scene03-04-bg{
+  z-index: 2;
+}
+#scene01-02-bg,#scene01-txt01,#scene01-txt02,#scene01-txt03,#scene01-txt04,#scene01-txt05,
+#scene02-txt01,#scene03-txt01,
+#scene03-txt02,
+#scene03-txt03,
+#scene04-button,
+#scene04-logo,
+#scene04-tag{
+  z-index: 3;
+}
+
+#snow {
+  width: 300px;
+  height: 250px;
+
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 3;
+}
+
+img {
+  position: absolute;
+}
+
+#scene01-txt01,
+#scene01-txt02,
+#scene01-txt03,
+#scene01-txt04,
+#scene01-txt05,
+#scene02-txt01,
+#scene02-txt02,
+#scene02-txt03,
+#scene03-04-bg,
+#scene03-txt01,
+#scene03-txt02,
+#scene03-txt03,
+#scene04-button,
+#scene04-logo,
+#scene04-tag {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#controls {
+    position: absolute;
+    top: 125px;
+    left: 0%;
+    width: 15%;
+}
