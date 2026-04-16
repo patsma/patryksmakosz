@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (72)
+## Already Imported (73)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -64,6 +64,7 @@
 | pushups-tracker | pushups-tracker.mp4 | - | video only |
 | scca | scca.mp4 | - | `app/banners/scca` |
 | riverscape | riverscape.mp4 | https://www.riverscape.co.uk/ | video only |
+| snocs | snocs.mp4 | - | `app/banners/snocs` |
 | skcar | skcar.mp4 | - | `app/banners/skcar` |
 | site314 | site314.mp4 | https://314.pl/ | video only |
 | sliwka-w-kompot | *(no video)* | - | video only |
@@ -108,7 +109,6 @@
 Source: `/Users/tasty/Documents/Backups/oldportfolio/dev/banners/`
 Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 
-- [ ] snocs - source: SNOCS_*_Tickets | sizes: 300x250, 300x600 | tourism
 - [ ] spthe - source: spthe/SPTHE13904_* | sizes: 160x600, 300x250, 300x600, 728x90 | medical/scientific
 - [ ] winterbreak - source: BANNER Settings WINTERBREAK * | sizes: 160x600, 300x250, 300x600, 728x90 | snowfall effects
 - [ ] pima - source: PIMA160x600, PIMA300X250, PIMA728X90 | sizes: 160x600, 300x250, 728x90 | education
