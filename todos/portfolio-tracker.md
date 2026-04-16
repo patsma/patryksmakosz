@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (70)
+## Already Imported (71)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -21,6 +21,7 @@
 | berkan | berkan.mp4 | https://berkan-04.netlify.app/ | video only |
 | blood | blood.mp4 | https://tastysites.pl/oldportfolio/animations/blood/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/blood` |
 | bookingengine | booking-engine.mp4 | https://tastysites.pl/oldportfolio/animations/booking-engine/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/booking-engine` |
+| cb-pcb | cb-pcb.mp4 | - | `app/banners/cb-pcb` |
 | catalyst | catalyst.mp4 | https://tastysites.pl/oldportfolio/logo-animation/catalyst/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/catalyst` |
 | dobra-hipoteka | dobra-hipoteka.mp4 | https://tastysites.pl/oldportfolio/logo-animation/dobra-hipoteka/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/dobra-hipoteka` |
 | doitforjack | doitforjack.mp4 | https://www.doitforjack.org/ | video only |
@@ -106,7 +107,6 @@
 Source: `/Users/tasty/Documents/Backups/oldportfolio/dev/banners/`
 Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 
-- [ ] cb-pcb - source: CB_PCB_* | sizes: 160x600, 300x250, 300x600, 728x90, 970x415 | pick production version
 - [ ] scca - source: SCCA_300x250, SCCA_300x600 | sizes: 300x250, 300x600 | complex motorsport animation
 - [ ] snocs - source: SNOCS_*_Tickets | sizes: 300x250, 300x600 | tourism
 - [ ] spthe - source: spthe/SPTHE13904_* | sizes: 160x600, 300x250, 300x600, 728x90 | medical/scientific
