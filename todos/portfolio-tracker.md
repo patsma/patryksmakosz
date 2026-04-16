@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (71)
+## Already Imported (72)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -62,6 +62,7 @@
 | player-prototype | player-svg-prototype.mp4 | https://player-svg-prototype.netlify.app/ | video only |
 | pumpehuset | pumpehuset.mp4 | https://pumpehuset.dk/ | video only |
 | pushups-tracker | pushups-tracker.mp4 | - | video only |
+| scca | scca.mp4 | - | `app/banners/scca` |
 | riverscape | riverscape.mp4 | https://www.riverscape.co.uk/ | video only |
 | skcar | skcar.mp4 | - | `app/banners/skcar` |
 | site314 | site314.mp4 | https://314.pl/ | video only |
@@ -107,7 +108,6 @@
 Source: `/Users/tasty/Documents/Backups/oldportfolio/dev/banners/`
 Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 
-- [ ] scca - source: SCCA_300x250, SCCA_300x600 | sizes: 300x250, 300x600 | complex motorsport animation
 - [ ] snocs - source: SNOCS_*_Tickets | sizes: 300x250, 300x600 | tourism
 - [ ] spthe - source: spthe/SPTHE13904_* | sizes: 160x600, 300x250, 300x600, 728x90 | medical/scientific
 - [ ] winterbreak - source: BANNER Settings WINTERBREAK * | sizes: 160x600, 300x250, 300x600, 728x90 | snowfall effects
