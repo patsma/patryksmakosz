@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (75)
+## Already Imported (76)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -58,6 +58,7 @@
 | molkidesign | molkidesign.mp4 | https://molkidesign.pl/ | video only |
 | nuxt-gsap-portfolio | - | https://nuxt-portfolio-gsap.netlify.app/ | video only |
 | page-404 | page404.mp4 | https://tastysites.pl/oldportfolio/animations/page404/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/page404` |
+| pima | pima.mp4 | - | `app/banners/pima` |
 | pixality | pixality.mp4 | https://pixality.netlify.app/ | video only |
 | player-prototype | player-svg-prototype.mp4 | https://player-svg-prototype.netlify.app/ | video only |
 | pumpehuset | pumpehuset.mp4 | https://pumpehuset.dk/ | video only |
@@ -111,7 +112,6 @@
 Source: `/Users/tasty/Documents/Backups/oldportfolio/dev/banners/`
 Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 
-- [ ] pima - source: PIMA160x600, PIMA300X250, PIMA728X90 | sizes: 160x600, 300x250, 728x90 | education
 - [ ] proton-nu-beam - source: PROTON_NU_BEAM_300x250 | sizes: 300x250 | medical single size
 - [ ] hema - source: hema, hema02 | single size | check if worth it
 - [ ] lny - source: lny/* | sizes: 300x250, 300x600
