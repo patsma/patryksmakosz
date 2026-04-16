@@ -1,10 +1,10 @@
 ---
-title: "SNOCS - Tourism Campaign"
+title: "Snoqualmie Casino"
 slug: "snocs"
 category: "banner"
 cover: ""
 video: "/movies/web-optimized/snocs.mp4"
-summary: "Animated HTML5 banner set for SNOCS tourism campaign - 2 sizes with smooth image and text transitions"
+summary: "Animated HTML5 banner set for Snoqualmie Casino - 2 sizes with smooth image and text transitions"
 tags: ["html5", "gsap", "banners", "advertising"]
 date: 2017-01-01
 ---
@@ -27,7 +27,7 @@ items:
 separatorIcon: uil:bolt
 theme: light
 showMeta: true
-projectName: SNOCS
+projectName: Snoqualmie Casino
 meta:
   - Year 2017
   - HTML5 Banners
@@ -38,6 +38,6 @@ meta:
 ::SimultaneousWords
 ---
 theme: light
-paragraph: HTML5 banner campaign for SNOCS tourism. Two banner sizes with smooth image crossfades and text reveal animations promoting tourism experiences.
+paragraph: HTML5 banner campaign for Snoqualmie Casino. Two banner sizes with smooth image crossfades and text reveal animations.
 ---
 ::

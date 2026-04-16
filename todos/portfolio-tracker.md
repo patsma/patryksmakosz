@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (73)
+## Already Imported (74)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -71,6 +71,7 @@
 | soundtransit-orcacard | soundtransit-orcacard.mp4 | - | `app/banners/soundtransit-orcacard` |
 | soundtransit-punishing | soundtransit-punishing.mp4 | - | `app/banners/soundtransit-punishing` |
 | ssrta | ssrta.mp4 | - | `app/banners/ssrta` |
+| spthe | spthe.mp4 | - | `app/banners/spthe` |
 | spectrometer | spectrometer.mp4 | https://tastysites.pl/oldportfolio/animations/spectrometer/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/spectrometer` |
 | spectrum | spectrum-way.mp4 | https://653f174dc1ae6e00070249f4--fastidious-custard-7939e2.netlify.app/ | video only |
 | the-tina-turner-musical | the-tina-turner-musical.mp4 | https://the-tina-turner-musical-banners.netlify.app/ | `public/movies/banners-optimized/the-tina-turner-musical` |
@@ -109,7 +110,6 @@
 Source: `/Users/tasty/Documents/Backups/oldportfolio/dev/banners/`
 Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 
-- [ ] spthe - source: spthe/SPTHE13904_* | sizes: 160x600, 300x250, 300x600, 728x90 | medical/scientific
 - [ ] winterbreak - source: BANNER Settings WINTERBREAK * | sizes: 160x600, 300x250, 300x600, 728x90 | snowfall effects
 - [ ] pima - source: PIMA160x600, PIMA300X250, PIMA728X90 | sizes: 160x600, 300x250, 728x90 | education
 - [ ] proton-nu-beam - source: PROTON_NU_BEAM_300x250 | sizes: 300x250 | medical single size

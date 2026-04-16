@@ -1,10 +1,10 @@
 ---
-title: "SCCA - Sports Car Club of America"
+title: "SCCA - Seattle Cancer Care Alliance"
 slug: "scca"
 category: "banner"
 cover: ""
 video: "/movies/web-optimized/scca.mp4"
-summary: "Animated HTML5 banner set for SCCA motorsport - 2 sizes with complex SVG animations"
+summary: "Animated HTML5 banner set for Seattle Cancer Care Alliance - 2 sizes with SVG animations"
 tags: ["html5", "gsap", "banners", "advertising", "svg"]
 date: 2017-01-01
 ---
@@ -38,6 +38,6 @@ meta:
 ::SimultaneousWords
 ---
 theme: light
-paragraph: HTML5 banner campaign for the Sports Car Club of America. Two banner sizes with complex SVG-driven animations and smooth GSAP timeline sequences.
+paragraph: HTML5 banner campaign for the Seattle Cancer Care Alliance. Two banner sizes with SVG-driven animations and smooth GSAP timeline sequences.
 ---
 ::
