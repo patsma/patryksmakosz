@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (68)
+## Already Imported (69)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -30,6 +30,7 @@
 | fort-privacy | fort-privacy.mp4 | https://tastysites.pl/oldportfolio/animations/fort-privacy/ | `/Users/tasty/Documents/Backups/oldportfolio/animations/fort-privacy` |
 | frozen-bris | frozen-bris.mp4 | https://frozen-bris-banners.netlify.app/ | `public/movies/banners-optimized/frozen-bris` |
 | greenrubino-phonesdown | greenrubino-phonesdown.mp4 | - | `app/banners/greenrubino-phonesdown` |
+| greenrubino-swipe | greenrubino-swipe.mp4 | - | `app/banners/greenrubino-phonesdown` |
 | frozen-elza | frozen-elza.mp4 | https://frozen-elza-banners.netlify.app/ | `public/movies/banners-optimized/frozen-elza` |
 | harry-potter-christmas | harry-potter-christmas.mp4 | https://harry-potter-christmas-banners.netlify.app/ | `public/movies/banners-optimized/harry-potter-christmas` |
 | harry-potter-the-cursed-child | harry-potter-the-cursed-child.mp4 | https://harry-potter-the-cursed-child-banners.netlify.app/ | `public/movies/banners-optimized/harry-potter-the-cursed-child` |
@@ -104,7 +105,6 @@
 Source: `/Users/tasty/Documents/Backups/oldportfolio/dev/banners/`
 Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 
-- [ ] greenrubino-swipe - source: greenrubino/Swipe* | sizes: 160x600, 300x250, 300x600, 728x90
 - [ ] ssrta - source: ssrta/* | sizes: 160x600, 300x250, 300x600, 320x50, 728x90 | pick best campaign (eat/explore/play)
 - [ ] cb-pcb - source: CB_PCB_* | sizes: 160x600, 300x250, 300x600, 728x90, 970x415 | pick production version
 - [ ] scca - source: SCCA_300x250, SCCA_300x600 | sizes: 300x250, 300x600 | complex motorsport animation
