@@ -327,7 +327,7 @@
 </a>
 </body>
 <!--Libs-->
-<script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 
 <script type="text/javascript">
     var clickTag = "http://www.snocasino.com/gaming/promotions/lunarnewyear/";
@@ -335,8 +335,7 @@
 <!--JS-->
 <script>
 
-    TweenLite.set('html', {autoAlpha: 1});
-
+    gsap.set('html', {autoAlpha: 1});
 
     var select = function (s) {
             return document.querySelector(s);
@@ -346,88 +345,59 @@
         }
     ;
 
+    var highlights = selectAll('#highlights > path'),
+        background = select('#background'),
+        background01 = select('#background01'),
+        background04 = select('#background04'),
+        lunar_new_year_logo_s01 = select('#lunar_new_year_logo_s01'),
+        scene02_over = selectAll('#scene02_over'),
+        scene02_milion = selectAll('#scene02_milion'),
+        scene02_in_cash_prizes = selectAll('#scene02_in_cash_prizes'),
+        win_one_of_three = selectAll('#win_one_of_three'),
+        new_fords = selectAll('#new_fords'),
+        car = selectAll('#car'),
+        a_trip_for_two_to = selectAll('#a_trip_for_two_to'),
+        andEl = selectAll('#and'),
+        hong_kong = selectAll('#hong_kong'),
+        beijing = selectAll('#beijing'),
+        scene05_over = selectAll('#scene05_over'),
+        scene05_milion = selectAll('#scene05_milion'),
+        scene05_in_cars_cash_and_more = selectAll('#scene05_in_cars_cash_and_more');
 
-    highlights = selectAll('#highlights > path');
-    background = select('#background');
-    background01 = select('#background01');
-    background04 = select('#background04');
+    // Background sparkle highlights
+    gsap.fromTo(highlights,
+        {autoAlpha: 0.1, yPercent: (i) => [50, 100, 150, 200, 250][i % 5], xPercent: (i) => [10, 20, 30, 40, 50][i % 5]},
+        {autoAlpha: 0.2, yPercent: (i) => [-50, -100, -150, -200, -250][i % 5], xPercent: (i) => [-50, -100, -150, -200, -250][i % 5],
+         duration: 10, repeat: -1, yoyo: true, stagger: 0.01}
+    );
 
+    var tl = gsap.timeline();
 
-    lunar_new_year_logo_s01 = select('#lunar_new_year_logo_s01');
-    scene02_over = selectAll('#scene02_over');
-    scene02_milion = selectAll('#scene02_milion');
-    scene02_in_cash_prizes = selectAll('#scene02_in_cash_prizes');
-    win_one_of_three = selectAll('#win_one_of_three');
-    new_fords = selectAll('#new_fords');
-    car = selectAll('#car');
-    a_trip_for_two_to = selectAll('#a_trip_for_two_to');
-    and = selectAll('#and');
-    hong_kong = selectAll('#hong_kong');
-    beijing = selectAll('#beijing');
+    tl
+        .to(lunar_new_year_logo_s01, {autoAlpha: 1, duration: 0.5})
+        .to('body', {autoAlpha: 1, duration: 1})
+        .add('hide_lunar_show_over')
+        .to(lunar_new_year_logo_s01, {scaleY: 0, duration: 0.25}, 'hide_lunar_show_over')
+        .from(scene02_over, {scaleY: 0, transformOrigin: 'center center', duration: 0.25}, 'hide_lunar_show_over')
+        .from(scene02_milion, {scaleY: 0, transformOrigin: 'center center', duration: 0.25}, 'hide_lunar_show_over')
+        .from(scene02_in_cash_prizes, {scaleY: 0, transformOrigin: 'center center', duration: 0.25}, 'hide_lunar_show_over')
+        .to('body', {autoAlpha: 1, duration: 1})
+        .add('hide_over_show_car')
+        .to([scene02_over, scene02_milion, scene02_in_cash_prizes, background01], {autoAlpha: 0, duration: 0.5}, 'hide_over_show_car')
+        .from([win_one_of_three, new_fords, car], {autoAlpha: 0, xPercent: 50, duration: 1, stagger: 0.1}, 'hide_over_show_car')
+        .to('body', {autoAlpha: 1, duration: 1})
+        .add('hide_car_show_trip')
+        .to([win_one_of_three, new_fords, car], {autoAlpha: 0, xPercent: -50, duration: 1, stagger: 0.1}, 'hide_car_show_trip')
+        .from([a_trip_for_two_to, hong_kong, andEl, beijing, background04], {autoAlpha: 0, xPercent: 50, ease: 'back.in', duration: 1, stagger: 0.2}, 'hide_car_show_trip-=0.2')
+        .to('body', {autoAlpha: 1, duration: 1})
+        .add('hide_trip_show_last')
+        .to([a_trip_for_two_to, hong_kong, andEl, beijing, background04], {autoAlpha: 0, yPercent: -50, ease: 'back.in', duration: 1, stagger: 0.2}, 'hide_trip_show_last')
+        .from([scene05_over, scene05_milion, scene05_in_cars_cash_and_more], {autoAlpha: 0, yPercent: -50, ease: 'back.in', duration: 1, stagger: 0.2}, 'hide_trip_show_last+=0.2')
+        .to(lunar_new_year_logo_s01, {scaleY: 1, top: '10px', duration: 0.25})
+        .to(background01, {autoAlpha: 1, duration: 0.25});
 
-    scene05_over = selectAll('#scene05_over');
-    scene05_milion = selectAll('#scene05_milion');
-    scene05_in_cars_cash_and_more = selectAll('#scene05_in_cars_cash_and_more');
-
-
-    TweenMax.staggerFromTo(highlights, 10, {
-        autoAlpha: 0.1,
-        repeat: -1,
-        yoyo: true,
-        cycle: {yPercent: [50, 100, 150, 200, 250], xPercent: [10, 20, 30, 40, 50]}
-    }, {
-        autoAlpha: 0.2,
-        cycle: {yPercent: [-50, -100, -150, -200, -250], xPercent: [-50, -100, -150, -200, -250]}
-    }, 0.01);
-
-    function tl01() {
-        var tl = new TimelineMax({repeat:1,repeatDelay:1.5});
-
-        tl
-
-            .to(lunar_new_year_logo_s01, .5, {autoAlpha: 1})
-
-            .to('body', 1, {autoAlpha: 1})
-
-            .add('hide_lunar_show_over')
-            .to(lunar_new_year_logo_s01, .25, {scaleY: 0}, 'hide_lunar_show_over')
-
-            .from(scene02_over, .25, {scaleY: 0, transformOrigin: 'center center'}, 'hide_lunar_show_over')
-            .from(scene02_milion, .25, {scaleY: 0, transformOrigin: 'center center'}, 'hide_lunar_show_over')
-            .from(scene02_in_cash_prizes, .25, {scaleY: 0, transformOrigin: 'center center'}, 'hide_lunar_show_over')
-
-            .to('body', 1, {autoAlpha: 1})
-
-            .add('hide_over_show_car')
-            .to([scene02_over, scene02_milion, scene02_in_cash_prizes,background01], .5, {autoAlpha: 0}, 'hide_over_show_car')
-            .staggerFrom([win_one_of_three, new_fords, car], 1, {autoAlpha: 0, xPercent: 50}, 0.1, 'hide_over_show_car')
-
-            .to('body', 1, {autoAlpha: 1})
-
-            .add('hide_car_show_trip')
-            .staggerTo([win_one_of_three, new_fords, car], 1, {autoAlpha: 0, xPercent: -50}, 0.1, 'hide_car_show_trip')
-            .staggerFrom([a_trip_for_two_to, hong_kong, and, beijing,background04], 1, {autoAlpha: 0, xPercent: 50, ease: Back.easeIn
-            }, 0.2, 'hide_car_show_trip-=0.2')
-
-
-            .to('body', 1, {autoAlpha: 1})
-
-
-            .add('hide_trip_show_last')
-            .staggerTo([a_trip_for_two_to, hong_kong, and, beijing,background04], 1, {autoAlpha: 0, yPercent: -50, ease: Back.easeIn
-            }, 0.2, 'hide_trip_show_last')
-            .staggerFrom([ scene05_over, scene05_milion, scene05_in_cars_cash_and_more], 1, {autoAlpha: 0, yPercent: -50, ease: Back.easeIn
-            }, 0.2, 'hide_trip_show_last+=0.2')
-            .to(lunar_new_year_logo_s01, .25, {scaleY: 1,top:'10px'})
-            .to(background01, .25, {autoAlpha: 1})
-        ;
-
-
-        return tl;
-    }
-
-    tl01();
-
+    window.gsap = gsap;
+    window.tl = tl;
 
 </script>
 </html>

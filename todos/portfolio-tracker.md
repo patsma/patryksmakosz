@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (77)
+## Already Imported (78)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -50,6 +50,7 @@
 | mca-australia-cornelia-parker | mca-australia-cornelia-parker.mp4 | https://mca-australia-cornelia-parker-banners.netlify.app/ | `public/movies/banners-optimized/mca-australia-cornelia-parker` |
 | melbourne-museum-tyama | melbourne-museum-tyama.mp4 | https://melbourne-museum-tyama-banners.netlify.app/ | `public/movies/banners-optimized/melbourne-museum-tyama` |
 | museums-victoria-stories | museums-victoria-stories.mp4 | https://museums-victoria-stories-banners.netlify.app/ | `public/movies/banners-optimized/museums-victoria-stories` |
+| lny | lny.mp4 | - | `app/banners/lny` |
 | lion | lion.mp4 | https://tastysites.pl/oldportfolio/logo-animation/lion/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/lion` |
 | life-balance-congress | life-balance-prototype.mp4 | https://life-balance-prototype.netlify.app/ | video only |
 | michael-arthur | michael-arthur.mp4 | https://tastysites.pl/oldportfolio/logo-animation/michael-arthur/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/michael-arthur` |
@@ -151,7 +152,6 @@ Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 - proton-nu-beam - duplicate of SPTHE
 
 ### Pending Fix (next session)
-- lny - 300x600 recording broken (squished), 300x250 works. Source in app/banners/lny/
 - hema - complex inline HTML, needs investigation. Source in backups.
 
 ### Misc oldportfolio (not importing)
