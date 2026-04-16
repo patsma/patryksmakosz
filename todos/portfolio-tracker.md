@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (76)
+## Already Imported (78)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -50,6 +50,7 @@
 | mca-australia-cornelia-parker | mca-australia-cornelia-parker.mp4 | https://mca-australia-cornelia-parker-banners.netlify.app/ | `public/movies/banners-optimized/mca-australia-cornelia-parker` |
 | melbourne-museum-tyama | melbourne-museum-tyama.mp4 | https://melbourne-museum-tyama-banners.netlify.app/ | `public/movies/banners-optimized/melbourne-museum-tyama` |
 | museums-victoria-stories | museums-victoria-stories.mp4 | https://museums-victoria-stories-banners.netlify.app/ | `public/movies/banners-optimized/museums-victoria-stories` |
+| lny | lny.mp4 | - | `app/banners/lny` |
 | lion | lion.mp4 | https://tastysites.pl/oldportfolio/logo-animation/lion/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/lion` |
 | life-balance-congress | life-balance-prototype.mp4 | https://life-balance-prototype.netlify.app/ | video only |
 | michael-arthur | michael-arthur.mp4 | https://tastysites.pl/oldportfolio/logo-animation/michael-arthur/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/michael-arthur` |
@@ -112,9 +113,6 @@
 Source: `/Users/tasty/Documents/Backups/oldportfolio/dev/banners/`
 Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 
-- [ ] proton-nu-beam - source: PROTON_NU_BEAM_300x250 | sizes: 300x250 | medical single size
-- [ ] hema - source: hema, hema02 | single size | check if worth it
-- [ ] lny - source: lny/* | sizes: 300x250, 300x600
 
 ### Skip (backup banners)
 - olympia - Adobe Edge, not GSAP
@@ -151,6 +149,8 @@ Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 - fluid-gradient - old, not worth showing
 - ficlinic - old, not worth showing
 - gmtsameday - old, not worth showing
+- proton-nu-beam - duplicate of SPTHE
+- hema - unclear structure, not worth the effort
 
 ### Misc oldportfolio (not importing)
 - `misc-2/`: canvas-gallery, demos, embassy-gardens, embassy-gardens-nuxt, scroll-portfolio, seo, zaroslak
