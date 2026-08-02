@@ -1,7 +1,7 @@
 ---
 title: "We Push Buttons"
 slug: "wepushbuttons"
-category: "animation"
+category: "custom-animation"
 video: "/movies/web-optimized/wepushbuttons.mp4"
 liveLink: "https://tastysites.pl/oldportfolio/animations/wepushbuttons/"
 summary: "Animated illustration of a creative workspace with interactive button-pushing characters, built with CSS and JavaScript animation."
