@@ -23,6 +23,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Linting & Type Checking
 - The project uses ESLint via `@nuxt/eslint` module (configuration in `eslint.config.mjs`)
 - TypeScript configuration in `tsconfig.json` and Nuxt-generated `.nuxt/tsconfig.json`
+- `npm run check:categories` - Verify every project's `category` matches a filter tab. Runs automatically as part of `build` and `generate`
+
+## Project Categories
+
+A project's `category` frontmatter must be exactly one of:
+
+`banner` | `website` | `custom-animation` | `logo-animation`
+
+The filter tabs on `/projects` are hardcoded to those four strings in `app/pages/projects/index.vue`. **Anything else and the project disappears from all four tabs while still showing under "All"** - no error, no console warning, nothing in the build log. It happened: `wepushbuttons.md` sat on `category: "animation"` and was invisible in every filtered view until 2026-08-03.
+
+**The zod enum in `content.config.ts` does not catch this.** Verified 2026-08-03 on `@nuxt/content` 3.6.3: a build with an invalid category exits 0 and writes the bad value straight into `.data/content/contents.sqlite`. The enum is there for types and documentation only.
+
+`scripts/check-project-categories.js` is the actual guard. It fails the build - and therefore the Netlify deploy - on an unknown category, and also fails if a category in its list loses its filter button, so the list and the page cannot drift apart. It also runs from the local `.git/hooks/pre-commit` for faster feedback, but that hook is not versioned, so a fresh clone only gets the build-time check.
+
+To add a fifth category you must touch three places: the button in `app/pages/projects/index.vue`, the `counts` computed just above it, and `KNOWN_CATEGORIES` in the check script.
 
 ## Architecture Overview
 

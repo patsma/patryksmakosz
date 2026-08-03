@@ -3,9 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "npm run check:categories && nuxt build",
+    "check:categories": "node scripts/check-project-categories.js",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "npm run check:categories && nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "convert-videos": "node scripts/convert-videos.js",
