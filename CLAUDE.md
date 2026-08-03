@@ -37,7 +37,14 @@ The filter tabs on `/projects` are hardcoded to those four strings in `app/pages
 
 `scripts/check-project-categories.js` is the actual guard. It fails the build - and therefore the Netlify deploy - on an unknown category, and also fails if a category in its list loses its filter button, so the list and the page cannot drift apart. It also runs from the local `.git/hooks/pre-commit` for faster feedback, but that hook is not versioned, so a fresh clone only gets the build-time check.
 
-To add a fifth category you must touch three places: the button in `app/pages/projects/index.vue`, the `counts` computed just above it, and `KNOWN_CATEGORIES` in the check script.
+To add a fifth category you must touch four places, none of which will tell you if you miss one:
+
+1. `KNOWN_CATEGORIES` in `scripts/check-project-categories.js`
+2. `PROJECT_CATEGORIES` in `content.config.ts` (types only)
+3. the `counts` computed in the script block of `app/pages/projects/index.vue`
+4. the matching filter button in that file's template
+
+Miss 1 and the new category fails the build. Miss 4 and the build fails too, because the check looks for the button. Miss 3 and the tab renders with no count.
 
 ## Architecture Overview
 
