@@ -175,3 +175,9 @@ Miss 1 and the new category fails the build. Miss 4 and the build fails too, bec
 - Static generation support via `nuxt generate`
 - Environment-specific configuration for site URLs and metadata
 - **Required Netlify env var**: `NUXT_PUBLIC_VIDEO_BASE_URL=https://pub-c9bfd14ac21c42f2b7f26ea1ddaf0e7e.r2.dev` (serves videos from R2 CDN)
+### Claude skills in this repo
+- `.claude/skills/` holds 10 Cloudflare skills (`cloudflare`, `wrangler`, `workers-best-practices`, `durable-objects`, `agents-sdk`, `sandbox-sdk`, `cloudflare-email-service`, `turnstile-spin`, `cloudflare-one`, `cloudflare-one-migrations`)
+- **Project scope on purpose.** They were installed at user scope (`~/.claude/skills/`) on 2026-08-04, which loaded 2.3MB of Cloudflare docs into every Claude session on the machine for one project's benefit. Moved here so they load only when working on this repo
+- Source: [github.com/cloudflare/skills](https://github.com/cloudflare/skills). Reinstall one with `npx skills add https://github.com/cloudflare/skills --skill <name>`, or the whole set as a plugin with `/plugin marketplace add cloudflare/skills` then `/plugin install cloudflare@cloudflare`
+- Committed rather than ignored, so a `git clean -fdx` (easy to reach for in a repo with `.nuxt/`, `.output/` and `.wrangler/` lying around) cannot silently delete them
+- `.claude/settings.local.json` stays ignored - it is this machine's tool permissions, not project config
