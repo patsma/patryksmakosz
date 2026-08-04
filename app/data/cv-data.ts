@@ -6,7 +6,7 @@ import type { CVData } from '~/types/cv'
 export const cvData: CVData = {
   personal: {
     name: 'Patryk Smakosz',
-    title: 'Frontend / Interactive / Creative Developer - WordPress / Vue / Nuxt - GSAP, SVG & ThreeJS',
+    title: 'Frontend / Interactive / Creative Developer - Nuxt / Vue / React / Next / WordPress - GSAP, SVG & Three.js',
     location: 'Gdansk, Poland',
     email: 'me@patryksmakosz.com',
     phone: '+48 502 590 747',
@@ -14,7 +14,7 @@ export const cvData: CVData = {
     linkedin: 'linkedin.com/in/patryksmakosz',
   },
 
-  summary: `Creative developer with 10+ years of experience specializing in interactive web experiences, advanced animations, and front-end architecture. Expert in GSAP, Vue/Nuxt ecosystems, and creating performant, visually stunning digital products. Passionate about pushing the boundaries of what's possible on the web while maintaining accessibility and performance standards.`,
+  summary: `Creative developer with 14 years of experience in interactive web experiences, advanced animation, and front-end architecture. Comfortable across stacks - Nuxt, Vue, React, Next.js and WordPress - and used to working inside whatever a team already runs rather than insisting on my own. Specialise in making heavy motion work survive a real CMS without giving up performance or accessibility.`,
 
   skills: [
     {
@@ -23,15 +23,19 @@ export const cvData: CVData = {
     },
     {
       category: 'Front-End',
-      skills: ['Nuxt.js', 'Vue.js', 'TypeScript', 'TailwindCSS', 'SCSS', 'CSS Grid', 'JavaScript ES6+'],
+      skills: ['Nuxt.js', 'Vue.js', 'React', 'Next.js', 'TypeScript', 'TailwindCSS', 'SCSS', 'CSS Grid', 'JavaScript ES6+'],
     },
     {
       category: 'Animation & Graphics',
-      skills: ['GSAP', 'SVG Animation', 'Three.js', 'WebGL', 'Lottie', 'CSS Animations', 'Vite'],
+      skills: ['GSAP', 'ScrollTrigger', 'SVG Animation', 'Three.js', 'WebGL', 'Lottie', 'Barba.js', 'Lenis', 'CSS Animations'],
     },
     {
       category: 'CMS & Backend',
-      skills: ['WordPress', 'WordPress Bedrock', 'Nuxt Content', 'REST APIs', 'Python/Django', 'PHP'],
+      skills: ['WordPress', 'ACF Flexible Content', 'WordPress Bedrock', 'WPML', 'Nuxt Content', 'Shopify (Liquid, theme development)', 'REST APIs', 'Python/Django', 'PHP'],
+    },
+    {
+      category: 'Tooling & Delivery',
+      skills: ['Vite', 'Git', 'WP-CLI', 'Playwright', 'Deployment scripting', 'Core Web Vitals'],
     },
   ],
 
@@ -45,6 +49,27 @@ export const cvData: CVData = {
         'Creating interactive content for Disney, Mazda, Paco Rabanne, AKA, WePushButtons, and many more',
         'Building Nuxt/Vue/WordPress services and applications',
         'Architected and developed award-winning websites with advanced GSAP animations',
+      ],
+    },
+    {
+      company: 'Colibrity (Paris) - White-Label Subcontract',
+      role: 'Front-End Developer (B2B)',
+      startDate: 'Apr 2026',
+      responsibilities: [
+        'Delivering content-managed WordPress builds for European end clients under a multi-year framework agreement',
+        'Brand-showcase site for an architecture and workplace-design consultancy: GSAP/ScrollTrigger, Barba.js page transitions, Lenis, Lottie and a Matter.js physics interaction on ACF Flexible Content, kept at 99/100 desktop PageSpeed, 0.4s LCP and zero layout shift',
+        'Marketing site for a SaaS product company: custom animated preloader, Three.js WebGL product showcase and GSAP motion running on an editable CMS; the preloader was later extracted as a standalone React + Vite component',
+        'Built the delivery tooling around both: rsync-over-SSH delta deploys, database sync with freshness guards, and automatic OPcache reset on release',
+      ],
+    },
+    {
+      company: 'Releasd',
+      role: 'Senior Frontend Developer (Contract)',
+      startDate: 'Sept 2025',
+      responsibilities: [
+        'Rebuilding the marketing site for a UK PR-reporting SaaS, migrating Nuxt 2 to Nuxt 4 with Nuxt UI v4',
+        'Server-side rendered deployment on Heroku, with Nuxt Studio as the editing layer for the client team',
+        'Ongoing delivery across roughly 1,380 commits, still running',
       ],
     },
     {
@@ -129,25 +154,18 @@ export const cvData: CVData = {
 
   courses: [
     {
-      institution: 'Certificates.dev × NuxtLabs',
-      degree: 'Official Nuxt Certification',
-      startDate: '2025',
-      endDate: 'Present',
-      description: 'In progress - Created with Nuxt.com and Sébastien Chopin (Nuxt creator). Validates proficiency in routing, SSR, middleware, state management, and deployment.',
-    },
-    {
       institution: 'Three.js Journey',
       degree: 'WebGL & 3D Web Development',
       startDate: '2025',
       endDate: 'Present',
-      description: 'Up next - Bruno Simon. 55+ hours covering WebGL, 3D geometry, shaders, post-processing, physics, and immersive web experiences.',
+      description: 'In progress - Bruno Simon. 55+ hours covering WebGL, 3D geometry, shaders, post-processing, physics, and immersive web experiences.',
     },
     {
       institution: 'Whimsical Animations',
       degree: 'Advanced Web Animations',
       startDate: '2025',
-      endDate: 'Present',
-      description: 'In progress - Josh Comeau (whimsy.joshwcomeau.com). Spring physics, SVG animations, and crafting delightful, polished motion for the web.',
+      endDate: '2026',
+      description: 'Josh Comeau (whimsy.joshwcomeau.com). Spring physics, SVG animations, and crafting delightful, polished motion for the web.',
     },
     {
       institution: 'Mastering Pinia',
@@ -167,7 +185,7 @@ export const cvData: CVData = {
       institution: 'Vue Mastery',
       degree: 'Advanced Vue Curriculum',
       startDate: '2020',
-      endDate: 'Present',
+      endDate: '2025',
       description: 'Comprehensive Vue ecosystem: Vue 3, Composition API, TypeScript, Pinia, Nuxt, animations, testing, and more (near-complete catalogue).',
     },
     {
@@ -187,6 +205,16 @@ export const cvData: CVData = {
   ],
 
   projects: [
+    {
+      name: 'Ronnsquare',
+      description: 'Brand-showcase WordPress build for a Paris architecture and workplace-design consultancy. Page transitions, scroll-driven animation and a physics-based interaction on a CMS, at 99/100 desktop PageSpeed, 0.4s LCP and zero layout shift. GSAP, Barba.js, Lenis, Lottie and Matter.js on Vite + Sass with ACF.',
+      url: 'https://ronnsquare.fr/',
+    },
+    {
+      name: 'DriveBerry',
+      description: 'Marketing website for an automotive SaaS product company. Custom animated preloader and Three.js WebGL/3D work alongside GSAP motion, running on an editable WordPress CMS. A standalone React + Vite version of the preloader was later extracted as a reusable component.',
+      url: 'https://driveberry.fr/',
+    },
     {
       name: 'Riverscape',
       description: 'Nuxt 2 + headless WordPress website with Locomotive Scroll, GSAP, and scroll-driven animations for a London-based real estate company.',
@@ -212,7 +240,7 @@ export const cvData: CVData = {
   githubRepos: [
     {
       name: 'patryksmakosz',
-      description: 'Creative developer portfolio built with Nuxt 4, Vue 3, and GSAP premium animations. Features 26+ interactive case studies.',
+      description: 'Creative developer portfolio built with Nuxt 4, Vue 3, and GSAP premium animations. Features 78 case studies across websites, banner sets, logo animation and interactive work.',
       url: 'https://github.com/patsma/patryksmakosz',
       language: 'Vue',
     },

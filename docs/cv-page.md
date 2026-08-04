@@ -17,6 +17,12 @@ http://localhost:3000/cv
 **Print/Save as PDF:**
 Click the "Print CV" button or press `Cmd+P` / `Ctrl+P`
 
+> **This repository is public.** `github.com/patsma/patryksmakosz` is a public repo, so everything
+> in `cv-data.ts` is published twice - rendered at `/cv`, and as source on GitHub with full history.
+> That includes code comments, and it includes anything you later delete, because git keeps it.
+> Client work described here is visible to those clients. Keep contract terms, rates, NDA notes and
+> "reminder to self" comments out of this file entirely.
+
 ---
 
 ## Data Structure
@@ -82,9 +88,16 @@ education: Array<{
 projects: Array<{
   name: string           // Project name
   description: string    // Brief description
-  url?: string           // Live URL (optional, enables QR code)
+  url?: string           // Internal path OR absolute URL (optional, enables QR code)
 }>
 ```
+
+`url` accepts both an internal path (`/projects/riverscape`) and an absolute external URL
+(`https://example.com/`). `absoluteUrl()` in `app/pages/cv.vue` passes anything starting with
+`http` straight through and prefixes the rest with the site origin, so the QR code is correct
+either way, and `NuxtLink` renders an external target as a plain `<a>`. Omit `url` entirely when a
+project has no destination worth sending someone to - the card then renders with no link and no QR
+code, which is the right result rather than a broken one.
 
 ### GitHub Repositories
 
@@ -210,6 +223,27 @@ Internal padding is applied to `.cv-page` instead.
 - Page break control to prevent orphaned content
 - Forced color printing for backgrounds/badges
 - QR codes print at full contrast
+
+### Checking the printed length
+
+The page count is not visible from the browser at normal zoom, and it is the thing people notice
+when the CV lands in an inbox. Render it headlessly instead of eyeballing it:
+
+```bash
+# with the dev server running
+node -e "
+import('playwright').then(async ({chromium}) => {
+  const b = await chromium.launch(); const p = await b.newPage()
+  await p.goto('http://localhost:3000/cv', {waitUntil:'networkidle'})
+  await p.emulateMedia({media:'print'})
+  await p.pdf({path:'/tmp/cv.pdf', format:'A4', printBackground:true})
+  await b.close()
+})"
+pdftoppm -png -r 60 /tmp/cv.pdf /tmp/cvpg   # one PNG per page, to check where it breaks
+```
+
+As of 2026-08-04 the CV runs to **5 A4 pages**. Interests and the GitHub section are the first
+things to cut if it needs to be shorter.
 
 ### Removing Browser Headers/Footers
 
