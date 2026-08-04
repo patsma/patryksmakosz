@@ -1,0 +1,62 @@
+html,
+body {
+    width: 970px;
+    height: 250px;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    overflow: hidden;
+}
+
+.wrapper {
+    width: 970px;
+    height: 250px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    background: #fbbfb2;
+}
+
+img {
+    position: absolute;
+}
+
+#sint-van{
+      transform: translate(-3%,-0%);
+}
+
+
+
+
+
+
+#shot1,
+#present,
+#centerText05,
+#floating-letter-n,
+#centerText04,
+#replay-icon,
+#replay-text,
+#replay-button,
+#right-hand-big,
+#floating-letter-c,
+
+#shot3 > path,
+#big-hat-movement-bottom,
+#big-hat-bezier,
+#big-hand-bezier,
+#big-hat-floating,
+#big-right-hand
+
+{
+    opacity: 0;
+    visibility: hidden;
+}

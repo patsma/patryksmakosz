@@ -15,6 +15,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `node scripts/convert-to-gifs.js` - Convert web-optimized videos to GIFs
 - `npm run fetch:icons` - Fetch and process icons
 
+### Recording Banners
+
+Two recorders, and picking the wrong one produces a video of nothing happening:
+
+- `node scripts/record-banner.js <dir> <out.mp4> [seconds]` - records passively for N seconds. Correct for a banner that plays a linear timeline on load.
+- `node scripts/record-banner-game.js <dir> <driver> <win|lose> <out.mp4> [max-seconds]` - drives the mouse, for banners that are **interactive**. Nothing past the idle attract loop happens in these without a pointer, so a passive recording captures only the loop and `gsap-video-export` cannot drive them at all.
+
+Drivers live inside `record-banner-game.js`, one per game, and each supports a `win` and a `lose` run. Both HEMA banners work this way: `app/banners/hema/hat-game` and `app/banners/hema/bucket-game`, each recorded as a win run then a lose run concatenated into one MP4.
+
+Writing a new driver means reading the banner's own pointer maths and mirroring it, rather than guessing coordinates. The hat game maps the cursor as `cursorX = pageX - 204.6`, so the bot moves to `hatPositionX + 204.6` and is hit-accurate by construction. Where a game keeps its state in closure scope (the bucket game), expose a small read-only `window.__banner` hook for the recorder instead of loosening the game code.
+
 ### Uploading Videos to Cloudflare R2
 - Upload a single video: `npx wrangler r2 object put "tastysites-videos/movies/web-optimized/NAME.mp4" --file "public/movies/web-optimized/NAME.mp4" --content-type "video/mp4" --remote`
 - Upload a banner: `npx wrangler r2 object put "tastysites-videos/movies/banners-optimized/PROJECT/BANNER.mp4" --file "public/movies/banners-optimized/PROJECT/BANNER.mp4" --content-type "video/mp4" --remote`

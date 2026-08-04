@@ -1,0 +1,57 @@
+html,
+body {
+    width: 970px;
+    height: 250px;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    overflow: hidden;
+}
+
+.wrapper {
+    width: 970px;
+    height: 250px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    background: #fbbfb2;
+}
+
+img, #falling, #dots,.click-reset {
+    position: absolute;
+}
+
+.click-reset {
+    left: 39%;
+    top: 47%;
+    width: 200px;
+    height: 50px;
+    /* background: red; */
+    opacity: 0.5;
+    z-index: 99;
+
+}
+
+#dots {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+}
+
+#falling {
+    top:  0;
+    left: 0;
+}
+
+#replay-button,#replay-button-2, #benieuwd_wat_Sint_voor_je_heeft_,#golden,#replay-icon,#replay-text,#lose-text,.click-reset,.bezier-static-presents,#falling {
+    opacity: 0;
+    visibility: hidden;
+}

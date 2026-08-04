@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (78)
+## Already Imported (79)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -34,6 +34,7 @@
 | greenrubino-swipe | greenrubino-swipe.mp4 | - | `app/banners/greenrubino-phonesdown` |
 | frozen-elza | frozen-elza.mp4 | https://frozen-elza-banners.netlify.app/ | `public/movies/banners-optimized/frozen-elza` |
 | harry-potter-christmas | harry-potter-christmas.mp4 | https://harry-potter-christmas-banners.netlify.app/ | `public/movies/banners-optimized/harry-potter-christmas` |
+| hema | hema.mp4 | https://tastysites.pl/oldportfolio/dev/banners/hema/02/ | `app/banners/hema` |
 | harry-potter-the-cursed-child | harry-potter-the-cursed-child.mp4 | https://harry-potter-the-cursed-child-banners.netlify.app/ | `public/movies/banners-optimized/harry-potter-the-cursed-child` |
 | horridus-is-coming | horridus-is-coming.mp4 | https://horridus-is-coming-banners.netlify.app/ | `public/movies/banners-optimized/horridus-is-coming` |
 | iceberg-webdesign | iceberg-webdesign.mp4 | https://tastysites.pl/oldportfolio/logo-animation/icebergwebdesign/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/icebergwebdesign` |
@@ -150,9 +151,6 @@ Pipeline: `/refactor-and-export-banner` -> `/import-banner-set`
 - ficlinic - old, not worth showing
 - gmtsameday - old, not worth showing
 - proton-nu-beam - duplicate of SPTHE
-
-### Pending Fix (next session)
-- hema - complex inline HTML, needs investigation. Source in backups.
 
 ### Misc oldportfolio (not importing)
 - `misc-2/`: canvas-gallery, demos, embassy-gardens, embassy-gardens-nuxt, scroll-portfolio, seo, zaroslak
