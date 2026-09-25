@@ -72,3 +72,25 @@ itself happens in DaVinci Resolve.
   and mobile. The counter advances exactly one per captured frame
 - A real site's full desktop scroll gave 12 hitches in 1359 frames, and the mobile one 0
 - `ffprobe` shows `prores`, `HQ`, `60/1`, 2880x1798 / 780x1686
+
+## v2 - draft first, then final (2026-09-25)
+
+Iterating on a shot list took over the screen for every run, and every knob lived in code. v2
+splits the job into a fast loop and a slow finish.
+
+- **Draft is the default.** Headless Chrome, a fresh context per shot, Playwright `recordVideo` at
+  viewport size. Each shot gives `<out>/draft/<device>-<shot>.mp4` (H.264, max 1280 wide) and a
+  6-frame contact sheet. It runs in the background while Patrick works. Not frame-accurate, and
+  it does not need to be: it is for checking selectors, timing and framing
+- **`--final` is the screen capture.** It records every shot first and keeps the raw H.264, closes
+  Chrome, prints "Screen is free", then encodes the queue. Screen time is the length of the shots,
+  and encoding can never drop capture frames
+- **Config, not code.** `capture.config.json` holds every default. Merge order: config file <
+  shot list `"settings"` < per-shot fields < CLI flags. A device is a config entry
+- **Extension points.** One file per action in `lib/actions/` (`run`, optional `validate`), picked
+  up automatically. Output formats are entries in `lib/formats.js`
+- **Validation before recording.** The whole shot list is checked up front and every problem is
+  listed with its JSON path
+- **Tests.** `node:test`, no new dependency. Pure functions (hitch finder, rect snap, config
+  merge, validation, args, action registry) plus a headless draft smoke run on the fixture. The
+  final pass stays a manual check because it needs the screen
