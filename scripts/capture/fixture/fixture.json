@@ -1,0 +1,22 @@
+{
+  "id": "fixture",
+  "baseUrl": "./",
+  "hide": ["#cookie-banner"],
+  "devices": ["desktop", "mobile"],
+  "shots": [
+    { "name": "idle", "path": "index.html", "actions": [{ "pause": 4000 }] },
+    { "name": "scroll", "path": "index.html", "actions": [{ "scroll": { "to": "bottom", "speed": 1200 } }] },
+    {
+      "name": "hover",
+      "path": "index.html",
+      "devices": ["desktop"],
+      "actions": [
+        { "scroll": { "to": "#hover-card", "speed": 800 } },
+        { "hover": "#hover-card" },
+        { "pause": 1000 },
+        { "move": { "to": [200, 200] } },
+        { "screenshot": "card" }
+      ]
+    }
+  ]
+}

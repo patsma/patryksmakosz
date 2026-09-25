@@ -113,3 +113,7 @@ public/oldportfolio/*
 
 # Claude Code local tool permissions - per machine, not project config
 .claude/settings.local.json
+
+# Site capture shot lists name the client (URL, selectors) - local only, the repo is public
+scripts/capture/shots/*.json
+!scripts/capture/shots/example.json
