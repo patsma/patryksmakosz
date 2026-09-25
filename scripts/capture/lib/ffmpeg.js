@@ -3,9 +3,15 @@
  */
 
 import { spawn, execFileSync } from "child_process";
+import { existsSync } from "fs";
 
 export const FFMPEG = process.env.FFMPEG_BIN || "/opt/homebrew/bin/ffmpeg";
 export const FFPROBE = process.env.FFPROBE_BIN || "/opt/homebrew/bin/ffprobe";
+
+/** Fail early with a fix when ffmpeg is not where we look for it */
+export function checkFfmpeg() {
+  if (!existsSync(FFMPEG)) throw new Error(`ffmpeg not found at ${FFMPEG} (set FFMPEG_BIN)`);
+}
 
 /**
  * Run ffmpeg to completion and resolve with its stdout (Buffer) and stderr (string).
@@ -98,4 +104,13 @@ export function probe(file) {
     rate: s.r_frame_rate,
     frames: Number(s.nb_read_frames),
   };
+}
+
+/**
+ * Container duration in seconds, without decoding every frame like probe() does.
+ * @param {string} file
+ */
+export function duration(file) {
+  const out = execFileSync(FFPROBE, ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", file]);
+  return Number(String(out).trim());
 }

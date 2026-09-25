@@ -10,19 +10,6 @@ import { tmpdir } from "os";
 import { join } from "path";
 import { grabFrame, runFfmpeg, screenInput } from "./ffmpeg.js";
 
-export const DEVICES = {
-  desktop: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 },
-  mobile: {
-    viewport: { width: 390, height: 844 },
-    deviceScaleFactor: 2,
-    isMobile: true,
-    hasTouch: true,
-    userAgent:
-      "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 " +
-      "(KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
-  },
-};
-
 const MARKER_ID = "__capture_marker__";
 
 /**
@@ -43,7 +30,7 @@ export function parkPointer(display) {
 /**
  * Launch Chrome on the built-in screen and put its window into macOS fullscreen over CDP.
  * --kiosk and --start-fullscreen are both ignored under Playwright, the CDP window state is not.
- * @param {"desktop"|"mobile"} device
+ * @param {object} device Playwright context options from capture.config.json "devices"
  * @returns {Promise<{ browser: import("playwright").BrowserContext, page: import("playwright").Page }>}
  */
 export async function openBrowser(device) {
@@ -63,7 +50,7 @@ export async function openBrowser(device) {
     // Translate pops a bubble on foreign-language pages that drags the toolbar down with it
     args: ["--window-position=0,0", "--hide-scrollbars", "--disable-infobars", "--disable-features=Translate"],
     reducedMotion: "no-preference",
-    ...DEVICES[device],
+    ...device,
   });
   browser.profile = profile;
   const page = browser.pages()[0] || (await browser.newPage());
@@ -147,12 +134,21 @@ async function findMarker(page, screen) {
     throw new Error("Viewport marker not visible on screen - Chrome is not on the built-in display, or is covered");
   }
 
-  const rect = { x: minX, y: minY, width: maxX - minX + 1, height: maxY - minY + 1 };
   const vp = page.viewportSize();
   const dpr = await page.evaluate(() => window.devicePixelRatio);
-  const want = { width: vp.width * dpr, height: vp.height * dpr };
-  // macOS draws a 1px black hairline over the top row of a fullscreen window, so a few px short
-  // is expected. Snap to even sizes (ProRes 422 needs them) by trimming from the top/left.
+  const box = { x: minX, y: minY, width: maxX - minX + 1, height: maxY - minY + 1 };
+  return snapRect(box, { width: vp.width * dpr, height: vp.height * dpr });
+}
+
+/**
+ * Turn the measured magenta box into the crop rect. macOS draws a 1px black hairline over the top
+ * row of a fullscreen window, so a few px short is expected. Snap to even sizes (ProRes 422 needs
+ * them) by trimming from the top/left. Anything further off means something is over the page.
+ * @param {{ x: number, y: number, width: number, height: number }} box measured, physical px
+ * @param {{ width: number, height: number }} want viewport size in physical px
+ */
+export function snapRect(box, want) {
+  const rect = { ...box };
   if (rect.width % 2) (rect.x += 1), (rect.width -= 1);
   if (rect.height % 2) (rect.y += 1), (rect.height -= 1);
   const short = { w: want.width - rect.width, h: want.height - rect.height };

@@ -33,7 +33,7 @@ itself happens in DaVinci Resolve.
 | `lib/ffmpeg.js` | ffmpeg/ffprobe helpers. Screens are resolved by name on every use |
 | `lib/browser.js` | Chrome launch, CDP fullscreen, pointer parking, magenta viewport measurement |
 | `lib/prepare-page.js` | Hide selectors and scrollbars, warm-up scroll, reload |
-| `lib/actions.js` | goto, scroll, hover, move, click, waitFor, pause, screenshot |
+| `lib/actions/` | One file per action: goto, scroll, hover, move, click, waitFor, pause, screenshot |
 | `lib/screen-recorder.js` | Start/stop the H.264 capture (`q` on stdin, SIGKILL fallback) |
 | `lib/finish.js` | Crop, CFR, ProRes, then the hitch check (isolated repeated frames mid-motion) |
 
@@ -94,3 +94,17 @@ splits the job into a fast loop and a slow finish.
 - **Tests.** `node:test`, no new dependency. Pure functions (hitch finder, rect snap, config
   merge, validation, args, action registry) plus a headless draft smoke run on the fixture. The
   final pass stays a manual check because it needs the screen
+
+New modules: `lib/args.js`, `lib/config.js`, `lib/shot-list.js`, `lib/formats.js`,
+`lib/draft-recorder.js`, `lib/final-recorder.js` (the old capture loop), `test/`.
+
+### Found during v2
+
+- A fresh browser context per draft shot starts with a cold cache and re-downloads the whole site
+  every shot. An o2switch host answered HTTP 429 ("Tiger Protect") within one list. Drafts now use
+  one context per device and a page per shot, which keeps the cache like the final browser does
+- Nothing checked the HTTP status, so a block page was recorded and reported `ok`. Any main
+  document response of 400 or more now fails the shot
+- Hitch counts follow machine load, not the code: under a load average of 20-35 from other
+  sessions, the fixture scroll gave 59 hitches and then 2 and 0 once the load dropped. v1 and v2
+  run back to back on the same real shot were both over 1%. Record finals on a quiet Mac

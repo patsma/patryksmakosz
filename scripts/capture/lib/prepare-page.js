@@ -36,15 +36,27 @@ export async function preparePage(page, url, opts = {}) {
   if (opts.warmup !== false) {
     await warmUp(page);
     // Reload from a warm cache: images come from disk, but reveals are fresh again
-    await page.reload({ waitUntil: "load" });
+    checkResponse(await page.reload({ waitUntil: "load" }), url);
     await settle(page);
   }
 }
 
 /** @param {import("playwright").Page} page @param {string} url */
 async function load(page, url) {
-  await page.goto(url, { waitUntil: "load", timeout: 60000 });
+  checkResponse(await page.goto(url, { waitUntil: "load", timeout: 60000 }), url);
   await settle(page);
+}
+
+/**
+ * Fail on an error page, so a 404 or a host's block page is never recorded as a good shot.
+ * @param {import("playwright").Response|null} response null for file:// and same-page navigation
+ * @param {string} url
+ */
+export function checkResponse(response, url) {
+  const status = response?.status();
+  if (!status || status < 400) return;
+  const hint = status === 429 ? " - the host is rate-limiting this Mac, wait a while before re-running" : "";
+  throw new Error(`HTTP ${status} from ${url}${hint}`);
 }
 
 /** Fonts loaded, network quiet, one more beat for intro animations to land */

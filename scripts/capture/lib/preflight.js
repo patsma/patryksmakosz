@@ -5,8 +5,7 @@
  */
 
 import { execFileSync } from "child_process";
-import { existsSync } from "fs";
-import { FFMPEG, listScreens, grabFrame } from "./ffmpeg.js";
+import { checkFfmpeg, listScreens, grabFrame } from "./ffmpeg.js";
 
 const DESKTOP = { width: 1440, height: 900 };
 
@@ -46,7 +45,7 @@ export async function waitForUnlock() {
  * @returns {Promise<{ display: object, screen: string, scale: number }>}
  */
 export async function preflight() {
-  if (!existsSync(FFMPEG)) throw new Error(`ffmpeg not found at ${FFMPEG} (set FFMPEG_BIN)`);
+  checkFfmpeg();
 
   await waitForUnlock();
 

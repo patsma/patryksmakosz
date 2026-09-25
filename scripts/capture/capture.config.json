@@ -1,0 +1,20 @@
+{
+  "outDir": "~/Movies/portfolio-captures",
+  "lead": 500,
+  "tail": 800,
+  "actionTimeout": 5000,
+  "scroll": { "speed": 600, "method": "auto" },
+  "devices": {
+    "desktop": { "viewport": { "width": 1440, "height": 900 }, "deviceScaleFactor": 2 },
+    "mobile": {
+      "viewport": { "width": 390, "height": 844 },
+      "deviceScaleFactor": 2,
+      "isMobile": true,
+      "hasTouch": true,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+    }
+  },
+  "draft": { "warmup": false, "maxWidth": 1280, "sheetFrames": 6, "channel": "chrome" },
+  "final": { "warmup": true, "format": "prores-hq", "bitrate": "80M", "codec": "h264_videotoolbox" },
+  "hitches": { "still": 0.02, "moving": 0.3, "maxShare": 0.01 }
+}
