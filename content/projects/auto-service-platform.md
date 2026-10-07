@@ -55,6 +55,6 @@ meta:
 ---
 theme: light
 pinHeightVh: 420
-paragraph: A marketing site for a SaaS product company, built from the ground up. Role, front-end developer. First a static front end in Vite, Nunjucks and Sass, then a custom WordPress theme the owners edit. 14 page templates and 50 animated sections, with page transitions, smooth scroll, a Three.js scene and a custom animated preloader. Once the site had grown, a performance pass on the same build took mobile largest contentful paint from 21.1 s to 3.0 s, page weight from 21.2 MB to 5.8 MB and blocking time from 310 ms to 95 ms.
+paragraph: A marketing site for a SaaS product company, built from the ground up. Role, front-end developer. First a static front end in Vite, Nunjucks and Sass, then a custom WordPress theme the owners edit. 14 page templates and 50 animated sections, with page transitions, smooth scroll, a Three.js scene and a custom animated preloader. Later, a performance pass on the same build took mobile largest contentful paint from 21.1 s to 3.0 s, page weight from 21.2 MB to 5.8 MB and blocking time from 310 ms to 95 ms.
 ---
 ::
