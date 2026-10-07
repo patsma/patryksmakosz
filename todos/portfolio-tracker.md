@@ -7,7 +7,7 @@
 
 ---
 
-## Already Imported (79)
+## Already Imported (84)
 
 | Slug | Video | Live URL | Backup Folder |
 |------|-------|----------|---------------|
@@ -89,6 +89,11 @@
 | zaksa | zaksa.mp4 | https://tastysites.pl/oldportfolio/logo-animation/zaksa/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/zaksa` |
 | yamahata | yamahata.mp4 | https://tastysites.pl/oldportfolio/logo-animation/yamahata/ | `/Users/tasty/Documents/Backups/oldportfolio/logo-animation/yamahata` |
 | zap-black | zap-black.mp4 | https://zap-black.netlify.app/ | video only |
+| releasd | releasd.mp4 | https://www.releasd.com/ | `/Users/tasty/Movies/portfolio-masters/releasd/home-overview-2026-10-07.mov` |
+| quorum | quorum.mp4 | https://quorum.tastysites.pl/ | `/Users/tasty/Movies/site-capture/quorum/2026-10-07/desktop-new-event.mp4` |
+| halftone-lab | halftone-lab.mp4 | https://halftone-lab-drab.vercel.app/ | `/Users/tasty/Movies/site-capture/halftone-lab/2026-10-07/desktop-variants.mp4` |
+| auto-service-platform | auto-service-platform.mp4 | - | `/Users/tasty/Movies/portfolio-masters/auto-service-platform/home-overview-2026-10-07.mov` |
+| architecture-studio | architecture-studio.mp4 | - | `/Users/tasty/Movies/portfolio-masters/architecture-studio/home-overview-2026-10-07.mov` |
 
 ---
 
