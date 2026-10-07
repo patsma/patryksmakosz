@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Open work
+
+- **Five new projects are ready to add (2026-10-07):** Releasd, Quorum, Halftone Lab and two
+  anonymised agency builds. The footage is already recorded and encoded. Follow
+  `docs/superpowers/plans/2026-10-07-new-portfolio-projects.md`. Two of the five must never carry
+  the client's or the agency's name in any text or file name; the plan says how. Remove this entry
+  when the plan is done
+
 ## Development Commands
 
 ### Core Development
