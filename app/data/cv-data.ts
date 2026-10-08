@@ -69,7 +69,7 @@ export const cvData: CVData = {
       responsibilities: [
         'Rebuilding the marketing site for a UK PR-reporting SaaS, migrating Nuxt 2 to Nuxt 4 with Nuxt UI v4',
         'Server-side rendered deployment on Heroku, with Nuxt Studio as the editing layer for the client team',
-        'Ongoing delivery across roughly 1,380 commits, still running',
+        'Ongoing delivery since September 2025, still running',
       ],
     },
     {
