@@ -14,7 +14,7 @@ export const cvData: CVData = {
     linkedin: 'linkedin.com/in/patryksmakosz',
   },
 
-  summary: `Creative developer with 14 years of experience in interactive web experiences, advanced animation, and front-end architecture. Comfortable across stacks - Nuxt, Vue, React, Next.js and WordPress - and used to working inside whatever a team already runs rather than insisting on my own. Specialise in making heavy motion work survive a real CMS without giving up performance or accessibility.`,
+  summary: `Creative developer with 10+ years of experience in interactive web experiences, advanced animation, and front-end architecture. Comfortable across stacks - Nuxt, Vue, React, Next.js and WordPress - and used to working inside whatever a team already runs rather than insisting on my own. Specialise in making heavy motion work survive a real CMS without giving up performance or accessibility.`,
 
   skills: [
     {
@@ -48,7 +48,7 @@ export const cvData: CVData = {
         'Founded as a freelance operation in 2012, growing into a full-time creative studio from 2018',
         'Creating interactive content for Disney, Mazda, Paco Rabanne, AKA, WePushButtons, and many more',
         'Building Nuxt/Vue/WordPress services and applications',
-        'Architected and developed award-winning websites with advanced GSAP animations',
+        'Architected and developed motion-heavy websites with advanced GSAP animations',
       ],
     },
     {
