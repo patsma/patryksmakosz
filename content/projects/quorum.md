@@ -57,3 +57,27 @@ pinHeightVh: 420
 paragraph: Quorum is group scheduling with no database server. Browsers sync with each other directly over WebRTC and every write is signed with a per-device key. It is built on Nuxt 4 and RxDB, and tested with Playwright runs that prove two browsers converge on the same state.
 ---
 ::
+
+::HeroVideo
+---
+src: "/movies/web-optimized/quorum-availability.mp4"
+poster: ""
+autoPlay: true
+loop: true
+muted: true
+preload: metadata
+fit: cover
+---
+::
+
+::HeroVideo
+---
+src: "/movies/web-optimized/quorum-journal.mp4"
+poster: ""
+autoPlay: true
+loop: true
+muted: true
+preload: metadata
+fit: cover
+---
+::
