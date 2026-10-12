@@ -57,3 +57,63 @@ pinHeightVh: 420
 paragraph: A brand-showcase website for an architecture and workplace-design consultancy. Role, front-end developer. A custom WordPress theme carries page transitions, scroll-driven animation, smooth scroll and a physics interaction, on a site its owners edit themselves. It scores 99 on desktop PageSpeed with all motion on.
 ---
 ::
+
+::HeroVideo
+---
+src: "/movies/web-optimized/architecture-studio-shapes.mp4"
+poster: ""
+autoPlay: true
+loop: true
+muted: true
+preload: metadata
+fit: cover
+---
+::
+
+::HeroVideo
+---
+src: "/movies/web-optimized/architecture-studio-services-stack.mp4"
+poster: ""
+autoPlay: true
+loop: true
+muted: true
+preload: metadata
+fit: cover
+---
+::
+
+::HeroVideo
+---
+src: "/movies/web-optimized/architecture-studio-page-transition.mp4"
+poster: ""
+autoPlay: true
+loop: true
+muted: true
+preload: metadata
+fit: cover
+---
+::
+
+::HeroVideo
+---
+src: "/movies/web-optimized/architecture-studio-projects-scroll.mp4"
+poster: ""
+autoPlay: true
+loop: true
+muted: true
+preload: metadata
+fit: cover
+---
+::
+
+::HeroVideo
+---
+src: "/movies/web-optimized/architecture-studio-footer-logo.mp4"
+poster: ""
+autoPlay: true
+loop: true
+muted: true
+preload: metadata
+fit: cover
+---
+::
