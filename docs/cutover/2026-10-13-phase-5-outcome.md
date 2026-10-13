@@ -21,11 +21,16 @@ dashboard shows the four nameservers read-only. Its "Transfer domain" section gi
 
 Cloudflare Registrar cannot take the domain directly, it wants an active zone first.
 
+## Decision, 2026-10-13: the domain stays at Netlify
+
+No support request is sent and the nameservers do not change. The renewal through Netlify is cheap and
+editing records in the Netlify zone is enough. Tasks 4 and 5 of the plan are dropped. The three steps
+above stay here only as the way out if that ever changes.
+
 ## Left in place
 
 - A Cloudflare zone for the domain, status pending, with the same six records (compared with
   `compare-zones.sh`: all four Netlify nameservers against both Cloudflare ones, no difference). It serves
-  nobody until the nameservers change. Cloudflare removes zones that stay pending for long, so list it
-  before relying on it
+  nobody and has no purpose after the decision above. It is left for Cloudflare to remove
 - The Netlify DNS zone. Do not delete it: the domain is delegated to it
 - About a hundred other sites in the same Netlify account, many linked from `content/projects/`

@@ -177,7 +177,7 @@ Miss 1 and the new category fails the build. Miss 4 and the build fails too, bec
 - Production: `https://patryksmakosz.com` on MyDevil, `www` is a pointer domain that 301s to the apex. `node scripts/deploy.mjs production --go`
 - `--go --no-checks` uploads without reading the live site; `--check` reads it without building. A missing page answers 200 with the site's 404 page and `X-Robots-Tag: noindex`, because the host replaces any real 404 body with its own page
 - mp4 files under `public/movies/` are not uploaded (videos load from R2), and neither is anything under `public/` that git does not track
-- The Netlify site and `netlify.toml` are gone (2026-10-13). The domain itself is still registered through Netlify and its DNS zone lives there: records are edited in the Netlify dashboard, the nameservers cannot be changed by the customer, and deleting that zone takes the site and mail down. Moving it out needs a Netlify support request (see `docs/cutover/2026-10-13-phase-5-outcome.md`)
+- The Netlify site and `netlify.toml` are gone (2026-10-13). The domain itself is still registered through Netlify and its DNS zone lives there: records are edited in the Netlify dashboard, the nameservers cannot be changed by the customer, and deleting that zone takes the site and mail down. The domain stays there by decision (2026-10-13): do not propose moving it. Moving it out would need a Netlify support request (see `docs/cutover/2026-10-13-phase-5-outcome.md`)
 - Tests for the deploy helpers: `npm run deploy:test`
 
 ### Claude skills in this repo

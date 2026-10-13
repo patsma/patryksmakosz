@@ -2,6 +2,8 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **Status, 2026-10-13: closed.** Tasks 1 to 3 and 6 are done. Tasks 4 and 5 are dropped: the domain is registered through Netlify and stays there by decision, so the nameservers never change (see `docs/cutover/2026-10-13-phase-5-outcome.md`). In task 7, the Netlify DNS zone is never deleted; the other leftovers are still open.
+
 **Goal:** `patryksmakosz.com` is delegated to Cloudflare DNS with the same six records it has today, mail is proven before and after, and the Netlify site and `netlify.toml` are gone.
 
 **Architecture:** The zone is built on Cloudflare first and compared record by record with the Netlify nameservers, so both sets of nameservers give the same answers before anyone is sent to the new ones. The nameserver change at name.com is then the only moment of risk, and because the answers are identical it has no visible effect while resolvers move over. Netlify is removed last, and its DNS zone outlives the site by at least 48 hours.
