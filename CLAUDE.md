@@ -171,10 +171,13 @@ Miss 1 and the new category fails the build. Miss 4 and the build fails too, bec
 - **Adding a new video**: 1) Add MP4 to `public/movies/web-optimized/`, 2) Commit - the pre-commit hook auto-uploads to R2, 3) Reference in content frontmatter as `video: "/movies/web-optimized/name.mp4"`
 
 ### Build & Deployment
-- Netlify deployment configured with `netlify.toml`
-- Static generation support via `nuxt generate`
-- Environment-specific configuration for site URLs and metadata
-- **Required Netlify env var**: `NUXT_PUBLIC_VIDEO_BASE_URL=https://pub-c9bfd14ac21c42f2b7f26ea1ddaf0e7e.r2.dev` (serves videos from R2 CDN)
+- Static build: `nuxt generate`, output in `.output/public`
+- Deploy is local: `node scripts/deploy.mjs staging` is a dry run, add `--go` to publish. It builds, writes the target's `.htaccess` into the output, rsyncs over the `mydevil` SSH alias and then checks the live responses
+- Staging: `https://patryksmakosz.tastysites.pl`, behind a Basic-auth gate, noindex. `--go` needs `STAGE_AUTH_USER` and `STAGE_AUTH_PASS` in the environment; the pair is never written in this repo
+- mp4 files under `public/movies/` are not uploaded (videos load from R2), and neither is anything under `public/` that git does not track
+- `netlify.toml` stays until the domain is cut over: Netlify is the fallback
+- Tests for the deploy helpers: `npm run deploy:test`
+
 ### Claude skills in this repo
 - `.claude/skills/` holds 10 Cloudflare skills (`cloudflare`, `wrangler`, `workers-best-practices`, `durable-objects`, `agents-sdk`, `sandbox-sdk`, `cloudflare-email-service`, `turnstile-spin`, `cloudflare-one`, `cloudflare-one-migrations`)
 - **Project scope on purpose.** They were installed at user scope (`~/.claude/skills/`) on 2026-08-04, which loaded 2.3MB of Cloudflare docs into every Claude session on the machine for one project's benefit. Moved here so they load only when working on this repo
