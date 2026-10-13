@@ -4,7 +4,7 @@
  * all of it is covered by scripts/deploy/test.
  */
 
-/** @typedef {{ domain: string, siteUrl: string, gated: boolean }} Target */
+/** @typedef {{ domain: string, siteUrl: string, gated: boolean, aliases?: string[], hsts?: boolean }} Target */
 
 export const SSH_HOST = "mydevil";
 
@@ -21,6 +21,8 @@ export const TARGETS = {
     domain: "patryksmakosz.com",
     siteUrl: "https://patryksmakosz.com",
     gated: false,
+    aliases: ["www.patryksmakosz.com"],
+    hsts: true,
   },
 };
 
@@ -45,6 +47,12 @@ export function remoteDocroot(target) {
  * @returns {string}
  */
 export function buildHtaccess(target) {
+  // An alias (www) shares the docroot through a pointer domain; send it to
+  // the main domain in one hop, path kept.
+  const aliasRules = (target.aliases ?? []).flatMap((alias) => [
+    `RewriteCond %{HTTP_HOST} ^${alias.replaceAll(".", "\\.")}$ [NC]`,
+    `RewriteRule ^ ${target.siteUrl}%{REQUEST_URI} [R=301,L]`,
+  ]);
   const lines = [
     "Options -Indexes",
     "",
@@ -52,6 +60,7 @@ export function buildHtaccess(target) {
     // slash form, so serve the page's index.html in place instead.
     "DirectorySlash Off",
     "RewriteEngine On",
+    ...aliasRules,
     "RewriteCond %{REQUEST_FILENAME} -d",
     "RewriteCond %{REQUEST_FILENAME}/index.html -f",
     "RewriteRule ^(.+[^/])$ $1/index.html [L]",
@@ -63,7 +72,13 @@ export function buildHtaccess(target) {
     "RewriteCond %{REQUEST_FILENAME} !-d",
     "RewriteCond %{REQUEST_URI} !\\.[A-Za-z0-9]+$",
     "RewriteRule ^ /404.html [L]",
+    "",
+    // The 404 page answers 200, so it must never be indexed.
+    '<Files "404.html">',
+    'Header set X-Robots-Tag "noindex"',
+    "</Files>",
   ];
+  if (target.hsts) lines.push("", 'Header set Strict-Transport-Security "max-age=31536000"');
   if (target.gated) {
     lines.push(
       "",

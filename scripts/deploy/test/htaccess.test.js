@@ -25,9 +25,39 @@ test("the password file path is /usr/home and sits above the docroot", () => {
   assert.doesNotMatch(text, /public_html\/\.htpasswd/);
 });
 
-test("production has no gate and no noindex", () => {
+test("production has no gate, and noindex only on the 404 page", () => {
   const text = buildHtaccess(TARGETS.production);
-  assert.doesNotMatch(text, /Auth|Require|X-Robots-Tag/);
+  assert.doesNotMatch(text, /Auth|Require/);
+  const outside = text.replace(/<Files "404\.html">[\s\S]*?<\/Files>/, "");
+  assert.doesNotMatch(outside, /X-Robots-Tag/);
+});
+
+test("the 404 page is noindex on both targets, since it answers 200", () => {
+  for (const target of Object.values(TARGETS)) {
+    assert.match(
+      buildHtaccess(target),
+      /<Files "404\.html">\nHeader set X-Robots-Tag "noindex"\n<\/Files>/,
+    );
+  }
+});
+
+test("www redirects to the apex with the path, before any page rewrite", () => {
+  const text = buildHtaccess(TARGETS.production);
+  assert.match(text, /^RewriteCond %\{HTTP_HOST\} \^www\\\.patryksmakosz\\\.com\$ \[NC\]$/m);
+  assert.match(text, /^RewriteRule \^ https:\/\/patryksmakosz\.com%\{REQUEST_URI\} \[R=301,L\]$/m);
+  assert.ok(text.indexOf("R=301") < text.indexOf("$1/index.html"));
+});
+
+test("staging has no alias redirect", () => {
+  assert.doesNotMatch(buildHtaccess(TARGETS.staging), /HTTP_HOST/);
+});
+
+test("production sends HSTS, staging does not", () => {
+  assert.match(
+    buildHtaccess(TARGETS.production),
+    /^Header set Strict-Transport-Security "max-age=31536000"$/m,
+  );
+  assert.doesNotMatch(buildHtaccess(TARGETS.staging), /Strict-Transport-Security/);
 });
 
 test("both targets turn listings off", () => {

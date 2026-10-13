@@ -174,8 +174,10 @@ Miss 1 and the new category fails the build. Miss 4 and the build fails too, bec
 - Static build: `nuxt generate`, output in `.output/public`
 - Deploy is local: `node scripts/deploy.mjs staging` is a dry run, add `--go` to publish. It builds, writes the target's `.htaccess` into the output, rsyncs over the `mydevil` SSH alias and then checks the live responses
 - Staging: `https://patryksmakosz.tastysites.pl`, behind a Basic-auth gate, noindex. `--go` needs `STAGE_AUTH_USER` and `STAGE_AUTH_PASS` in the environment; the pair is never written in this repo
+- Production: `https://patryksmakosz.com` on MyDevil, `www` is a pointer domain that 301s to the apex. `node scripts/deploy.mjs production --go`
+- `--go --no-checks` uploads without reading the live site; `--check` reads it without building. A missing page answers 200 with the site's 404 page and `X-Robots-Tag: noindex`, because the host replaces any real 404 body with its own page
 - mp4 files under `public/movies/` are not uploaded (videos load from R2), and neither is anything under `public/` that git does not track
-- `netlify.toml` stays until the domain is cut over: Netlify is the fallback
+- `netlify.toml` and the Netlify site stay until the zone leaves Netlify DNS: re-attaching the domain there is the rollback
 - Tests for the deploy helpers: `npm run deploy:test`
 
 ### Claude skills in this repo

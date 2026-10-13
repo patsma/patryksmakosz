@@ -5,6 +5,8 @@
  *   node scripts/deploy.mjs staging         build, then list what rsync would change
  *   node scripts/deploy.mjs staging --go    upload, then check the live responses
  *   node scripts/deploy.mjs production ...  the same for the live domain
+ *   node scripts/deploy.mjs production --go --no-checks   upload only (before DNS points here)
+ *   node scripts/deploy.mjs production --check            live checks only, against the last build
  *
  * Staging sits behind a Basic-auth gate. The live checks read the pair from
  * STAGE_AUTH_USER and STAGE_AUTH_PASS; it is never written in this repo.
@@ -32,10 +34,12 @@ const VIDEO_BASE_URL = "https://pub-c9bfd14ac21c42f2b7f26ea1ddaf0e7e.r2.dev";
 
 const [name, ...flags] = process.argv.slice(2);
 const target = TARGETS[name];
+const checkOnly = flags.includes("--check");
 const live = flags.includes("--go");
+const willCheck = checkOnly || (live && !flags.includes("--no-checks"));
 
-if (!target) {
-  console.error("Usage: node scripts/deploy.mjs <staging|production> [--go]");
+if (!target || (checkOnly && live)) {
+  console.error("Usage: node scripts/deploy.mjs <staging|production> [--go [--no-checks] | --check]");
   process.exit(1);
 }
 
@@ -43,7 +47,7 @@ const run = (cmd, args, opts = {}) => execFileSync(cmd, args, { stdio: "inherit"
 const capture = (cmd, args) => execFileSync(cmd, args, { cwd: ROOT, encoding: "utf8" });
 
 const { STAGE_AUTH_USER: user, STAGE_AUTH_PASS: pass } = process.env;
-if (live && target.gated && !(user && pass)) {
+if (willCheck && target.gated && !(user && pass)) {
   console.error("Set STAGE_AUTH_USER and STAGE_AUTH_PASS: the live checks have to pass the gate.");
   process.exit(1);
 }
@@ -52,47 +56,55 @@ if (live && capture("git", ["status", "--porcelain"]).trim()) {
   process.exit(1);
 }
 
-console.log(`\n== ${name} -> ${target.domain} (${live ? "LIVE" : "dry run"}) ==\n`);
+console.log(`\n== ${name} -> ${target.domain} (${checkOnly ? "checks only" : live ? "LIVE" : "dry run"}) ==\n`);
 
-/* 1. Build. Same switches Netlify used, plus the target's own URL. */
-run("npm", ["run", "generate"], {
-  env: {
-    ...process.env,
-    NUXT_PUBLIC_SITE_URL: target.siteUrl,
-    NUXT_PUBLIC_VIDEO_BASE_URL: VIDEO_BASE_URL,
-    DISABLE_SENTRY: "1",
-    SENTRY_TELEMETRY_DISABLED: "1",
-    NODE_OPTIONS: "--max_old_space_size=4096",
-  },
-});
-
-/* 2. Generated server config goes into the output, so --delete keeps it. */
-writeFileSync(join(OUT, ".htaccess"), buildHtaccess(target));
-writeFileSync(join(OUT, "_nuxt", ".htaccess"), ASSETS_HTACCESS);
 const ipxRoot = join(OUT, "_ipx");
-for (const entry of existsSync(ipxRoot) ? readdirSync(ipxRoot, { withFileTypes: true }) : []) {
-  const text = entry.isDirectory() ? ipxHtaccess(entry.name) : null;
-  if (text) writeFileSync(join(ipxRoot, entry.name, ".htaccess"), text);
+if (!checkOnly) {
+  /* 1. Build. Same switches Netlify used, plus the target's own URL. */
+  run("npm", ["run", "generate"], {
+    env: {
+      ...process.env,
+      NUXT_PUBLIC_SITE_URL: target.siteUrl,
+      NUXT_PUBLIC_VIDEO_BASE_URL: VIDEO_BASE_URL,
+      DISABLE_SENTRY: "1",
+      SENTRY_TELEMETRY_DISABLED: "1",
+      NODE_OPTIONS: "--max_old_space_size=4096",
+    },
+  });
+
+  /* 2. Generated server config goes into the output, so --delete keeps it. */
+  writeFileSync(join(OUT, ".htaccess"), buildHtaccess(target));
+  writeFileSync(join(OUT, "_nuxt", ".htaccess"), ASSETS_HTACCESS);
+  for (const entry of existsSync(ipxRoot) ? readdirSync(ipxRoot, { withFileTypes: true }) : []) {
+    const text = entry.isDirectory() ? ipxHtaccess(entry.name) : null;
+    if (text) writeFileSync(join(ipxRoot, entry.name, ".htaccess"), text);
+  }
 }
 
 for (const file of ["index.html", "404.html", "projects/index.html", "_nuxt/.htaccess"]) {
   if (!existsSync(join(OUT, file))) throw new Error(`Build output is missing ${file}`);
 }
 
-/* 3. Sync. The docroot must already exist: creating a site is a deliberate act. */
-const docroot = remoteDocroot(target);
-run("ssh", [SSH_HOST, `test -d ${docroot}`]);
+if (!checkOnly) {
+  /* 3. Sync. The docroot must already exist: creating a site is a deliberate act. */
+  const docroot = remoteDocroot(target);
+  run("ssh", [SSH_HOST, `test -d ${docroot}`]);
 
-// -z: without it git quotes and escapes any non-ASCII file name, and the exclude would miss it.
-const untracked = capture("git", ["ls-files", "-z", "--others", "--directory", "--", "public"]).split("\0");
-const rsyncArgs = ["-avz", "--delete", ...rsyncExcludes(untracked), `${OUT}/`, `${SSH_HOST}:${docroot}`];
+  // -z: without it git quotes and escapes any non-ASCII file name, and the exclude would miss it.
+  const untracked = capture("git", ["ls-files", "-z", "--others", "--directory", "--", "public"]).split("\0");
+  const rsyncArgs = ["-avz", "--delete", ...rsyncExcludes(untracked), `${OUT}/`, `${SSH_HOST}:${docroot}`];
 
-if (!live) {
-  run("rsync", ["--dry-run", ...rsyncArgs]);
-  console.log(`\nDry run only, nothing was uploaded. Add --go to publish to ${target.siteUrl}`);
+  if (!live) {
+    run("rsync", ["--dry-run", ...rsyncArgs]);
+    console.log(`\nDry run only, nothing was uploaded. Add --go to publish to ${target.siteUrl}`);
+    process.exit(0);
+  }
+  run("rsync", rsyncArgs);
+}
+if (!willCheck) {
+  console.log(`\nUploaded to ${target.domain}. Live checks skipped: run --check once DNS points here.`);
   process.exit(0);
 }
-run("rsync", rsyncArgs);
 
 /* 4. Read the live responses, one at a time: this host blocks an IP that sends many at once. */
 const auth = target.gated
@@ -117,6 +129,17 @@ checks.push([
   target.gated ? "home is noindex" : "home is indexable",
   robots.includes("noindex") === target.gated,
 ]);
+if (target.hsts) {
+  const hsts = home.headers.get("strict-transport-security") ?? "";
+  checks.push(["home sends HSTS", hsts.includes("max-age=31536000")]);
+}
+for (const alias of target.aliases ?? []) {
+  const hop = await fetch(`https://${alias}/projects`, { redirect: "manual" });
+  checks.push([
+    `${alias} redirects to the main domain`,
+    hop.status === 301 && hop.headers.get("location") === `${target.siteUrl}/projects`,
+  ]);
+}
 
 // No trailing slash and no redirect: the form every existing link uses.
 const projects = await get("/projects");
@@ -153,6 +176,7 @@ checks.push([
   "a missing page shows the site's 404 page",
   missing.status === 200 && (await missing.text()).includes('id="__nuxt"'),
 ]);
+checks.push(["the 404 page is noindex", (missing.headers.get("x-robots-tag") ?? "").includes("noindex")]);
 const gone = await get("/_nuxt/gone.js");
 checks.push(["a missing file is still a 404", gone.status === 404]);
 
