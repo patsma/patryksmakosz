@@ -83,7 +83,8 @@ for (const file of ["index.html", "404.html", "projects/index.html", "_nuxt/.hta
 const docroot = remoteDocroot(target);
 run("ssh", [SSH_HOST, `test -d ${docroot}`]);
 
-const untracked = capture("git", ["ls-files", "--others", "--directory", "--", "public"]).split("\n");
+// -z: without it git quotes and escapes any non-ASCII file name, and the exclude would miss it.
+const untracked = capture("git", ["ls-files", "-z", "--others", "--directory", "--", "public"]).split("\0");
 const rsyncArgs = ["-avz", "--delete", ...rsyncExcludes(untracked), `${OUT}/`, `${SSH_HOST}:${docroot}`];
 
 if (!live) {
@@ -133,14 +134,18 @@ if (script) {
 // The host replaces any 404 body with its own page, so a missing page is
 // rewritten to Nuxt's 404.html and answers 200. A missing file stays a 404.
 // A converted image keeps its source file name, so its type has to be forced.
-const webpDir = join(ipxRoot, "f_webp");
-const image = (existsSync(webpDir) ? readdirSync(webpDir, { recursive: true, withFileTypes: true }) : []).find(
-  (entry) => entry.isFile() && entry.name !== ".htaccess",
+const converted = (existsSync(ipxRoot) ? readdirSync(ipxRoot, { withFileTypes: true }) : []).find(
+  (entry) => entry.isDirectory() && ipxHtaccess(entry.name),
 );
-if (image) {
-  const path = `${image.parentPath.slice(OUT.length)}/${image.name}`;
-  const served = await get(path);
-  checks.push([`${path} is served as WebP`, served.headers.get("content-type") === "image/webp"]);
+if (converted) {
+  const type = ipxHtaccess(converted.name).trim().split(" ")[1];
+  const folder = join(ipxRoot, converted.name);
+  const image = readdirSync(folder, { recursive: true, withFileTypes: true }).find(
+    (entry) => entry.isFile() && entry.name !== ".htaccess",
+  );
+  const path = image ? `${image.parentPath.slice(OUT.length)}/${image.name}` : null;
+  const served = path ? await get(encodeURI(path)) : null;
+  checks.push([`a converted image is served as ${type}`, served?.headers.get("content-type") === type]);
 }
 
 const missing = await get("/no-such-page-here");
