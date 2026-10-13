@@ -15,7 +15,8 @@
     "check:r2": "node scripts/check-r2-sync.js",
     "capture": "node scripts/capture/capture-site.js",
     "capture:final": "node scripts/capture/capture-site.js --final",
-    "capture:test": "node --test \"scripts/capture/test/*.test.js\""
+    "capture:test": "node --test \"scripts/capture/test/*.test.js\"",
+    "deploy:test": "node --test \"scripts/deploy/test/*.test.js\""
   },
   "dependencies": {
     "@maz-ui/nuxt": "^4.1.6",
