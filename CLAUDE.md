@@ -46,7 +46,7 @@ The filter tabs on `/projects` are hardcoded to those four strings in `app/pages
 
 **The zod enum in `content.config.ts` does not catch this.** Verified 2026-08-03 on `@nuxt/content` 3.6.3: a build with an invalid category exits 0 and writes the bad value straight into `.data/content/contents.sqlite`. The enum is there for types and documentation only.
 
-`scripts/check-project-categories.js` is the actual guard. It fails the build - and therefore the Netlify deploy - on an unknown category, and also fails if a category in its list loses its filter button, so the list and the page cannot drift apart. It also runs from the local `.git/hooks/pre-commit` for faster feedback, but that hook is not versioned, so a fresh clone only gets the build-time check.
+`scripts/check-project-categories.js` is the actual guard. It fails the build - and therefore the deploy - on an unknown category, and also fails if a category in its list loses its filter button, so the list and the page cannot drift apart. It also runs from the local `.git/hooks/pre-commit` for faster feedback, but that hook is not versioned, so a fresh clone only gets the build-time check.
 
 To add a fifth category you must touch four places, none of which will tell you if you miss one:
 
@@ -177,7 +177,7 @@ Miss 1 and the new category fails the build. Miss 4 and the build fails too, bec
 - Production: `https://patryksmakosz.com` on MyDevil, `www` is a pointer domain that 301s to the apex. `node scripts/deploy.mjs production --go`
 - `--go --no-checks` uploads without reading the live site; `--check` reads it without building. A missing page answers 200 with the site's 404 page and `X-Robots-Tag: noindex`, because the host replaces any real 404 body with its own page
 - mp4 files under `public/movies/` are not uploaded (videos load from R2), and neither is anything under `public/` that git does not track
-- `netlify.toml` and the Netlify site stay until the zone leaves Netlify DNS: re-attaching the domain there is the rollback
+- The Netlify site and `netlify.toml` are gone (2026-10-13). The domain itself is still registered through Netlify and its DNS zone lives there: records are edited in the Netlify dashboard, the nameservers cannot be changed by the customer, and deleting that zone takes the site and mail down. Moving it out needs a Netlify support request (see `docs/cutover/2026-10-13-phase-5-outcome.md`)
 - Tests for the deploy helpers: `npm run deploy:test`
 
 ### Claude skills in this repo

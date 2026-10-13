@@ -1,7 +1,8 @@
 # Move patryksmakosz.com off Netlify to MyDevil, under its real name
 
 Date: 2026-10-13
-Status: phases 0 to 4 done on 2026-10-13, phase 5 not started
+Status: phases 0 to 4 done on 2026-10-13. Phase 5 half done the same day: the Netlify site and `netlify.toml` are
+deleted, the zone move is blocked on Netlify support (see `docs/cutover/2026-10-13-phase-5-outcome.md`)
 
 ## Context
 

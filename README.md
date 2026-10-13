@@ -32,7 +32,7 @@
 | Content | Nuxt Content v3 |
 | 3D | Three.js via @tresjs/nuxt |
 | Icons | Nuxt Icon + Iconify |
-| Deployment | Netlify |
+| Deployment | MyDevil, static (`node scripts/deploy.mjs production --go`) |
 
 ## Project Structure
 
