@@ -368,7 +368,7 @@ netlify api deleteDnsRecord --data '{"zone_id":"68a67413aeb0b649da74684e","dns_r
 netlify api deleteDnsRecord --data '{"zone_id":"68a67413aeb0b649da74684e","dns_record_id":"68a674f06b17a00008e0a066"}' && netlify api createDnsRecord --data '{"zone_id":"68a67413aeb0b649da74684e","body":{"type":"A","hostname":"www.patryksmakosz.com","value":"212.91.26.93","ttl":300}}'
 ```
 
-**Fallback, only if Netlify refuses to delete a managed record:** follow the spec's order. Detach the domain (`netlify api updateSite --data '{"site_id":"29665319-cd86-4b60-92f1-17135d099d74","body":{"custom_domain":""}}'`), re-read the zone to see the two managed records are gone, then run the two `createDnsRecord` commands. Known cost: resolvers holding Netlify's old answer reach a Netlify that no longer serves the domain, for up to an hour. Skip step 5 below in that case, it is already done.
+**Fallback, only if Netlify refuses to delete a managed record:** follow the spec's order. Detach the domain (`netlify api updateSite --data '{"site_id":"29665319-cd86-4b60-92f1-17135d099d74","body":{"custom_domain":null}}'`), re-read the zone to see the two managed records are gone, then run the two `createDnsRecord` commands. Known cost: resolvers holding Netlify's old answer reach a Netlify that no longer serves the domain, for up to an hour. Skip step 5 below in that case, it is already done.
 
 - [ ] **Step 3: Read the authoritative servers**
 
@@ -401,7 +401,7 @@ Expected: `mail records identical: True 4`, then exactly two `A` lines to `212.9
 Only after 3600 s have passed since the swap, so no resolver still holds Netlify's address:
 
 ```bash
-netlify api updateSite --data '{"site_id":"29665319-cd86-4b60-92f1-17135d099d74","body":{"custom_domain":""}}' | python3 -c "import json,sys; s=json.load(sys.stdin); print(s.get('custom_domain'), s.get('url'))"
+netlify api updateSite --data '{"site_id":"29665319-cd86-4b60-92f1-17135d099d74","body":{"custom_domain":null}}' | python3 -c "import json,sys; s=json.load(sys.stdin); print(s.get('custom_domain'), s.get('url'))"
 ```
 
 Expected: `None` (or empty) and the `netlify.app` URL. Then run step 4 again: the mail records must still be identical and the two A records still there.

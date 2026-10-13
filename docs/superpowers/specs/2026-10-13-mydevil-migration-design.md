@@ -1,7 +1,7 @@
 # Move patryksmakosz.com off Netlify to MyDevil, under its real name
 
 Date: 2026-10-13
-Status: approved design, not started
+Status: phases 0 to 4 done on 2026-10-13, phase 5 not started
 
 ## Context
 
