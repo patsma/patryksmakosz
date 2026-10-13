@@ -72,31 +72,7 @@ fit: cover
 
 ::HeroVideo
 ---
-src: "/movies/web-optimized/halftone-lab-image-light.mp4"
-poster: ""
-autoPlay: true
-loop: true
-muted: true
-preload: metadata
-fit: cover
----
-::
-
-::HeroVideo
----
 src: "/movies/web-optimized/halftone-lab-image-push.mp4"
-poster: ""
-autoPlay: true
-loop: true
-muted: true
-preload: metadata
-fit: cover
----
-::
-
-::HeroVideo
----
-src: "/movies/web-optimized/halftone-lab-dent.mp4"
 poster: ""
 autoPlay: true
 loop: true
