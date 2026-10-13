@@ -45,7 +45,25 @@ export function remoteDocroot(target) {
  * @returns {string}
  */
 export function buildHtaccess(target) {
-  const lines = ["Options -Indexes", "ErrorDocument 404 /404.html"];
+  const lines = [
+    "Options -Indexes",
+    "",
+    // Netlify answered /projects/x with no redirect. Apache would 301 to the
+    // slash form, so serve the page's index.html in place instead.
+    "DirectorySlash Off",
+    "RewriteEngine On",
+    "RewriteCond %{REQUEST_FILENAME} -d",
+    "RewriteCond %{REQUEST_FILENAME}/index.html -f",
+    "RewriteRule ^(.+[^/])$ $1/index.html [L]",
+    "",
+    // ErrorDocument does nothing here: nginx in front replaces any 404 body
+    // with the host's own page. A missing page gets Nuxt's 404.html (status
+    // 200); a missing file, anything with an extension, stays a real 404.
+    "RewriteCond %{REQUEST_FILENAME} !-f",
+    "RewriteCond %{REQUEST_FILENAME} !-d",
+    "RewriteCond %{REQUEST_URI} !\\.[A-Za-z0-9]+$",
+    "RewriteRule ^ /404.html [L]",
+  ];
   if (target.gated) {
     lines.push(
       "",

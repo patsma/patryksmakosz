@@ -29,12 +29,33 @@ test("production has no gate and no noindex", () => {
   assert.doesNotMatch(text, /Auth|Require|X-Robots-Tag/);
 });
 
-test("both targets turn listings off and name the 404 page", () => {
+test("both targets turn listings off", () => {
+  for (const target of Object.values(TARGETS)) {
+    assert.match(buildHtaccess(target), /^Options -Indexes$/m);
+  }
+});
+
+test("a page answers without a trailing slash and without a redirect", () => {
   for (const target of Object.values(TARGETS)) {
     const text = buildHtaccess(target);
-    assert.match(text, /^Options -Indexes$/m);
-    assert.match(text, /^ErrorDocument 404 \/404\.html$/m);
+    assert.match(text, /^DirectorySlash Off$/m);
+    assert.match(text, /^RewriteRule \^\(\.\+\[\^\/\]\)\$ \$1\/index\.html \[L\]$/m);
   }
+});
+
+test("a missing page gets the site's 404 page, a missing file does not", () => {
+  for (const target of Object.values(TARGETS)) {
+    const text = buildHtaccess(target);
+    assert.match(text, /^RewriteCond %\{REQUEST_URI\} !\\\.\[A-Za-z0-9\]\+\$$/m);
+    assert.match(text, /^RewriteRule \^ \/404\.html \[L\]$/m);
+    // ErrorDocument is replaced by the host's own page, so it must not be relied on
+    assert.doesNotMatch(text, /ErrorDocument/);
+  }
+});
+
+test("the page rewrite comes before the 404 rewrite", () => {
+  const text = buildHtaccess(TARGETS.production);
+  assert.ok(text.indexOf("$1/index.html") < text.indexOf("/404.html"));
 });
 
 test("no header uses the form this host drops", () => {

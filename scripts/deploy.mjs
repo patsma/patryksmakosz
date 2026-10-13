@@ -92,7 +92,10 @@ const auth = target.gated
   ? { authorization: `Basic ${Buffer.from(`${user}:${pass}`).toString("base64")}` }
   : {};
 const get = (path, headers = auth) =>
-  fetch(target.siteUrl + path, { headers: { "accept-encoding": "gzip", ...headers } });
+  fetch(target.siteUrl + path, {
+    redirect: "manual",
+    headers: { "accept-encoding": "gzip", ...headers },
+  });
 
 const checks = [];
 if (target.gated) {
@@ -108,8 +111,9 @@ checks.push([
   robots.includes("noindex") === target.gated,
 ]);
 
-const projects = await get("/projects/");
-checks.push(["projects answers 200", projects.status === 200]);
+// No trailing slash and no redirect: the form every existing link uses.
+const projects = await get("/projects");
+checks.push(["projects answers 200 without a redirect", projects.status === 200]);
 
 const script = html.match(/\/_nuxt\/[^"']+\.js/)?.[0];
 checks.push(["home references a script", Boolean(script)]);
@@ -120,8 +124,15 @@ if (script) {
   checks.push(["script is cached long", (asset.headers.get("cache-control") ?? "").includes("immutable")]);
 }
 
+// The host replaces any 404 body with its own page, so a missing page is
+// rewritten to Nuxt's 404.html and answers 200. A missing file stays a 404.
 const missing = await get("/no-such-page-here");
-checks.push(["a missing path answers 404", missing.status === 404]);
+checks.push([
+  "a missing page shows the site's 404 page",
+  missing.status === 200 && (await missing.text()).includes('id="__nuxt"'),
+]);
+const gone = await get("/_nuxt/gone.js");
+checks.push(["a missing file is still a 404", gone.status === 404]);
 
 for (const [label, ok] of checks) console.log(`${ok ? "ok  " : "FAIL"} ${label}`);
 if (checks.some(([, ok]) => !ok)) process.exit(1);
