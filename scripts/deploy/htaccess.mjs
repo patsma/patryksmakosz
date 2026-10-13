@@ -94,3 +94,21 @@ export function rsyncExcludes(untracked) {
     .map((path) => `--exclude=/${path.slice("public/".length)}`);
   return ["--exclude=.DS_Store", "--exclude=/movies/**.mp4", ...local];
 }
+
+const IPX_TYPES = { webp: "image/webp", avif: "image/avif", jpeg: "image/jpeg", jpg: "image/jpeg", png: "image/png" };
+
+/**
+ * .htaccess for one folder under /_ipx/, or null when it needs none.
+ *
+ * Nuxt Image prerenders a converted image under its source file name, so
+ * /_ipx/f_webp/logo.svg holds WebP bytes. Apache picks the type from the
+ * extension and the browser then refuses to draw it. The folder name carries
+ * the real format (f_webp, f_avif&q_80), so the type is forced from that.
+ * @param {string} modifiers - the folder name directly under _ipx/
+ * @returns {string | null}
+ */
+export function ipxHtaccess(modifiers) {
+  const format = modifiers.match(/(?:^|[&,])f_([a-z]+)/)?.[1];
+  const type = IPX_TYPES[format];
+  return type ? `ForceType ${type}\n` : null;
+}

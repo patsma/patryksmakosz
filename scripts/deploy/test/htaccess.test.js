@@ -6,6 +6,7 @@ import {
   buildHtaccess,
   ASSETS_HTACCESS,
   rsyncExcludes,
+  ipxHtaccess,
 } from "../htaccess.mjs";
 
 test("staging is gated and noindex", () => {
@@ -84,4 +85,18 @@ test("untracked files and folders under public are excluded, anchored", () => {
 test("paths outside public are ignored, and empty lines too", () => {
   const args = rsyncExcludes(["scripts/x.json", "", "publicity/y"]);
   assert.deepEqual(args, rsyncExcludes([]));
+});
+
+test("a converted image is served as its real format, whatever its file name says", () => {
+  assert.equal(ipxHtaccess("f_webp"), "ForceType image/webp\n");
+  assert.equal(ipxHtaccess("f_avif&q_80"), "ForceType image/avif\n");
+  assert.equal(ipxHtaccess("s_300x200,f_jpeg"), "ForceType image/jpeg\n");
+  assert.equal(ipxHtaccess("f_jpg"), "ForceType image/jpeg\n");
+  assert.equal(ipxHtaccess("f_png"), "ForceType image/png\n");
+});
+
+test("an image folder with no format change gets no override", () => {
+  assert.equal(ipxHtaccess("s_300x200"), null);
+  assert.equal(ipxHtaccess("_"), null);
+  assert.equal(ipxHtaccess("fit_cover"), null);
 });

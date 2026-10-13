@@ -13,7 +13,7 @@
  * made, so the script ends by reading the real responses.
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -23,6 +23,7 @@ import {
   buildHtaccess,
   ASSETS_HTACCESS,
   rsyncExcludes,
+  ipxHtaccess,
 } from "./deploy/htaccess.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -68,6 +69,11 @@ run("npm", ["run", "generate"], {
 /* 2. Generated server config goes into the output, so --delete keeps it. */
 writeFileSync(join(OUT, ".htaccess"), buildHtaccess(target));
 writeFileSync(join(OUT, "_nuxt", ".htaccess"), ASSETS_HTACCESS);
+const ipxRoot = join(OUT, "_ipx");
+for (const entry of existsSync(ipxRoot) ? readdirSync(ipxRoot, { withFileTypes: true }) : []) {
+  const text = entry.isDirectory() ? ipxHtaccess(entry.name) : null;
+  if (text) writeFileSync(join(ipxRoot, entry.name, ".htaccess"), text);
+}
 
 for (const file of ["index.html", "404.html", "projects/index.html", "_nuxt/.htaccess"]) {
   if (!existsSync(join(OUT, file))) throw new Error(`Build output is missing ${file}`);
@@ -126,6 +132,17 @@ if (script) {
 
 // The host replaces any 404 body with its own page, so a missing page is
 // rewritten to Nuxt's 404.html and answers 200. A missing file stays a 404.
+// A converted image keeps its source file name, so its type has to be forced.
+const webpDir = join(ipxRoot, "f_webp");
+const image = (existsSync(webpDir) ? readdirSync(webpDir, { recursive: true, withFileTypes: true }) : []).find(
+  (entry) => entry.isFile() && entry.name !== ".htaccess",
+);
+if (image) {
+  const path = `${image.parentPath.slice(OUT.length)}/${image.name}`;
+  const served = await get(path);
+  checks.push([`${path} is served as WebP`, served.headers.get("content-type") === "image/webp"]);
+}
+
 const missing = await get("/no-such-page-here");
 checks.push([
   "a missing page shows the site's 404 page",
